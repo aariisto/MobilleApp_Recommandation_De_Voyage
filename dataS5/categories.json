@@ -1,0 +1,1658 @@
+{
+  "total_categories": 330,
+  "total_occurrences": 52426,
+  "categories": [
+    {
+      "name": "catering",
+      "count": 6659
+    },
+    {
+      "name": "catering.restaurant",
+      "count": 5176
+    },
+    {
+      "name": "building",
+      "count": 3609
+    },
+    {
+      "name": "wheelchair",
+      "count": 3247
+    },
+    {
+      "name": "wheelchair.yes",
+      "count": 2422
+    },
+    {
+      "name": "entertainment",
+      "count": 1996
+    },
+    {
+      "name": "entertainment.museum",
+      "count": 1909
+    },
+    {
+      "name": "internet_access",
+      "count": 1875
+    },
+    {
+      "name": "accommodation",
+      "count": 1711
+    },
+    {
+      "name": "accommodation.hotel",
+      "count": 1700
+    },
+    {
+      "name": "building.catering",
+      "count": 1246
+    },
+    {
+      "name": "building.tourism",
+      "count": 1222
+    },
+    {
+      "name": "catering.cafe",
+      "count": 1093
+    },
+    {
+      "name": "fee",
+      "count": 1023
+    },
+    {
+      "name": "vegetarian",
+      "count": 882
+    },
+    {
+      "name": "building.accommodation",
+      "count": 871
+    },
+    {
+      "name": "wheelchair.limited",
+      "count": 825
+    },
+    {
+      "name": "tourism",
+      "count": 783
+    },
+    {
+      "name": "catering.restaurant.regional",
+      "count": 652
+    },
+    {
+      "name": "internet_access.free",
+      "count": 649
+    },
+    {
+      "name": "tourism.attraction",
+      "count": 615
+    },
+    {
+      "name": "leisure",
+      "count": 606
+    },
+    {
+      "name": "leisure.park",
+      "count": 605
+    },
+    {
+      "name": "building.commercial",
+      "count": 534
+    },
+    {
+      "name": "catering.restaurant.italian",
+      "count": 503
+    },
+    {
+      "name": "commercial",
+      "count": 464
+    },
+    {
+      "name": "vegan",
+      "count": 462
+    },
+    {
+      "name": "tourism.sights",
+      "count": 429
+    },
+    {
+      "name": "catering.restaurant.pizza",
+      "count": 389
+    },
+    {
+      "name": "catering.bar",
+      "count": 388
+    },
+    {
+      "name": "building.historic",
+      "count": 387
+    },
+    {
+      "name": "commercial.shopping_mall",
+      "count": 361
+    },
+    {
+      "name": "heritage",
+      "count": 343
+    },
+    {
+      "name": "no_fee",
+      "count": 342
+    },
+    {
+      "name": "no_fee.no",
+      "count": 342
+    },
+    {
+      "name": "internet_access.for_customers",
+      "count": 237
+    },
+    {
+      "name": "catering.cafe.coffee",
+      "count": 212
+    },
+    {
+      "name": "catering.cafe.coffee_shop",
+      "count": 211
+    },
+    {
+      "name": "catering.restaurant.french",
+      "count": 206
+    },
+    {
+      "name": "building.public_and_civil",
+      "count": 159
+    },
+    {
+      "name": "catering.restaurant.japanese",
+      "count": 137
+    },
+    {
+      "name": "leisure.park.garden",
+      "count": 134
+    },
+    {
+      "name": "building.place_of_worship",
+      "count": 130
+    },
+    {
+      "name": "religion",
+      "count": 129
+    },
+    {
+      "name": "religion.place_of_worship",
+      "count": 129
+    },
+    {
+      "name": "tourism.sights.place_of_worship",
+      "count": 129
+    },
+    {
+      "name": "religion.place_of_worship.christianity",
+      "count": 124
+    },
+    {
+      "name": "catering.restaurant.sushi",
+      "count": 117
+    },
+    {
+      "name": "building.residential",
+      "count": 113
+    },
+    {
+      "name": "catering.restaurant.chinese",
+      "count": 97
+    },
+    {
+      "name": "catering.restaurant.spanish",
+      "count": 93
+    },
+    {
+      "name": "catering.restaurant.indian",
+      "count": 91
+    },
+    {
+      "name": "access",
+      "count": 88
+    },
+    {
+      "name": "access.yes",
+      "count": 88
+    },
+    {
+      "name": "catering.restaurant.asian",
+      "count": 85
+    },
+    {
+      "name": "tourism.sights.place_of_worship.church",
+      "count": 82
+    },
+    {
+      "name": "catering.restaurant.german",
+      "count": 81
+    },
+    {
+      "name": "catering.restaurant.greek",
+      "count": 78
+    },
+    {
+      "name": "gluten_free",
+      "count": 72
+    },
+    {
+      "name": "natural",
+      "count": 72
+    },
+    {
+      "name": "catering.restaurant.portuguese",
+      "count": 66
+    },
+    {
+      "name": "commercial.food_and_drink",
+      "count": 65
+    },
+    {
+      "name": "catering.restaurant.burger",
+      "count": 65
+    },
+    {
+      "name": "catering.restaurant.international",
+      "count": 65
+    },
+    {
+      "name": "natural.protected_area",
+      "count": 64
+    },
+    {
+      "name": "building.office",
+      "count": 62
+    },
+    {
+      "name": "catering.restaurant.steak_house",
+      "count": 62
+    },
+    {
+      "name": "tourism.sights.castle",
+      "count": 61
+    },
+    {
+      "name": "tourism.sights.memorial",
+      "count": 57
+    },
+    {
+      "name": "leisure.park.nature_reserve",
+      "count": 56
+    },
+    {
+      "name": "catering.restaurant.mexican",
+      "count": 54
+    },
+    {
+      "name": "tourism.sights.archaeological_site",
+      "count": 53
+    },
+    {
+      "name": "catering.restaurant.seafood",
+      "count": 53
+    },
+    {
+      "name": "halal",
+      "count": 51
+    },
+    {
+      "name": "catering.restaurant.mediterranean",
+      "count": 51
+    },
+    {
+      "name": "sport",
+      "count": 51
+    },
+    {
+      "name": "catering.restaurant.thai",
+      "count": 49
+    },
+    {
+      "name": "dogs",
+      "count": 47
+    },
+    {
+      "name": "entertainment.culture",
+      "count": 46
+    },
+    {
+      "name": "entertainment.theme_park",
+      "count": 45
+    },
+    {
+      "name": "man_made",
+      "count": 45
+    },
+    {
+      "name": "vegetarian.only",
+      "count": 44
+    },
+    {
+      "name": "vegan.only",
+      "count": 44
+    },
+    {
+      "name": "access_limited",
+      "count": 44
+    },
+    {
+      "name": "catering.restaurant.american",
+      "count": 43
+    },
+    {
+      "name": "commercial.food_and_drink.bakery",
+      "count": 42
+    },
+    {
+      "name": "beach",
+      "count": 41
+    },
+    {
+      "name": "catering.restaurant.turkish",
+      "count": 39
+    },
+    {
+      "name": "catering.restaurant.fish",
+      "count": 38
+    },
+    {
+      "name": "heritage.unesco",
+      "count": 36
+    },
+    {
+      "name": "production",
+      "count": 36
+    },
+    {
+      "name": "no_dogs",
+      "count": 34
+    },
+    {
+      "name": "access_limited.customers",
+      "count": 34
+    },
+    {
+      "name": "catering.restaurant.vietnamese",
+      "count": 33
+    },
+    {
+      "name": "building.entertainment",
+      "count": 32
+    },
+    {
+      "name": "entertainment.culture.arts_centre",
+      "count": 31
+    },
+    {
+      "name": "production.brewery",
+      "count": 31
+    },
+    {
+      "name": "dogs.yes",
+      "count": 30
+    },
+    {
+      "name": "sport.swimming_pool",
+      "count": 30
+    },
+    {
+      "name": "tourism.attraction.artwork",
+      "count": 28
+    },
+    {
+      "name": "tourism.sights.place_of_worship.cathedral",
+      "count": 25
+    },
+    {
+      "name": "catering.cafe.cake",
+      "count": 25
+    },
+    {
+      "name": "catering.restaurant.tapas",
+      "count": 25
+    },
+    {
+      "name": "tourism.attraction.viewpoint",
+      "count": 25
+    },
+    {
+      "name": "catering.cafe.ice_cream",
+      "count": 23
+    },
+    {
+      "name": "catering.ice_cream",
+      "count": 23
+    },
+    {
+      "name": "tourism.sights.tower",
+      "count": 22
+    },
+    {
+      "name": "catering.restaurant.barbecue",
+      "count": 22
+    },
+    {
+      "name": "catering.restaurant.lebanese",
+      "count": 21
+    },
+    {
+      "name": "catering.restaurant.sandwich",
+      "count": 21
+    },
+    {
+      "name": "office",
+      "count": 21
+    },
+    {
+      "name": "education",
+      "count": 20
+    },
+    {
+      "name": "building.sport",
+      "count": 19
+    },
+    {
+      "name": "man_made.tower",
+      "count": 18
+    },
+    {
+      "name": "tourism.sights.memorial.monument",
+      "count": 18
+    },
+    {
+      "name": "tourism.sights.memorial.ship",
+      "count": 18
+    },
+    {
+      "name": "catering.restaurant.moroccan",
+      "count": 18
+    },
+    {
+      "name": "dogs.leashed",
+      "count": 17
+    },
+    {
+      "name": "catering.restaurant.african",
+      "count": 16
+    },
+    {
+      "name": "building.university",
+      "count": 16
+    },
+    {
+      "name": "catering.restaurant.bavarian",
+      "count": 16
+    },
+    {
+      "name": "catering.restaurant.argentinian",
+      "count": 15
+    },
+    {
+      "name": "highway",
+      "count": 15
+    },
+    {
+      "name": "education.library",
+      "count": 15
+    },
+    {
+      "name": "entertainment.culture.theatre",
+      "count": 15
+    },
+    {
+      "name": "commercial.marketplace",
+      "count": 13
+    },
+    {
+      "name": "catering.restaurant.ramen",
+      "count": 13
+    },
+    {
+      "name": "catering.cafe.tea",
+      "count": 13
+    },
+    {
+      "name": "catering.restaurant.kebab",
+      "count": 13
+    },
+    {
+      "name": "organic",
+      "count": 12
+    },
+    {
+      "name": "catering.restaurant.brazilian",
+      "count": 12
+    },
+    {
+      "name": "building.transportation",
+      "count": 11
+    },
+    {
+      "name": "catering.restaurant.arab",
+      "count": 11
+    },
+    {
+      "name": "tourism.sights.ruines",
+      "count": 11
+    },
+    {
+      "name": "catering.restaurant.chicken",
+      "count": 10
+    },
+    {
+      "name": "tourism.sights.bridge",
+      "count": 10
+    },
+    {
+      "name": "building.spa",
+      "count": 10
+    },
+    {
+      "name": "building.service",
+      "count": 9
+    },
+    {
+      "name": "catering.restaurant.persian",
+      "count": 9
+    },
+    {
+      "name": "commercial.food_and_drink.drinks",
+      "count": 9
+    },
+    {
+      "name": "memorial",
+      "count": 9
+    },
+    {
+      "name": "memorial.cemetery",
+      "count": 9
+    },
+    {
+      "name": "building.industrial",
+      "count": 9
+    },
+    {
+      "name": "natural.forest",
+      "count": 9
+    },
+    {
+      "name": "office.diplomatic",
+      "count": 9
+    },
+    {
+      "name": "catering.restaurant.belgian",
+      "count": 8
+    },
+    {
+      "name": "entertainment.planetarium",
+      "count": 8
+    },
+    {
+      "name": "catering.restaurant.korean",
+      "count": 8
+    },
+    {
+      "name": "office.government",
+      "count": 8
+    },
+    {
+      "name": "access_limited.private",
+      "count": 8
+    },
+    {
+      "name": "no_access",
+      "count": 7
+    },
+    {
+      "name": "tourism.sights.city_hall",
+      "count": 7
+    },
+    {
+      "name": "accommodation.guest_house",
+      "count": 7
+    },
+    {
+      "name": "rental",
+      "count": 6
+    },
+    {
+      "name": "highway.pedestrian",
+      "count": 6
+    },
+    {
+      "name": "service",
+      "count": 6
+    },
+    {
+      "name": "activity",
+      "count": 6
+    },
+    {
+      "name": "kosher",
+      "count": 6
+    },
+    {
+      "name": "tourism.sights.memorial.pillory",
+      "count": 6
+    },
+    {
+      "name": "national_park",
+      "count": 5
+    },
+    {
+      "name": "catering.restaurant.noodle",
+      "count": 5
+    },
+    {
+      "name": "commercial.books",
+      "count": 5
+    },
+    {
+      "name": "sport.sports_centre",
+      "count": 5
+    },
+    {
+      "name": "activity.community_center",
+      "count": 5
+    },
+    {
+      "name": "parking",
+      "count": 5
+    },
+    {
+      "name": "man_made.bridge",
+      "count": 5
+    },
+    {
+      "name": "catering.restaurant.austrian",
+      "count": 5
+    },
+    {
+      "name": "beach.beach_resort",
+      "count": 5
+    },
+    {
+      "name": "public_transport",
+      "count": 5
+    },
+    {
+      "name": "tourism.sights.city_gate",
+      "count": 5
+    },
+    {
+      "name": "building.military",
+      "count": 4
+    },
+    {
+      "name": "catering.restaurant.european",
+      "count": 4
+    },
+    {
+      "name": "catering.restaurant.pakistani",
+      "count": 4
+    },
+    {
+      "name": "entertainment.zoo",
+      "count": 4
+    },
+    {
+      "name": "commercial.convenience",
+      "count": 4
+    },
+    {
+      "name": "commercial.food_and_drink.coffee_and_tea",
+      "count": 4
+    },
+    {
+      "name": "catering.restaurant.georgian",
+      "count": 4
+    },
+    {
+      "name": "tourism.sights.place_of_worship.chapel",
+      "count": 4
+    },
+    {
+      "name": "sport.stadium",
+      "count": 4
+    },
+    {
+      "name": "catering.restaurant.fish_and_chips",
+      "count": 4
+    },
+    {
+      "name": "catering.restaurant.oriental",
+      "count": 4
+    },
+    {
+      "name": "catering.cafe.dessert",
+      "count": 4
+    },
+    {
+      "name": "catering.restaurant.balkan",
+      "count": 4
+    },
+    {
+      "name": "public_transport.aerialway",
+      "count": 4
+    },
+    {
+      "name": "tourism.attraction.fountain",
+      "count": 4
+    },
+    {
+      "name": "island",
+      "count": 4
+    },
+    {
+      "name": "catering.restaurant.syrian",
+      "count": 3
+    },
+    {
+      "name": "catering.restaurant.indonesian",
+      "count": 3
+    },
+    {
+      "name": "commercial.food_and_drink.confectionery",
+      "count": 3
+    },
+    {
+      "name": "catering.restaurant.peruvian",
+      "count": 3
+    },
+    {
+      "name": "building.school",
+      "count": 3
+    },
+    {
+      "name": "commercial.outdoor_and_sport",
+      "count": 3
+    },
+    {
+      "name": "commercial.outdoor_and_sport.bicycle",
+      "count": 3
+    },
+    {
+      "name": "rental.bicycle",
+      "count": 3
+    },
+    {
+      "name": "service.beauty",
+      "count": 3
+    },
+    {
+      "name": "entertainment.activity_park",
+      "count": 3
+    },
+    {
+      "name": "education.university",
+      "count": 3
+    },
+    {
+      "name": "memorial.christian",
+      "count": 3
+    },
+    {
+      "name": "parking.underground",
+      "count": 3
+    },
+    {
+      "name": "service.financial",
+      "count": 3
+    },
+    {
+      "name": "service.financial.atm",
+      "count": 3
+    },
+    {
+      "name": "man_made.lighthouse",
+      "count": 3
+    },
+    {
+      "name": "tourism.sights.lighthouse",
+      "count": 3
+    },
+    {
+      "name": "tourism.sights.square",
+      "count": 3
+    },
+    {
+      "name": "tourism.sights.place_of_worship.mosque",
+      "count": 3
+    },
+    {
+      "name": "tourism.sights.memorial.tomb",
+      "count": 3
+    },
+    {
+      "name": "catering.restaurant.soup",
+      "count": 3
+    },
+    {
+      "name": "entertainment.amusement_arcade",
+      "count": 3
+    },
+    {
+      "name": "tourism.sights.place_of_worship.synagogue",
+      "count": 3
+    },
+    {
+      "name": "ski",
+      "count": 3
+    },
+    {
+      "name": "ski.lift",
+      "count": 3
+    },
+    {
+      "name": "ski.lift.gondola",
+      "count": 3
+    },
+    {
+      "name": "accommodation.hostel",
+      "count": 3
+    },
+    {
+      "name": "highway.residential",
+      "count": 3
+    },
+    {
+      "name": "tourism.sights.fort",
+      "count": 3
+    },
+    {
+      "name": "religion.place_of_worship.islam",
+      "count": 2
+    },
+    {
+      "name": "catering.cafe.donut",
+      "count": 2
+    },
+    {
+      "name": "catering.cafe.bubble_tea",
+      "count": 2
+    },
+    {
+      "name": "service.beauty.hairdresser",
+      "count": 2
+    },
+    {
+      "name": "entertainment.activity_park.climbing",
+      "count": 2
+    },
+    {
+      "name": "commercial.health_and_beauty",
+      "count": 2
+    },
+    {
+      "name": "commercial.food_and_drink.seafood",
+      "count": 2
+    },
+    {
+      "name": "production.factory",
+      "count": 2
+    },
+    {
+      "name": "office.government.administrative",
+      "count": 2
+    },
+    {
+      "name": "catering.restaurant.hawaiian",
+      "count": 2
+    },
+    {
+      "name": "building.healthcare",
+      "count": 2
+    },
+    {
+      "name": "commercial.art",
+      "count": 2
+    },
+    {
+      "name": "man_made.watermill",
+      "count": 2
+    },
+    {
+      "name": "catering.restaurant.friture",
+      "count": 2
+    },
+    {
+      "name": "adult",
+      "count": 2
+    },
+    {
+      "name": "commercial.toy_and_game",
+      "count": 2
+    },
+    {
+      "name": "religion.place_of_worship.judaism",
+      "count": 2
+    },
+    {
+      "name": "commercial.supermarket",
+      "count": 2
+    },
+    {
+      "name": "catering.restaurant.croatian",
+      "count": 2
+    },
+    {
+      "name": "access_limited.with_permit",
+      "count": 2
+    },
+    {
+      "name": "commercial.department_store",
+      "count": 2
+    },
+    {
+      "name": "production.winery",
+      "count": 2
+    },
+    {
+      "name": "catering.taproom",
+      "count": 2
+    },
+    {
+      "name": "building.parking",
+      "count": 2
+    },
+    {
+      "name": "parking.cars",
+      "count": 2
+    },
+    {
+      "name": "man_made.windmill",
+      "count": 2
+    },
+    {
+      "name": "tourism.sights.windmill",
+      "count": 2
+    },
+    {
+      "name": "catering.restaurant.ukrainian",
+      "count": 2
+    },
+    {
+      "name": "highway.tertiary",
+      "count": 2
+    },
+    {
+      "name": "commercial.gift_and_souvenir",
+      "count": 2
+    },
+    {
+      "name": "emergency",
+      "count": 2
+    },
+    {
+      "name": "egg_free",
+      "count": 2
+    },
+    {
+      "name": "tourism.sights.memorial.necropolis",
+      "count": 2
+    },
+    {
+      "name": "tourism.sights.place_of_worship.temple",
+      "count": 2
+    },
+    {
+      "name": "rental.car",
+      "count": 2
+    },
+    {
+      "name": "rental.ski",
+      "count": 2
+    },
+    {
+      "name": "commercial.smoking",
+      "count": 1
+    },
+    {
+      "name": "catering.restaurant.cuban",
+      "count": 1
+    },
+    {
+      "name": "leisure.spa",
+      "count": 1
+    },
+    {
+      "name": "tourism.sights.memorial.aircraft",
+      "count": 1
+    },
+    {
+      "name": "commercial.newsagent",
+      "count": 1
+    },
+    {
+      "name": "catering.restaurant.afghan",
+      "count": 1
+    },
+    {
+      "name": "service.beauty.spa",
+      "count": 1
+    },
+    {
+      "name": "entertainment.escape_game",
+      "count": 1
+    },
+    {
+      "name": "office.coworking",
+      "count": 1
+    },
+    {
+      "name": "commercial.food_and_drink.fruit_and_vegetable",
+      "count": 1
+    },
+    {
+      "name": "catering.restaurant.caribbean",
+      "count": 1
+    },
+    {
+      "name": "education.college",
+      "count": 1
+    },
+    {
+      "name": "building.dormitory",
+      "count": 1
+    },
+    {
+      "name": "tourism.sights.monastery",
+      "count": 1
+    },
+    {
+      "name": "commercial.health_and_beauty.pharmacy",
+      "count": 1
+    },
+    {
+      "name": "healthcare.pharmacy",
+      "count": 1
+    },
+    {
+      "name": "healthcare",
+      "count": 1
+    },
+    {
+      "name": "healthcare.hospital",
+      "count": 1
+    },
+    {
+      "name": "commercial.hobby",
+      "count": 1
+    },
+    {
+      "name": "commercial.hobby.art",
+      "count": 1
+    },
+    {
+      "name": "commercial.houseware_and_hardware",
+      "count": 1
+    },
+    {
+      "name": "commercial.houseware_and_hardware.building_materials",
+      "count": 1
+    },
+    {
+      "name": "commercial.houseware_and_hardware.building_materials.paint",
+      "count": 1
+    },
+    {
+      "name": "tourism.sights.memorial.wayside_cross",
+      "count": 1
+    },
+    {
+      "name": "commercial.kiosk",
+      "count": 1
+    },
+    {
+      "name": "catering.restaurant.russian",
+      "count": 1
+    },
+    {
+      "name": "adult.nightclub",
+      "count": 1
+    },
+    {
+      "name": "commercial.food_and_drink.farm",
+      "count": 1
+    },
+    {
+      "name": "catering.restaurant.swedish",
+      "count": 1
+    },
+    {
+      "name": "catering.food_court",
+      "count": 1
+    },
+    {
+      "name": "office.government.legislative",
+      "count": 1
+    },
+    {
+      "name": "office.research",
+      "count": 1
+    },
+    {
+      "name": "catering.restaurant.hungarian",
+      "count": 1
+    },
+    {
+      "name": "activity.sport_club",
+      "count": 1
+    },
+    {
+      "name": "organic.only",
+      "count": 1
+    },
+    {
+      "name": "commercial.vehicle",
+      "count": 1
+    },
+    {
+      "name": "entertainment.miniature_golf",
+      "count": 1
+    },
+    {
+      "name": "populated_place",
+      "count": 1
+    },
+    {
+      "name": "populated_place.city_block",
+      "count": 1
+    },
+    {
+      "name": "catering.restaurant.uzbek",
+      "count": 1
+    },
+    {
+      "name": "parking.surface",
+      "count": 1
+    },
+    {
+      "name": "railway",
+      "count": 1
+    },
+    {
+      "name": "railway.funicular",
+      "count": 1
+    },
+    {
+      "name": "railway.surface",
+      "count": 1
+    },
+    {
+      "name": "highway.path",
+      "count": 1
+    },
+    {
+      "name": "highway.service",
+      "count": 1
+    },
+    {
+      "name": "catering.cafe.waffle",
+      "count": 1
+    },
+    {
+      "name": "catering.pub",
+      "count": 1
+    },
+    {
+      "name": "catering.restaurant.latin_american",
+      "count": 1
+    },
+    {
+      "name": "highway.secondary",
+      "count": 1
+    },
+    {
+      "name": "office.foundation",
+      "count": 1
+    },
+    {
+      "name": "emergency.fire_detection_system",
+      "count": 1
+    },
+    {
+      "name": "entertainment.cinema",
+      "count": 1
+    },
+    {
+      "name": "sport.track",
+      "count": 1
+    },
+    {
+      "name": "commercial.food_and_drink.cheese_and_dairy",
+      "count": 1
+    },
+    {
+      "name": "production.cheese",
+      "count": 1
+    },
+    {
+      "name": "adult.casino",
+      "count": 1
+    },
+    {
+      "name": "public_transport.train",
+      "count": 1
+    },
+    {
+      "name": "accommodation.hut",
+      "count": 1
+    },
+    {
+      "name": "commercial.food_and_drink.butcher",
+      "count": 1
+    },
+    {
+      "name": "commercial.food_and_drink.nuts",
+      "count": 1
+    },
+    {
+      "name": "entertainment.water_park",
+      "count": 1
+    },
+    {
+      "name": "natural.mountain",
+      "count": 1
+    },
+    {
+      "name": "natural.mountain.cave_entrance",
+      "count": 1
+    },
+    {
+      "name": "tourism.attraction.clock",
+      "count": 1
+    },
+    {
+      "name": "sugar_free",
+      "count": 1
+    },
+    {
+      "name": "education.school",
+      "count": 1
+    },
+    {
+      "name": "highway.footway",
+      "count": 1
+    },
+    {
+      "name": "sport.dive_centre",
+      "count": 1
+    },
+    {
+      "name": "man_made.pier",
+      "count": 1
+    },
+    {
+      "name": "emergency.assembly_point",
+      "count": 1
+    },
+    {
+      "name": "rental.boat",
+      "count": 1
+    },
+    {
+      "name": "parking.multistorey",
+      "count": 1
+    },
+    {
+      "name": "catering.cafe.crepe",
+      "count": 1
+    },
+    {
+      "name": "catering.restaurant.tacos",
+      "count": 1
+    },
+    {
+      "name": "administrative",
+      "count": 1
+    },
+    {
+      "name": "administrative.country_part_level",
+      "count": 1
+    },
+    {
+      "name": "catering.restaurant.tex-mex",
+      "count": 1
+    },
+    {
+      "name": "tourism.sights.conference_centre",
+      "count": 1
+    }
+  ],
+  "categories_simple": [
+    "access",
+    "access.yes",
+    "access_limited",
+    "access_limited.customers",
+    "access_limited.private",
+    "access_limited.with_permit",
+    "accommodation",
+    "accommodation.guest_house",
+    "accommodation.hostel",
+    "accommodation.hotel",
+    "accommodation.hut",
+    "activity",
+    "activity.community_center",
+    "activity.sport_club",
+    "administrative",
+    "administrative.country_part_level",
+    "adult",
+    "adult.casino",
+    "adult.nightclub",
+    "beach",
+    "beach.beach_resort",
+    "building",
+    "building.accommodation",
+    "building.catering",
+    "building.commercial",
+    "building.dormitory",
+    "building.entertainment",
+    "building.healthcare",
+    "building.historic",
+    "building.industrial",
+    "building.military",
+    "building.office",
+    "building.parking",
+    "building.place_of_worship",
+    "building.public_and_civil",
+    "building.residential",
+    "building.school",
+    "building.service",
+    "building.spa",
+    "building.sport",
+    "building.tourism",
+    "building.transportation",
+    "building.university",
+    "catering",
+    "catering.bar",
+    "catering.cafe",
+    "catering.cafe.bubble_tea",
+    "catering.cafe.cake",
+    "catering.cafe.coffee",
+    "catering.cafe.coffee_shop",
+    "catering.cafe.crepe",
+    "catering.cafe.dessert",
+    "catering.cafe.donut",
+    "catering.cafe.ice_cream",
+    "catering.cafe.tea",
+    "catering.cafe.waffle",
+    "catering.food_court",
+    "catering.ice_cream",
+    "catering.pub",
+    "catering.restaurant",
+    "catering.restaurant.afghan",
+    "catering.restaurant.african",
+    "catering.restaurant.american",
+    "catering.restaurant.arab",
+    "catering.restaurant.argentinian",
+    "catering.restaurant.asian",
+    "catering.restaurant.austrian",
+    "catering.restaurant.balkan",
+    "catering.restaurant.barbecue",
+    "catering.restaurant.bavarian",
+    "catering.restaurant.belgian",
+    "catering.restaurant.brazilian",
+    "catering.restaurant.burger",
+    "catering.restaurant.caribbean",
+    "catering.restaurant.chicken",
+    "catering.restaurant.chinese",
+    "catering.restaurant.croatian",
+    "catering.restaurant.cuban",
+    "catering.restaurant.european",
+    "catering.restaurant.fish",
+    "catering.restaurant.fish_and_chips",
+    "catering.restaurant.french",
+    "catering.restaurant.friture",
+    "catering.restaurant.georgian",
+    "catering.restaurant.german",
+    "catering.restaurant.greek",
+    "catering.restaurant.hawaiian",
+    "catering.restaurant.hungarian",
+    "catering.restaurant.indian",
+    "catering.restaurant.indonesian",
+    "catering.restaurant.international",
+    "catering.restaurant.italian",
+    "catering.restaurant.japanese",
+    "catering.restaurant.kebab",
+    "catering.restaurant.korean",
+    "catering.restaurant.latin_american",
+    "catering.restaurant.lebanese",
+    "catering.restaurant.mediterranean",
+    "catering.restaurant.mexican",
+    "catering.restaurant.moroccan",
+    "catering.restaurant.noodle",
+    "catering.restaurant.oriental",
+    "catering.restaurant.pakistani",
+    "catering.restaurant.persian",
+    "catering.restaurant.peruvian",
+    "catering.restaurant.pizza",
+    "catering.restaurant.portuguese",
+    "catering.restaurant.ramen",
+    "catering.restaurant.regional",
+    "catering.restaurant.russian",
+    "catering.restaurant.sandwich",
+    "catering.restaurant.seafood",
+    "catering.restaurant.soup",
+    "catering.restaurant.spanish",
+    "catering.restaurant.steak_house",
+    "catering.restaurant.sushi",
+    "catering.restaurant.swedish",
+    "catering.restaurant.syrian",
+    "catering.restaurant.tacos",
+    "catering.restaurant.tapas",
+    "catering.restaurant.tex-mex",
+    "catering.restaurant.thai",
+    "catering.restaurant.turkish",
+    "catering.restaurant.ukrainian",
+    "catering.restaurant.uzbek",
+    "catering.restaurant.vietnamese",
+    "catering.taproom",
+    "commercial",
+    "commercial.art",
+    "commercial.books",
+    "commercial.convenience",
+    "commercial.department_store",
+    "commercial.food_and_drink",
+    "commercial.food_and_drink.bakery",
+    "commercial.food_and_drink.butcher",
+    "commercial.food_and_drink.cheese_and_dairy",
+    "commercial.food_and_drink.coffee_and_tea",
+    "commercial.food_and_drink.confectionery",
+    "commercial.food_and_drink.drinks",
+    "commercial.food_and_drink.farm",
+    "commercial.food_and_drink.fruit_and_vegetable",
+    "commercial.food_and_drink.nuts",
+    "commercial.food_and_drink.seafood",
+    "commercial.gift_and_souvenir",
+    "commercial.health_and_beauty",
+    "commercial.health_and_beauty.pharmacy",
+    "commercial.hobby",
+    "commercial.hobby.art",
+    "commercial.houseware_and_hardware",
+    "commercial.houseware_and_hardware.building_materials",
+    "commercial.houseware_and_hardware.building_materials.paint",
+    "commercial.kiosk",
+    "commercial.marketplace",
+    "commercial.newsagent",
+    "commercial.outdoor_and_sport",
+    "commercial.outdoor_and_sport.bicycle",
+    "commercial.shopping_mall",
+    "commercial.smoking",
+    "commercial.supermarket",
+    "commercial.toy_and_game",
+    "commercial.vehicle",
+    "dogs",
+    "dogs.leashed",
+    "dogs.yes",
+    "education",
+    "education.college",
+    "education.library",
+    "education.school",
+    "education.university",
+    "egg_free",
+    "emergency",
+    "emergency.assembly_point",
+    "emergency.fire_detection_system",
+    "entertainment",
+    "entertainment.activity_park",
+    "entertainment.activity_park.climbing",
+    "entertainment.amusement_arcade",
+    "entertainment.cinema",
+    "entertainment.culture",
+    "entertainment.culture.arts_centre",
+    "entertainment.culture.theatre",
+    "entertainment.escape_game",
+    "entertainment.miniature_golf",
+    "entertainment.museum",
+    "entertainment.planetarium",
+    "entertainment.theme_park",
+    "entertainment.water_park",
+    "entertainment.zoo",
+    "fee",
+    "gluten_free",
+    "halal",
+    "healthcare",
+    "healthcare.hospital",
+    "healthcare.pharmacy",
+    "heritage",
+    "heritage.unesco",
+    "highway",
+    "highway.footway",
+    "highway.path",
+    "highway.pedestrian",
+    "highway.residential",
+    "highway.secondary",
+    "highway.service",
+    "highway.tertiary",
+    "internet_access",
+    "internet_access.for_customers",
+    "internet_access.free",
+    "island",
+    "kosher",
+    "leisure",
+    "leisure.park",
+    "leisure.park.garden",
+    "leisure.park.nature_reserve",
+    "leisure.spa",
+    "man_made",
+    "man_made.bridge",
+    "man_made.lighthouse",
+    "man_made.pier",
+    "man_made.tower",
+    "man_made.watermill",
+    "man_made.windmill",
+    "memorial",
+    "memorial.cemetery",
+    "memorial.christian",
+    "national_park",
+    "natural",
+    "natural.forest",
+    "natural.mountain",
+    "natural.mountain.cave_entrance",
+    "natural.protected_area",
+    "no_access",
+    "no_dogs",
+    "no_fee",
+    "no_fee.no",
+    "office",
+    "office.coworking",
+    "office.diplomatic",
+    "office.foundation",
+    "office.government",
+    "office.government.administrative",
+    "office.government.legislative",
+    "office.research",
+    "organic",
+    "organic.only",
+    "parking",
+    "parking.cars",
+    "parking.multistorey",
+    "parking.surface",
+    "parking.underground",
+    "populated_place",
+    "populated_place.city_block",
+    "production",
+    "production.brewery",
+    "production.cheese",
+    "production.factory",
+    "production.winery",
+    "public_transport",
+    "public_transport.aerialway",
+    "public_transport.train",
+    "railway",
+    "railway.funicular",
+    "railway.surface",
+    "religion",
+    "religion.place_of_worship",
+    "religion.place_of_worship.christianity",
+    "religion.place_of_worship.islam",
+    "religion.place_of_worship.judaism",
+    "rental",
+    "rental.bicycle",
+    "rental.boat",
+    "rental.car",
+    "rental.ski",
+    "service",
+    "service.beauty",
+    "service.beauty.hairdresser",
+    "service.beauty.spa",
+    "service.financial",
+    "service.financial.atm",
+    "ski",
+    "ski.lift",
+    "ski.lift.gondola",
+    "sport",
+    "sport.dive_centre",
+    "sport.sports_centre",
+    "sport.stadium",
+    "sport.swimming_pool",
+    "sport.track",
+    "sugar_free",
+    "tourism",
+    "tourism.attraction",
+    "tourism.attraction.artwork",
+    "tourism.attraction.clock",
+    "tourism.attraction.fountain",
+    "tourism.attraction.viewpoint",
+    "tourism.sights",
+    "tourism.sights.archaeological_site",
+    "tourism.sights.bridge",
+    "tourism.sights.castle",
+    "tourism.sights.city_gate",
+    "tourism.sights.city_hall",
+    "tourism.sights.conference_centre",
+    "tourism.sights.fort",
+    "tourism.sights.lighthouse",
+    "tourism.sights.memorial",
+    "tourism.sights.memorial.aircraft",
+    "tourism.sights.memorial.monument",
+    "tourism.sights.memorial.necropolis",
+    "tourism.sights.memorial.pillory",
+    "tourism.sights.memorial.ship",
+    "tourism.sights.memorial.tomb",
+    "tourism.sights.memorial.wayside_cross",
+    "tourism.sights.monastery",
+    "tourism.sights.place_of_worship",
+    "tourism.sights.place_of_worship.cathedral",
+    "tourism.sights.place_of_worship.chapel",
+    "tourism.sights.place_of_worship.church",
+    "tourism.sights.place_of_worship.mosque",
+    "tourism.sights.place_of_worship.synagogue",
+    "tourism.sights.place_of_worship.temple",
+    "tourism.sights.ruines",
+    "tourism.sights.square",
+    "tourism.sights.tower",
+    "tourism.sights.windmill",
+    "vegan",
+    "vegan.only",
+    "vegetarian",
+    "vegetarian.only",
+    "wheelchair",
+    "wheelchair.limited",
+    "wheelchair.yes"
+  ]
+}
