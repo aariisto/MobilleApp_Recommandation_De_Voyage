@@ -48,6 +48,36 @@ La similarité va de **-1 à 1** :
 
 Le système classe alors les villes du meilleur au moins bon résultat.
 
+### **Nouveauté : Gestion des préférences et aversions (Likes & Dislikes)**
+
+Le système supporte maintenant les **dislikes** (ce que vous n'aimez PAS) !
+
+**Formule :**
+
+```
+vecteur_final = embedding(likes) - embedding(dislikes)
+```
+
+**Comment ça marche :**
+
+- `embedding(likes)` : Ce que vous recherchez (plage, restaurant)
+- `embedding(dislikes)` : Ce que vous voulez éviter (montagne, froid)
+- La **soustraction** repousse les résultats qui contiennent vos dislikes
+
+**Exemple concret :**
+
+```
+Vous dites :
+  ✅ J'aime : "plage restaurant shopping"
+  ❌ Je n'aime pas : "montagne froid noir"
+
+Résultat :
+  ✅ Nice est recommandée (plage + restaurant)
+  ❌ Chamonix est évitée (montagne + froid)
+```
+
+C'est comme si vous créiez un "profil de voyage" personnalisé où le système comprend non seulement ce que vous voulez, mais aussi ce que vous voulez éviter absolument.
+
 ---
 
 ## 🛠️ Architecture technique
@@ -74,10 +104,14 @@ Contient l'algorithme de recommandation :
    - Récupère tous les embeddings depuis PostgreSQL
    - Retourne : `[{id, name, embedding}, ...]`
 
-2. **`get_user_embedding(text)`**
+2. **`get_user_embedding(likes_text, dislikes_text="")`**
 
    - Convertit votre texte de recherche en embedding
-   - Exemple : `"plage restaurant"` → `[0.089, 0.145, ...]`
+   - Supporte les **likes** (ce que vous aimez) ET les **dislikes** (ce que vous n'aimez pas)
+   - Formule : `embedding_final = embedding(likes) - embedding(dislikes)`
+   - Exemple simple :
+     - `get_user_embedding("plage restaurant")` → `[0.089, 0.145, ...]`
+     - `get_user_embedding("plage restaurant", "montagne froid")` → `[0.189, 0.245, ...]` (repousse montagne/froid)
 
 3. **`cosine_similarity(vec1, vec2)`**
 
@@ -85,8 +119,8 @@ Contient l'algorithme de recommandation :
    - Formule : `dot(v1, v2) / (||v1|| × ||v2||)`
    - Retourne un score de -1 à 1
 
-4. **`rank_cities_by_similarity(user_text, cities)`**
-   - Génère votre embedding
+4. **`rank_cities_by_similarity(user_text, cities, dislikes_text="")`**
+   - Génère votre embedding (avec likes et optionnellement dislikes)
    - Compare avec chaque ville
    - Classe les villes par similarité décroissante
    - Sauvegarde dans `ranked_cities.json`
