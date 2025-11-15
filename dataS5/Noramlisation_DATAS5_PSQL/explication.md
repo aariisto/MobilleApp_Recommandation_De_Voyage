@@ -405,8 +405,18 @@ SELECT COUNT(*) FROM places WHERE city_id NOT IN (SELECT id FROM cities);
 
 Projet développé dans le cadre d'une SAE (Situation d'Apprentissage et d'Évaluation) - BUT 3
 
----
+# Restaurer la base chez vous
 
-## 📄 Licence
+Sur votre machine :
 
-Ce projet est destiné à un usage éducatif.
+Créer une base vide (nom à son choix) :
+
+powershell / bash:
+
+createdb -U votre_user -h localhost nouvelle_db
+
+Restaurer le dump :
+
+pg_restore -U votre_user -h localhost -d nouvelle_db -v full_backup.dump
+
+Après ça, vous aurez exactement la même base que moi, avec toutes les tables et données.
