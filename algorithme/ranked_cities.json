@@ -1,977 +1,977 @@
 [
   {
-    "id": 192,
-    "name": "Cordoba",
-    "similarity": 0.9407661545502435
-  },
-  {
-    "id": 174,
-    "name": "Puebla",
-    "similarity": 0.902020588225524
-  },
-  {
-    "id": 173,
-    "name": "Monterrey",
-    "similarity": 0.8896839130079267
-  },
-  {
-    "id": 146,
-    "name": "Hurghada",
-    "similarity": 0.8862270576607987
-  },
-  {
-    "id": 175,
-    "name": "Cancun",
-    "similarity": 0.8696193238613884
-  },
-  {
-    "id": 172,
-    "name": "Guadalajara",
-    "similarity": 0.8671119059659129
-  },
-  {
-    "id": 168,
-    "name": "Quebec City",
-    "similarity": 0.8635139294602378
-  },
-  {
-    "id": 114,
-    "name": "Antalya",
-    "similarity": 0.8617381550127398
-  },
-  {
-    "id": 82,
-    "name": "Geneva",
-    "similarity": 0.8584281318986025
-  },
-  {
-    "id": 116,
-    "name": "Konya",
-    "similarity": 0.8573646046976563
-  },
-  {
-    "id": 133,
-    "name": "Sousse",
-    "similarity": 0.8569975197680133
-  },
-  {
-    "id": 139,
-    "name": "Hammamet",
-    "similarity": 0.8557986392482059
-  },
-  {
-    "id": 198,
-    "name": "San Miguel de Tucuman",
-    "similarity": 0.8536074813851747
-  },
-  {
-    "id": 107,
-    "name": "Rhodes",
-    "similarity": 0.8513336069698781
-  },
-  {
-    "id": 154,
-    "name": "Houston",
-    "similarity": 0.8479658269106036
-  },
-  {
-    "id": 125,
-    "name": "Tangier",
-    "similarity": 0.8476453263735523
-  },
-  {
-    "id": 157,
-    "name": "Dallas",
-    "similarity": 0.844358871876533
-  },
-  {
-    "id": 178,
-    "name": "Merida",
-    "similarity": 0.8442793376519442
-  },
-  {
-    "id": 120,
-    "name": "Eskişehir",
-    "similarity": 0.8436250838331467
-  },
-  {
-    "id": 194,
-    "name": "Mendoza",
-    "similarity": 0.8418759947653165
-  },
-  {
-    "id": 96,
-    "name": "Klagenfurt",
-    "similarity": 0.8376481233975329
-  },
-  {
-    "id": 188,
-    "name": "Manaus",
-    "similarity": 0.8305036063469248
-  },
-  {
-    "id": 55,
-    "name": "Leeds",
-    "similarity": 0.8301152674264398
-  },
-  {
-    "id": 122,
-    "name": "Rabat",
-    "similarity": 0.8276648217041922
-  },
-  {
-    "id": 105,
-    "name": "Larissa",
-    "similarity": 0.8268953335094085
-  },
-  {
-    "id": 141,
-    "name": "Cairo",
-    "similarity": 0.8263493351759807
-  },
-  {
-    "id": 143,
-    "name": "Giza",
-    "similarity": 0.8263493351759807
-  },
-  {
-    "id": 85,
-    "name": "Lausanne",
-    "similarity": 0.8253536756020544
-  },
-  {
-    "id": 165,
-    "name": "Ottawa",
-    "similarity": 0.823015994308036
-  },
-  {
-    "id": 126,
-    "name": "Agadir",
-    "similarity": 0.8225793257543568
-  },
-  {
-    "id": 109,
-    "name": "Chania",
-    "similarity": 0.8215428354889005
-  },
-  {
-    "id": 87,
-    "name": "St. Gallen",
-    "similarity": 0.81951795468713
-  },
-  {
-    "id": 103,
-    "name": "Patras",
-    "similarity": 0.8182969041420743
-  },
-  {
-    "id": 123,
-    "name": "Marrakech",
-    "similarity": 0.8160532594014096
-  },
-  {
-    "id": 121,
-    "name": "Casablanca",
-    "similarity": 0.8150057083848774
-  },
-  {
-    "id": 187,
-    "name": "Curitiba",
-    "similarity": 0.8138340850906027
-  },
-  {
-    "id": 75,
-    "name": "Leuven",
-    "similarity": 0.8132086955028413
-  },
-  {
-    "id": 200,
-    "name": "Neuquen",
-    "similarity": 0.8127567922053756
-  },
-  {
-    "id": 98,
-    "name": "Wels",
-    "similarity": 0.8117812067230108
+    "id": 110,
+    "name": "Kavala",
+    "similarity": 0.5882264466041335
   },
   {
     "id": 54,
     "name": "Liverpool",
-    "similarity": 0.8115444216839528
-  },
-  {
-    "id": 53,
-    "name": "Birmingham",
-    "similarity": 0.8101835773175398
-  },
-  {
-    "id": 177,
-    "name": "Leon",
-    "similarity": 0.8093882858330907
-  },
-  {
-    "id": 104,
-    "name": "Heraklion",
-    "similarity": 0.808664087500707
-  },
-  {
-    "id": 113,
-    "name": "Izmir",
-    "similarity": 0.807359875635763
-  },
-  {
-    "id": 100,
-    "name": "Dornbirn",
-    "similarity": 0.8071752813204938
-  },
-  {
-    "id": 167,
-    "name": "Winnipeg",
-    "similarity": 0.8068059957812668
-  },
-  {
-    "id": 48,
-    "name": "Evora",
-    "similarity": 0.8056489685120791
+    "similarity": 0.5880974491732476
   },
   {
     "id": 196,
     "name": "Mar del Plata",
-    "similarity": 0.8053312367931522
+    "similarity": 0.5826128220664639
   },
   {
-    "id": 184,
-    "name": "Salvador",
-    "similarity": 0.8031793036688638
+    "id": 192,
+    "name": "Cordoba",
+    "similarity": 0.582608307837792
   },
   {
-    "id": 160,
-    "name": "Miami",
-    "similarity": 0.802876602905007
-  },
-  {
-    "id": 176,
-    "name": "Tijuana",
-    "similarity": 0.8024483948894547
-  },
-  {
-    "id": 117,
-    "name": "Gaziantep",
-    "similarity": 0.8022709909301557
+    "id": 194,
+    "name": "Mendoza",
+    "similarity": 0.5801700078261963
   },
   {
     "id": 142,
     "name": "Alexandria",
-    "similarity": 0.8010429205882493
-  },
-  {
-    "id": 112,
-    "name": "Ankara",
-    "similarity": 0.7993731797668462
-  },
-  {
-    "id": 185,
-    "name": "Fortaleza",
-    "similarity": 0.7992951109313814
-  },
-  {
-    "id": 110,
-    "name": "Kavala",
-    "similarity": 0.7989101557580428
-  },
-  {
-    "id": 58,
-    "name": "Sheffield",
-    "similarity": 0.7971849425251468
-  },
-  {
-    "id": 56,
-    "name": "Bristol",
-    "similarity": 0.7962898946573618
-  },
-  {
-    "id": 166,
-    "name": "Edmonton",
-    "similarity": 0.7923865612670009
-  },
-  {
-    "id": 95,
-    "name": "Innsbruck",
-    "similarity": 0.7909018055524745
-  },
-  {
-    "id": 108,
-    "name": "Ioannina",
-    "similarity": 0.7887457453461189
-  },
-  {
-    "id": 15,
-    "name": "Bilbao",
-    "similarity": 0.7878933306138853
+    "similarity": 0.5787729246353325
   },
   {
     "id": 169,
     "name": "Halifax",
-    "similarity": 0.787304074568068
+    "similarity": 0.5781173249755569
   },
   {
-    "id": 66,
-    "name": "Tilburg",
-    "similarity": 0.7866029535107888
-  },
-  {
-    "id": 70,
-    "name": "Arnhem",
-    "similarity": 0.7863028878535693
-  },
-  {
-    "id": 73,
-    "name": "Ghent",
-    "similarity": 0.7862934923396346
-  },
-  {
-    "id": 8,
-    "name": "Bordeaux",
-    "similarity": 0.7861667342670693
-  },
-  {
-    "id": 78,
-    "name": "Mons",
-    "similarity": 0.785472292595748
-  },
-  {
-    "id": 155,
-    "name": "Phoenix",
-    "similarity": 0.785206158231062
-  },
-  {
-    "id": 129,
-    "name": "Tetouan",
-    "similarity": 0.7838554974869002
-  },
-  {
-    "id": 69,
-    "name": "Nijmegen",
-    "similarity": 0.7825358396242885
-  },
-  {
-    "id": 149,
-    "name": "Mansoura",
-    "similarity": 0.7813446166715098
-  },
-  {
-    "id": 92,
-    "name": "Graz",
-    "similarity": 0.7804436649214653
-  },
-  {
-    "id": 158,
-    "name": "San Francisco",
-    "similarity": 0.7795361742521149
-  },
-  {
-    "id": 138,
-    "name": "Tozeur",
-    "similarity": 0.7794652911629593
-  },
-  {
-    "id": 97,
-    "name": "Villach",
-    "similarity": 0.7791248254558293
-  },
-  {
-    "id": 81,
-    "name": "Zurich",
-    "similarity": 0.7775569903902031
-  },
-  {
-    "id": 131,
-    "name": "Tunis",
-    "similarity": 0.7770203739791695
-  },
-  {
-    "id": 52,
-    "name": "Manchester",
-    "similarity": 0.7768451045820106
-  },
-  {
-    "id": 189,
-    "name": "Belem",
-    "similarity": 0.7761470911009033
-  },
-  {
-    "id": 119,
-    "name": "Mersin",
-    "similarity": 0.7743027119941693
-  },
-  {
-    "id": 156,
-    "name": "San Diego",
-    "similarity": 0.7734321987601338
-  },
-  {
-    "id": 127,
-    "name": "Meknes",
-    "similarity": 0.7730667521748471
-  },
-  {
-    "id": 193,
-    "name": "Rosario",
-    "similarity": 0.7710658712169727
-  },
-  {
-    "id": 93,
-    "name": "Linz",
-    "similarity": 0.7700819390430299
-  },
-  {
-    "id": 164,
-    "name": "Calgary",
-    "similarity": 0.7691784290153655
-  },
-  {
-    "id": 190,
-    "name": "Porto Alegre",
-    "similarity": 0.7683180203026005
-  },
-  {
-    "id": 128,
-    "name": "Oujda",
-    "similarity": 0.7682410086075707
-  },
-  {
-    "id": 88,
-    "name": "Lugano",
-    "similarity": 0.7667011865564634
-  },
-  {
-    "id": 27,
-    "name": "Bologna",
-    "similarity": 0.7663518907420058
-  },
-  {
-    "id": 179,
-    "name": "Toluca",
-    "similarity": 0.7663059351899935
-  },
-  {
-    "id": 59,
-    "name": "Glasgow",
-    "similarity": 0.7647472469869686
-  },
-  {
-    "id": 180,
-    "name": "Acapulco",
-    "similarity": 0.7637614688023942
-  },
-  {
-    "id": 65,
-    "name": "Eindhoven",
-    "similarity": 0.7630656160783738
-  },
-  {
-    "id": 124,
-    "name": "Fes",
-    "similarity": 0.7627185539278318
-  },
-  {
-    "id": 80,
-    "name": "Mechelen",
-    "similarity": 0.7617220013137779
-  },
-  {
-    "id": 37,
-    "name": "Dusseldorf",
-    "similarity": 0.7616632805145913
-  },
-  {
-    "id": 152,
-    "name": "Los Angeles",
-    "similarity": 0.7604745566053812
-  },
-  {
-    "id": 76,
-    "name": "Liege",
-    "similarity": 0.7602144041410422
-  },
-  {
-    "id": 118,
-    "name": "Adana",
-    "similarity": 0.758727554304504
-  },
-  {
-    "id": 45,
-    "name": "Faro",
-    "similarity": 0.7572853510675119
-  },
-  {
-    "id": 67,
-    "name": "Groningen",
-    "similarity": 0.7568211153574949
-  },
-  {
-    "id": 3,
-    "name": "Lyon",
-    "similarity": 0.7548828885284019
-  },
-  {
-    "id": 153,
-    "name": "Chicago",
-    "similarity": 0.753745588763135
-  },
-  {
-    "id": 162,
-    "name": "Vancouver",
-    "similarity": 0.7518756585662396
-  },
-  {
-    "id": 94,
-    "name": "Salzburg",
-    "similarity": 0.7503539455243652
-  },
-  {
-    "id": 147,
-    "name": "Sharm El Sheikh",
-    "similarity": 0.748851079539728
-  },
-  {
-    "id": 23,
-    "name": "Naples",
-    "similarity": 0.7487971048768549
-  },
-  {
-    "id": 159,
-    "name": "Boston",
-    "similarity": 0.7474467717036624
-  },
-  {
-    "id": 4,
-    "name": "Toulouse",
-    "similarity": 0.7439333080715504
-  },
-  {
-    "id": 13,
-    "name": "Valencia",
-    "similarity": 0.7437910611136431
-  },
-  {
-    "id": 161,
-    "name": "Toronto",
-    "similarity": 0.7429595048237055
-  },
-  {
-    "id": 171,
-    "name": "Mexico City",
-    "similarity": 0.7428053564147312
-  },
-  {
-    "id": 89,
-    "name": "Biel",
-    "similarity": 0.7423224396076169
-  },
-  {
-    "id": 50,
-    "name": "Viseu",
-    "similarity": 0.7395760649503442
-  },
-  {
-    "id": 84,
-    "name": "Bern",
-    "similarity": 0.7388684903599289
-  },
-  {
-    "id": 79,
-    "name": "Kortrijk",
-    "similarity": 0.7379434814064122
-  },
-  {
-    "id": 102,
-    "name": "Thessaloniki",
-    "similarity": 0.7367793998283738
-  },
-  {
-    "id": 86,
-    "name": "Lucerne",
-    "similarity": 0.7360882556926446
-  },
-  {
-    "id": 7,
-    "name": "Montpellier",
-    "similarity": 0.7352712797454777
-  },
-  {
-    "id": 29,
-    "name": "Venice",
-    "similarity": 0.7330337668222978
-  },
-  {
-    "id": 24,
-    "name": "Turin",
-    "similarity": 0.7328597479811799
-  },
-  {
-    "id": 150,
-    "name": "Tanta",
-    "similarity": 0.7315337250023116
-  },
-  {
-    "id": 90,
-    "name": "Thun",
-    "similarity": 0.7307124749874299
-  },
-  {
-    "id": 57,
-    "name": "Newcastle",
-    "similarity": 0.7296491878415516
-  },
-  {
-    "id": 47,
-    "name": "Guimaraes",
-    "similarity": 0.7290793452467492
-  },
-  {
-    "id": 39,
-    "name": "Dortmund",
-    "similarity": 0.7278482535314618
-  },
-  {
-    "id": 22,
-    "name": "Milan",
-    "similarity": 0.7276675922424444
-  },
-  {
-    "id": 163,
-    "name": "Montreal",
-    "similarity": 0.7262222030815161
-  },
-  {
-    "id": 186,
-    "name": "Recife",
-    "similarity": 0.7259724484084893
-  },
-  {
-    "id": 35,
-    "name": "Frankfurt",
-    "similarity": 0.7220214718371024
-  },
-  {
-    "id": 72,
-    "name": "Antwerp",
-    "similarity": 0.7211959864769287
-  },
-  {
-    "id": 41,
-    "name": "Lisbon",
-    "similarity": 0.7211331642673382
-  },
-  {
-    "id": 170,
-    "name": "Victoria",
-    "similarity": 0.7210208390479829
-  },
-  {
-    "id": 33,
-    "name": "Hamburg",
-    "similarity": 0.7204623104713743
-  },
-  {
-    "id": 151,
-    "name": "New York",
-    "similarity": 0.7196225728045417
-  },
-  {
-    "id": 71,
-    "name": "Brussels",
-    "similarity": 0.719253167556014
-  },
-  {
-    "id": 43,
-    "name": "Coimbra",
-    "similarity": 0.7166027775195943
-  },
-  {
-    "id": 5,
-    "name": "Nice",
-    "similarity": 0.7160233052966383
-  },
-  {
-    "id": 20,
-    "name": "Alicante",
-    "similarity": 0.7124495746020645
-  },
-  {
-    "id": 183,
-    "name": "Brasilia",
-    "similarity": 0.7120364832568887
-  },
-  {
-    "id": 14,
-    "name": "Seville",
-    "similarity": 0.7118099226851758
-  },
-  {
-    "id": 10,
-    "name": "Lille",
-    "similarity": 0.7116668555205922
-  },
-  {
-    "id": 77,
-    "name": "Namur",
-    "similarity": 0.7113691660270216
+    "id": 58,
+    "name": "Sheffield",
+    "similarity": 0.5777849913247717
   },
   {
     "id": 115,
     "name": "Bursa",
-    "similarity": 0.7105729630468567
+    "similarity": 0.5777020848646667
   },
   {
-    "id": 17,
-    "name": "Zaragoza",
-    "similarity": 0.7095320624658568
+    "id": 121,
+    "name": "Casablanca",
+    "similarity": 0.5772145370469732
   },
   {
-    "id": 148,
-    "name": "Port Said",
-    "similarity": 0.7093267212049654
+    "id": 104,
+    "name": "Heraklion",
+    "similarity": 0.5724099792574108
   },
   {
-    "id": 38,
-    "name": "Leipzig",
-    "similarity": 0.7079574832747038
+    "id": 149,
+    "name": "Mansoura",
+    "similarity": 0.5720625032949288
   },
   {
-    "id": 25,
-    "name": "Palermo",
-    "similarity": 0.7077764452665788
+    "id": 8,
+    "name": "Bordeaux",
+    "similarity": 0.5713174163446464
   },
   {
-    "id": 140,
-    "name": "Douz",
-    "similarity": 0.707697080984143
+    "id": 200,
+    "name": "Neuquen",
+    "similarity": 0.5709758037274378
   },
   {
-    "id": 40,
-    "name": "Bremen",
-    "similarity": 0.7043284572584217
+    "id": 102,
+    "name": "Thessaloniki",
+    "similarity": 0.5709461171090676
   },
   {
-    "id": 49,
-    "name": "Setubal",
-    "similarity": 0.7039309784115423
+    "id": 4,
+    "name": "Toulouse",
+    "similarity": 0.5695387007498215
+  },
+  {
+    "id": 187,
+    "name": "Curitiba",
+    "similarity": 0.5687211972585214
+  },
+  {
+    "id": 183,
+    "name": "Brasilia",
+    "similarity": 0.5678522434821839
+  },
+  {
+    "id": 109,
+    "name": "Chania",
+    "similarity": 0.5664041240675651
+  },
+  {
+    "id": 94,
+    "name": "Salzburg",
+    "similarity": 0.5644031187914719
+  },
+  {
+    "id": 122,
+    "name": "Rabat",
+    "similarity": 0.5638615108054881
+  },
+  {
+    "id": 69,
+    "name": "Nijmegen",
+    "similarity": 0.562178104059109
+  },
+  {
+    "id": 188,
+    "name": "Manaus",
+    "similarity": 0.5621168115662779
+  },
+  {
+    "id": 172,
+    "name": "Guadalajara",
+    "similarity": 0.5612687527918603
+  },
+  {
+    "id": 163,
+    "name": "Montreal",
+    "similarity": 0.5606397397436373
+  },
+  {
+    "id": 168,
+    "name": "Quebec City",
+    "similarity": 0.5600512477982836
+  },
+  {
+    "id": 90,
+    "name": "Thun",
+    "similarity": 0.5594743489958041
+  },
+  {
+    "id": 107,
+    "name": "Rhodes",
+    "similarity": 0.5593225781623278
+  },
+  {
+    "id": 52,
+    "name": "Manchester",
+    "similarity": 0.559148430717467
+  },
+  {
+    "id": 76,
+    "name": "Liege",
+    "similarity": 0.5576814174499869
+  },
+  {
+    "id": 105,
+    "name": "Larissa",
+    "similarity": 0.5565367137791196
+  },
+  {
+    "id": 113,
+    "name": "Izmir",
+    "similarity": 0.5563174785831524
+  },
+  {
+    "id": 184,
+    "name": "Salvador",
+    "similarity": 0.5556826580387009
+  },
+  {
+    "id": 96,
+    "name": "Klagenfurt",
+    "similarity": 0.5546552080990661
+  },
+  {
+    "id": 127,
+    "name": "Meknes",
+    "similarity": 0.5537402058509415
+  },
+  {
+    "id": 157,
+    "name": "Dallas",
+    "similarity": 0.5536861005222761
+  },
+  {
+    "id": 164,
+    "name": "Calgary",
+    "similarity": 0.5529021036022864
+  },
+  {
+    "id": 80,
+    "name": "Mechelen",
+    "similarity": 0.5524412211800842
+  },
+  {
+    "id": 166,
+    "name": "Edmonton",
+    "similarity": 0.5517717746416954
+  },
+  {
+    "id": 156,
+    "name": "San Diego",
+    "similarity": 0.5517148625031497
+  },
+  {
+    "id": 100,
+    "name": "Dornbirn",
+    "similarity": 0.550698101683275
+  },
+  {
+    "id": 123,
+    "name": "Marrakech",
+    "similarity": 0.5497692428508314
   },
   {
     "id": 106,
     "name": "Volos",
-    "similarity": 0.7036811297175843
-  },
-  {
-    "id": 28,
-    "name": "Florence",
-    "similarity": 0.7033857335542809
-  },
-  {
-    "id": 16,
-    "name": "Malaga",
-    "similarity": 0.7018432331192194
-  },
-  {
-    "id": 42,
-    "name": "Porto",
-    "similarity": 0.6990326262452012
-  },
-  {
-    "id": 195,
-    "name": "La Plata",
-    "similarity": 0.6969782261395919
+    "similarity": 0.5497128254371771
   },
   {
     "id": 68,
     "name": "Breda",
-    "similarity": 0.6948123361767604
+    "similarity": 0.5479571642067244
   },
   {
-    "id": 99,
-    "name": "St. Pölten",
-    "similarity": 0.6924003813254258
+    "id": 165,
+    "name": "Ottawa",
+    "similarity": 0.547872120378949
   },
   {
-    "id": 30,
-    "name": "Verona",
-    "similarity": 0.6923832956114667
+    "id": 33,
+    "name": "Hamburg",
+    "similarity": 0.5474363886417617
   },
   {
-    "id": 62,
-    "name": "Rotterdam",
-    "similarity": 0.6902858763263425
+    "id": 35,
+    "name": "Frankfurt",
+    "similarity": 0.5470982283546201
   },
   {
-    "id": 44,
-    "name": "Braga",
-    "similarity": 0.6891272487556868
+    "id": 37,
+    "name": "Dusseldorf",
+    "similarity": 0.5467086939751747
   },
   {
-    "id": 12,
-    "name": "Barcelona",
-    "similarity": 0.6884232249447779
+    "id": 86,
+    "name": "Lucerne",
+    "similarity": 0.5465243739453647
   },
   {
-    "id": 18,
-    "name": "Granada",
-    "similarity": 0.6882589867779486
+    "id": 103,
+    "name": "Patras",
+    "similarity": 0.5464240794393928
   },
   {
-    "id": 2,
-    "name": "Marseille",
-    "similarity": 0.6875606792085697
+    "id": 119,
+    "name": "Mersin",
+    "similarity": 0.5457185557788004
   },
   {
-    "id": 101,
-    "name": "Athens",
-    "similarity": 0.6852226734570843
+    "id": 160,
+    "name": "Miami",
+    "similarity": 0.5454292779904247
   },
   {
-    "id": 26,
-    "name": "Genoa",
-    "similarity": 0.6843994973863567
+    "id": 186,
+    "name": "Recife",
+    "similarity": 0.5451875710782783
   },
   {
-    "id": 36,
-    "name": "Stuttgart",
-    "similarity": 0.6839812190515305
+    "id": 170,
+    "name": "Victoria",
+    "similarity": 0.545041352871222
   },
   {
-    "id": 46,
-    "name": "Aveiro",
-    "similarity": 0.6808735155204643
+    "id": 125,
+    "name": "Tangier",
+    "similarity": 0.544840573555218
   },
   {
-    "id": 21,
-    "name": "Rome",
-    "similarity": 0.6804852107402793
+    "id": 152,
+    "name": "Los Angeles",
+    "similarity": 0.542909883156675
   },
   {
-    "id": 197,
-    "name": "Salta",
-    "similarity": 0.6803557792989792
+    "id": 13,
+    "name": "Valencia",
+    "similarity": 0.542905048682683
   },
   {
-    "id": 74,
-    "name": "Bruges",
-    "similarity": 0.6792470293907321
+    "id": 57,
+    "name": "Newcastle",
+    "similarity": 0.5421803699843858
   },
   {
-    "id": 31,
-    "name": "Berlin",
-    "similarity": 0.6780922444769459
+    "id": 84,
+    "name": "Bern",
+    "similarity": 0.542134472630236
   },
   {
     "id": 34,
     "name": "Cologne",
-    "similarity": 0.6773224189178116
+    "similarity": 0.5417794391008992
   },
   {
-    "id": 11,
-    "name": "Madrid",
-    "similarity": 0.674481807899998
+    "id": 24,
+    "name": "Turin",
+    "similarity": 0.5414176132281777
   },
   {
-    "id": 32,
-    "name": "Munich",
-    "similarity": 0.6734222209327865
+    "id": 53,
+    "name": "Birmingham",
+    "similarity": 0.5413625439359749
   },
   {
-    "id": 51,
-    "name": "London",
-    "similarity": 0.6729927629790369
+    "id": 40,
+    "name": "Bremen",
+    "similarity": 0.5405766390182407
   },
   {
-    "id": 1,
-    "name": "Paris",
-    "similarity": 0.666174131089349
+    "id": 185,
+    "name": "Fortaleza",
+    "similarity": 0.5397452904420391
   },
   {
-    "id": 9,
-    "name": "Strasbourg",
-    "similarity": 0.6661390729670409
+    "id": 177,
+    "name": "Leon",
+    "similarity": 0.5396465546649467
   },
   {
-    "id": 91,
-    "name": "Vienna",
-    "similarity": 0.6646943344852341
+    "id": 87,
+    "name": "St. Gallen",
+    "similarity": 0.5389167139510811
   },
   {
-    "id": 19,
-    "name": "Cordoba",
-    "similarity": 0.6590616553912496
+    "id": 167,
+    "name": "Winnipeg",
+    "similarity": 0.5387786789379766
   },
   {
-    "id": 6,
-    "name": "Nantes",
-    "similarity": 0.6413515509607883
+    "id": 45,
+    "name": "Faro",
+    "similarity": 0.5369929794651592
   },
   {
-    "id": 182,
-    "name": "Rio de Janeiro",
-    "similarity": 0.6401698500839759
+    "id": 120,
+    "name": "Eskişehir",
+    "similarity": 0.5369068935573883
   },
   {
-    "id": 144,
-    "name": "Luxor",
-    "similarity": 0.6337000231325942
+    "id": 27,
+    "name": "Bologna",
+    "similarity": 0.5362119962781264
+  },
+  {
+    "id": 178,
+    "name": "Merida",
+    "similarity": 0.535813151240455
+  },
+  {
+    "id": 171,
+    "name": "Mexico City",
+    "similarity": 0.5354013269548493
+  },
+  {
+    "id": 124,
+    "name": "Fes",
+    "similarity": 0.5352603039913607
+  },
+  {
+    "id": 79,
+    "name": "Kortrijk",
+    "similarity": 0.5351884130924107
+  },
+  {
+    "id": 198,
+    "name": "San Miguel de Tucuman",
+    "similarity": 0.5349021333887358
+  },
+  {
+    "id": 197,
+    "name": "Salta",
+    "similarity": 0.5340992262866292
+  },
+  {
+    "id": 82,
+    "name": "Geneva",
+    "similarity": 0.5340135256050023
+  },
+  {
+    "id": 56,
+    "name": "Bristol",
+    "similarity": 0.5336234649589112
+  },
+  {
+    "id": 114,
+    "name": "Antalya",
+    "similarity": 0.53358678088908
+  },
+  {
+    "id": 89,
+    "name": "Biel",
+    "similarity": 0.5333926537596771
+  },
+  {
+    "id": 141,
+    "name": "Cairo",
+    "similarity": 0.5332081174535825
+  },
+  {
+    "id": 143,
+    "name": "Giza",
+    "similarity": 0.5332081174535825
+  },
+  {
+    "id": 5,
+    "name": "Nice",
+    "similarity": 0.5331243335085214
+  },
+  {
+    "id": 162,
+    "name": "Vancouver",
+    "similarity": 0.5326820251724448
+  },
+  {
+    "id": 73,
+    "name": "Ghent",
+    "similarity": 0.5323658026760762
+  },
+  {
+    "id": 161,
+    "name": "Toronto",
+    "similarity": 0.5300544875760822
+  },
+  {
+    "id": 180,
+    "name": "Acapulco",
+    "similarity": 0.5293552752076253
+  },
+  {
+    "id": 2,
+    "name": "Marseille",
+    "similarity": 0.5289644010406841
+  },
+  {
+    "id": 3,
+    "name": "Lyon",
+    "similarity": 0.5281958065911929
+  },
+  {
+    "id": 153,
+    "name": "Chicago",
+    "similarity": 0.5272075331653734
+  },
+  {
+    "id": 48,
+    "name": "Evora",
+    "similarity": 0.5270212815892046
+  },
+  {
+    "id": 99,
+    "name": "St. Pölten",
+    "similarity": 0.527015607673189
+  },
+  {
+    "id": 55,
+    "name": "Leeds",
+    "similarity": 0.5268888555319203
+  },
+  {
+    "id": 179,
+    "name": "Toluca",
+    "similarity": 0.5264789209712963
+  },
+  {
+    "id": 95,
+    "name": "Innsbruck",
+    "similarity": 0.5261543998933504
+  },
+  {
+    "id": 59,
+    "name": "Glasgow",
+    "similarity": 0.5254803093348147
+  },
+  {
+    "id": 25,
+    "name": "Palermo",
+    "similarity": 0.525391197384494
+  },
+  {
+    "id": 195,
+    "name": "La Plata",
+    "similarity": 0.5247657077516338
+  },
+  {
+    "id": 98,
+    "name": "Wels",
+    "similarity": 0.5233768963829277
+  },
+  {
+    "id": 174,
+    "name": "Puebla",
+    "similarity": 0.5228647673236252
+  },
+  {
+    "id": 42,
+    "name": "Porto",
+    "similarity": 0.5228557464340393
+  },
+  {
+    "id": 154,
+    "name": "Houston",
+    "similarity": 0.5226058524843031
+  },
+  {
+    "id": 158,
+    "name": "San Francisco",
+    "similarity": 0.5224114676555679
+  },
+  {
+    "id": 71,
+    "name": "Brussels",
+    "similarity": 0.5217319809138556
+  },
+  {
+    "id": 118,
+    "name": "Adana",
+    "similarity": 0.5213794391646337
+  },
+  {
+    "id": 78,
+    "name": "Mons",
+    "similarity": 0.5213095081126625
+  },
+  {
+    "id": 81,
+    "name": "Zurich",
+    "similarity": 0.5212728814594781
+  },
+  {
+    "id": 93,
+    "name": "Linz",
+    "similarity": 0.520413591782942
+  },
+  {
+    "id": 173,
+    "name": "Monterrey",
+    "similarity": 0.5203933349606107
+  },
+  {
+    "id": 7,
+    "name": "Montpellier",
+    "similarity": 0.5203877973054689
+  },
+  {
+    "id": 16,
+    "name": "Malaga",
+    "similarity": 0.5201439160963595
+  },
+  {
+    "id": 43,
+    "name": "Coimbra",
+    "similarity": 0.5196546825296857
+  },
+  {
+    "id": 131,
+    "name": "Tunis",
+    "similarity": 0.5194470371278772
+  },
+  {
+    "id": 108,
+    "name": "Ioannina",
+    "similarity": 0.5194444955798924
   },
   {
     "id": 61,
     "name": "Amsterdam",
-    "similarity": 0.6321412834410535
+    "similarity": 0.5188598309273754
   },
   {
-    "id": 60,
-    "name": "Edinburgh",
-    "similarity": 0.6281359687552592
+    "id": 91,
+    "name": "Vienna",
+    "similarity": 0.5185716093605468
   },
   {
-    "id": 135,
-    "name": "Bizerte",
-    "similarity": 0.6274918781294625
+    "id": 117,
+    "name": "Gaziantep",
+    "similarity": 0.518383706828111
   },
   {
-    "id": 132,
-    "name": "Sfax",
-    "similarity": 0.5990903245629663
+    "id": 116,
+    "name": "Konya",
+    "similarity": 0.5183019648611938
   },
   {
-    "id": 191,
-    "name": "Buenos Aires",
-    "similarity": 0.5873896159149189
+    "id": 92,
+    "name": "Graz",
+    "similarity": 0.5177031556001858
+  },
+  {
+    "id": 193,
+    "name": "Rosario",
+    "similarity": 0.515142861566466
+  },
+  {
+    "id": 126,
+    "name": "Agadir",
+    "similarity": 0.5141179927694501
+  },
+  {
+    "id": 138,
+    "name": "Tozeur",
+    "similarity": 0.513414368456028
+  },
+  {
+    "id": 15,
+    "name": "Bilbao",
+    "similarity": 0.5129119646163537
+  },
+  {
+    "id": 28,
+    "name": "Florence",
+    "similarity": 0.5119162292598639
+  },
+  {
+    "id": 51,
+    "name": "London",
+    "similarity": 0.5116641037680445
+  },
+  {
+    "id": 41,
+    "name": "Lisbon",
+    "similarity": 0.511191408841799
+  },
+  {
+    "id": 44,
+    "name": "Braga",
+    "similarity": 0.5106197175341937
+  },
+  {
+    "id": 146,
+    "name": "Hurghada",
+    "similarity": 0.5105762567330218
+  },
+  {
+    "id": 65,
+    "name": "Eindhoven",
+    "similarity": 0.510215510540705
+  },
+  {
+    "id": 159,
+    "name": "Boston",
+    "similarity": 0.5100873652964858
+  },
+  {
+    "id": 72,
+    "name": "Antwerp",
+    "similarity": 0.5099788968310407
+  },
+  {
+    "id": 97,
+    "name": "Villach",
+    "similarity": 0.5093527389596408
+  },
+  {
+    "id": 140,
+    "name": "Douz",
+    "similarity": 0.5092710356582603
+  },
+  {
+    "id": 74,
+    "name": "Bruges",
+    "similarity": 0.5092526280822313
+  },
+  {
+    "id": 21,
+    "name": "Rome",
+    "similarity": 0.5091033675326552
+  },
+  {
+    "id": 112,
+    "name": "Ankara",
+    "similarity": 0.5087281099824502
+  },
+  {
+    "id": 14,
+    "name": "Seville",
+    "similarity": 0.507446753809359
+  },
+  {
+    "id": 176,
+    "name": "Tijuana",
+    "similarity": 0.5064362071332854
+  },
+  {
+    "id": 75,
+    "name": "Leuven",
+    "similarity": 0.5056060828010024
+  },
+  {
+    "id": 67,
+    "name": "Groningen",
+    "similarity": 0.5052611596132515
+  },
+  {
+    "id": 148,
+    "name": "Port Said",
+    "similarity": 0.5048619289071631
+  },
+  {
+    "id": 39,
+    "name": "Dortmund",
+    "similarity": 0.5043206948731519
+  },
+  {
+    "id": 29,
+    "name": "Venice",
+    "similarity": 0.5040620862854458
+  },
+  {
+    "id": 62,
+    "name": "Rotterdam",
+    "similarity": 0.5035864733305921
+  },
+  {
+    "id": 129,
+    "name": "Tetouan",
+    "similarity": 0.5032880598625107
+  },
+  {
+    "id": 20,
+    "name": "Alicante",
+    "similarity": 0.5025482401440766
+  },
+  {
+    "id": 22,
+    "name": "Milan",
+    "similarity": 0.502475611042632
+  },
+  {
+    "id": 70,
+    "name": "Arnhem",
+    "similarity": 0.5016332370080141
+  },
+  {
+    "id": 182,
+    "name": "Rio de Janeiro",
+    "similarity": 0.50157915595497
+  },
+  {
+    "id": 9,
+    "name": "Strasbourg",
+    "similarity": 0.5015486099814677
+  },
+  {
+    "id": 139,
+    "name": "Hammamet",
+    "similarity": 0.501473395882882
+  },
+  {
+    "id": 175,
+    "name": "Cancun",
+    "similarity": 0.5005784183643847
+  },
+  {
+    "id": 17,
+    "name": "Zaragoza",
+    "similarity": 0.5005019041270836
+  },
+  {
+    "id": 31,
+    "name": "Berlin",
+    "similarity": 0.4968143892517839
+  },
+  {
+    "id": 133,
+    "name": "Sousse",
+    "similarity": 0.4954777451328188
+  },
+  {
+    "id": 47,
+    "name": "Guimaraes",
+    "similarity": 0.49512445489184453
+  },
+  {
+    "id": 50,
+    "name": "Viseu",
+    "similarity": 0.4937095618898768
+  },
+  {
+    "id": 147,
+    "name": "Sharm El Sheikh",
+    "similarity": 0.49346786003389986
+  },
+  {
+    "id": 23,
+    "name": "Naples",
+    "similarity": 0.49248145387845327
+  },
+  {
+    "id": 85,
+    "name": "Lausanne",
+    "similarity": 0.49166586227217013
+  },
+  {
+    "id": 1,
+    "name": "Paris",
+    "similarity": 0.4914745592338723
+  },
+  {
+    "id": 155,
+    "name": "Phoenix",
+    "similarity": 0.49131791698369426
   },
   {
     "id": 181,
     "name": "São Paulo",
-    "similarity": 0.5868379460701643
+    "similarity": 0.49125723539594573
   },
   {
-    "id": 111,
-    "name": "Istanbul",
-    "similarity": 0.574493059058186
+    "id": 12,
+    "name": "Barcelona",
+    "similarity": 0.4908895107800646
+  },
+  {
+    "id": 190,
+    "name": "Porto Alegre",
+    "similarity": 0.4905674393076991
+  },
+  {
+    "id": 18,
+    "name": "Granada",
+    "similarity": 0.48921547263738424
+  },
+  {
+    "id": 10,
+    "name": "Lille",
+    "similarity": 0.48787532470818157
+  },
+  {
+    "id": 144,
+    "name": "Luxor",
+    "similarity": 0.48640774084644756
+  },
+  {
+    "id": 6,
+    "name": "Nantes",
+    "similarity": 0.4857866872677594
+  },
+  {
+    "id": 38,
+    "name": "Leipzig",
+    "similarity": 0.4827020956348705
+  },
+  {
+    "id": 128,
+    "name": "Oujda",
+    "similarity": 0.48140990352745894
+  },
+  {
+    "id": 150,
+    "name": "Tanta",
+    "similarity": 0.4813817652440696
+  },
+  {
+    "id": 189,
+    "name": "Belem",
+    "similarity": 0.4783554513230999
+  },
+  {
+    "id": 32,
+    "name": "Munich",
+    "similarity": 0.4780917422214762
+  },
+  {
+    "id": 30,
+    "name": "Verona",
+    "similarity": 0.4754449876824451
+  },
+  {
+    "id": 11,
+    "name": "Madrid",
+    "similarity": 0.4749086692537943
+  },
+  {
+    "id": 36,
+    "name": "Stuttgart",
+    "similarity": 0.4746329982247837
+  },
+  {
+    "id": 49,
+    "name": "Setubal",
+    "similarity": 0.47162254459982994
+  },
+  {
+    "id": 77,
+    "name": "Namur",
+    "similarity": 0.4707393874936098
+  },
+  {
+    "id": 60,
+    "name": "Edinburgh",
+    "similarity": 0.47039452959293937
+  },
+  {
+    "id": 19,
+    "name": "Cordoba",
+    "similarity": 0.46956782387180446
+  },
+  {
+    "id": 46,
+    "name": "Aveiro",
+    "similarity": 0.4638717874920774
+  },
+  {
+    "id": 191,
+    "name": "Buenos Aires",
+    "similarity": 0.4637724148391321
   },
   {
     "id": 63,
     "name": "The Hague",
-    "similarity": 0.5718972726182409
+    "similarity": 0.4610456855284592
+  },
+  {
+    "id": 101,
+    "name": "Athens",
+    "similarity": 0.45958990766789476
+  },
+  {
+    "id": 111,
+    "name": "Istanbul",
+    "similarity": 0.4592206674446837
   },
   {
     "id": 145,
     "name": "Aswan",
-    "similarity": 0.570660397241979
+    "similarity": 0.45471084681970436
+  },
+  {
+    "id": 88,
+    "name": "Lugano",
+    "similarity": 0.451207092187924
+  },
+  {
+    "id": 66,
+    "name": "Tilburg",
+    "similarity": 0.4479363384675632
+  },
+  {
+    "id": 26,
+    "name": "Genoa",
+    "similarity": 0.42917102043543515
+  },
+  {
+    "id": 151,
+    "name": "New York",
+    "similarity": 0.4023073648117348
+  },
+  {
+    "id": 135,
+    "name": "Bizerte",
+    "similarity": 0.40055825324867017
+  },
+  {
+    "id": 132,
+    "name": "Sfax",
+    "similarity": 0.29640122714471945
   },
   {
     "id": 199,
     "name": "San Juan",
-    "similarity": 0.5577031497518737
+    "similarity": 0.25738314570073423
   },
   {
     "id": 137,
     "name": "Nabeul",
-    "similarity": 0.1454155773412374
+    "similarity": -0.022015184038475927
   }
 ]

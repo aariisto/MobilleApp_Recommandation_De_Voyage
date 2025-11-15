@@ -120,27 +120,58 @@ def save_embeddings_to_json(cities: List[Dict[str, Any]], filename: str = "citie
         raise
 
 
-def get_user_embedding(text: str) -> List[float]:
+def get_user_embedding(likes_text: str, dislikes_text: str = "") -> List[float]:
     """
-    Génère un embedding pour un texte utilisateur en utilisant le modèle MiniLM.
+    Génère un embedding pour un utilisateur en tenant compte de ses préférences (likes) et aversions (dislikes).
+    
+    La logique fonctionne ainsi :
+    - On calcule un vecteur pour ce que l'utilisateur AIME
+    - On calcule un vecteur pour ce que l'utilisateur N'AIME PAS
+    - Le vecteur final = embedding_likes - embedding_dislikes
+    
+    Cela permet de "repousser" les résultats qui contiendraient les dislikes.
+    
+    Exemple :
+        - likes_text = "plage restaurant"
+        - dislikes_text = "montagne froid"
+        - final = embedding(plage restaurant) - embedding(montagne froid)
+        → Le système recommandera des destinations avec plage/restaurant
+          ET évitera montagne/froid
     
     Args:
-        text: Le texte à encoder (ex: "plage restaurant shopping")
+        likes_text: Le texte représentant ce que l'utilisateur AIME (obligatoire)
+                   (ex: "plage restaurant shopping")
+        dislikes_text: Le texte représentant ce que l'utilisateur N'AIME PAS (optionnel)
+                      (ex: "montagne froid humidité")
     
     Returns:
-        Une liste de floats représentant le vecteur d'embedding
+        Une liste de floats représentant le vecteur d'embedding final (likes - dislikes)
     """
     try:
         logger.info("Chargement du modèle sentence-transformers...")
         # Chargement du modèle "all-MiniLM-L6-v2"
         model = SentenceTransformer('all-MiniLM-L6-v2')
         
-        # Génération de l'embedding
-        logger.info(f"Génération de l'embedding pour: '{text}'")
-        embedding = model.encode(text)
+        # Génération de l'embedding pour les préférences (likes)
+        logger.info(f"Génération de l'embedding pour les préférences (likes): '{likes_text}'")
+        embedding_likes = model.encode(likes_text)
+        
+        # Si dislikes_text est fourni, générer son embedding
+        if dislikes_text and dislikes_text.strip():
+            logger.info(f"Génération de l'embedding pour les aversions (dislikes): '{dislikes_text}'")
+            embedding_dislikes = model.encode(dislikes_text)
+            
+            # Calcul du vecteur final : likes - dislikes
+            # Cette soustraction "repousse" les résultats qui correspondent aux dislikes
+            embedding_final = embedding_likes - embedding_dislikes
+            logger.info("Calcul du vecteur final : embedding_likes - embedding_dislikes")
+        else:
+            # Si pas de dislikes, on utilise juste le embedding des likes
+            logger.info("Pas de dislikes fourni, utilisation directe de l'embedding des likes")
+            embedding_final = embedding_likes
         
         # Conversion en liste Python
-        return embedding.tolist()
+        return embedding_final.tolist()
     
     except Exception as e:
         logger.error(f"Erreur lors de la génération de l'embedding utilisateur: {e}")
@@ -218,13 +249,14 @@ def load_embeddings_from_json(filename: str = "cities_embeddings.json") -> List[
         raise
 
 
-def rank_cities_by_similarity(user_text: str, cities: List[Dict[str, Any]], output_filename: str = "ranked_cities.json") -> List[Dict[str, Any]]:
+def rank_cities_by_similarity(user_text: str, cities: List[Dict[str, Any]], dislikes_text: str = "", output_filename: str = "ranked_cities.json") -> List[Dict[str, Any]]:
     """
-    Classe les villes par similarité avec le texte utilisateur.
+    Classe les villes par similarité avec le texte utilisateur (likes et dislikes).
     
     Args:
         user_text: Texte utilisateur (ex: "plage restaurant shopping")
         cities: Liste des villes avec leurs embeddings
+        dislikes_text: Texte des préférences à ÉVITER (optionnel)
         output_filename: Nom du fichier de sortie pour les résultats
     
     Returns:
@@ -233,8 +265,8 @@ def rank_cities_by_similarity(user_text: str, cities: List[Dict[str, Any]], outp
     try:
         logger.info(f"Calcul de la similarité pour: '{user_text}'")
         
-        # Génération de l'embedding utilisateur
-        user_embedding = get_user_embedding(user_text)
+        # Génération de l'embedding utilisateur (avec likes et optionnellement dislikes)
+        user_embedding = get_user_embedding(user_text, dislikes_text)
         logger.info(f"✓ Embedding utilisateur généré (dimension: {len(user_embedding)})")
         
         # Calcul de la similarité pour chaque ville
@@ -277,26 +309,6 @@ def rank_cities_by_similarity(user_text: str, cities: List[Dict[str, Any]], outp
 
 # Exemple d'utilisation
 if __name__ == "__main__":
-    # Test de get_user_embedding
-    print("=" * 60)
-    print("TEST: get_user_embedding()")
-    print("=" * 60)
-    
-    try:
-        user_text = "plage restaurant shopping musée"
-        print(f"Texte utilisateur: '{user_text}'")
-        
-        user_embedding = get_user_embedding(user_text)
-        print(f"✓ Embedding généré avec succès")
-        print(f"  Dimension: {len(user_embedding)}")
-        print(f"  Premiers éléments: {user_embedding[:5]}")
-        
-    except Exception as e:
-        print(f"Erreur: {e}")
-    
-    print("\n" + "=" * 60)
-    print("TEST: rank_cities_by_similarity()")
-    print("=" * 60)
     
     try:
         # Chargement des embeddings depuis le fichier JSON
@@ -304,8 +316,9 @@ if __name__ == "__main__":
         print(f"✓ {len(cities)} villes chargées")
         
         # Classement des villes par similarité
-        user_text = "catering.restaurant accommodation catering.cafe wheelchair.limited catering no_fee.no internet_access.free wheelchair building catering.cafe.ice_cream catering.cafe.coffee_shop catering.bar catering.ice_cream catering.restaurant.pizza internet_access entertainment.museum accommodation.hotel catering.restaurant.sushi building.accommodation no_fee building.commercial catering.cafe.coffee commercial.shopping_mall wheelchair.yes internet_access.for_customers commercial building.tourism catering.restaurant.argentinian entertainment building.catering"
-        ranked_cities = rank_cities_by_similarity(user_text, cities)
+        dislikes_text = "adult"
+        user_text = "accommodation.hotel activity.sport_club building.tourism catering.restaurant.arab halal tourism.sights.archaeological_site vegan vegetarian beach catering no_fee.no internet_access.free wheelchair building catering.cafe.ice_cream catering.cafe.coffee_shop catering.bar catering.ice_cream catering.restaurant.pizza internet_access entertainment.museum accommodation.hotel catering.restaurant.sushi building.accommodation no_fee building.commercial catering.cafe.coffee commercial.shopping_mall wheelchair.yes internet_access.for_customers commercial building.tourism catering.restaurant.argentinian entertainment building.catering"
+        ranked_cities = rank_cities_by_similarity(user_text, cities,dislikes_text)
         
         # Affichage des top 10
         print(f"\nTop 10 villes les plus similaires à '{user_text}':")

@@ -250,7 +250,3 @@ pip install psycopg2-binary sentence-transformers numpy
 - **Filtrage** : Ajouter des critères (budget, climat, distance)
 - **Poids personnalisés** : Donner plus d'importance à certaines catégories
 - **Clustering** : Grouper les villes similaires
-
----
-
-**Créé pour le projet SAE BUT3 - Application de Recommandation de Voyages** 🌍✈️
