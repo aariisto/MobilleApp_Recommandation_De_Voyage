@@ -10,6 +10,8 @@ CREATE TABLE cities (
   lon DOUBLE PRECISION NOT NULL,
   country_id INT REFERENCES countries(id) ON DELETE CASCADE
 );
+ALTER TABLE cities ADD COLUMN embedding float8[];
+
 
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY,
