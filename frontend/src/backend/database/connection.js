@@ -3,12 +3,63 @@
  * Utilise expo-sqlite pour la compatibilité React Native
  */
 
-import * as SQLite from 'expo-sqlite';
+import * as SQLite from "expo-sqlite";
+import * as FileSystem from "expo-file-system/legacy";
+import { Asset } from "expo-asset";
 
 class DatabaseConnection {
   constructor() {
     this.db = null;
-    this.dbName = 'travel.db';
+    this.dbName = "travel.db";
+    this.isInitialized = false;
+  }
+
+  /**
+   * Copie la base de données depuis les assets vers le dossier SQLite
+   * @returns {Promise<void>}
+   */
+  async copyDatabaseFromAssets() {
+    if (this.isInitialized) {
+      return;
+    }
+
+    const dbPath = `${FileSystem.documentDirectory}SQLite/${this.dbName}`;
+    const dbDir = `${FileSystem.documentDirectory}SQLite`;
+
+    try {
+      // Créer le dossier SQLite s'il n'existe pas
+      const dirInfo = await FileSystem.getInfoAsync(dbDir);
+      if (!dirInfo.exists) {
+        console.log("📁 Creating SQLite directory...");
+        await FileSystem.makeDirectoryAsync(dbDir, { intermediates: true });
+      }
+
+      // Supprimer la base existante si elle existe (pour forcer la recopie)
+      const fileInfo = await FileSystem.getInfoAsync(dbPath);
+      if (fileInfo.exists) {
+        console.log("🗑️ Deleting existing database to force fresh copy...");
+        await FileSystem.deleteAsync(dbPath);
+      }
+
+      console.log("📦 Copying database from assets...");
+
+      // Charger l'asset depuis le dossier assets
+      const asset = Asset.fromModule(require("../../../assets/travel.db"));
+      await asset.downloadAsync();
+
+      // Copier vers le dossier SQLite
+      await FileSystem.copyAsync({
+        from: asset.localUri,
+        to: dbPath,
+      });
+
+      console.log("✅ Database copied successfully from assets");
+
+      this.isInitialized = true;
+    } catch (error) {
+      console.error("❌ Error copying database:", error);
+      throw error;
+    }
   }
 
   /**
@@ -21,11 +72,14 @@ class DatabaseConnection {
     }
 
     try {
+      // Copier la base de données depuis les assets avant de l'ouvrir
+      await this.copyDatabaseFromAssets();
+
       this.db = await SQLite.openDatabaseAsync(this.dbName);
-      console.log('✅ Database opened successfully');
+      console.log("✅ Database opened successfully");
       return this.db;
     } catch (error) {
-      console.error('❌ Error opening database:', error);
+      console.error("❌ Error opening database:", error);
       throw error;
     }
   }
@@ -38,10 +92,10 @@ class DatabaseConnection {
    */
   async executeSql(sql, params = []) {
     const db = await this.openDatabase();
-    
+
     try {
       // Pour les requêtes SELECT
-      if (sql.trim().toUpperCase().startsWith('SELECT')) {
+      if (sql.trim().toUpperCase().startsWith("SELECT")) {
         const rows = await db.getAllAsync(sql, params);
         return { rows: { _array: rows } }; // Format compatible avec ancienne API
       }
@@ -49,7 +103,7 @@ class DatabaseConnection {
       const result = await db.runAsync(sql, params);
       return result;
     } catch (error) {
-      console.error('SQL Error:', error);
+      console.error("SQL Error:", error);
       throw error;
     }
   }
@@ -61,7 +115,7 @@ class DatabaseConnection {
    */
   async executeTransaction(queries) {
     const db = await this.openDatabase();
-    
+
     try {
       const results = [];
       await db.withTransactionAsync(async () => {
@@ -73,7 +127,7 @@ class DatabaseConnection {
       });
       return results;
     } catch (error) {
-      console.error('Transaction Error:', error);
+      console.error("Transaction Error:", error);
       throw error;
     }
   }
@@ -85,7 +139,7 @@ class DatabaseConnection {
     if (this.db) {
       await this.db.closeAsync();
       this.db = null;
-      console.log('✅ Database connection closed');
+      console.log("✅ Database connection closed");
     }
   }
 

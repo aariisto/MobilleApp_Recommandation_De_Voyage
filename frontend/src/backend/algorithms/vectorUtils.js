@@ -1,185 +1,79 @@
 /**
- * Utilitaires pour la manipulation de vecteurs
- * Conversion BLOB <-> Array et opérations vectorielles
+ * Convertit un BLOB SQLite en array de nombres (vecteur)
+ * @param {Uint8Array|ArrayBuffer} blob - Les données BLOB du vecteur
+ * @returns {number[]} - Le vecteur sous forme d'array
  */
+export function blobToVector(blob) {
+  if (!blob) return [];
 
-/**
- * Convertit un BLOB SQLite en tableau de nombres (Float64Array)
- * @param {Uint8Array} blob - BLOB depuis SQLite
- * @returns {Float64Array}
- */
-export const blobToVector = (blob) => {
-  if (!blob) return null;
-  
-  try {
-    // Convertir Uint8Array en Float64Array
-    const buffer = blob.buffer || blob;
-    const float64Array = new Float64Array(buffer);
-    return float64Array;
-  } catch (error) {
-    console.error('Error converting blob to vector:', error);
-    return null;
+  // Convertir en Uint8Array si nécessaire
+  const uint8Array = blob instanceof Uint8Array ? blob : new Uint8Array(blob);
+
+  // Créer un DataView pour lire les float64
+  const dataView = new DataView(
+    uint8Array.buffer,
+    uint8Array.byteOffset,
+    uint8Array.byteLength
+  );
+
+  // Lire les valeurs float64 (8 octets chacun)
+  const vector = [];
+  for (let i = 0; i < uint8Array.length; i += 8) {
+    vector.push(dataView.getFloat64(i, true)); // true = little-endian
   }
-};
+
+  return vector;
+}
 
 /**
- * Convertit un tableau de nombres en BLOB pour SQLite
- * @param {Array<number>|Float64Array} vector - Vecteur à convertir
- * @returns {Uint8Array}
+ * Convertit un array de nombres en BLOB SQLite
+ * @param {number[]} vector - Le vecteur sous forme d'array
+ * @returns {Uint8Array} - Les données BLOB
  */
-export const vectorToBlob = (vector) => {
-  if (!vector || vector.length === 0) return null;
-  
-  try {
-    // Créer un Float64Array si ce n'est pas déjà le cas
-    const float64Array = vector instanceof Float64Array 
-      ? vector 
-      : new Float64Array(vector);
-    
-    // Convertir en Uint8Array (BLOB)
-    const uint8Array = new Uint8Array(float64Array.buffer);
-    return uint8Array;
-  } catch (error) {
-    console.error('Error converting vector to blob:', error);
-    return null;
+export function vectorToBlob(vector) {
+  if (!Array.isArray(vector) || vector.length === 0) {
+    return new Uint8Array(0);
   }
-};
 
-/**
- * Normalise un vecteur (norme L2 = 1)
- * @param {Array<number>|Float64Array} vector
- * @returns {Float64Array}
- */
-export const normalizeVector = (vector) => {
-  if (!vector || vector.length === 0) return null;
-  
-  const norm = Math.sqrt(vector.reduce((sum, val) => sum + val * val, 0));
-  
-  if (norm === 0) return new Float64Array(vector.length);
-  
-  return new Float64Array(vector.map(val => val / norm));
-};
+  // Créer un ArrayBuffer pour 8 octets par nombre (float64)
+  const buffer = new ArrayBuffer(vector.length * 8);
+  const dataView = new DataView(buffer);
 
-/**
- * Calcule la magnitude (norme) d'un vecteur
- * @param {Array<number>|Float64Array} vector
- * @returns {number}
- */
-export const vectorMagnitude = (vector) => {
-  if (!vector || vector.length === 0) return 0;
-  return Math.sqrt(vector.reduce((sum, val) => sum + val * val, 0));
-};
-
-/**
- * Additionne deux vecteurs
- * @param {Array<number>|Float64Array} v1
- * @param {Array<number>|Float64Array} v2
- * @returns {Float64Array}
- */
-export const addVectors = (v1, v2) => {
-  if (!v1 || !v2 || v1.length !== v2.length) {
-    throw new Error('Vectors must have the same length');
+  // Écrire chaque nombre en float64 (little-endian)
+  for (let i = 0; i < vector.length; i++) {
+    dataView.setFloat64(i * 8, vector[i], true); // true = little-endian
   }
-  
-  return new Float64Array(v1.map((val, i) => val + v2[i]));
-};
+
+  return new Uint8Array(buffer);
+}
 
 /**
- * Soustrait deux vecteurs (v1 - v2)
- * @param {Array<number>|Float64Array} v1
- * @param {Array<number>|Float64Array} v2
- * @returns {Float64Array}
+ * Calcule la similitude cosinus entre deux vecteurs
+ * @param {number[]} vec1 - Premier vecteur
+ * @param {number[]} vec2 - Deuxième vecteur
+ * @returns {number} - Similitude cosinus (0-1)
  */
-export const subtractVectors = (v1, v2) => {
-  if (!v1 || !v2 || v1.length !== v2.length) {
-    throw new Error('Vectors must have the same length');
+export function cosineSimilarity(vec1, vec2) {
+  if (!vec1 || !vec2 || vec1.length !== vec2.length || vec1.length === 0) {
+    return 0;
   }
-  
-  return new Float64Array(v1.map((val, i) => val - v2[i]));
-};
 
-/**
- * Multiplie un vecteur par un scalaire
- * @param {Array<number>|Float64Array} vector
- * @param {number} scalar
- * @returns {Float64Array}
- */
-export const scaleVector = (vector, scalar) => {
-  if (!vector) return null;
-  return new Float64Array(vector.map(val => val * scalar));
-};
+  let dotProduct = 0;
+  let norm1 = 0;
+  let norm2 = 0;
 
-/**
- * Produit scalaire (dot product) de deux vecteurs
- * @param {Array<number>|Float64Array} v1
- * @param {Array<number>|Float64Array} v2
- * @returns {number}
- */
-export const dotProduct = (v1, v2) => {
-  if (!v1 || !v2 || v1.length !== v2.length) {
-    throw new Error('Vectors must have the same length');
+  for (let i = 0; i < vec1.length; i++) {
+    dotProduct += vec1[i] * vec2[i];
+    norm1 += vec1[i] * vec1[i];
+    norm2 += vec2[i] * vec2[i];
   }
-  
-  return v1.reduce((sum, val, i) => sum + val * v2[i], 0);
-};
 
-/**
- * Moyenne de plusieurs vecteurs
- * @param {Array<Array<number>|Float64Array>} vectors
- * @returns {Float64Array}
- */
-export const averageVectors = (vectors) => {
-  if (!vectors || vectors.length === 0) return null;
-  
-  const length = vectors[0].length;
-  const sum = new Float64Array(length);
-  
-  vectors.forEach(vector => {
-    if (vector.length !== length) {
-      throw new Error('All vectors must have the same length');
-    }
-    vector.forEach((val, i) => {
-      sum[i] += val;
-    });
-  });
-  
-  return new Float64Array(sum.map(val => val / vectors.length));
-};
+  norm1 = Math.sqrt(norm1);
+  norm2 = Math.sqrt(norm2);
 
-/**
- * Vérifie si un vecteur est normalisé (norme ≈ 1)
- * @param {Array<number>|Float64Array} vector
- * @param {number} epsilon - Tolérance (défaut: 0.001)
- * @returns {boolean}
- */
-export const isNormalized = (vector, epsilon = 0.001) => {
-  if (!vector || vector.length === 0) return false;
-  const magnitude = vectorMagnitude(vector);
-  return Math.abs(magnitude - 1.0) < epsilon;
-};
-
-/**
- * Crée un vecteur zéro de dimension donnée
- * @param {number} dimension
- * @returns {Float64Array}
- */
-export const zeroVector = (dimension) => {
-  return new Float64Array(dimension);
-};
-
-/**
- * Crée un vecteur aléatoire normalisé
- * @param {number} dimension
- * @returns {Float64Array}
- */
-export const randomNormalizedVector = (dimension) => {
-  const vector = new Float64Array(dimension);
-  
-  // Générer des valeurs aléatoires
-  for (let i = 0; i < dimension; i++) {
-    vector[i] = Math.random() * 2 - 1; // Valeurs entre -1 et 1
+  if (norm1 === 0 || norm2 === 0) {
+    return 0;
   }
-  
-  // Normaliser
-  return normalizeVector(vector);
-};
+
+  return dotProduct / (norm1 * norm2);
+}

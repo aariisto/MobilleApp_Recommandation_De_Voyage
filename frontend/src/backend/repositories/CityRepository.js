@@ -3,8 +3,8 @@
  * Accès aux données de la table cities
  */
 
-import dbConnection from '../database/connection';
-import { blobToVector, vectorToBlob } from '../algorithms/vectorUtils';
+import dbConnection from "../database/connection";
+import { blobToVector, vectorToBlob } from "../algorithms/vectorUtils";
 
 class CityRepository {
   /**
@@ -14,12 +14,12 @@ class CityRepository {
   async getAllCities() {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT id, name, lat, lon, country_id FROM cities;',
+        "SELECT id, name, lat, lon, country_id FROM cities;",
         []
       );
       return result.rows._array;
     } catch (error) {
-      console.error('Error fetching cities:', error);
+      console.error("Error fetching cities:", error);
       throw error;
     }
   }
@@ -32,12 +32,12 @@ class CityRepository {
   async getCityById(cityId) {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT id, name, lat, lon, country_id FROM cities WHERE id = ?;',
+        "SELECT id, name, lat, lon, country_id FROM cities WHERE id = ?;",
         [cityId]
       );
       return result.rows._array[0] || null;
     } catch (error) {
-      console.error('Error fetching city by ID:', error);
+      console.error("Error fetching city by ID:", error);
       throw error;
     }
   }
@@ -50,22 +50,22 @@ class CityRepository {
   async getCityWithEmbedding(cityId) {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT id, name, lat, lon, country_id, embedding FROM cities WHERE id = ?;',
+        "SELECT id, name, lat, lon, country_id, embedding FROM cities WHERE id = ?;",
         [cityId]
       );
-      
+
       if (result.rows._array.length === 0) return null;
-      
+
       const city = result.rows._array[0];
-      
+
       // Convertir le BLOB en vecteur si présent
       if (city.embedding) {
         city.embeddingVector = blobToVector(city.embedding);
       }
-      
+
       return city;
     } catch (error) {
-      console.error('Error fetching city with embedding:', error);
+      console.error("Error fetching city with embedding:", error);
       throw error;
     }
   }
@@ -78,12 +78,12 @@ class CityRepository {
   async getCitiesByCountry(countryId) {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT id, name, lat, lon, country_id FROM cities WHERE country_id = ?;',
+        "SELECT id, name, lat, lon, country_id FROM cities WHERE country_id = ?;",
         [countryId]
       );
       return result.rows._array;
     } catch (error) {
-      console.error('Error fetching cities by country:', error);
+      console.error("Error fetching cities by country:", error);
       throw error;
     }
   }
@@ -96,12 +96,12 @@ class CityRepository {
   async searchCitiesByName(searchTerm) {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT id, name, lat, lon, country_id FROM cities WHERE name LIKE ? ORDER BY name;',
+        "SELECT id, name, lat, lon, country_id FROM cities WHERE name LIKE ? ORDER BY name;",
         [`%${searchTerm}%`]
       );
       return result.rows._array;
     } catch (error) {
-      console.error('Error searching cities:', error);
+      console.error("Error searching cities:", error);
       throw error;
     }
   }
@@ -113,16 +113,57 @@ class CityRepository {
   async getAllCitiesWithEmbeddings() {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT id, name, lat, lon, country_id, embedding FROM cities WHERE embedding IS NOT NULL;',
+        "SELECT id, name, lat, lon, country_id, embedding FROM cities WHERE embedding IS NOT NULL;",
         []
       );
-      
-      return result.rows._array.map(city => ({
+
+      return result.rows._array.map((city) => ({
         ...city,
-        embeddingVector: city.embedding ? blobToVector(city.embedding) : null
+        embeddingVector: city.embedding ? blobToVector(city.embedding) : null,
       }));
     } catch (error) {
-      console.error('Error fetching cities with embeddings:', error);
+      console.error("Error fetching cities with embeddings:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Récupère TOUS les embeddings des villes au format JSON simple
+   * Format de sortie : [{id, name, embedding}, ...]
+   * @returns {Promise<Array>}
+   */
+  async getAllCityEmbeddings() {
+    try {
+      console.log("🔍 Checking total cities in database...");
+      const countResult = await dbConnection.executeSql(
+        "SELECT COUNT(*) as count FROM cities",
+        []
+      );
+      console.log(
+        `📊 Total cities in table: ${countResult.rows._array[0].count}`
+      );
+
+      console.log(
+        "🔍 Executing query: SELECT id, name, embedding FROM cities WHERE embedding IS NOT NULL ORDER BY id;"
+      );
+
+      const result = await dbConnection.executeSql(
+        "SELECT id, name, embedding FROM cities WHERE embedding IS NOT NULL ORDER BY id;",
+        []
+      );
+
+      console.log(
+        `📦 Query returned ${result.rows._array.length} rows with embeddings`
+      );
+
+      // Convertir les BLOBs en vecteurs et retourner format simple
+      return result.rows._array.map((city) => ({
+        id: city.id,
+        name: city.name,
+        embedding: city.embedding ? blobToVector(city.embedding) : [],
+      }));
+    } catch (error) {
+      console.error("Error fetching all city embeddings:", error);
       throw error;
     }
   }
@@ -136,15 +177,15 @@ class CityRepository {
     try {
       const { name, lat, lon, country_id, embedding } = cityData;
       const embeddingBlob = embedding ? vectorToBlob(embedding) : null;
-      
+
       const result = await dbConnection.executeSql(
-        'INSERT INTO cities (name, lat, lon, country_id, embedding) VALUES (?, ?, ?, ?, ?);',
+        "INSERT INTO cities (name, lat, lon, country_id, embedding) VALUES (?, ?, ?, ?, ?);",
         [name, lat, lon, country_id, embeddingBlob]
       );
-      
+
       return result.insertId;
     } catch (error) {
-      console.error('Error inserting city:', error);
+      console.error("Error inserting city:", error);
       throw error;
     }
   }
@@ -158,15 +199,15 @@ class CityRepository {
     try {
       const { id, name, lat, lon, country_id, embedding } = cityData;
       const embeddingBlob = embedding ? vectorToBlob(embedding) : null;
-      
+
       const result = await dbConnection.executeSql(
-        'INSERT INTO cities (id, name, lat, lon, country_id, embedding) VALUES (?, ?, ?, ?, ?, ?);',
+        "INSERT INTO cities (id, name, lat, lon, country_id, embedding) VALUES (?, ?, ?, ?, ?, ?);",
         [id, name, lat, lon, country_id, embeddingBlob]
       );
-      
+
       return result.lastInsertRowid || id;
     } catch (error) {
-      console.error('Error creating city:', error);
+      console.error("Error creating city:", error);
       throw error;
     }
   }
@@ -181,15 +222,15 @@ class CityRepository {
     try {
       const { name, lat, lon, country_id, embedding } = cityData;
       const embeddingBlob = embedding ? vectorToBlob(embedding) : null;
-      
+
       await dbConnection.executeSql(
-        'UPDATE cities SET name = ?, lat = ?, lon = ?, country_id = ?, embedding = ? WHERE id = ?;',
+        "UPDATE cities SET name = ?, lat = ?, lon = ?, country_id = ?, embedding = ? WHERE id = ?;",
         [name, lat, lon, country_id, embeddingBlob, cityId]
       );
-      
+
       return true;
     } catch (error) {
-      console.error('Error updating city:', error);
+      console.error("Error updating city:", error);
       throw error;
     }
   }
@@ -201,13 +242,12 @@ class CityRepository {
    */
   async deleteCity(cityId) {
     try {
-      await dbConnection.executeSql(
-        'DELETE FROM cities WHERE id = ?;',
-        [cityId]
-      );
+      await dbConnection.executeSql("DELETE FROM cities WHERE id = ?;", [
+        cityId,
+      ]);
       return true;
     } catch (error) {
-      console.error('Error deleting city:', error);
+      console.error("Error deleting city:", error);
       throw error;
     }
   }
@@ -219,12 +259,12 @@ class CityRepository {
   async countCities() {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT COUNT(*) as count FROM cities;',
+        "SELECT COUNT(*) as count FROM cities;",
         []
       );
       return result.rows._array[0].count;
     } catch (error) {
-      console.error('Error counting cities:', error);
+      console.error("Error counting cities:", error);
       throw error;
     }
   }
