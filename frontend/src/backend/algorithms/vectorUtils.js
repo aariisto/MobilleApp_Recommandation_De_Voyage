@@ -110,11 +110,14 @@ function tokenizeText(text) {
   tokens.push(CLS_TOKEN_ID);
 
   // Nettoyer et découper le texte
-  // On sépare la ponctuation pour matcher le comportement du tokenizer BERT (BasicTokenizer)
-  // On remplace les points, underscores, tirets et autres signes par " . " pour qu'ils soient traités comme des tokens séparés
+  // 1. Normalisation NFD pour séparer les accents (é -> e + ´) et suppression des diacritiques
+  // 2. On sépare la ponctuation pour matcher le comportement du tokenizer BERT (BasicTokenizer)
+  //    BERT sépare tous les caractères de ponctuation.
   const normalizedText = text
     .toLowerCase()
-    .replace(/([.,!?;:_\\-])/g, " $1 ") // Ajoute des espaces autour de la ponctuation (y compris _ et -)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // Supprime les accents
+    .replace(/([!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g, " $1 ") // Ajoute des espaces autour de TOUTE la ponctuation
     .trim();
 
   const words = normalizedText
