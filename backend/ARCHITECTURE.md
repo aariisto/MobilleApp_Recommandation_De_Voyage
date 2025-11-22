@@ -34,6 +34,7 @@ backend/
 │   ├── services/                # 🔧 Couche Services (Logique métier)
 │   │   ├── amadeus_client.py    # Client Amadeus (auth + API calls)
 │   │   ├── amadeus_service.py   # Service métier Amadeus
+│   │   ├── google_flights_service.py  # Service Google Flights URL generator
 │   │   └── unsplash_service.py  # Service Unsplash
 │   │
 │   └── utils/                   # 🛠️ Utilitaires
@@ -278,7 +279,95 @@ GET /api/travel/flights/search?origin=PAR&destination=MAD&departureDate=2025-11-
 
 ---
 
-#### 5. Recherche d'Activités
+#### 5. Génération de Lien de Recherche Google Flights
+
+```http
+GET /api/travel/flights/google-link
+```
+
+**Description:** Génère un lien de recherche Google Flights simple basé sur les noms de villes  
+**Authentification:** Aucune
+
+**Note:** Cette route génère une URL de recherche simplifiée qui ouvre Google Flights avec une requête de type "Paris to Algiers". Les dates et autres paramètres doivent être saisis directement par l'utilisateur sur Google Flights.
+
+**Paramètres Query (obligatoires):**
+
+- `originCity` (string): Nom de la ville de départ (ex: `Paris`, `New York`)
+- `destinationCity` (string): Nom de la ville d'arrivée (ex: `Algiers`, `Tokyo`)
+
+**Exemple de requête:**
+
+```http
+GET /api/travel/flights/google-link?originCity=Paris&destinationCity=Algiers
+```
+
+**Réponse (succès):**
+
+```json
+{
+  "success": true,
+  "message": "Google Flights search link generated successfully",
+  "data": {
+    "url": "https://www.google.com/travel/flights?q=Paris%20to%20Algiers",
+    "search_query": {
+      "origin_city": "Paris",
+      "destination_city": "Algiers"
+    }
+  }
+}
+```
+
+**Exemple avec espaces:**
+
+```http
+GET /api/travel/flights/google-link?originCity=New York&destinationCity=Los Angeles
+```
+
+Réponse :
+```json
+{
+  "success": true,
+  "message": "Google Flights search link generated successfully",
+  "data": {
+    "url": "https://www.google.com/travel/flights?q=New%20York%20to%20Los%20Angeles",
+    "search_query": {
+      "origin_city": "New York",
+      "destination_city": "Los Angeles"
+    }
+  }
+}
+```
+
+**Réponse (erreur - paramètres manquants):**
+
+```json
+{
+  "success": false,
+  "error": "Missing required params: originCity, destinationCity",
+  "status": 400
+}
+```
+
+**Réponse (erreur - nom de ville invalide):**
+
+```json
+{
+  "success": false,
+  "error": "Invalid origin city name: ",
+  "status": 400
+}
+```
+
+**Caractéristiques:**
+- ✅ Simple et robuste : utilise uniquement le paramètre `q=` de Google Flights
+- ✅ Pas de dates encodées : l'utilisateur choisit ses dates sur Google Flights
+- ✅ Pas de codes IATA requis : accepte les noms de villes directement
+- ✅ Compatibilité maximale : fonctionne avec tous les noms de villes
+- ✅ URL lisible : format `?q=Paris%20to%20Algiers`
+
+---
+
+#### 6. Recherche d'Activités
 
 ```http
 GET /api/travel/activities
@@ -326,7 +415,7 @@ GET /api/travel/activities?latitude=48.8566&longitude=2.3522&radius=5
 
 ### 📸 Routes Photos (`/api/photos`)
 
-#### 6. Recherche de Photos
+#### 7. Recherche de Photos
 
 ```http
 GET /api/photos/search
@@ -386,7 +475,7 @@ GET /api/photos/search?q=Paris&page=1&per_page=5
 
 ---
 
-#### 7. Téléchargement d'Image
+#### 8. Téléchargement d'Image
 
 ```http
 GET /api/photos/image/search

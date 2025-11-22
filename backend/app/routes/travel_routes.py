@@ -3,6 +3,7 @@ Routes pour les vols (Travel/Flights)
 """
 from flask import Blueprint, request
 from app.services.amadeus_client import AmadeusClient
+from app.services.google_flights_service import GoogleFlightsService
 from app.utils.responses import success_response, error_response
 
 travel_bp = Blueprint('travel', __name__)
@@ -91,3 +92,55 @@ def search_flights():
 
     except Exception as e:
         return error_response(str(e), 500)
+
+
+@travel_bp.route('/flights/google-link', methods=['GET'])
+def generate_google_flights_link():
+    """Génère un lien de recherche Google Flights simple basé sur les noms de villes.
+
+    Query params attendus :
+    - `originCity` (obligatoire) : Nom de la ville de départ (ex: "Paris", "New York")
+    - `destinationCity` (obligatoire) : Nom de la ville d'arrivée (ex: "Algiers", "Tokyo")
+    
+    Note: Cette route génère une URL de recherche simple de type:
+    https://www.google.com/travel/flights?q=Paris%20to%20Algiers
+    
+    Les dates et autres paramètres sont ignorés et doivent être saisis directement
+    sur Google Flights par l'utilisateur.
+    """
+    # Récupération des paramètres
+    origin_city = request.args.get('originCity')
+    destination_city = request.args.get('destinationCity')
+    
+    # Validation des paramètres obligatoires
+    if not origin_city or not destination_city:
+        return error_response(
+            'Missing required params: originCity, destinationCity',
+            400
+        )
+    
+    try:
+        # Génération du lien de recherche via le service
+        google_flights_url = GoogleFlightsService.build_search_url(
+            origin_city=origin_city,
+            destination_city=destination_city
+        )
+        
+        return success_response(
+            {
+                'url': google_flights_url,
+                'search_query': {
+                    'origin_city': origin_city.strip(),
+                    'destination_city': destination_city.strip()
+                }
+            },
+            message='Google Flights search link generated successfully'
+        )
+    
+    except ValueError as e:
+        # Erreur de validation des paramètres
+        return error_response(str(e), 400)
+    
+    except Exception as e:
+        # Erreur inattendue
+        return error_response(f'Failed to generate Google Flights link: {str(e)}', 500)
