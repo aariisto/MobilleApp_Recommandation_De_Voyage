@@ -34,11 +34,12 @@ class DatabaseConnection {
         await FileSystem.makeDirectoryAsync(dbDir, { intermediates: true });
       }
 
-      // Supprimer la base existante si elle existe (pour forcer la recopie)
+      // Vérifier si la base existe déjà
       const fileInfo = await FileSystem.getInfoAsync(dbPath);
       if (fileInfo.exists) {
-        console.log("🗑️ Deleting existing database to force fresh copy...");
-        await FileSystem.deleteAsync(dbPath);
+        console.log("✅ Database already exists, skipping copy.");
+        this.isInitialized = true;
+        return;
       }
 
       console.log("📦 Copying database from assets...");

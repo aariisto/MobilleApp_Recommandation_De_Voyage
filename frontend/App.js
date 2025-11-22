@@ -3,11 +3,13 @@ import { StyleSheet, Text, View } from "react-native";
 import { useEffect } from "react";
 import CityRepository from "./src/backend/repositories/CityRepository.js";
 import { generateEmbeddingLocal } from "./src/backend/algorithms/vectorUtils.js";
+import { rankCitiesBySimilarity } from "./src/backend/algorithms/rankUtils.js";
 
 export default function App() {
   useEffect(() => {
-    testGetAllCityEmbeddings();
-    testGenerateEmbedding();
+    // testGetAllCityEmbeddings();
+    // testGenerateEmbedding();
+    testRankCities();
   }, []);
 
   const testGetAllCityEmbeddings = async () => {
@@ -62,6 +64,26 @@ export default function App() {
       console.log(embedding);
     } catch (error) {
       console.error("❌ Erreur génération embedding:", error.message);
+      console.error(error);
+    }
+  };
+
+  const testRankCities = async () => {
+    try {
+      console.log("\n\n🧪 === TEST CLASSEMENT DES VILLES ===");
+
+      const userText =
+        "accommodation.hotel activity.sport_club building.tourism catering.restaurant.arab halal tourism.sights.archaeological_site vegan vegetarian beach catering no_fee.no internet_access.free wheelchair building catering.cafe.ice_cream catering.cafe.coffee_shop catering.bar catering.ice_cream catering.restaurant.pizza internet_access entertainment.museum accommodation.hotel catering.restaurant.sushi building.accommodation no_fee building.commercial catering.cafe.coffee commercial.shopping_mall wheelchair.yes internet_access.for_customers commercial building.tourism catering.restaurant.argentinian entertainment building.catering";
+      const dislikesText = "";
+
+      const top10 = await rankCitiesBySimilarity(userText, dislikesText);
+
+      console.log(
+        "\n✅ Top 10 des villes recommandées:",
+        JSON.stringify(top10, null, 2)
+      );
+    } catch (error) {
+      console.error("❌ Erreur classement villes:", error.message);
       console.error(error);
     }
   };
