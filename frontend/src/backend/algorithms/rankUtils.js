@@ -1,5 +1,7 @@
-import { generateEmbeddingLocal, cosineSimilarity } from "./vectorUtils.js";
+import { cosineSimilarity } from "./vectorUtils.js";
 import CityRepository from "../repositories/CityRepository.js";
+import InferenceService from "../services/InferenceService.js";
+import { Logger } from "../utils/Logger.js";
 
 /**
  * Génère un embedding pour un utilisateur en tenant compte de ses préférences (likes) et aversions (dislikes).
@@ -15,42 +17,44 @@ import CityRepository from "../repositories/CityRepository.js";
  */
 export async function getUserEmbedding(likesText, dislikesText = "") {
   try {
-    console.log("👤 Génération de l'embedding utilisateur...");
-    console.log("✅ Likes:", likesText);
-    console.log("❌ Dislikes:", dislikesText);
+    Logger.debug("Génération de l'embedding utilisateur...");
+    Logger.debug("Likes:", likesText);
+    Logger.debug("Dislikes:", dislikesText);
 
     // Générer l'embedding pour les préférences (likes)
-    const embeddingLikes = await generateEmbeddingLocal(likesText);
-    console.log("✅ Embedding likes généré");
+    const embeddingLikes = await InferenceService.generateEmbedding(likesText);
+    Logger.debug("Embedding likes généré");
 
     let userEmbedding;
 
     // Si dislikes_text est fourni, générer son embedding
     if (dislikesText && dislikesText.trim()) {
-      console.log("❌ Génération de l'embedding pour les aversions (dislikes)");
-      const embeddingDislikes = await generateEmbeddingLocal(dislikesText);
-      console.log("❌ Embedding dislikes généré");
+      Logger.debug("Génération de l'embedding pour les aversions (dislikes)");
+      const embeddingDislikes = await InferenceService.generateEmbedding(
+        dislikesText
+      );
+      Logger.debug("Embedding dislikes généré");
 
       // Calculer le vecteur final : likes - dislikes
       // Cette soustraction "repousse" les résultats qui correspondent aux dislikes
       userEmbedding = embeddingLikes.map((value, index) => {
         return value - embeddingDislikes[index];
       });
-      console.log(
-        "🎯 Calcul du vecteur final : embedding_likes - embedding_dislikes"
+      Logger.debug(
+        "Calcul du vecteur final : embedding_likes - embedding_dislikes"
       );
     } else {
       // Si pas de dislikes, on utilise juste l'embedding des likes
-      console.log(
-        "ℹ️ Pas de dislikes fourni, utilisation directe de l'embedding des likes"
+      Logger.debug(
+        "Pas de dislikes fourni, utilisation directe de l'embedding des likes"
       );
       userEmbedding = embeddingLikes;
     }
 
     return userEmbedding;
   } catch (error) {
-    console.error(
-      "❌ Erreur lors de la génération de l'embedding utilisateur:",
+    Logger.error(
+      "Erreur lors de la génération de l'embedding utilisateur:",
       error
     );
     throw error;
@@ -67,20 +71,20 @@ export async function getUserEmbedding(likesText, dislikesText = "") {
  */
 export async function rankCitiesBySimilarity(userText, dislikesText = "") {
   try {
-    console.log("🏙️ Classement des villes par similarité...");
-    console.log("✅ Préférences utilisateur:", userText);
+    Logger.debug("Classement des villes par similarité...");
+    Logger.debug("Préférences utilisateur:", userText);
     if (dislikesText) {
-      console.log("❌ Aversions utilisateur:", dislikesText);
+      Logger.debug("Aversions utilisateur:", dislikesText);
     }
 
     // Récupération de toutes les villes avec leurs embeddings
     const cities = await CityRepository.getAllCityEmbeddings();
-    console.log(`📊 ${cities.length} villes récupérées`);
+    Logger.debug(`${cities.length} villes récupérées`);
 
     // Génération de l'embedding utilisateur (avec likes et optionnellement dislikes)
     const userEmbedding = await getUserEmbedding(userText, dislikesText);
-    console.log(
-      `✅ Embedding utilisateur généré (dimension: ${userEmbedding.length})`
+    Logger.debug(
+      `Embedding utilisateur généré (dimension: ${userEmbedding.length})`
     );
 
     // Calcul de la similarité pour chaque ville
@@ -99,9 +103,9 @@ export async function rankCitiesBySimilarity(userText, dislikesText = "") {
     // Retourner uniquement le top 10
     const top10 = rankedCities.slice(0, 10);
 
-    console.log("✅ Top 10 villes les plus similaires:");
+    Logger.debug("Top 10 villes les plus similaires:");
     top10.forEach((city, index) => {
-      console.log(
+      Logger.debug(
         `  ${index + 1}. ${city.name} (ID: ${
           city.id
         }) - Similarité: ${city.similarity.toFixed(4)}`
@@ -110,7 +114,7 @@ export async function rankCitiesBySimilarity(userText, dislikesText = "") {
 
     return top10;
   } catch (error) {
-    console.error("❌ Erreur lors du classement des villes:", error);
+    Logger.error("Erreur lors du classement des villes:", error);
     throw error;
   }
 }
