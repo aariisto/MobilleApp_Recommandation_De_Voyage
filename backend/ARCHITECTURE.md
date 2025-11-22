@@ -324,6 +324,7 @@ GET /api/travel/flights/google-link?originCity=New York&destinationCity=Los Ange
 ```
 
 Réponse :
+
 ```json
 {
   "success": true,
@@ -359,6 +360,7 @@ Réponse :
 ```
 
 **Caractéristiques:**
+
 - ✅ Simple et robuste : utilise uniquement le paramètre `q=` de Google Flights
 - ✅ Pas de dates encodées : l'utilisateur choisit ses dates sur Google Flights
 - ✅ Pas de codes IATA requis : accepte les noms de villes directement
