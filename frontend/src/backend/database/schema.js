@@ -137,13 +137,23 @@ const createPlaceCategoriesTable = () => ({
 });
 
 /**
- * Table user_profiles pour stocker les préférences utilisateur
+ * Table user_profiles pour stocker les informations et préférences utilisateur
  */
 const createUserProfilesTable = () => ({
   sql: `
     CREATE TABLE IF NOT EXISTS user_profiles (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      firstName TEXT NOT NULL,
+      lastName TEXT NOT NULL,
+      email TEXT UNIQUE NOT NULL,
+      dateOfBirth TEXT,
+      country TEXT,
+      preferences TEXT,
       preferences_vector BLOB,
+      strengths TEXT,
+      weaknesses TEXT,
+      weaknesses_vector BLOB,
+      updated INTEGER DEFAULT 0,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       updated_at TEXT DEFAULT CURRENT_TIMESTAMP
     );

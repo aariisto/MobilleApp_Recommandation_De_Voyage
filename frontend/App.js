@@ -7,6 +7,7 @@ import AppNavigator from "./src/navigation/AppNavigator";
 
 // Vos imports Backend existants
 import CityRepository from "./src/backend/repositories/CityRepository.js";
+import UserRepository from "./src/backend/repositories/UserRepository.js";
 import { generateEmbeddingLocal } from "./src/backend/algorithms/vectorUtils.js";
 import { rankCitiesBySimilarity } from "./src/backend/algorithms/rankUtils.js";
 
@@ -16,8 +17,61 @@ export default function App() {
   useEffect(() => {
     // testGetAllCityEmbeddings();
     // testGenerateEmbedding();
-    testRankCities();
+    // testRankCities();
+    testCreateUser();
   }, []);
+
+  const testCreateUser = async () => {
+    try {
+      console.log("\n\n👤 === TEST CRÉATION UTILISATEUR ===");
+      
+      // Vérifier s'il y a déjà des utilisateurs
+      const count = await UserRepository.countProfiles();
+      console.log(`📊 Nombre d'utilisateurs existants: ${count}`);
+      
+      if (count === 0) {
+        // Créer un utilisateur de test
+        console.log("\n📝 Création d'un utilisateur de test...");
+        const userId = await UserRepository.createProfile({
+          firstName: "Jean",
+          lastName: "Lcx",
+          email: "jean.lcx@gmail.com",
+          dateOfBirth: "1995-05-15",
+          country: "France",
+          preferences: ["beach", "museum", "restaurant", "hotel"],
+          strengths: ["beach", "museum"],  // Double-clic sur ces catégories
+          weaknesses: ["nightclub"]  // Long press sur cette catégorie
+        });
+        
+        console.log(`✅ Utilisateur créé avec l'ID: ${userId}`);
+      }
+      
+      // Récupérer tous les utilisateurs
+      console.log("\n📋 Récupération de tous les profils...");
+      const profiles = await UserRepository.getAllProfiles();
+      console.log(`✅ ${profiles.length} profil(s) trouvé(s):`);
+      profiles.forEach(profile => {
+        console.log(`  - ${profile.firstName} ${profile.lastName} (${profile.email})`);
+        console.log(`    Préférences: ${profile.preferences.join(', ')}`);
+        console.log(`    Points forts: ${profile.strengths.join(', ')}`);
+        console.log(`    Points faibles: ${profile.weaknesses.join(', ')}`);
+      });
+      
+      // Récupérer le dernier profil
+      console.log("\n🔍 Récupération du profil le plus récent...");
+      const latestProfile = await UserRepository.getLatestProfile();
+      if (latestProfile) {
+        console.log(`✅ Dernier profil: ${latestProfile.firstName} ${latestProfile.lastName}`);
+        console.log(`   Email: ${latestProfile.email}`);
+        console.log(`   Pays: ${latestProfile.country}`);
+        console.log(`   Date de naissance: ${latestProfile.dateOfBirth}`);
+      }
+      
+    } catch (error) {
+      console.error("❌ Erreur test utilisateur:", error.message);
+      console.error(error);
+    }
+  };
 
   const testGetAllCityEmbeddings = async () => {
     try {
