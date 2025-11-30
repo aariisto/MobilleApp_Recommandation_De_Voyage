@@ -3,14 +3,14 @@
  * Structure basée sur la base PostgreSQL test_dump
  */
 
-import dbConnection from './connection';
+import dbConnection from "./connection";
 
 /**
  * Crée toutes les tables de la base de données
  */
 export const initializeDatabase = async () => {
   try {
-    console.log('🔧 Initializing database schema...');
+    console.log("🔧 Initializing database schema...");
 
     const tables = [
       createCountriesTable(),
@@ -22,11 +22,11 @@ export const initializeDatabase = async () => {
     ];
 
     await dbConnection.executeTransaction(tables);
-    
-    console.log('✅ Database schema initialized successfully');
+
+    console.log("✅ Database schema initialized successfully");
     return true;
   } catch (error) {
-    console.error('❌ Error initializing database:', error);
+    console.error("❌ Error initializing database:", error);
     throw error;
   }
 };
@@ -42,7 +42,7 @@ const createCountriesTable = () => ({
       name TEXT NOT NULL UNIQUE
     );
   `,
-  params: []
+  params: [],
 });
 
 /**
@@ -62,7 +62,7 @@ const createCitiesTable = () => ({
       FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE CASCADE
     );
   `,
-  params: []
+  params: [],
 });
 
 /**
@@ -78,7 +78,7 @@ const createCategoriesTable = () => ({
       FOREIGN KEY (parent_id) REFERENCES categories(id) ON DELETE SET NULL
     );
   `,
-  params: []
+  params: [],
 });
 
 /**
@@ -88,7 +88,7 @@ const createCategoryNameIndex = () => ({
   sql: `
     CREATE INDEX IF NOT EXISTS idx_category_name ON categories(name);
   `,
-  params: []
+  params: [],
 });
 
 /**
@@ -106,7 +106,7 @@ const createPlacesTable = () => ({
       FOREIGN KEY (city_id) REFERENCES cities(id) ON DELETE CASCADE
     );
   `,
-  params: []
+  params: [],
 });
 
 /**
@@ -116,7 +116,7 @@ const createPlacesCityIndex = () => ({
   sql: `
     CREATE INDEX IF NOT EXISTS idx_city_id ON places(city_id);
   `,
-  params: []
+  params: [],
 });
 
 /**
@@ -133,7 +133,7 @@ const createPlaceCategoriesTable = () => ({
       FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
     );
   `,
-  params: []
+  params: [],
 });
 
 /**
@@ -150,15 +150,15 @@ const createUserProfilesTable = () => ({
       country TEXT,
       preferences TEXT,
       preferences_vector BLOB,
-      strengths TEXT,
       weaknesses TEXT,
       weaknesses_vector BLOB,
+      user_embedding BLOB,
       updated INTEGER DEFAULT 0,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       updated_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
   `,
-  params: []
+  params: [],
 });
 
 /**
@@ -166,16 +166,16 @@ const createUserProfilesTable = () => ({
  */
 export const dropAllTables = async () => {
   const dropQueries = [
-    { sql: 'DROP TABLE IF EXISTS place_categories;', params: [] },
-    { sql: 'DROP TABLE IF EXISTS places;', params: [] },
-    { sql: 'DROP TABLE IF EXISTS cities;', params: [] },
-    { sql: 'DROP TABLE IF EXISTS categories;', params: [] },
-    { sql: 'DROP TABLE IF EXISTS countries;', params: [] },
-    { sql: 'DROP TABLE IF EXISTS user_profiles;', params: [] },
+    { sql: "DROP TABLE IF EXISTS place_categories;", params: [] },
+    { sql: "DROP TABLE IF EXISTS places;", params: [] },
+    { sql: "DROP TABLE IF EXISTS cities;", params: [] },
+    { sql: "DROP TABLE IF EXISTS categories;", params: [] },
+    { sql: "DROP TABLE IF EXISTS countries;", params: [] },
+    { sql: "DROP TABLE IF EXISTS user_profiles;", params: [] },
   ];
 
   await dbConnection.executeTransaction(dropQueries);
-  console.log('✅ All tables dropped');
+  console.log("✅ All tables dropped");
 };
 
 /**

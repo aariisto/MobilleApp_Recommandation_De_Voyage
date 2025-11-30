@@ -6,13 +6,11 @@
 import * as SQLite from "expo-sqlite";
 import * as FileSystem from "expo-file-system/legacy";
 import { Asset } from "expo-asset";
-import { DATABASE_CONFIG } from "../config/database.config.js";
-import { Logger } from "../utils/Logger.js";
 
 class DatabaseConnection {
   constructor() {
     this.db = null;
-    this.dbName = DATABASE_CONFIG.name;
+    this.dbName = "travel.db";
     this.isInitialized = false;
   }
 
@@ -32,19 +30,19 @@ class DatabaseConnection {
       // Créer le dossier SQLite s'il n'existe pas
       const dirInfo = await FileSystem.getInfoAsync(dbDir);
       if (!dirInfo.exists) {
-        Logger.info("Création du dossier SQLite...");
+        console.log("📁 Creating SQLite directory...");
         await FileSystem.makeDirectoryAsync(dbDir, { intermediates: true });
       }
 
       // Vérifier si la base existe déjà
       const fileInfo = await FileSystem.getInfoAsync(dbPath);
       if (fileInfo.exists) {
-        Logger.info("Base de données existante trouvée, copie ignorée");
+        console.log("✅ Database already exists, skipping copy");
         this.isInitialized = true;
         return;
       }
 
-      Logger.info("Copie de la base de données depuis les assets...");
+      console.log("📦 Copying database from assets...");
 
       // Charger l'asset depuis le dossier assets
       const asset = Asset.fromModule(require("../../../assets/travel.db"));
@@ -56,11 +54,11 @@ class DatabaseConnection {
         to: dbPath,
       });
 
-      Logger.success("Base de données copiée avec succès depuis les assets");
+      console.log("✅ Database copied successfully from assets");
 
       this.isInitialized = true;
     } catch (error) {
-      Logger.error("Erreur lors de la copie de la base de données:", error);
+      console.error("❌ Error copying database:", error);
       throw error;
     }
   }
@@ -79,10 +77,10 @@ class DatabaseConnection {
       await this.copyDatabaseFromAssets();
 
       this.db = await SQLite.openDatabaseAsync(this.dbName);
-      Logger.success("Base de données ouverte avec succès");
+      console.log("✅ Database opened successfully");
       return this.db;
     } catch (error) {
-      Logger.error("Erreur lors de l'ouverture de la base de données:", error);
+      console.error("❌ Error opening database:", error);
       throw error;
     }
   }
@@ -106,7 +104,7 @@ class DatabaseConnection {
       const result = await db.runAsync(sql, params);
       return result;
     } catch (error) {
-      Logger.error("Erreur SQL:", error);
+      console.error("SQL Error:", error);
       throw error;
     }
   }
@@ -130,7 +128,7 @@ class DatabaseConnection {
       });
       return results;
     } catch (error) {
-      Logger.error("Erreur de transaction:", error);
+      console.error("Transaction Error:", error);
       throw error;
     }
   }
@@ -142,7 +140,7 @@ class DatabaseConnection {
     if (this.db) {
       await this.db.closeAsync();
       this.db = null;
-      Logger.info("Connexion à la base de données fermée");
+      console.log("✅ Database connection closed");
     }
   }
 
