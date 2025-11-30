@@ -3,100 +3,11 @@
  * Accès aux données de la table user_profiles
  */
 
-import dbConnection from '../database/connection';
-import { blobToVector, vectorToBlob } from '../algorithms/vectorUtils';
+import dbConnection from "../database/connection";
+import { blobToVector, vectorToBlob } from "../algorithms/vectorUtils";
+import { getUserEmbedding } from "../algorithms/rankUtils";
 
 class UserRepository {
-  /**
-   * Récupère tous les profils utilisateur
-   * @returns {Promise<Array>}
-   */
-  async getAllProfiles() {
-    try {
-      const result = await dbConnection.executeSql(
-        'SELECT id, firstName, lastName, email, dateOfBirth, country, preferences, strengths, weaknesses, created_at, updated_at FROM user_profiles;',
-        []
-      );
-      
-      // Parse JSON fields
-      return result.rows._array.map(profile => ({
-        ...profile,
-        preferences: profile.preferences ? JSON.parse(profile.preferences) : [],
-        strengths: profile.strengths ? JSON.parse(profile.strengths) : [],
-        weaknesses: profile.weaknesses ? JSON.parse(profile.weaknesses) : []
-      }));
-    } catch (error) {
-      console.error('Error fetching user profiles:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Récupère un profil utilisateur par son ID
-   * @param {number} userId
-   * @returns {Promise<Object|null>}
-   */
-  async getProfileById(userId) {
-    try {
-      const result = await dbConnection.executeSql(
-        'SELECT id, firstName, lastName, email, dateOfBirth, country, preferences, preferences_vector, strengths, weaknesses, created_at, updated_at FROM user_profiles WHERE id = ?;',
-        [userId]
-      );
-      
-      if (result.rows._array.length === 0) return null;
-      
-      const profile = result.rows._array[0];
-      
-      // Parse JSON fields
-      profile.preferences = profile.preferences ? JSON.parse(profile.preferences) : [];
-      profile.strengths = profile.strengths ? JSON.parse(profile.strengths) : [];
-      profile.weaknesses = profile.weaknesses ? JSON.parse(profile.weaknesses) : [];
-      
-      // Convertir le BLOB en vecteur si présent
-      if (profile.preferences_vector) {
-        profile.preferencesArray = blobToVector(profile.preferences_vector);
-      }
-      
-      return profile;
-    } catch (error) {
-      console.error('Error fetching profile by ID:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Récupère un profil utilisateur par email
-   * @param {string} email
-   * @returns {Promise<Object|null>}
-   */
-  async getProfileByEmail(email) {
-    try {
-      const result = await dbConnection.executeSql(
-        'SELECT id, firstName, lastName, email, dateOfBirth, country, preferences, preferences_vector, strengths, weaknesses, created_at, updated_at FROM user_profiles WHERE email = ?;',
-        [email]
-      );
-      
-      if (result.rows._array.length === 0) return null;
-      
-      const profile = result.rows._array[0];
-      
-      // Parse JSON fields
-      profile.preferences = profile.preferences ? JSON.parse(profile.preferences) : [];
-      profile.strengths = profile.strengths ? JSON.parse(profile.strengths) : [];
-      profile.weaknesses = profile.weaknesses ? JSON.parse(profile.weaknesses) : [];
-      
-      // Convertir le BLOB en vecteur si présent
-      if (profile.preferences_vector) {
-        profile.preferencesArray = blobToVector(profile.preferences_vector);
-      }
-      
-      return profile;
-    } catch (error) {
-      console.error('Error fetching profile by email:', error);
-      throw error;
-    }
-  }
-
   /**
    * Crée un nouveau profil utilisateur
    * @param {Object} userData - Données de l'utilisateur
@@ -107,8 +18,9 @@ class UserRepository {
    * @param {string} [userData.country] - Pays
    * @param {Array<string>} [userData.preferences] - Préférences (choix du QCM)
    * @param {Array<number>} [userData.preferencesVector] - Vecteur de préférences pour l'IA
-   * @param {Array<string>} [userData.strengths] - Points forts (double-clic)
-   * @param {Array<string>} [userData.weaknesses] - Points faibles (long press)
+   * @param {Array<string>} [userData.weaknesses] - Points faibles / catégories non-aimées
+   * @param {Array<number>} [userData.weaknessesVector] - Vecteur de weaknesses pour l'IA
+   * @param {Array<number>} [userData.userEmbedding] - Vecteur d'embedding utilisateur
    * @returns {Promise<number>} - ID du profil créé
    */
   async createProfile(userData) {
@@ -121,15 +33,26 @@ class UserRepository {
         country = null,
         preferences = [],
         preferencesVector = null,
-        strengths = [],
-        weaknesses = []
+        weaknesses = [],
+        weaknessesVector = null,
+        userEmbedding = null,
       } = userData;
 
-      const vectorBlob = preferencesVector ? vectorToBlob(preferencesVector) : null;
-      
+      const vectorBlob = preferencesVector
+        ? vectorToBlob(preferencesVector)
+        : null;
+
+      const weaknessesVectorBlob = weaknessesVector
+        ? vectorToBlob(weaknessesVector)
+        : null;
+
+      const userEmbeddingBlob = userEmbedding
+        ? vectorToBlob(userEmbedding)
+        : null;
+
       const result = await dbConnection.executeSql(
-        `INSERT INTO user_profiles (firstName, lastName, email, dateOfBirth, country, preferences, preferences_vector, strengths, weaknesses) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+        `INSERT INTO user_profiles (firstName, lastName, email, dateOfBirth, country, preferences, preferences_vector, weaknesses, weaknesses_vector, user_embedding) 
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
         [
           firstName,
           lastName,
@@ -138,130 +61,90 @@ class UserRepository {
           country,
           JSON.stringify(preferences),
           vectorBlob,
-          JSON.stringify(strengths),
-          JSON.stringify(weaknesses)
+          JSON.stringify(weaknesses),
+          weaknessesVectorBlob,
+          userEmbeddingBlob,
         ]
       );
-      
+
       return result.insertId;
     } catch (error) {
-      console.error('Error creating profile:', error);
+      console.error("Error creating profile:", error);
       throw error;
     }
   }
 
   /**
-   * Met à jour un profil utilisateur
-   * @param {number} userId
+   * Met à jour le profil utilisateur (il n'y a toujours qu'un seul utilisateur)
    * @param {Object} userData - Données à mettre à jour
    * @returns {Promise<boolean>}
    */
-  async updateProfile(userId, userData) {
+  async updateProfile(userData) {
     try {
       const fields = [];
       const values = [];
 
       if (userData.firstName !== undefined) {
-        fields.push('firstName = ?');
+        fields.push("firstName = ?");
         values.push(userData.firstName);
       }
       if (userData.lastName !== undefined) {
-        fields.push('lastName = ?');
+        fields.push("lastName = ?");
         values.push(userData.lastName);
       }
       if (userData.email !== undefined) {
-        fields.push('email = ?');
+        fields.push("email = ?");
         values.push(userData.email);
       }
       if (userData.dateOfBirth !== undefined) {
-        fields.push('dateOfBirth = ?');
+        fields.push("dateOfBirth = ?");
         values.push(userData.dateOfBirth);
       }
       if (userData.country !== undefined) {
-        fields.push('country = ?');
+        fields.push("country = ?");
         values.push(userData.country);
       }
       if (userData.preferences !== undefined) {
-        fields.push('preferences = ?');
+        fields.push("preferences = ?");
         values.push(JSON.stringify(userData.preferences));
       }
       if (userData.preferencesVector !== undefined) {
-        fields.push('preferences_vector = ?');
+        fields.push("preferences_vector = ?");
         values.push(vectorToBlob(userData.preferencesVector));
       }
-      if (userData.strengths !== undefined) {
-        fields.push('strengths = ?');
-        values.push(JSON.stringify(userData.strengths));
-      }
       if (userData.weaknesses !== undefined) {
-        fields.push('weaknesses = ?');
+        fields.push("weaknesses = ?");
         values.push(JSON.stringify(userData.weaknesses));
+      }
+      if (userData.weaknessesVector !== undefined) {
+        fields.push("weaknesses_vector = ?");
+        values.push(vectorToBlob(userData.weaknessesVector));
+      }
+      if (userData.userEmbedding !== undefined) {
+        fields.push("user_embedding = ?");
+        values.push(vectorToBlob(userData.userEmbedding));
+      }
+      if (userData.updated !== undefined) {
+        fields.push("updated = ?");
+        values.push(userData.updated);
       }
 
       if (fields.length === 0) {
         return true; // Rien à mettre à jour
       }
 
-      fields.push('updated_at = CURRENT_TIMESTAMP');
-      values.push(userId);
+      fields.push("updated_at = CURRENT_TIMESTAMP");
 
-      const sql = `UPDATE user_profiles SET ${fields.join(', ')} WHERE id = ?;`;
-      
+      // Met à jour le premier (et unique) utilisateur
+      const sql = `UPDATE user_profiles SET ${fields.join(
+        ", "
+      )} WHERE id = (SELECT id FROM user_profiles LIMIT 1);`;
+
       await dbConnection.executeSql(sql, values);
-      
+
       return true;
     } catch (error) {
-      console.error('Error updating profile:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Supprime un profil utilisateur
-   * @param {number} userId
-   * @returns {Promise<boolean>}
-   */
-  async deleteProfile(userId) {
-    try {
-      await dbConnection.executeSql(
-        'DELETE FROM user_profiles WHERE id = ?;',
-        [userId]
-      );
-      return true;
-    } catch (error) {
-      console.error('Error deleting profile:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Récupère le profil le plus récent (utile pour un système mono-utilisateur)
-   * @returns {Promise<Object|null>}
-   */
-  async getLatestProfile() {
-    try {
-      const result = await dbConnection.executeSql(
-        'SELECT id, firstName, lastName, email, dateOfBirth, country, preferences, preferences_vector, strengths, weaknesses, created_at, updated_at FROM user_profiles ORDER BY updated_at DESC LIMIT 1;',
-        []
-      );
-      
-      if (result.rows._array.length === 0) return null;
-      
-      const profile = result.rows._array[0];
-      
-      // Parse JSON fields
-      profile.preferences = profile.preferences ? JSON.parse(profile.preferences) : [];
-      profile.strengths = profile.strengths ? JSON.parse(profile.strengths) : [];
-      profile.weaknesses = profile.weaknesses ? JSON.parse(profile.weaknesses) : [];
-      
-      // Convertir le BLOB en vecteur si présent
-      if (profile.preferences_vector) {
-        profile.preferencesArray = blobToVector(profile.preferences_vector);
-      }
-      
-      return profile;
-    } catch (error) {
-      console.error('Error fetching latest profile:', error);
+      console.error("Error updating profile:", error);
       throw error;
     }
   }
@@ -273,12 +156,124 @@ class UserRepository {
   async countProfiles() {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT COUNT(*) as count FROM user_profiles;',
+        "SELECT COUNT(*) as count FROM user_profiles;",
         []
       );
       return result.rows._array[0].count;
     } catch (error) {
-      console.error('Error counting profiles:', error);
+      console.error("Error counting profiles:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Récupère le profil utilisateur (il n'y a toujours qu'un seul utilisateur)
+   * @param {Array<string>} [fields] - Champs à récupérer. Si vide ou non fourni, retourne tout.
+   *   Valeurs possibles: 'id', 'firstName', 'lastName', 'email', 'dateOfBirth', 'country',
+   *   'preferences', 'preferencesVector', 'weaknesses', 'weaknessesVector', 'userEmbedding',
+   *   'updated', 'createdAt', 'updatedAt'
+   * @returns {Promise<Object|null>} - Le profil utilisateur (complet ou partiel) ou null si aucun
+   * @example
+   *   // Récupérer tout le profil
+   *   const profile = await UserRepository.getProfile();
+   *   // Récupérer seulement certains champs
+   *   const partial = await UserRepository.getProfile(['firstName', 'email', 'userEmbedding']);
+   */
+  async getProfile(fields = []) {
+    try {
+      const result = await dbConnection.executeSql(
+        "SELECT * FROM user_profiles LIMIT 1;",
+        []
+      );
+
+      if (result.rows._array.length === 0) {
+        return null;
+      }
+
+      const row = result.rows._array[0];
+
+      // Mapping complet des champs
+      const allFields = {
+        id: row.id,
+        firstName: row.firstName,
+        lastName: row.lastName,
+        email: row.email,
+        dateOfBirth: row.dateOfBirth,
+        country: row.country,
+        preferences: row.preferences ? JSON.parse(row.preferences) : [],
+        preferencesVector: row.preferences_vector
+          ? blobToVector(row.preferences_vector)
+          : null,
+        weaknesses: row.weaknesses ? JSON.parse(row.weaknesses) : [],
+        weaknessesVector: row.weaknesses_vector
+          ? blobToVector(row.weaknesses_vector)
+          : null,
+        userEmbedding: row.user_embedding
+          ? blobToVector(row.user_embedding)
+          : null,
+        updated: row.updated,
+        createdAt: row.created_at,
+        updatedAt: row.updated_at,
+      };
+
+      // Si aucun champ spécifié, retourner tout
+      if (!fields || fields.length === 0) {
+        return allFields;
+      }
+
+      // Sinon, retourner seulement les champs demandés
+      const result_obj = {};
+      for (const field of fields) {
+        if (field in allFields) {
+          result_obj[field] = allFields[field];
+        }
+      }
+      return result_obj;
+    } catch (error) {
+      console.error("Error getting profile:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Génère et stocke l'embedding utilisateur basé sur ses préférences
+   * Utilise getUserEmbedding de rankUtils (likes - dislikes)
+   * @param {Array<string>} likedCategories - Tableau des catégories aimées (ex: ["museum", "beach", "restaurant"])
+   * @param {Array<string>} [dislikedCategories=[]] - Tableau des catégories non-aimées (ex: ["nightclub", "casino"])
+   * @returns {Promise<number[]>} - L'embedding généré (384 dimensions)
+   */
+  async generateAndStoreUserEmbedding(
+    likedCategories,
+    dislikedCategories = []
+  ) {
+    try {
+      // Convertir les tableaux en strings séparées par des espaces
+      const likesText = likedCategories.join(" ");
+      const dislikesText = dislikedCategories.join(" ");
+
+      console.log("📝 Generating embedding for likes:", likesText);
+      if (dislikesText) {
+        console.log("📝 Dislikes:", dislikesText);
+      }
+
+      // Utiliser getUserEmbedding de rankUtils (calcule likes - dislikes)
+      const embedding = await getUserEmbedding(likesText, dislikesText);
+
+      console.log(`✅ Embedding généré: ${embedding.length} dimensions`);
+
+      // Stocker l'embedding dans la base de données
+      await this.updateProfile({
+        userEmbedding: embedding,
+        preferences: likesText, // Sauvegarder les catégories aimées
+        weaknesses: dislikesText,
+        updated: 1, // Et les catégories non-aimées
+      });
+
+      console.log("💾 Embedding stocké dans user_embedding");
+
+      return embedding;
+    } catch (error) {
+      console.error("Error generating user embedding:", error);
       throw error;
     }
   }

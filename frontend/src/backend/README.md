@@ -56,8 +56,8 @@ node migratePostgresToSqlite.js
 ### 2. Utiliser dans l'app
 
 ```javascript
-import { initializeDatabase } from './backend/database/schema';
-import CityRepository from './backend/repositories/CityRepository';
+import { initializeDatabase } from "./backend/database/schema";
+import CityRepository from "./backend/repositories/CityRepository";
 
 // Démarrer la base
 await initializeDatabase();
@@ -72,13 +72,13 @@ console.log(`J'ai ${cities.length} villes`);
 ### Afficher les villes
 
 ```javascript
-import CityRepository from './backend/repositories/CityRepository';
+import CityRepository from "./backend/repositories/CityRepository";
 
 // Toutes les villes
 const villes = await CityRepository.getAllCities();
 
 // Chercher Paris
-const paris = await CityRepository.searchCitiesByName('Paris');
+const paris = await CityRepository.searchCitiesByName("Paris");
 
 // Villes d'un pays
 const villesFrance = await CityRepository.getCitiesByCountry(1);
@@ -87,7 +87,7 @@ const villesFrance = await CityRepository.getCitiesByCountry(1);
 ### Afficher les lieux d'une ville
 
 ```javascript
-import PlaceRepository from './backend/repositories/PlaceRepository';
+import PlaceRepository from "./backend/repositories/PlaceRepository";
 
 // Tous les lieux de Paris
 const lieux = await PlaceRepository.getPlacesByCity(1);
@@ -96,19 +96,19 @@ const lieux = await PlaceRepository.getPlacesByCity(1);
 const lieuxDetailles = await PlaceRepository.getPlacesWithCategories(1);
 
 // Seulement les musées
-const musees = await PlaceRepository.getPlacesByCategory('Museums');
+const musees = await PlaceRepository.getPlacesByCategory("Museums");
 ```
 
 ### Obtenir des recommandations
 
 ```javascript
-import RecommendationService from './backend/services/RecommendationService';
+import RecommendationService from "./backend/services/RecommendationService";
 
 // Villes similaires à Paris
 const suggestions = await RecommendationService.recommendSimilarCities({
-  cityId: 1,      // Paris
-  limit: 5,       // Top 5
-  minSimilarity: 0.7
+  cityId: 1, // Paris
+  limit: 5, // Top 5
+  minSimilarity: 0.7,
 });
 
 // Résultat :
@@ -124,38 +124,38 @@ const suggestions = await RecommendationService.recommendSimilarCities({
 ### 🏙️ CityRepository
 
 ```javascript
-getAllCities()                    // Toutes les villes
-getCityById(id)                   // Une ville précise
-searchCitiesByName('Paris')       // Chercher par nom
-getCitiesByCountry(countryId)     // Villes d'un pays
-getCityWithEmbedding(id)          // Avec données de similarité
+getAllCities(); // Toutes les villes
+getCityById(id); // Une ville précise
+searchCitiesByName("Paris"); // Chercher par nom
+getCitiesByCountry(countryId); // Villes d'un pays
+getCityWithEmbedding(id); // Avec données de similarité
 ```
 
 ### 📍 PlaceRepository
 
 ```javascript
-getPlacesByCity(cityId)           // Lieux d'une ville
-getPlacesWithCategories(cityId)   // Avec leurs catégories
-getPlacesByCategory('Museums')    // Par type de lieu
-searchPlacesByName('Tour Eiffel') // Chercher un lieu
+getPlacesByCity(cityId); // Lieux d'une ville
+getPlacesWithCategories(cityId); // Avec leurs catégories
+getPlacesByCategory("Museums"); // Par type de lieu
+searchPlacesByName("Tour Eiffel"); // Chercher un lieu
 ```
 
 ### 🏷️ CategoryRepository
 
 ```javascript
-getRootCategories()               // Catégories principales
-getChildCategories(parentId)      // Sous-catégories
-getCategoryTree()                 // Arbre complet
-searchCategories('restaurant')    // Chercher une catégorie
+getRootCategories(); // Catégories principales
+getChildCategories(parentId); // Sous-catégories
+getCategoryTree(); // Arbre complet
+searchCategories("restaurant"); // Chercher une catégorie
 ```
 
 ### 👤 UserRepository
 
 ```javascript
-getAllUsers()                     // Tous les utilisateurs
-createUser({ name, email })       // Créer un profil
-getUserInterests(userId)          // Préférences utilisateur
-addUserInterest(userId, categoryId) // Ajouter un intérêt
+getAllUsers(); // Tous les utilisateurs
+createUser({ name, email }); // Créer un profil
+getUserInterests(userId); // Préférences utilisateur
+addUserInterest(userId, categoryId); // Ajouter un intérêt
 ```
 
 ### 🎯 RecommendationService
@@ -165,11 +165,11 @@ addUserInterest(userId, categoryId) // Ajouter un intérêt
 recommendSimilarCities({
   cityId: 1,
   limit: 10,
-  minSimilarity: 0.5
-})
+  minSimilarity: 0.5,
+});
 
 // Calcul de similarité entre 2 villes
-calculateCitySimilarity(cityId1, cityId2)
+calculateCitySimilarity(cityId1, cityId2);
 ```
 
 ## 🔧 Configuration de la migration
@@ -196,8 +196,9 @@ C'est normal ! Le fichier Mac ne se copie pas automatiquement sur le téléphone
 ### Première utilisation sur mobile
 
 L'app insère automatiquement 3 villes de test au premier lancement :
+
 - Paris
-- London  
+- London
 - New York
 
 Pour charger toutes les données, il faudra créer un système d'import (à venir).
@@ -237,10 +238,10 @@ npm install expo-sqlite
 ## 💡 Exemple complet
 
 ```javascript
-import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { initializeDatabase } from './backend/database/schema';
-import CityRepository from './backend/repositories/CityRepository';
+import React, { useEffect, useState } from "react";
+import { View, Text, FlatList } from "react-native";
+import { initializeDatabase } from "./backend/database/schema";
+import CityRepository from "./backend/repositories/CityRepository";
 
 export default function ListeVilles() {
   const [villes, setVilles] = useState([]);
@@ -252,7 +253,7 @@ export default function ListeVilles() {
   const chargerVilles = async () => {
     // 1. Démarrer la base
     await initializeDatabase();
-    
+
     // 2. Charger les villes
     const data = await CityRepository.getAllCities();
     setVilles(data);
@@ -260,17 +261,17 @@ export default function ListeVilles() {
 
   return (
     <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+      <Text style={{ fontSize: 20, fontWeight: "bold" }}>
         {villes.length} villes disponibles
       </Text>
-      
+
       <FlatList
         data={villes}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={{ padding: 10, borderBottomWidth: 1 }}>
             <Text style={{ fontSize: 16 }}>{item.name}</Text>
-            <Text style={{ color: 'gray' }}>
+            <Text style={{ color: "gray" }}>
               {item.lat.toFixed(2)}, {item.lon.toFixed(2)}
             </Text>
           </View>
@@ -313,18 +314,23 @@ backend/
 ### Tables
 
 1. **countries** (20 pays)
+
    - id, name
 
 2. **cities** (200 villes)
+
    - id, name, lat, lon, country_id, embedding (BLOB)
 
 3. **categories** (321 catégories)
+
    - id, name, parent_id (hiérarchie)
 
 4. **places** (11,624 lieux)
+
    - id, name, lat, lon, city_id
 
 5. **place_categories** (51,231 relations)
+
    - place_id, category_id
 
 6. **user_profiles**
@@ -370,7 +376,7 @@ yarn add expo-sqlite
 ### Initialiser la base de données
 
 ```javascript
-import { initializeDatabase } from './backend/database/schema';
+import { initializeDatabase } from "./backend/database/schema";
 
 // Au démarrage de l'app
 await initializeDatabase();
@@ -379,14 +385,14 @@ await initializeDatabase();
 ### Utiliser les repositories
 
 ```javascript
-import CityRepository from './backend/repositories/CityRepository';
-import PlaceRepository from './backend/repositories/PlaceRepository';
+import CityRepository from "./backend/repositories/CityRepository";
+import PlaceRepository from "./backend/repositories/PlaceRepository";
 
 // Récupérer toutes les villes
 const cities = await CityRepository.getAllCities();
 
 // Rechercher des villes par nom
-const results = await CityRepository.searchCitiesByName('Paris');
+const results = await CityRepository.searchCitiesByName("Paris");
 
 // Récupérer les lieux d'une ville avec leurs catégories
 const places = await PlaceRepository.getPlacesWithCategories(cityId);
@@ -395,7 +401,7 @@ const places = await PlaceRepository.getPlacesWithCategories(cityId);
 ### Utiliser le service de recommandation
 
 ```javascript
-import RecommendationService from './backend/services/RecommendationService';
+import RecommendationService from "./backend/services/RecommendationService";
 
 // Recommander des villes similaires
 const similarCities = await RecommendationService.recommendSimilarCities(
@@ -403,7 +409,7 @@ const similarCities = await RecommendationService.recommendSimilarCities(
   10, // top 10
   {
     diversify: true,
-    minSimilarityThreshold: 0.5
+    minSimilarityThreshold: 0.5,
   }
 );
 
@@ -413,7 +419,7 @@ const recommendations = await RecommendationService.recommendCitiesForUser(
   10,
   {
     diversify: true,
-    excludeCityIds: [1, 2, 3] // Villes déjà visitées
+    excludeCityIds: [1, 2, 3], // Villes déjà visitées
   }
 );
 
@@ -421,14 +427,17 @@ const recommendations = await RecommendationService.recommendCitiesForUser(
 await RecommendationService.updateUserPreferencesFromHistory(
   userId,
   [1, 5, 10], // Villes aimées
-  [2, 8]      // Villes non aimées
+  [2, 8] // Villes non aimées
 );
 ```
 
 ### Calculs de similarité
 
 ```javascript
-import { cosineSimilarity, euclideanDistance } from './backend/algorithms/similarity';
+import {
+  cosineSimilarity,
+  euclideanDistance,
+} from "./backend/algorithms/similarity";
 
 // Calculer la similarité entre deux vecteurs
 const similarity = cosineSimilarity(vector1, vector2);
@@ -478,15 +487,18 @@ const distance = euclideanDistance(vector1, vector2);
 ## 🎯 Fonctionnalités du RecommendationService
 
 1. **Recommandations basées sur le profil utilisateur**
+
    - Utilise le vecteur de préférences
    - Calcul de similarité cosinus
    - Option de diversification des résultats
 
 2. **Recommandations de villes similaires**
+
    - Basé sur les embeddings des villes
    - Ajustement du seuil de similarité
 
 3. **Mise à jour des préférences**
+
    - Apprentissage depuis l'historique (villes aimées/non aimées)
    - Calcul automatique du vecteur de préférences
 
@@ -498,6 +510,7 @@ const distance = euclideanDistance(vector1, vector2);
 ### Embeddings
 
 Les embeddings sont stockés sous forme de BLOB dans SQLite :
+
 - Format : Float64Array (8 bytes par valeur)
 - Conversion automatique : BLOB ↔ Array
 - Normalisation avant calcul de similarité
@@ -519,3 +532,7 @@ Les embeddings sont stockés sous forme de BLOB dans SQLite :
 - Base de données locale (pas d'exposition réseau)
 - Pas de données sensibles utilisateur stockées
 - Embeddings pré-calculés (pas de calcul ML côté client)
+
+adb shell
+run-as com.aariisto.ExploreUs
+rm /data/data/com.aariisto.ExploreUs/files/SQLite/travel.db

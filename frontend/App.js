@@ -12,61 +12,126 @@ import { generateEmbeddingLocal } from "./src/backend/algorithms/vectorUtils.js"
 import { rankCitiesBySimilarity } from "./src/backend/algorithms/rankUtils.js";
 
 export default function App() {
-  
   // --- VOTRE LOGIQUE BACKEND (Gardée intacte) ---
   useEffect(() => {
     // testGetAllCityEmbeddings();
     // testGenerateEmbedding();
     // testRankCities();
-    testCreateUser();
+    // testCreateUser();
+    testGetProfile();
+    // testGenerateUserEmbedding();
   }, []);
+
+  const testGenerateUserEmbedding = async () => {
+    try {
+      console.log("\n\n🧪 === TEST GÉNÉRATION USER EMBEDDING ===");
+
+      // Vérifier si un utilisateur existe, sinon en créer un
+      const count = await UserRepository.countProfiles();
+      if (count === 0) {
+        console.log("📝 Création d'un utilisateur de test...");
+        await UserRepository.createProfile({
+          firstName: "Idir",
+          lastName: "User",
+          email: "test@example.com",
+        });
+        console.log("✅ Utilisateur créé");
+      }
+
+      const likedCategories = ["museum", "beach", "restaurant", "hotel"];
+      const dislikedCategories = ["nightclub", "casino"];
+
+      console.log("👍 Likes:", likedCategories);
+      console.log("👎 Dislikes:", dislikedCategories);
+
+      const embedding = await UserRepository.generateAndStoreUserEmbedding(
+        likedCategories,
+        dislikedCategories
+      );
+
+      console.log(
+        `✅ Embedding généré et stocké! Dimension: ${embedding.length}`
+      );
+
+      // Récupérer l'embedding stocké en BD
+      const profile = await UserRepository.getProfile(["userEmbedding"]);
+
+      if (profile && profile.userEmbedding) {
+        console.log("\n🏙️ === CLASSEMENT DES VILLES ===");
+        console.log(
+          `📊 Utilisation de l'embedding stocké (${profile.userEmbedding.length} dims)`
+        );
+
+        // Classer les villes avec l'embedding de la BD
+        const top10 = await rankCitiesBySimilarity(profile.userEmbedding);
+
+        console.log("\n✅ Top 10 des villes recommandées:");
+        top10.forEach((city, index) => {
+          console.log(
+            `  ${index + 1}. ${
+              city.name
+            } - Similarité: ${city.similarity.toFixed(4)}`
+          );
+        });
+      }
+    } catch (error) {
+      console.error("❌ Erreur:", error.message);
+      console.error(error);
+    }
+  };
+
+  const testGetProfile = async () => {
+    try {
+      const profile = await UserRepository.getProfile();
+      console.log("👤 Profil récupéré:", JSON.stringify(profile, null, 2));
+    } catch (error) {
+      console.error("❌ Erreur:", error.message);
+    }
+  };
 
   const testCreateUser = async () => {
     try {
       console.log("\n\n👤 === TEST CRÉATION UTILISATEUR ===");
-      
+
       // Vérifier s'il y a déjà des utilisateurs
       const count = await UserRepository.countProfiles();
       console.log(`📊 Nombre d'utilisateurs existants: ${count}`);
-      
+
       if (count === 0) {
         // Créer un utilisateur de test
         console.log("\n📝 Création d'un utilisateur de test...");
         const userId = await UserRepository.createProfile({
-          firstName: "Jean",
+          firstName: "ZZZ",
           lastName: "Lcx",
           email: "jean.lcx@gmail.com",
           dateOfBirth: "1995-05-15",
           country: "France",
           preferences: ["beach", "museum", "restaurant", "hotel"],
-          strengths: ["beach", "museum"],  // Double-clic sur ces catégories
-          weaknesses: ["nightclub"]  // Long press sur cette catégorie
+          strengths: ["beach", "museum"], // Double-clic sur ces catégories
+          weaknesses: ["nightclub"], // Long press sur cette catégorie
         });
-        
+
         console.log(`✅ Utilisateur créé avec l'ID: ${userId}`);
+
+        // Vérifier s'il y a déjà des utilisateurs
+        const count = await UserRepository.countProfiles();
+        console.log(`📊 Nombre d'utilisateurs existants: ${count}`);
       }
-      
-      // Récupérer tous les utilisateurs
-      console.log("\n📋 Récupération de tous les profils...");
-      const profiles = await UserRepository.getAllProfiles();
-      console.log(`✅ ${profiles.length} profil(s) trouvé(s):`);
-      profiles.forEach(profile => {
-        console.log(`  - ${profile.firstName} ${profile.lastName} (${profile.email})`);
-        console.log(`    Préférences: ${profile.preferences.join(', ')}`);
-        console.log(`    Points forts: ${profile.strengths.join(', ')}`);
-        console.log(`    Points faibles: ${profile.weaknesses.join(', ')}`);
-      });
-      
-      // Récupérer le dernier profil
-      console.log("\n🔍 Récupération du profil le plus récent...");
-      const latestProfile = await UserRepository.getLatestProfile();
-      if (latestProfile) {
-        console.log(`✅ Dernier profil: ${latestProfile.firstName} ${latestProfile.lastName}`);
-        console.log(`   Email: ${latestProfile.email}`);
-        console.log(`   Pays: ${latestProfile.country}`);
-        console.log(`   Date de naissance: ${latestProfile.dateOfBirth}`);
-      }
-      
+
+      // Test de la fonction getProfile()
+      console.log("\n📖 Test de getProfile()...");
+      const profile = await UserRepository.getProfile();
+      console.log("👤 Profil récupéré:", JSON.stringify(profile, null, 2));
+
+      // Test de la fonction updateProfile()
+      console.log("\n✏️ Test de updateProfile() - Changement du prénom...");
+      console.log(`   Ancien prénom: ${profile.firstName}`);
+      await UserRepository.updateProfile({ firstName: "habib" });
+
+      // Vérifier la mise à jour
+      const updatedProfile = await UserRepository.getProfile();
+      console.log(`   Nouveau prénom: ${updatedProfile.firstName}`);
+      console.log("✅ Mise à jour réussie!");
     } catch (error) {
       console.error("❌ Erreur test utilisateur:", error.message);
       console.error(error);
@@ -100,7 +165,9 @@ export default function App() {
       const embedding = await generateEmbeddingLocal(
         "accommodation accommodation.hotel building..." // J'ai raccourci pour la lisibilité
       );
-      console.log(`✅ Embedding généré avec succès! Dimension: ${embedding.length}`);
+      console.log(
+        `✅ Embedding généré avec succès! Dimension: ${embedding.length}`
+      );
     } catch (error) {
       console.error("❌ Erreur génération embedding:", error.message);
     }

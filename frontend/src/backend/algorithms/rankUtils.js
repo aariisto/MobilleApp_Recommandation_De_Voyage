@@ -62,29 +62,23 @@ export async function getUserEmbedding(likesText, dislikesText = "") {
 }
 
 /**
- * Classe les villes par similarité avec le texte utilisateur (likes et dislikes).
+ * Classe les villes par similarité avec l'embedding utilisateur.
  *
- * @param {string} userText - Texte utilisateur représentant ses préférences (ex: "plage restaurant shopping")
- * @param {string} dislikesText - Texte des préférences à ÉVITER (optionnel, ex: "montagne froid")
- * @returns {Promise<Array>} - Top 10 des villes triées par similarité décroissante
+ * @param {number[]} userEmbedding - Embedding utilisateur (384 dimensions), récupéré depuis la BD
+ * @param {number} [limit=10] - Nombre de villes à retourner
+ * @returns {Promise<Array>} - Top N des villes triées par similarité décroissante
  *                              Format: [{id, name, similarity}, ...]
  */
-export async function rankCitiesBySimilarity(userText, dislikesText = "") {
+export async function rankCitiesBySimilarity(userEmbedding, limit = 10) {
   try {
     Logger.debug("Classement des villes par similarité...");
-    Logger.debug("Préférences utilisateur:", userText);
-    if (dislikesText) {
-      Logger.debug("Aversions utilisateur:", dislikesText);
-    }
 
     // Récupération de toutes les villes avec leurs embeddings
     const cities = await CityRepository.getAllCityEmbeddings();
     Logger.debug(`${cities.length} villes récupérées`);
 
-    // Génération de l'embedding utilisateur (avec likes et optionnellement dislikes)
-    const userEmbedding = await getUserEmbedding(userText, dislikesText);
     Logger.debug(
-      `Embedding utilisateur généré (dimension: ${userEmbedding.length})`
+      `Embedding utilisateur fourni (dimension: ${userEmbedding.length})`
     );
 
     // Calcul de la similarité pour chaque ville
@@ -100,11 +94,11 @@ export async function rankCitiesBySimilarity(userText, dislikesText = "") {
     // Tri par similarité décroissante
     rankedCities.sort((a, b) => b.similarity - a.similarity);
 
-    // Retourner uniquement le top 10
-    const top10 = rankedCities.slice(0, 10);
+    // Retourner le top N
+    const topN = rankedCities.slice(0, limit);
 
-    Logger.debug("Top 10 villes les plus similaires:");
-    top10.forEach((city, index) => {
+    Logger.debug(`Top ${limit} villes les plus similaires:`);
+    topN.forEach((city, index) => {
       Logger.debug(
         `  ${index + 1}. ${city.name} (ID: ${
           city.id
@@ -112,7 +106,7 @@ export async function rankCitiesBySimilarity(userText, dislikesText = "") {
       );
     });
 
-    return top10;
+    return topN;
   } catch (error) {
     Logger.error("Erreur lors du classement des villes:", error);
     throw error;
