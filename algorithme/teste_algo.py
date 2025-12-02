@@ -310,13 +310,14 @@ def rank_cities_by_similarity(user_text: str, cities: List[Dict[str, Any]], disl
 # Exemple d'utilisation
 if __name__ == "__main__":
     
+    
     try:
         # Chargement des embeddings depuis le fichier JSON
         cities = load_embeddings_from_json("cities_embeddings.json")
         print(f"✓ {len(cities)} villes chargées")
         
         # Classement des villes par similarité
-        dislikes_text = "adult"
+        dislikes_text = ""
         user_text = "accommodation.hotel activity.sport_club building.tourism catering.restaurant.arab halal tourism.sights.archaeological_site vegan vegetarian beach catering no_fee.no internet_access.free wheelchair building catering.cafe.ice_cream catering.cafe.coffee_shop catering.bar catering.ice_cream catering.restaurant.pizza internet_access entertainment.museum accommodation.hotel catering.restaurant.sushi building.accommodation no_fee building.commercial catering.cafe.coffee commercial.shopping_mall wheelchair.yes internet_access.for_customers commercial building.tourism catering.restaurant.argentinian entertainment building.catering"
         ranked_cities = rank_cities_by_similarity(user_text, cities,dislikes_text)
         
@@ -327,32 +328,5 @@ if __name__ == "__main__":
     
     except Exception as e:
         print(f"Erreur lors du traitement: {e}")
-    """
-    # Paramètres de connexion
-    conn_params = {
-        "host": "localhost",
-        "dbname": "cities",
-        "user": "postgres",
-        "password": "postgres",
-        "port": 5432
-    }
     
-    try:
-        # Récupération de tous les embeddings
-        cities = get_all_city_embeddings(conn_params)
-        print(f"\n{len(cities)} embeddings chargés avec succès")
-        
-        # Sauvegarde dans un fichier JSON
-        save_embeddings_to_json(cities)
-        
-        # Affichage d'un exemple
-        if cities:
-            print(f"\nExemple (première ville):")
-            print(f"  ID: {cities[0]['id']}")
-            print(f"  Nom: {cities[0]['name']}")
-            print(f"  Dimension embedding: {len(cities[0]['embedding'])}")
-            print(f"  Premiers éléments: {cities[0]['embedding'][:5]}")
     
-    except Exception as e:
-        print(f"Erreur lors du traitement: {e}")
-"""

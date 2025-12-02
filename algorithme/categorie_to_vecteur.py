@@ -171,4 +171,5 @@ if __name__ == "__main__":
     #     print(f"Premiers éléments: {embedding[:5]}")
     
     # Option 2 : Traiter toutes les villes (1 à 200)
-    process_all_city_embeddings()
+    # print(get_city_categories_text(50))
+    print(generate_embedding_from_text("accommodation accommodation.hotel building building.accommodation building.catering building.commercial building.historic building.residential building.tourism catering catering.bar catering.cafe catering.cafe.coffee catering.cafe.coffee_shop catering.restaurant catering.restaurant.burger catering.restaurant.chicken catering.restaurant.french catering.restaurant.pizza catering.restaurant.portuguese catering.restaurant.regional catering.restaurant.steak_house commercial commercial.convenience commercial.shopping_mall entertainment entertainment.museum entertainment.theme_park fee gluten_free heritage highway highway.tertiary internet_access internet_access.for_customers internet_access.free leisure leisure.park leisure.park.garden man_made man_made.bridge natural natural.forest no_fee no_fee.no tourism tourism.attraction tourism.attraction.artwork tourism.attraction.viewpoint tourism.sights tourism.sights.bridge tourism.sights.city_gate tourism.sights.memorial tourism.sights.memorial.pillory vegan vegan.only vegetarian wheelchair wheelchair.yes"))  # Test de la fonction avant le traitement en masse
