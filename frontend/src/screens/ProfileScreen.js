@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Switch } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ProfileScreen = ({ navigation }) => {
   
-  // Composant pour une ligne de menu
-  const MenuItem = ({ icon, label, isDestructive = false }) => (
-    <TouchableOpacity style={styles.menuItem}>
+  
+  const MenuItem = ({ icon, label, isDestructive = false, onPress }) => (
+    <TouchableOpacity style={styles.menuItem} onPress={onPress}>
       <View style={styles.menuLeft}>
         <View style={[styles.iconBox, isDestructive && styles.destructiveIconBox]}>
             <Ionicons name={icon} size={22} color={isDestructive ? "#FF3B30" : "#007AFF"} />
@@ -47,14 +47,12 @@ const ProfileScreen = ({ navigation }) => {
         <Text style={styles.sectionTitle}>Compte</Text>
         <View style={styles.section}>
             <MenuItem icon="person-outline" label="Informations personnelles" />
-            <MenuItem icon="card-outline" label="Moyens de paiement" />
             <MenuItem icon="notifications-outline" label="Notifications" />
         </View>
 
-        {/* Section Préférences */}
+        {/* Section Préférences de voyage */}
         <Text style={styles.sectionTitle}>Préférences de voyage</Text>
         <View style={styles.section}>
-            {/* On peut remettre un accès au Quiz ici aussi si on veut */}
             <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Preferences')}>
                  <View style={styles.menuLeft}>
                     <View style={styles.iconBox}>
@@ -64,14 +62,19 @@ const ProfileScreen = ({ navigation }) => {
                 </View>
                 <Ionicons name="chevron-forward" size={20} color="#C7C7CC" />
             </TouchableOpacity>
-            <MenuItem icon="heart-outline" label="Mes favoris" />
+            
+            {/* Navigation vers 'Favoris' */}
+            <MenuItem 
+                icon="heart-outline" 
+                label="Mes favoris" 
+                onPress={() => navigation.navigate('Favoris')} 
+            />
         </View>
 
         {/* Section Autre */}
         <Text style={styles.sectionTitle}>Autre</Text>
         <View style={[styles.section, { marginBottom: 30 }]}>
             <MenuItem icon="help-circle-outline" label="Aide et support" />
-            <MenuItem icon="log-out-outline" label="Se déconnecter" isDestructive={true} />
         </View>
 
       </ScrollView>

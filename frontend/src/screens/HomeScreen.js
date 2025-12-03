@@ -9,7 +9,7 @@ const HomeScreen = ({ navigation }) => {
   // Fonction pour naviguer vers le détail
   const goToDetails = () => navigation.navigate('Details');
 
-  // --- NOUVEAU : Fonction pour aller au questionnaire ---
+  // Fonction pour aller au questionnaire 
   const startQuiz = () => navigation.navigate('Preferences');
 
   const renderHorizontalItem = () => (
