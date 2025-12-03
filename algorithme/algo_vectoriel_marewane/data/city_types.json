@@ -1,0 +1,2892 @@
+[
+  {
+    "city": "Paris",
+    "country": "France",
+    "lat": 48.8534951,
+    "lon": 2.3483915,
+    "city_tags": [
+      "accessible",
+      "art",
+      "historical",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 140,
+      "poi_with_any_tag": 140,
+      "top_tags": [
+        [
+          "museum",
+          81
+        ],
+        [
+          "accessible",
+          77
+        ],
+        [
+          "restaurant",
+          28
+        ],
+        [
+          "historical",
+          24
+        ],
+        [
+          "wifi",
+          20
+        ],
+        [
+          "attraction",
+          18
+        ],
+        [
+          "viewpoint",
+          15
+        ],
+        [
+          "cafe",
+          4
+        ],
+        [
+          "church",
+          3
+        ],
+        [
+          "vegan",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Marseille",
+    "country": "France",
+    "lat": 43.2961743,
+    "lon": 5.3699525,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 145,
+      "poi_with_any_tag": 141,
+      "top_tags": [
+        [
+          "restaurant",
+          100
+        ],
+        [
+          "accessible",
+          27
+        ],
+        [
+          "museum",
+          14
+        ],
+        [
+          "wifi",
+          14
+        ],
+        [
+          "vegan",
+          12
+        ],
+        [
+          "cafe",
+          11
+        ],
+        [
+          "viewpoint",
+          7
+        ],
+        [
+          "historical",
+          5
+        ],
+        [
+          "attraction",
+          5
+        ],
+        [
+          "church",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Lyon",
+    "country": "France",
+    "lat": 45.7578137,
+    "lon": 4.8320114,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 138,
+      "poi_with_any_tag": 136,
+      "top_tags": [
+        [
+          "restaurant",
+          103
+        ],
+        [
+          "accessible",
+          40
+        ],
+        [
+          "museum",
+          19
+        ],
+        [
+          "vegan",
+          8
+        ],
+        [
+          "wifi",
+          6
+        ],
+        [
+          "cafe",
+          6
+        ],
+        [
+          "historical",
+          4
+        ],
+        [
+          "viewpoint",
+          3
+        ],
+        [
+          "attraction",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Toulouse",
+    "country": "France",
+    "lat": 43.6044622,
+    "lon": 1.4442469,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 147,
+      "poi_with_any_tag": 146,
+      "top_tags": [
+        [
+          "restaurant",
+          116
+        ],
+        [
+          "accessible",
+          32
+        ],
+        [
+          "museum",
+          15
+        ],
+        [
+          "historical",
+          9
+        ],
+        [
+          "viewpoint",
+          8
+        ],
+        [
+          "cafe",
+          7
+        ],
+        [
+          "attraction",
+          5
+        ],
+        [
+          "wifi",
+          5
+        ],
+        [
+          "vegan",
+          4
+        ],
+        [
+          "church",
+          3
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Nice",
+    "country": "France",
+    "lat": 43.7009358,
+    "lon": 7.2683912,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 150,
+      "poi_with_any_tag": 137,
+      "top_tags": [
+        [
+          "restaurant",
+          93
+        ],
+        [
+          "accessible",
+          45
+        ],
+        [
+          "wifi",
+          18
+        ],
+        [
+          "museum",
+          17
+        ],
+        [
+          "cafe",
+          13
+        ],
+        [
+          "vegan",
+          7
+        ],
+        [
+          "historical",
+          5
+        ],
+        [
+          "attraction",
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Nantes",
+    "country": "France",
+    "lat": 47.2186371,
+    "lon": -1.5541362,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 141,
+      "poi_with_any_tag": 139,
+      "top_tags": [
+        [
+          "restaurant",
+          100
+        ],
+        [
+          "accessible",
+          69
+        ],
+        [
+          "cafe",
+          18
+        ],
+        [
+          "wifi",
+          16
+        ],
+        [
+          "museum",
+          10
+        ],
+        [
+          "vegan",
+          10
+        ],
+        [
+          "attraction",
+          7
+        ],
+        [
+          "viewpoint",
+          5
+        ],
+        [
+          "historical",
+          5
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Montpellier",
+    "country": "France",
+    "lat": 43.6112422,
+    "lon": 3.8767337,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 150,
+      "poi_with_any_tag": 149,
+      "top_tags": [
+        [
+          "restaurant",
+          128
+        ],
+        [
+          "accessible",
+          46
+        ],
+        [
+          "cafe",
+          17
+        ],
+        [
+          "wifi",
+          17
+        ],
+        [
+          "vegan",
+          9
+        ],
+        [
+          "museum",
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Bordeaux",
+    "country": "France",
+    "lat": 44.841225,
+    "lon": -0.5800364,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 149,
+      "top_tags": [
+        [
+          "restaurant",
+          116
+        ],
+        [
+          "accessible",
+          45
+        ],
+        [
+          "museum",
+          14
+        ],
+        [
+          "wifi",
+          14
+        ],
+        [
+          "cafe",
+          11
+        ],
+        [
+          "vegan",
+          6
+        ],
+        [
+          "historical",
+          2
+        ],
+        [
+          "viewpoint",
+          2
+        ],
+        [
+          "attraction",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Strasbourg",
+    "country": "France",
+    "lat": 48.584614,
+    "lon": 7.7507127,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 150,
+      "poi_with_any_tag": 148,
+      "top_tags": [
+        [
+          "restaurant",
+          120
+        ],
+        [
+          "accessible",
+          47
+        ],
+        [
+          "vegan",
+          19
+        ],
+        [
+          "cafe",
+          13
+        ],
+        [
+          "museum",
+          11
+        ],
+        [
+          "wifi",
+          8
+        ],
+        [
+          "attraction",
+          3
+        ],
+        [
+          "historical",
+          2
+        ],
+        [
+          "viewpoint",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Lille",
+    "country": "France",
+    "lat": 50.6365654,
+    "lon": 3.0635282,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "cold",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan"
+    ],
+    "stats": {
+      "total_poi": 150,
+      "poi_with_any_tag": 149,
+      "top_tags": [
+        [
+          "restaurant",
+          107
+        ],
+        [
+          "accessible",
+          47
+        ],
+        [
+          "museum",
+          24
+        ],
+        [
+          "cafe",
+          10
+        ],
+        [
+          "historical",
+          9
+        ],
+        [
+          "vegan",
+          6
+        ],
+        [
+          "attraction",
+          4
+        ],
+        [
+          "wifi",
+          3
+        ],
+        [
+          "viewpoint",
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Madrid",
+    "country": "Spain",
+    "lat": 40.4167047,
+    "lon": -3.7035825,
+    "city_tags": [
+      "accessible",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 147,
+      "poi_with_any_tag": 130,
+      "top_tags": [
+        [
+          "accessible",
+          90
+        ],
+        [
+          "wifi",
+          62
+        ],
+        [
+          "museum",
+          40
+        ],
+        [
+          "restaurant",
+          23
+        ],
+        [
+          "viewpoint",
+          11
+        ],
+        [
+          "attraction",
+          8
+        ],
+        [
+          "church",
+          2
+        ],
+        [
+          "cafe",
+          1
+        ],
+        [
+          "vegan",
+          1
+        ],
+        [
+          "historical",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Barcelona",
+    "country": "Spain",
+    "lat": 41.3825802,
+    "lon": 2.177073,
+    "city_tags": [
+      "accessible",
+      "art",
+      "historical",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 139,
+      "poi_with_any_tag": 126,
+      "top_tags": [
+        [
+          "accessible",
+          74
+        ],
+        [
+          "wifi",
+          48
+        ],
+        [
+          "museum",
+          33
+        ],
+        [
+          "restaurant",
+          24
+        ],
+        [
+          "attraction",
+          20
+        ],
+        [
+          "viewpoint",
+          16
+        ],
+        [
+          "historical",
+          10
+        ],
+        [
+          "cafe",
+          2
+        ],
+        [
+          "church",
+          2
+        ],
+        [
+          "vegan",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Valencia",
+    "country": "Spain",
+    "lat": 39.4697065,
+    "lon": -0.3763353,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "warm",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 146,
+      "poi_with_any_tag": 140,
+      "top_tags": [
+        [
+          "restaurant",
+          92
+        ],
+        [
+          "accessible",
+          36
+        ],
+        [
+          "wifi",
+          31
+        ],
+        [
+          "museum",
+          15
+        ],
+        [
+          "vegan",
+          13
+        ],
+        [
+          "cafe",
+          9
+        ],
+        [
+          "attraction",
+          6
+        ],
+        [
+          "viewpoint",
+          3
+        ],
+        [
+          "historical",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Seville",
+    "country": "Spain",
+    "lat": 37.3886303,
+    "lon": -5.9953403,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "warm",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 143,
+      "poi_with_any_tag": 122,
+      "top_tags": [
+        [
+          "restaurant",
+          62
+        ],
+        [
+          "accessible",
+          35
+        ],
+        [
+          "wifi",
+          28
+        ],
+        [
+          "museum",
+          18
+        ],
+        [
+          "attraction",
+          9
+        ],
+        [
+          "cafe",
+          9
+        ],
+        [
+          "viewpoint",
+          8
+        ],
+        [
+          "historical",
+          5
+        ],
+        [
+          "vegan",
+          3
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Bilbao",
+    "country": "Spain",
+    "lat": 43.2630018,
+    "lon": -2.9350039,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 150,
+      "poi_with_any_tag": 138,
+      "top_tags": [
+        [
+          "restaurant",
+          91
+        ],
+        [
+          "accessible",
+          43
+        ],
+        [
+          "wifi",
+          31
+        ],
+        [
+          "cafe",
+          11
+        ],
+        [
+          "museum",
+          7
+        ],
+        [
+          "vegan",
+          3
+        ],
+        [
+          "attraction",
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Malaga",
+    "country": "Spain",
+    "lat": 36.7213028,
+    "lon": -4.4216366,
+    "city_tags": [
+      "accessible",
+      "art",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "warm",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 128,
+      "poi_with_any_tag": 116,
+      "top_tags": [
+        [
+          "restaurant",
+          56
+        ],
+        [
+          "accessible",
+          42
+        ],
+        [
+          "museum",
+          23
+        ],
+        [
+          "wifi",
+          20
+        ],
+        [
+          "viewpoint",
+          13
+        ],
+        [
+          "attraction",
+          13
+        ],
+        [
+          "vegan",
+          11
+        ],
+        [
+          "historical",
+          5
+        ],
+        [
+          "cafe",
+          2
+        ],
+        [
+          "church",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Zaragoza",
+    "country": "Spain",
+    "lat": 41.6521342,
+    "lon": -0.8809428,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 137,
+      "poi_with_any_tag": 127,
+      "top_tags": [
+        [
+          "restaurant",
+          73
+        ],
+        [
+          "accessible",
+          41
+        ],
+        [
+          "museum",
+          22
+        ],
+        [
+          "wifi",
+          21
+        ],
+        [
+          "viewpoint",
+          9
+        ],
+        [
+          "attraction",
+          9
+        ],
+        [
+          "cafe",
+          9
+        ],
+        [
+          "church",
+          2
+        ],
+        [
+          "vegan",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Granada",
+    "country": "Spain",
+    "lat": 37.1734995,
+    "lon": -3.5995337,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "warm",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 139,
+      "top_tags": [
+        [
+          "restaurant",
+          83
+        ],
+        [
+          "wifi",
+          34
+        ],
+        [
+          "accessible",
+          28
+        ],
+        [
+          "cafe",
+          14
+        ],
+        [
+          "museum",
+          10
+        ],
+        [
+          "vegan",
+          9
+        ],
+        [
+          "viewpoint",
+          4
+        ],
+        [
+          "attraction",
+          4
+        ],
+        [
+          "historical",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Cordoba",
+    "country": "Spain",
+    "lat": 37.8845813,
+    "lon": -4.7760138,
+    "city_tags": [
+      "accessible",
+      "museum",
+      "restaurant",
+      "warm",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 127,
+      "top_tags": [
+        [
+          "restaurant",
+          97
+        ],
+        [
+          "accessible",
+          14
+        ],
+        [
+          "wifi",
+          12
+        ],
+        [
+          "viewpoint",
+          9
+        ],
+        [
+          "attraction",
+          9
+        ],
+        [
+          "museum",
+          8
+        ],
+        [
+          "cafe",
+          4
+        ],
+        [
+          "vegan",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Alicante",
+    "country": "Spain",
+    "lat": 38.3436365,
+    "lon": -0.4881708,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "warm",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 145,
+      "poi_with_any_tag": 131,
+      "top_tags": [
+        [
+          "restaurant",
+          97
+        ],
+        [
+          "wifi",
+          22
+        ],
+        [
+          "accessible",
+          19
+        ],
+        [
+          "cafe",
+          12
+        ],
+        [
+          "vegan",
+          7
+        ],
+        [
+          "museum",
+          5
+        ],
+        [
+          "attraction",
+          3
+        ],
+        [
+          "viewpoint",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Rome",
+    "country": "Italy",
+    "lat": 41.8933203,
+    "lon": 12.4829321,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 142,
+      "poi_with_any_tag": 142,
+      "top_tags": [
+        [
+          "museum",
+          47
+        ],
+        [
+          "accessible",
+          46
+        ],
+        [
+          "restaurant",
+          41
+        ],
+        [
+          "attraction",
+          35
+        ],
+        [
+          "viewpoint",
+          34
+        ],
+        [
+          "church",
+          16
+        ],
+        [
+          "wifi",
+          12
+        ],
+        [
+          "cafe",
+          12
+        ],
+        [
+          "historical",
+          2
+        ],
+        [
+          "vegan",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Milan",
+    "country": "Italy",
+    "lat": 45.4641943,
+    "lon": 9.1896346,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 144,
+      "poi_with_any_tag": 119,
+      "top_tags": [
+        [
+          "museum",
+          56
+        ],
+        [
+          "restaurant",
+          33
+        ],
+        [
+          "accessible",
+          32
+        ],
+        [
+          "wifi",
+          10
+        ],
+        [
+          "attraction",
+          9
+        ],
+        [
+          "viewpoint",
+          8
+        ],
+        [
+          "cafe",
+          5
+        ],
+        [
+          "church",
+          4
+        ],
+        [
+          "historical",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Naples",
+    "country": "Italy",
+    "lat": 40.8358846,
+    "lon": 14.2487679,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 145,
+      "poi_with_any_tag": 133,
+      "top_tags": [
+        [
+          "restaurant",
+          67
+        ],
+        [
+          "museum",
+          36
+        ],
+        [
+          "wifi",
+          23
+        ],
+        [
+          "accessible",
+          16
+        ],
+        [
+          "cafe",
+          10
+        ],
+        [
+          "attraction",
+          5
+        ],
+        [
+          "viewpoint",
+          4
+        ],
+        [
+          "vegan",
+          2
+        ],
+        [
+          "church",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Turin",
+    "country": "Italy",
+    "lat": 45.0677551,
+    "lon": 7.6824892,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 145,
+      "top_tags": [
+        [
+          "restaurant",
+          82
+        ],
+        [
+          "museum",
+          40
+        ],
+        [
+          "accessible",
+          39
+        ],
+        [
+          "cafe",
+          13
+        ],
+        [
+          "viewpoint",
+          11
+        ],
+        [
+          "attraction",
+          7
+        ],
+        [
+          "wifi",
+          6
+        ],
+        [
+          "church",
+          3
+        ],
+        [
+          "historical",
+          3
+        ],
+        [
+          "vegan",
+          3
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Palermo",
+    "country": "Italy",
+    "lat": 38.1112268,
+    "lon": 13.3524434,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "warm",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 141,
+      "poi_with_any_tag": 131,
+      "top_tags": [
+        [
+          "restaurant",
+          68
+        ],
+        [
+          "accessible",
+          30
+        ],
+        [
+          "wifi",
+          21
+        ],
+        [
+          "cafe",
+          20
+        ],
+        [
+          "museum",
+          19
+        ],
+        [
+          "viewpoint",
+          6
+        ],
+        [
+          "attraction",
+          6
+        ],
+        [
+          "historical",
+          3
+        ],
+        [
+          "vegan",
+          3
+        ],
+        [
+          "church",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Genoa",
+    "country": "Italy",
+    "lat": 44.40726,
+    "lon": 8.9338624,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 147,
+      "poi_with_any_tag": 126,
+      "top_tags": [
+        [
+          "restaurant",
+          76
+        ],
+        [
+          "museum",
+          22
+        ],
+        [
+          "accessible",
+          21
+        ],
+        [
+          "wifi",
+          17
+        ],
+        [
+          "viewpoint",
+          12
+        ],
+        [
+          "cafe",
+          8
+        ],
+        [
+          "attraction",
+          6
+        ],
+        [
+          "historical",
+          2
+        ],
+        [
+          "vegan",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Bologna",
+    "country": "Italy",
+    "lat": 44.4938203,
+    "lon": 11.3426327,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 142,
+      "poi_with_any_tag": 140,
+      "top_tags": [
+        [
+          "restaurant",
+          108
+        ],
+        [
+          "accessible",
+          21
+        ],
+        [
+          "wifi",
+          16
+        ],
+        [
+          "cafe",
+          16
+        ],
+        [
+          "vegan",
+          9
+        ],
+        [
+          "museum",
+          7
+        ],
+        [
+          "attraction",
+          3
+        ],
+        [
+          "viewpoint",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Florence",
+    "country": "Italy",
+    "lat": 43.7697955,
+    "lon": 11.2556404,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 148,
+      "poi_with_any_tag": 146,
+      "top_tags": [
+        [
+          "restaurant",
+          87
+        ],
+        [
+          "accessible",
+          39
+        ],
+        [
+          "wifi",
+          35
+        ],
+        [
+          "museum",
+          27
+        ],
+        [
+          "cafe",
+          12
+        ],
+        [
+          "vegan",
+          9
+        ],
+        [
+          "viewpoint",
+          6
+        ],
+        [
+          "attraction",
+          5
+        ],
+        [
+          "historical",
+          3
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Venice",
+    "country": "Italy",
+    "lat": 45.4371908,
+    "lon": 12.3345898,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 132,
+      "top_tags": [
+        [
+          "restaurant",
+          78
+        ],
+        [
+          "accessible",
+          45
+        ],
+        [
+          "wifi",
+          25
+        ],
+        [
+          "museum",
+          19
+        ],
+        [
+          "attraction",
+          12
+        ],
+        [
+          "cafe",
+          9
+        ],
+        [
+          "church",
+          6
+        ],
+        [
+          "viewpoint",
+          5
+        ],
+        [
+          "vegan",
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Verona",
+    "country": "Italy",
+    "lat": 45.4384958,
+    "lon": 10.9924122,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 136,
+      "top_tags": [
+        [
+          "restaurant",
+          94
+        ],
+        [
+          "accessible",
+          21
+        ],
+        [
+          "wifi",
+          20
+        ],
+        [
+          "museum",
+          16
+        ],
+        [
+          "cafe",
+          8
+        ],
+        [
+          "attraction",
+          7
+        ],
+        [
+          "viewpoint",
+          5
+        ],
+        [
+          "vegan",
+          2
+        ],
+        [
+          "church",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Berlin",
+    "country": "Germany",
+    "lat": 52.510885,
+    "lon": 13.3989367,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "cold",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 145,
+      "top_tags": [
+        [
+          "accessible",
+          112
+        ],
+        [
+          "museum",
+          63
+        ],
+        [
+          "wifi",
+          29
+        ],
+        [
+          "restaurant",
+          23
+        ],
+        [
+          "attraction",
+          22
+        ],
+        [
+          "historical",
+          21
+        ],
+        [
+          "viewpoint",
+          15
+        ],
+        [
+          "cafe",
+          8
+        ],
+        [
+          "vegan",
+          4
+        ],
+        [
+          "church",
+          3
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Munich",
+    "country": "Germany",
+    "lat": 48.1371079,
+    "lon": 11.5753822,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 145,
+      "top_tags": [
+        [
+          "accessible",
+          96
+        ],
+        [
+          "restaurant",
+          74
+        ],
+        [
+          "museum",
+          32
+        ],
+        [
+          "vegan",
+          27
+        ],
+        [
+          "wifi",
+          24
+        ],
+        [
+          "historical",
+          19
+        ],
+        [
+          "attraction",
+          15
+        ],
+        [
+          "viewpoint",
+          10
+        ],
+        [
+          "cafe",
+          6
+        ],
+        [
+          "church",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Hamburg",
+    "country": "Germany",
+    "lat": 53.550341,
+    "lon": 10.000654,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "cold",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 146,
+      "poi_with_any_tag": 144,
+      "top_tags": [
+        [
+          "accessible",
+          96
+        ],
+        [
+          "restaurant",
+          72
+        ],
+        [
+          "museum",
+          37
+        ],
+        [
+          "viewpoint",
+          25
+        ],
+        [
+          "historical",
+          22
+        ],
+        [
+          "wifi",
+          20
+        ],
+        [
+          "vegan",
+          13
+        ],
+        [
+          "cafe",
+          10
+        ],
+        [
+          "attraction",
+          6
+        ],
+        [
+          "church",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Cologne",
+    "country": "Germany",
+    "lat": 50.938361,
+    "lon": 6.959974,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "cold",
+      "historical",
+      "mountain",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 144,
+      "top_tags": [
+        [
+          "restaurant",
+          89
+        ],
+        [
+          "accessible",
+          87
+        ],
+        [
+          "museum",
+          20
+        ],
+        [
+          "wifi",
+          18
+        ],
+        [
+          "vegan",
+          12
+        ],
+        [
+          "cafe",
+          9
+        ],
+        [
+          "historical",
+          8
+        ],
+        [
+          "viewpoint",
+          6
+        ],
+        [
+          "attraction",
+          4
+        ],
+        [
+          "ski",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Frankfurt",
+    "country": "Germany",
+    "lat": 50.1106444,
+    "lon": 8.6820917,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "cold",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 148,
+      "poi_with_any_tag": 148,
+      "top_tags": [
+        [
+          "accessible",
+          86
+        ],
+        [
+          "restaurant",
+          80
+        ],
+        [
+          "museum",
+          29
+        ],
+        [
+          "cafe",
+          15
+        ],
+        [
+          "wifi",
+          15
+        ],
+        [
+          "vegan",
+          13
+        ],
+        [
+          "attraction",
+          5
+        ],
+        [
+          "historical",
+          2
+        ],
+        [
+          "viewpoint",
+          2
+        ],
+        [
+          "church",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Stuttgart",
+    "country": "Germany",
+    "lat": 48.7784485,
+    "lon": 9.1800132,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 147,
+      "poi_with_any_tag": 146,
+      "top_tags": [
+        [
+          "restaurant",
+          92
+        ],
+        [
+          "accessible",
+          69
+        ],
+        [
+          "museum",
+          24
+        ],
+        [
+          "wifi",
+          15
+        ],
+        [
+          "vegan",
+          12
+        ],
+        [
+          "cafe",
+          12
+        ],
+        [
+          "attraction",
+          9
+        ],
+        [
+          "viewpoint",
+          8
+        ],
+        [
+          "historical",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Dusseldorf",
+    "country": "Germany",
+    "lat": 51.2254018,
+    "lon": 6.7763137,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "cold",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 147,
+      "top_tags": [
+        [
+          "restaurant",
+          110
+        ],
+        [
+          "accessible",
+          81
+        ],
+        [
+          "wifi",
+          11
+        ],
+        [
+          "museum",
+          11
+        ],
+        [
+          "cafe",
+          11
+        ],
+        [
+          "attraction",
+          5
+        ],
+        [
+          "vegan",
+          5
+        ],
+        [
+          "viewpoint",
+          2
+        ],
+        [
+          "historical",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Leipzig",
+    "country": "Germany",
+    "lat": 51.3406321,
+    "lon": 12.3747329,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "cold",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 150,
+      "poi_with_any_tag": 148,
+      "top_tags": [
+        [
+          "accessible",
+          81
+        ],
+        [
+          "restaurant",
+          75
+        ],
+        [
+          "vegan",
+          26
+        ],
+        [
+          "wifi",
+          25
+        ],
+        [
+          "museum",
+          23
+        ],
+        [
+          "cafe",
+          22
+        ],
+        [
+          "historical",
+          11
+        ],
+        [
+          "viewpoint",
+          10
+        ],
+        [
+          "attraction",
+          7
+        ],
+        [
+          "church",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Dortmund",
+    "country": "Germany",
+    "lat": 51.5142273,
+    "lon": 7.4652789,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "cold",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 150,
+      "poi_with_any_tag": 149,
+      "top_tags": [
+        [
+          "restaurant",
+          103
+        ],
+        [
+          "accessible",
+          69
+        ],
+        [
+          "cafe",
+          23
+        ],
+        [
+          "vegan",
+          22
+        ],
+        [
+          "museum",
+          16
+        ],
+        [
+          "wifi",
+          14
+        ],
+        [
+          "historical",
+          2
+        ],
+        [
+          "viewpoint",
+          1
+        ],
+        [
+          "attraction",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Bremen",
+    "country": "Germany",
+    "lat": 53.0758196,
+    "lon": 8.8071646,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "cold",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 146,
+      "top_tags": [
+        [
+          "restaurant",
+          88
+        ],
+        [
+          "accessible",
+          77
+        ],
+        [
+          "museum",
+          21
+        ],
+        [
+          "vegan",
+          18
+        ],
+        [
+          "cafe",
+          18
+        ],
+        [
+          "wifi",
+          16
+        ],
+        [
+          "attraction",
+          7
+        ],
+        [
+          "historical",
+          5
+        ],
+        [
+          "viewpoint",
+          4
+        ],
+        [
+          "church",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Lisbon",
+    "country": "Portugal",
+    "lat": 38.7077507,
+    "lon": -9.1365919,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "historical",
+      "museum",
+      "restaurant",
+      "warm",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 144,
+      "poi_with_any_tag": 143,
+      "top_tags": [
+        [
+          "restaurant",
+          61
+        ],
+        [
+          "museum",
+          36
+        ],
+        [
+          "accessible",
+          34
+        ],
+        [
+          "wifi",
+          32
+        ],
+        [
+          "viewpoint",
+          16
+        ],
+        [
+          "attraction",
+          13
+        ],
+        [
+          "cafe",
+          13
+        ],
+        [
+          "historical",
+          10
+        ],
+        [
+          "church",
+          3
+        ],
+        [
+          "vegan",
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.1502195,
+    "lon": -8.6103497,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "historical",
+      "mountain",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 134,
+      "poi_with_any_tag": 133,
+      "top_tags": [
+        [
+          "restaurant",
+          50
+        ],
+        [
+          "accessible",
+          36
+        ],
+        [
+          "museum",
+          31
+        ],
+        [
+          "wifi",
+          26
+        ],
+        [
+          "historical",
+          17
+        ],
+        [
+          "attraction",
+          16
+        ],
+        [
+          "cafe",
+          12
+        ],
+        [
+          "viewpoint",
+          10
+        ],
+        [
+          "vegan",
+          6
+        ],
+        [
+          "church",
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Coimbra",
+    "country": "Portugal",
+    "lat": 40.2111931,
+    "lon": -8.4294632,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 143,
+      "poi_with_any_tag": 132,
+      "top_tags": [
+        [
+          "restaurant",
+          93
+        ],
+        [
+          "cafe",
+          26
+        ],
+        [
+          "accessible",
+          15
+        ],
+        [
+          "wifi",
+          11
+        ],
+        [
+          "museum",
+          6
+        ],
+        [
+          "historical",
+          3
+        ],
+        [
+          "vegan",
+          2
+        ],
+        [
+          "attraction",
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Braga",
+    "country": "Portugal",
+    "lat": 41.5510583,
+    "lon": -8.4280045,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "historical",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 141,
+      "poi_with_any_tag": 136,
+      "top_tags": [
+        [
+          "restaurant",
+          79
+        ],
+        [
+          "wifi",
+          47
+        ],
+        [
+          "accessible",
+          29
+        ],
+        [
+          "cafe",
+          23
+        ],
+        [
+          "museum",
+          18
+        ],
+        [
+          "viewpoint",
+          14
+        ],
+        [
+          "vegan",
+          12
+        ],
+        [
+          "attraction",
+          12
+        ],
+        [
+          "historical",
+          5
+        ],
+        [
+          "church",
+          3
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Faro",
+    "country": "Portugal",
+    "lat": 37.0162944,
+    "lon": -7.935182,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "warm",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 143,
+      "poi_with_any_tag": 136,
+      "top_tags": [
+        [
+          "restaurant",
+          91
+        ],
+        [
+          "accessible",
+          59
+        ],
+        [
+          "wifi",
+          37
+        ],
+        [
+          "cafe",
+          15
+        ],
+        [
+          "attraction",
+          8
+        ],
+        [
+          "vegan",
+          8
+        ],
+        [
+          "museum",
+          6
+        ],
+        [
+          "viewpoint",
+          4
+        ],
+        [
+          "historical",
+          4
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Aveiro",
+    "country": "Portugal",
+    "lat": 40.640496,
+    "lon": -8.6537841,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 144,
+      "poi_with_any_tag": 134,
+      "top_tags": [
+        [
+          "restaurant",
+          85
+        ],
+        [
+          "wifi",
+          26
+        ],
+        [
+          "cafe",
+          25
+        ],
+        [
+          "accessible",
+          13
+        ],
+        [
+          "museum",
+          12
+        ],
+        [
+          "vegan",
+          6
+        ],
+        [
+          "viewpoint",
+          5
+        ],
+        [
+          "attraction",
+          5
+        ],
+        [
+          "historical",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Guimaraes",
+    "country": "Portugal",
+    "lat": 41.4417677,
+    "lon": -8.2955712,
+    "city_tags": [
+      "accessible",
+      "art",
+      "cafe",
+      "mountain",
+      "museum",
+      "restaurant",
+      "vegan",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 107,
+      "poi_with_any_tag": 97,
+      "top_tags": [
+        [
+          "restaurant",
+          50
+        ],
+        [
+          "cafe",
+          19
+        ],
+        [
+          "accessible",
+          14
+        ],
+        [
+          "attraction",
+          13
+        ],
+        [
+          "wifi",
+          13
+        ],
+        [
+          "viewpoint",
+          9
+        ],
+        [
+          "museum",
+          6
+        ],
+        [
+          "vegan",
+          4
+        ],
+        [
+          "historical",
+          4
+        ],
+        [
+          "ski",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Evora",
+    "country": "Portugal",
+    "lat": 38.5707742,
+    "lon": -7.9092808,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "warm",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 149,
+      "poi_with_any_tag": 141,
+      "top_tags": [
+        [
+          "restaurant",
+          93
+        ],
+        [
+          "wifi",
+          28
+        ],
+        [
+          "cafe",
+          18
+        ],
+        [
+          "accessible",
+          13
+        ],
+        [
+          "museum",
+          12
+        ],
+        [
+          "viewpoint",
+          2
+        ],
+        [
+          "historical",
+          2
+        ],
+        [
+          "attraction",
+          2
+        ],
+        [
+          "vegan",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Setubal",
+    "country": "Portugal",
+    "lat": 38.5241783,
+    "lon": -8.8932341,
+    "city_tags": [
+      "accessible",
+      "art",
+      "beach",
+      "cafe",
+      "historical",
+      "museum",
+      "restaurant",
+      "warm",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 130,
+      "poi_with_any_tag": 118,
+      "top_tags": [
+        [
+          "restaurant",
+          56
+        ],
+        [
+          "cafe",
+          22
+        ],
+        [
+          "beach",
+          15
+        ],
+        [
+          "wifi",
+          13
+        ],
+        [
+          "viewpoint",
+          10
+        ],
+        [
+          "historical",
+          10
+        ],
+        [
+          "attraction",
+          10
+        ],
+        [
+          "accessible",
+          9
+        ],
+        [
+          "museum",
+          5
+        ],
+        [
+          "vegan",
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "city": "Viseu",
+    "country": "Portugal",
+    "lat": 40.6574713,
+    "lon": -7.9138664,
+    "city_tags": [
+      "accessible",
+      "cafe",
+      "museum",
+      "restaurant",
+      "wifi"
+    ],
+    "stats": {
+      "total_poi": 105,
+      "poi_with_any_tag": 101,
+      "top_tags": [
+        [
+          "restaurant",
+          51
+        ],
+        [
+          "cafe",
+          24
+        ],
+        [
+          "wifi",
+          10
+        ],
+        [
+          "museum",
+          9
+        ],
+        [
+          "accessible",
+          9
+        ],
+        [
+          "attraction",
+          9
+        ],
+        [
+          "viewpoint",
+          3
+        ],
+        [
+          "historical",
+          2
+        ],
+        [
+          "vegan",
+          2
+        ]
+      ]
+    }
+  }
+]
