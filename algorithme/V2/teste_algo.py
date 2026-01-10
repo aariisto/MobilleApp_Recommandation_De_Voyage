@@ -7,6 +7,7 @@ from sentence_transformers import SentenceTransformer
 
 # Build a MiniLM-friendly query from raw category tags
 from user_query import generate_user_query
+from user_query import generate_user_query_with_weights
 
 
 # Configuration du logging
@@ -366,7 +367,15 @@ if __name__ == "__main__":
       "wheelchair.limited",
       "wheelchair.yes"
     ]
-        user_text = generate_user_query(user_categories)
+        user_text1 = generate_user_query(user_categories)
+        user_text2 = generate_user_query_with_weights(user_categories, {
+    "tourism.attraction": 5,
+    "leisure.park": 5,
+    "commercial.shopping_mall": 5,
+    "entertainment": 5,
+    "heritage": 5
+})
+        user_text = user_text2
         ranked_cities = rank_cities_by_similarity(user_text, cities, dislikes_text="")
         
         # Affichage des top 10
