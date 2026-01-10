@@ -1,0 +1,81 @@
+{
+  "version": 2,
+  "goal": "Strict filtering for MiniLM relevance: describe tourism experience and atmosphere, not infrastructure.",
+  "include_themes": {
+    "nature": {
+      "any_prefixes": ["natural", "beach", "island", "national_park"],
+      "leaf_extraction_prefixes": ["natural"],
+      "max_leaf_items": 3
+    },
+    "history": {
+      "any_prefixes": [
+        "heritage",
+        "tourism.sights",
+        "religion",
+        "memorial",
+        "building.historic"
+      ],
+      "sights_leaf_extraction_prefix": "tourism.sights",
+      "preferred_sights": [
+        "castle",
+        "ruines",
+        "monastery",
+        "cathedral",
+        "church",
+        "chapel",
+        "mosque",
+        "synagogue",
+        "temple",
+        "archaeological_site",
+        "fort",
+        "city_gate"
+      ],
+      "max_sights": 3
+    },
+    "gastronomy": {
+      "restaurants_prefix": "catering.restaurant",
+      "cuisines_blacklist": ["restaurant", "regional"],
+      "max_cuisines": 3,
+      "production_prefixes": ["production.winery", "production.brewery"]
+    },
+    "shopping": {
+      "any_exact": [
+        "commercial.shopping_mall",
+        "commercial.marketplace",
+        "commercial.gift_and_souvenir"
+      ]
+    },
+    "fun_sport": {
+      "any_exact": [
+        "adult.nightclub",
+        "adult.casino",
+        "entertainment.theme_park",
+        "sport.stadium"
+      ],
+      "any_prefixes": ["ski"]
+    }
+  },
+  "ignore": {
+    "roots": [
+      "administrative",
+      "office",
+      "parking",
+      "highway",
+      "education",
+      "healthcare",
+      "fee",
+      "internet_access",
+      "wheelchair",
+      "access",
+      "access_limited",
+      "man_made",
+      "building"
+    ],
+    "allowed_exceptions": ["building.historic"],
+    "notes": "Ignore supermarkets/pharmacies/etc. Only keep shopping_mall, marketplace, gift_and_souvenir. Ignore general building/man_made unless historic."
+  },
+  "sentence_rules": {
+    "style": "One concise English sentence with connected phrases; do not dump comma-separated keywords.",
+    "fallback": "{city} offers a mix of travel experiences and local atmosphere."
+  }
+}
