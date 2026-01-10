@@ -17,17 +17,17 @@ Le générateur lit la liste `categories` (tags en notation pointée comme `tour
 
 ### `version`
 
-Simple numéro de version de la configuration.
+Simple numéro de version de la configuration (v3 inclut des ajustements de matching/précision).
 
 ### `include_themes`
 
 Blocs de thèmes **à inclure** dans la phrase si présents.
 
-- `nature` : `natural`, `beach`, `island`, `national_park` (+ leaf possibles comme `forest`, `mountain`).
+- `nature` : `natural`, `beach`, `island`, `national_park` (+ extraction de leaf sur ces préfixes, ex: `natural.forest`, `beach.sand`).
 - `history` : `heritage`, `tourism.sights`, `religion`, `memorial`, et **exception** `building.historic`.
 - `gastronomy` : `production.winery`, `production.brewery` et **tous** les `catering.restaurant.*`.
 - `shopping` : **uniquement** `commercial.shopping_mall`, `commercial.marketplace`, `commercial.gift_and_souvenir`.
-- `fun_sport` : `adult.nightclub`, `adult.casino`, `entertainment.theme_park`, `ski.*`, `sport.stadium`.
+- `fun_sport` : matching par préfixe pour capter aussi les sous-tags (`adult.nightclub.*`, `adult.casino.*`, `entertainment.theme_park.*`, `sport.stadium.*`) + `ski.*`.
 
 #### `any_prefixes` et `any_exact`
 
