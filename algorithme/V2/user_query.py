@@ -638,10 +638,10 @@ if __name__ == "__main__":
       "tourism.sights.memorial.tomb",
       "tourism.sights.ruines",
       "wheelchair",
-      "wheelchair.yes"
+      "ski"
     ]
     # Test with weights
-    print(generate_user_query_with_weights(example, {"heritage": 5, "catering.restaurant.arab": 4}))
+    print(generate_user_query_with_weights(example, {"ski":2}))
     
     # Test without weights (fallback)
     print(generate_user_query_with_weights(example))

@@ -9,6 +9,9 @@ from sentence_transformers import SentenceTransformer
 from user_query import generate_user_query
 from user_query import generate_user_query_with_weights
 
+# Import penalty calculation function
+from penality_calculate import calculate_penalty_for_city
+
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -125,58 +128,28 @@ def save_embeddings_to_json(cities: List[Dict[str, Any]], filename: str = "citie
         raise
 
 
-def get_user_embedding(likes_text: str, dislikes_text: str = "") -> List[float]:
+def get_user_embedding(user_text: str) -> List[float]:
     """
-    Génère un embedding pour un utilisateur en tenant compte de ses préférences (likes) et aversions (dislikes).
-    
-    La logique fonctionne ainsi :
-    - On calcule un vecteur pour ce que l'utilisateur AIME
-    - On calcule un vecteur pour ce que l'utilisateur N'AIME PAS
-    - Le vecteur final = embedding_likes - embedding_dislikes
-    
-    Cela permet de "repousser" les résultats qui contiendraient les dislikes.
-    
-    Exemple :
-        - likes_text = "plage restaurant"
-        - dislikes_text = "montagne froid"
-        - final = embedding(plage restaurant) - embedding(montagne froid)
-        → Le système recommandera des destinations avec plage/restaurant
-          ET évitera montagne/froid
+    Génère un embedding pour le texte utilisateur.
     
     Args:
-        likes_text: Le texte représentant ce que l'utilisateur AIME (obligatoire)
-                   (ex: "plage restaurant shopping")
-        dislikes_text: Le texte représentant ce que l'utilisateur N'AIME PAS (optionnel)
-                      (ex: "montagne froid humidité")
+        user_text: Le texte représentant les préférences utilisateur
+                  (ex: "plage restaurant shopping")
     
     Returns:
-        Une liste de floats représentant le vecteur d'embedding final (likes - dislikes)
+        Une liste de floats représentant le vecteur d'embedding
     """
     try:
         logger.info("Chargement du modèle sentence-transformers...")
         # Chargement du modèle "all-MiniLM-L6-v2"
         model = SentenceTransformer('all-MiniLM-L6-v2')
         
-        # Génération de l'embedding pour les préférences (likes)
-        logger.info(f"Génération de l'embedding pour les préférences (likes): '{likes_text}'")
-        embedding_likes = model.encode(likes_text)
-        
-        # Si dislikes_text est fourni, générer son embedding
-        if dislikes_text and dislikes_text.strip():
-            logger.info(f"Génération de l'embedding pour les aversions (dislikes): '{dislikes_text}'")
-            embedding_dislikes = model.encode(dislikes_text)
-            
-            # Calcul du vecteur final : likes - dislikes
-            # Cette soustraction "repousse" les résultats qui correspondent aux dislikes
-            embedding_final = embedding_likes - embedding_dislikes
-            logger.info("Calcul du vecteur final : embedding_likes - embedding_dislikes")
-        else:
-            # Si pas de dislikes, on utilise juste le embedding des likes
-            logger.info("Pas de dislikes fourni, utilisation directe de l'embedding des likes")
-            embedding_final = embedding_likes
+        # Génération de l'embedding pour le texte utilisateur
+        logger.info(f"Génération de l'embedding pour: '{user_text}'")
+        embedding = model.encode(user_text)
         
         # Conversion en liste Python
-        return embedding_final.tolist()
+        return embedding.tolist()
     
     except Exception as e:
         logger.error(f"Erreur lors de la génération de l'embedding utilisateur: {e}")
@@ -254,46 +227,58 @@ def load_embeddings_from_json(filename: str = "cities_embeddings.json") -> List[
         raise
 
 
-def rank_cities_by_similarity(user_text: str, cities: List[Dict[str, Any]], dislikes_text: str = "", output_filename: str = "ranked_cities.json") -> List[Dict[str, Any]]:
+def rank_cities_by_similarity(user_text: str, cities: List[Dict[str, Any]], dislikes: Dict[str, int] = None, conn_params: Dict[str, Any] = None, output_filename: str = "ranked_cities.json") -> List[Dict[str, Any]]:
     """
-    Classe les villes par similarité avec le texte utilisateur (likes et dislikes).
+    Classe les villes par similarité avec le texte utilisateur en appliquant des pénalités pour les dislikes.
     
     Args:
         user_text: Texte utilisateur (ex: "plage restaurant shopping")
         cities: Liste des villes avec leurs embeddings
-        dislikes_text: Texte des préférences à ÉVITER (optionnel)
+        dislikes: Dictionnaire des catégories détestées avec poids (ex: {'adult.nightclub': 5, 'parking': 2})
+        conn_params: Paramètres de connexion PostgreSQL pour récupérer les catégories des villes
         output_filename: Nom du fichier de sortie pour les résultats
     
     Returns:
-        Liste des villes triées par similarité décroissante
+        Liste des villes triées par score final décroissant (similarité - pénalité)
     """
     try:
         logger.info(f"Calcul de la similarité pour: '{user_text}'")
         
-        # Génération de l'embedding utilisateur (avec likes et optionnellement dislikes)
-        user_embedding = get_user_embedding(user_text, dislikes_text)
+        # Génération de l'embedding utilisateur
+        user_embedding = get_user_embedding(user_text)
         logger.info(f"✓ Embedding utilisateur généré (dimension: {len(user_embedding)})")
         
-        # Calcul de la similarité pour chaque ville
+        # Calcul de la similarité pour chaque ville avec pénalités
         ranked_cities = []
         for city in cities:
             city_id = city["id"]
             city_name = city["name"]
             city_embedding = city["embedding"]
             
-            # Calcul de la similarité
+            # Calcul de la similarité de base
             similarity = cosine_similarity(user_embedding, city_embedding)
+            
+            # Calcul de la pénalité si dislikes et conn_params sont fournis
+            penalty = 0.0
+            if dislikes and conn_params:
+                penalty = calculate_penalty_for_city(city_id, dislikes, conn_params)
+                
+            
+            # Score final = similarité - pénalité
+            final_score = similarity - penalty
             
             ranked_cities.append({
                 "id": city_id,
                 "name": city_name,
-                "similarity": similarity
+                "similarity": similarity,
+                "penalty": penalty,
+                "final_score": final_score
             })
         
-        # Tri par similarité décroissante
-        ranked_cities.sort(key=lambda x: x["similarity"], reverse=True)
+        # Tri par score final décroissant
+        ranked_cities.sort(key=lambda x: x["final_score"], reverse=True)
         
-        logger.info(f"✓ {len(ranked_cities)} villes classées par similarité")
+        logger.info(f"✓ {len(ranked_cities)} villes classées par score final (similarité - pénalité)")
         
         # Sauvegarde dans un fichier JSON
         import os
@@ -335,7 +320,6 @@ if __name__ == "__main__":
       "building",
       "building.commercial",
       "building.entertainment",
-      "building.historic",
       "building.place_of_worship",
       "building.public_and_civil",
       "building.tourism",
@@ -375,13 +359,19 @@ if __name__ == "__main__":
     "entertainment": 5,
     "heritage": 5
 })
-        user_text = user_text2
-        ranked_cities = rank_cities_by_similarity(user_text, cities, dislikes_text="")
+        user_text = user_text1
+        
+        # Exemple de dislikes pour tester le système de pénalités
+        user_dislikes = {
+            "building.historic": 1
+        }
+        
+        ranked_cities = rank_cities_by_similarity(user_text, cities, dislikes=user_dislikes, conn_params=conn_params)
         
         # Affichage des top 10
-        print(f"\nTop 10 villes les plus similaires à '{user_text}':")
+        print(f"\nTop 10 villes les mieux classées pour '{user_text}':")
         for i, city in enumerate(ranked_cities[:10], 1):
-            print(f"  {i}. {city['name']} (ID: {city['id']}) - Similarité: {city['similarity']:.4f}")
+            print(f"  {i}. {city['name']} (ID: {city['id']}) - Score: {city['final_score']:.4f} (Sim: {city['similarity']:.4f}, Pén: {city['penalty']:.4f})")
         
     except Exception as e:
         logger.error(f"Erreur dans l'exécution principale: {e}")
