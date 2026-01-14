@@ -8,19 +8,245 @@ import AppNavigator from "./src/navigation/AppNavigator";
 // Vos imports Backend existants
 import CityRepository from "./src/backend/repositories/CityRepository.js";
 import UserRepository from "./src/backend/repositories/UserRepository.js";
-import { generateEmbeddingLocal } from "./src/backend/algorithms/vectorUtils.js";
-import { rankCitiesBySimilarity } from "./src/backend/algorithms/rankUtils.js";
+import UserCategoryRepository from "./src/backend/repositories/UserCategoryRepository.js";
+import { rankCitiesBySimilarity } from "./src/backend/algorithms/testeAlgo.js";
+import { calculatePenaltyForCity, getCityCategoriesFromDb } from "./src/backend/algorithms/penaltyCalculate.js";
+import { generateUserQuery, generateUserQueryWithWeights } from "./src/backend/algorithms/userQuery.js";
 
 export default function App() {
   // --- VOTRE LOGIQUE BACKEND (Gardée intacte) ---
   useEffect(() => {
-    // testGetAllCityEmbeddings();
-    // testGenerateEmbedding();
-    // testRankCities();
-    // testCreateUser();
-    testGetProfile();
-    // testGenerateUserEmbedding();
+    // Tests désactivés - les préférences viennent maintenant du QCM
+    // testPenaltySystem();
+    // showUserDislikes();
+    testNewAlgorithm(); // NOUVEAU TEST
   }, []);
+
+  // TEST DU NOUVEL ALGORITHME (Logique Python Pure: embedding_likes - embedding_dislikes + pénalités)
+  const testNewAlgorithm = async () => {
+    try {
+      console.log('\n' + '='.repeat(80));
+      console.log('🧪 TEST ALGORITHME PYTHON PORTÉ EN JAVASCRIPT');
+      console.log('📐 Logique: embedding_likes - embedding_dislikes + pénalités POST-ranking');
+      console.log('='.repeat(80));
+
+      const userId = 1;
+
+      // 1. Récupérer les préférences depuis le QCM
+      const profile = await UserCategoryRepository.getUserPreferencesProfile(userId);
+
+      if (profile.likes.length === 0) {
+        console.log('⚠️ Aucune préférence trouvée. Veuillez d\'abord compléter le QCM!');
+        return;
+      }
+
+      console.log(`\n📊 Préférences chargées:`);
+      console.log(`   👍 Likes: ${profile.likes.length} catégories`);
+      console.log(`   👎 Dislikes: ${profile.dislikes.length} catégories`);
+
+      // 2. Construire les catégories et poids pour LIKES
+      const likedCategories = profile.likes.map(l => l.category_name);
+      const likedWeights = {};
+      profile.likes.forEach(like => {
+        likedWeights[like.category_name] = like.points;
+      });
+
+      // 3. Construire les catégories et poids pour DISLIKES
+      const dislikedCategories = profile.dislikes.map(d => d.category_name);
+      const dislikedWeights = {};
+      profile.dislikes.forEach(dislike => {
+        dislikedWeights[dislike.category_name] = dislike.points;
+      });
+
+      console.log(`\n📝 Catégories aimées:`, likedCategories.slice(0, 5), `... (${likedCategories.length} total)`);
+      console.log(`📝 Catégories détestées:`, dislikedCategories.slice(0, 5), `... (${dislikedCategories.length} total)`);
+
+      // 4. Générer les requêtes en langage naturel avec poids
+      console.log(`\n🔄 Génération des requêtes en langage naturel...`);
+      
+      const likesText = generateUserQueryWithWeights(likedCategories, likedWeights);
+      console.log(`\n✅ Requête LIKES générée:`);
+      console.log(`   "${likesText}"`);
+
+      const dislikesText = dislikedCategories.length > 0 
+        ? generateUserQueryWithWeights(dislikedCategories, dislikedWeights)
+        : '';
+      
+      if (dislikesText) {
+        console.log(`\n❌ Requête DISLIKES générée:`);
+        console.log(`   "${dislikesText}"`);
+      }
+
+      // 5. Récupérer toutes les villes avec embeddings
+      console.log(`\n🏙️ Chargement des villes avec embeddings...`);
+      const cities = await CityRepository.getAllCityEmbeddings();
+      console.log(`   ✓ ${cities.length} villes chargées`);
+
+      // 6. Calcul de la similarité pour TOUTES les villes (UNIQUEMENT sur les likes)
+      console.log(`\n🎯 Calcul de la similarité (teste_algo.py: rank_cities_by_similarity)...`);
+      console.log(`   📐 Utilisation: UNIQUEMENT embedding_likes (pas de soustraction)`);
+      const rankedCities = await rankCitiesBySimilarity(likesText, cities, "");
+      console.log(`   ✓ ${rankedCities.length} villes avec similarité calculée`);
+
+      // 7. Calculer les pénalités pour TOUTES les villes (penality_calculate.py)
+      console.log(`\n⚖️  Calcul des pénalités pour TOUTES les villes...`);
+      console.log(`   📐 Formule: Penalty = 0.05 × poids pour chaque catégorie détestée présente`);
+      
+      const citiesWithPenalties = [];
+      for (const city of rankedCities) {
+        // Calculer la pénalité pour cette ville
+        const penalty = await calculatePenaltyForCity(city.id, dislikedWeights);
+        const finalScore = city.similarity - penalty;
+        
+        citiesWithPenalties.push({
+          ...city,
+          penalty,
+          finalScore
+        });
+      }
+      console.log(`   ✓ Pénalités calculées pour ${citiesWithPenalties.length} villes`);
+
+      // 8. TRI PAR SCORE FINAL (après application des pénalités)
+      console.log(`\n🔄 Tri des villes par score final (similarité - pénalité)...`);
+      citiesWithPenalties.sort((a, b) => b.finalScore - a.finalScore);
+      
+      // 9. Récupérer les détails des pénalités pour le Top 10 seulement
+      console.log(`\n📋 Récupération des détails pour le Top 10...`);
+      const top10 = [];
+      for (const city of citiesWithPenalties.slice(0, 10)) {
+        const cityCategories = await getCityCategoriesFromDb(city.id);
+        const dislikedMatches = [];
+        
+        for (const [dislikedCat, weight] of Object.entries(dislikedWeights)) {
+          if (cityCategories.includes(dislikedCat)) {
+            dislikedMatches.push({
+              category: dislikedCat,
+              points: weight,
+              penalty: weight * 0.05
+            });
+          }
+        }
+        
+        top10.push({
+          ...city,
+          dislikedMatches
+        });
+      }
+
+      // 10. Afficher le Top 10 avec détails complets
+      console.log(`\n🏆 TOP 10 FINAL (Similarité sur likes PUIS tri par score final):`);
+      console.log('='.repeat(80));
+      
+      top10.forEach((city, i) => {
+        console.log(`\n${i + 1}. ${city.name} (ID: ${city.id})`);
+        console.log(`   📊 Similarité: ${city.similarity.toFixed(4)}`);
+        console.log(`   ⚖️  Pénalité totale: -${city.penalty.toFixed(4)}`);
+        console.log(`   ✨ Score final: ${city.finalScore.toFixed(4)}`);
+        
+        if (city.dislikedMatches.length > 0) {
+          console.log(`   ❌ Catégories détestées présentes (${city.dislikedMatches.length}):`);
+          city.dislikedMatches.forEach(match => {
+            console.log(`      • ${match.category} (${match.points} pts) → -${match.penalty.toFixed(2)}`);
+          });
+        } else {
+          console.log(`   ✅ Aucune catégorie détestée`);
+        }
+      });
+
+      console.log('\n' + '='.repeat(80));
+      console.log('✅ Test terminé avec succès!');
+      console.log('📝 Logique appliquée:');
+      console.log('   1. user_query.py → Génération des requêtes naturelles (likes ET dislikes)');
+      console.log('   2. teste_algo.py → Calcul similarité sur LIKES uniquement (TOUTES les villes)');
+      console.log('   3. penality_calculate.py → Calcul pénalités (0.05 × poids) pour TOUTES les villes');
+      console.log('   4. Score final = similarité - pénalité');
+      console.log('   5. TRI par score final décroissant → Top 10');
+      console.log('='.repeat(80) + '\n');
+
+    } catch (error) {
+      console.error('❌ Erreur lors du test du nouvel algorithme:', error);
+      console.error(error.stack);
+    }
+  };
+
+  // Afficher les préférences sauvegardées avec poids
+  const showUserDislikes = async () => {
+    try {
+      const userId = 1;
+      const profile = await UserCategoryRepository.getUserPreferencesProfile(userId);
+      
+      console.log('\n' + '='.repeat(80));
+      console.log('📊 PRÉFÉRENCES DE L\'UTILISATEUR');
+      console.log('='.repeat(80));
+      
+      // LIKES
+      console.log('\n✅ CATÉGORIES AIMÉES (LIKES):');
+      if (profile.likes.length === 0) {
+        console.log('   ⚠️ Aucune catégorie aimée');
+      } else {
+        console.log(`   Total: ${profile.likes.length} catégories\n`);
+        profile.likes.forEach(like => {
+          const bar = '█'.repeat(like.points) + '░'.repeat(5 - like.points);
+          console.log(`   • ${like.category_name} (${like.points}/5) | ${bar}`);
+        });
+        const avgLikes = (profile.likes.reduce((sum, l) => sum + l.points, 0) / profile.likes.length).toFixed(2);
+        console.log(`\n   📈 Poids moyen: ${avgLikes}/5`);
+      }
+      
+      // DISLIKES
+      console.log('\n❌ CATÉGORIES NON AIMÉES (DISLIKES):');
+      if (profile.dislikes.length === 0) {
+        console.log('   ⚠️ Aucune catégorie dislikée');
+      } else {
+        console.log(`   Total: ${profile.dislikes.length} catégories\n`);
+        profile.dislikes.forEach(dislike => {
+          const bar = '█'.repeat(dislike.points) + '░'.repeat(5 - dislike.points);
+          console.log(`   • ${dislike.category_name} (${dislike.points}/5) | ${bar}`);
+        });
+        const avgDislikes = (profile.dislikes.reduce((sum, d) => sum + d.points, 0) / profile.dislikes.length).toFixed(2);
+        console.log(`\n   📈 Poids moyen: ${avgDislikes}/5`);
+      }
+      
+      console.log('\n' + '='.repeat(80) + '\n');
+    } catch (error) {
+      console.error('❌ Erreur affichage préférences:', error);
+    }
+  };
+
+  // Test du système de pénalité avec les données du QCM
+  const testPenaltySystem = async () => {
+    console.log('\n🧪 TEST PÉNALITÉ (données QCM)\n');
+    try {
+      const userId = 1;
+
+      // 1. Récupérer les préférences du QCM depuis la BDD
+      const profile = await UserCategoryRepository.getUserPreferencesProfile(userId);
+      
+      if (profile.likes.length === 0 && profile.dislikes.length === 0) {
+        console.log('⚠️ Aucune préférence trouvée. Veuillez d\'abord compléter le QCM!');
+        return;
+      }
+
+      console.log(`👍 Likes (${profile.likes.length}):`, profile.likes.map(l => `${l.category_name}(${l.points})`).join(', '));
+      console.log(`👎 Dislikes (${profile.dislikes.length}):`, profile.dislikes.map(d => `${d.category_name}(${d.points})`).join(', '));
+
+      // 2. Générer l'embedding basé sur les likes du QCM
+      const likesText = profile.likes.map(l => l.category_name).join(' ');
+      console.log('\n📝 Texte pour embedding:', likesText);
+      
+      const userEmbedding = await getUserEmbedding(likesText, '');
+      
+      // 3. Ranking avec pénalité
+      const topCities = await rankCitiesWithPenalty(userEmbedding, userId, 5);
+      
+      console.log('\n🏙️ Top 5 villes (avec pénalités):');
+      topCities.forEach((c, i) => {
+        const penInfo = c.penalty > 0 ? ` ⚠️ pen: ${c.penalty.toFixed(3)}` : '';
+        console.log(`  ${i+1}. ${c.name} - Score: ${c.score.toFixed(3)} (sim: ${c.similarity.toFixed(3)}${penInfo})`);
+      });
+
+    } catch (e) { console.error('❌', e); }
+  };
 
   const testGenerateUserEmbedding = async () => {
     try {

@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView, Alert, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { questions } from '../data/questionnaireData'; 
+import { questions } from '../data/questionnaireData';
+import UserCategoryRepository from '../backend/repositories/UserCategoryRepository';
+import { rankCitiesWithPenalty, getUserEmbedding } from '../backend/algorithms/rankUtils'; 
 
 // Constantes
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -85,7 +87,7 @@ const PreferencesScreen = ({ navigation }) => {
   };
 
   // Génère le profil de l'utilisateur basé sur ses sélections
-  const generateUserProfile = () => {
+  const generateUserProfile = async () => {
     const likedCategoriesSet = new Set();
     const dislikedCategoriesSet = new Set();
 
@@ -106,20 +108,55 @@ const PreferencesScreen = ({ navigation }) => {
     const likedCategories = Array.from(likedCategoriesSet);
     const dislikedCategories = Array.from(dislikedCategoriesSet);
 
-    console.log("✅ Catégories aimées :", likedCategories);
-    console.log("❌ Catégories non aimées :", dislikedCategories);
+    console.log('\n🎯 === RÉSULTATS QCM ===');
+    console.log(`👍 Likes (${likedCategories.length}):`, likedCategories.join(', '));
+    console.log(`👎 Dislikes (${dislikedCategories.length}):`, dislikedCategories.join(', '));
 
-    showResultsAlert(likedCategories);
+    try {
+      const userId = 1;
+      const DEFAULT_WEIGHT = 1;
+
+      // Reset et sauvegarde des préférences en BDD
+      await UserCategoryRepository.resetUserPreferences(userId);
+      
+      for (const category of likedCategories) {
+        await UserCategoryRepository.addOrIncrementLike(userId, category, DEFAULT_WEIGHT);
+      }
+      for (const category of dislikedCategories) {
+        await UserCategoryRepository.addOrIncrementDislike(userId, category, DEFAULT_WEIGHT);
+      }
+      console.log('✅ Préférences sauvegardées en BDD');
+
+      // Générer l'embedding et le ranking
+      if (likedCategories.length > 0) {
+        const likesText = likedCategories.join(' ');
+        console.log('\n📝 Génération embedding pour:', likesText);
+        
+        const userEmbedding = await getUserEmbedding(likesText, '');
+        const topCities = await rankCitiesWithPenalty(userEmbedding, userId, 10);
+        
+        console.log('\n🏙️ TOP 10 VILLES (avec pénalités):');
+        topCities.forEach((city, i) => {
+          const penInfo = city.penalty > 0 ? ` ⚠️ pen: -${city.penalty.toFixed(3)}` : '';
+          console.log(`  ${i+1}. ${city.name} - Score: ${city.score.toFixed(3)} (sim: ${city.similarity.toFixed(3)}${penInfo})`);
+        });
+      }
+
+      showResultsAlert(likedCategories, dislikedCategories);
+    } catch (error) {
+      console.error('❌ Erreur:', error);
+      Alert.alert('Erreur', 'Impossible de sauvegarder les préférences.');
+    }
   };
 
   // Affiche l'alerte de fin de questionnaire
-  const showResultsAlert = (likedCategories) => {
+  const showResultsAlert = (likes, dislikes) => {
     Alert.alert(
       "Profil terminé !",
-      `Merci ! Nous avons identifié ${likedCategories.length} centres d'intérêt.`,
+      `${likes.length} centres d'intérêt et ${dislikes.length} aversions identifiés.\nConsultez la console pour le ranking !`,
       [{ 
-        text: "Voir résultats", 
-        onPress: () => navigation.navigate('Main', { userPreferences: likedCategories }) 
+        text: "Voir recommandations", 
+        onPress: () => navigation.navigate('Main') 
       }]
     );
   };
