@@ -3,7 +3,7 @@
  * Accès aux données de la table categories
  */
 
-import dbConnection from '../database/connection';
+import dbConnection from "../database/connection";
 
 class CategoryRepository {
   /**
@@ -13,12 +13,12 @@ class CategoryRepository {
   async getAllCategories() {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT id, name, parent_id FROM categories ORDER BY name;',
+        "SELECT id, name, parent_id FROM categories ORDER BY name;",
         []
       );
       return result.rows._array;
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error("Error fetching categories:", error);
       throw error;
     }
   }
@@ -31,12 +31,12 @@ class CategoryRepository {
   async getCategoryById(categoryId) {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT id, name, parent_id FROM categories WHERE id = ?;',
+        "SELECT id, name, parent_id FROM categories WHERE id = ?;",
         [categoryId]
       );
       return result.rows._array[0] || null;
     } catch (error) {
-      console.error('Error fetching category by ID:', error);
+      console.error("Error fetching category by ID:", error);
       throw error;
     }
   }
@@ -48,12 +48,12 @@ class CategoryRepository {
   async getRootCategories() {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT id, name, parent_id FROM categories WHERE parent_id IS NULL ORDER BY name;',
+        "SELECT id, name, parent_id FROM categories WHERE parent_id IS NULL ORDER BY name;",
         []
       );
       return result.rows._array;
     } catch (error) {
-      console.error('Error fetching root categories:', error);
+      console.error("Error fetching root categories:", error);
       throw error;
     }
   }
@@ -66,12 +66,12 @@ class CategoryRepository {
   async getSubCategories(parentId) {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT id, name, parent_id FROM categories WHERE parent_id = ? ORDER BY name;',
+        "SELECT id, name, parent_id FROM categories WHERE parent_id = ? ORDER BY name;",
         [parentId]
       );
       return result.rows._array;
     } catch (error) {
-      console.error('Error fetching subcategories:', error);
+      console.error("Error fetching subcategories:", error);
       throw error;
     }
   }
@@ -84,18 +84,18 @@ class CategoryRepository {
     try {
       // Récupérer toutes les catégories
       const allCategories = await this.getAllCategories();
-      
+
       // Construire l'arbre hiérarchique
       const categoryMap = new Map();
       const tree = [];
-      
+
       // Première passe : créer tous les nœuds
-      allCategories.forEach(category => {
+      allCategories.forEach((category) => {
         categoryMap.set(category.id, { ...category, children: [] });
       });
-      
+
       // Deuxième passe : construire la hiérarchie
-      allCategories.forEach(category => {
+      allCategories.forEach((category) => {
         const node = categoryMap.get(category.id);
         if (category.parent_id === null) {
           tree.push(node);
@@ -106,10 +106,10 @@ class CategoryRepository {
           }
         }
       });
-      
+
       return tree;
     } catch (error) {
-      console.error('Error building category tree:', error);
+      console.error("Error building category tree:", error);
       throw error;
     }
   }
@@ -122,12 +122,12 @@ class CategoryRepository {
   async searchCategoriesByName(searchTerm) {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT id, name, parent_id FROM categories WHERE name LIKE ? ORDER BY name;',
+        "SELECT id, name, parent_id FROM categories WHERE name LIKE ? ORDER BY name;",
         [`%${searchTerm}%`]
       );
       return result.rows._array;
     } catch (error) {
-      console.error('Error searching categories:', error);
+      console.error("Error searching categories:", error);
       throw error;
     }
   }
@@ -149,7 +149,7 @@ class CategoryRepository {
       );
       return result.rows._array;
     } catch (error) {
-      console.error('Error fetching categories by place:', error);
+      console.error("Error fetching categories by place:", error);
       throw error;
     }
   }
@@ -162,15 +162,15 @@ class CategoryRepository {
   async insertCategory(categoryData) {
     try {
       const { name, parent_id } = categoryData;
-      
+
       const result = await dbConnection.executeSql(
-        'INSERT INTO categories (name, parent_id) VALUES (?, ?);',
+        "INSERT INTO categories (name, parent_id) VALUES (?, ?);",
         [name, parent_id || null]
       );
-      
+
       return result.insertId;
     } catch (error) {
-      console.error('Error inserting category:', error);
+      console.error("Error inserting category:", error);
       throw error;
     }
   }
@@ -184,15 +184,15 @@ class CategoryRepository {
   async updateCategory(categoryId, categoryData) {
     try {
       const { name, parent_id } = categoryData;
-      
+
       await dbConnection.executeSql(
-        'UPDATE categories SET name = ?, parent_id = ? WHERE id = ?;',
+        "UPDATE categories SET name = ?, parent_id = ? WHERE id = ?;",
         [name, parent_id || null, categoryId]
       );
-      
+
       return true;
     } catch (error) {
-      console.error('Error updating category:', error);
+      console.error("Error updating category:", error);
       throw error;
     }
   }
@@ -204,13 +204,12 @@ class CategoryRepository {
    */
   async deleteCategory(categoryId) {
     try {
-      await dbConnection.executeSql(
-        'DELETE FROM categories WHERE id = ?;',
-        [categoryId]
-      );
+      await dbConnection.executeSql("DELETE FROM categories WHERE id = ?;", [
+        categoryId,
+      ]);
       return true;
     } catch (error) {
-      console.error('Error deleting category:', error);
+      console.error("Error deleting category:", error);
       throw error;
     }
   }
@@ -222,13 +221,35 @@ class CategoryRepository {
   async countCategories() {
     try {
       const result = await dbConnection.executeSql(
-        'SELECT COUNT(*) as count FROM categories;',
+        "SELECT COUNT(*) as count FROM categories;",
         []
       );
       return result.rows._array[0].count;
     } catch (error) {
-      console.error('Error counting categories:', error);
+      console.error("Error counting categories:", error);
       throw error;
+    }
+  }
+
+  /**
+   * Récupère les noms de catégories présentes dans une ville via place_categories
+   * @param {number} cityId - ID de la ville
+   * @returns {Promise<string[]>} - Liste des noms de catégories
+   */
+  async getCityCategoriesByCity(cityId) {
+    try {
+      const result = await dbConnection.executeSql(
+        `SELECT DISTINCT c.name 
+         FROM categories c
+         JOIN place_categories pc ON c.id = pc.category_id
+         JOIN places p ON pc.place_id = p.id
+         WHERE p.city_id = ?;`,
+        [cityId]
+      );
+      return result.rows._array.map((row) => row.name);
+    } catch (error) {
+      console.error("Error fetching city categories:", error);
+      return [];
     }
   }
 }

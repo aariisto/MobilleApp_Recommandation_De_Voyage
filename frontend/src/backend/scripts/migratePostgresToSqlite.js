@@ -23,8 +23,8 @@ const PG_CONFIG = {
   port: 5432,
 };
 
-// Chemin vers la base SQLite
-const SQLITE_DB_PATH = path.join(__dirname, "../data/travel.db");
+// Chemin vers la base SQLite (directement dans assets pour l'app mobile)
+const SQLITE_DB_PATH = path.join(__dirname, "../../../assets/travel.db");
 
 // Créer le dossier data s'il n'existe pas
 const dataDir = path.dirname(SQLITE_DB_PATH);
@@ -128,6 +128,34 @@ function createSchema(db) {
       updated INTEGER DEFAULT 0,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+    );
+  `);
+
+  // Table user_category_likes
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS user_category_likes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      category_name TEXT NOT NULL,
+      points INTEGER DEFAULT 1 CHECK(points >= 1 AND points <= 5),
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(user_id, category_name),
+      FOREIGN KEY (user_id) REFERENCES user_profiles(id) ON DELETE CASCADE
+    );
+  `);
+
+  // Table user_category_dislikes
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS user_category_dislikes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      category_name TEXT NOT NULL,
+      points INTEGER DEFAULT 1 CHECK(points >= 1 AND points <= 5),
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(user_id, category_name),
+      FOREIGN KEY (user_id) REFERENCES user_profiles(id) ON DELETE CASCADE
     );
   `);
 

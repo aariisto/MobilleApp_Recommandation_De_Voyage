@@ -19,6 +19,8 @@ export const initializeDatabase = async () => {
       createPlacesTable(),
       createPlaceCategoriesTable(),
       createUserProfilesTable(),
+      createUserCategoryLikesTable(),
+      createUserCategoryDislikesTable(),
     ];
 
     await dbConnection.executeTransaction(tables);
@@ -162,10 +164,51 @@ const createUserProfilesTable = () => ({
 });
 
 /**
+ * Table user_category_likes - Stocke les catégories aimées avec pondération (1-5 points)
+ */
+const createUserCategoryLikesTable = () => ({
+  sql: `
+    CREATE TABLE IF NOT EXISTS user_category_likes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      category_name TEXT NOT NULL,
+      points INTEGER DEFAULT 1 CHECK(points >= 1 AND points <= 5),
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(user_id, category_name),
+      FOREIGN KEY (user_id) REFERENCES user_profiles(id) ON DELETE CASCADE
+    );
+  `,
+  params: [],
+});
+
+/**
+ * Table user_category_dislikes - Stocke les catégories non aimées avec pondération (1-5 points)
+ * Utilisé pour le calcul de pénalité : Score = Similarité - Σ(points × penaltyFactor)
+ */
+const createUserCategoryDislikesTable = () => ({
+  sql: `
+    CREATE TABLE IF NOT EXISTS user_category_dislikes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      category_name TEXT NOT NULL,
+      points INTEGER DEFAULT 1 CHECK(points >= 1 AND points <= 5),
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(user_id, category_name),
+      FOREIGN KEY (user_id) REFERENCES user_profiles(id) ON DELETE CASCADE
+    );
+  `,
+  params: [],
+});
+
+/**
  * Supprime toutes les tables (utile pour reset)
  */
 export const dropAllTables = async () => {
   const dropQueries = [
+    { sql: "DROP TABLE IF EXISTS user_category_likes;", params: [] },
+    { sql: "DROP TABLE IF EXISTS user_category_dislikes;", params: [] },
     { sql: "DROP TABLE IF EXISTS place_categories;", params: [] },
     { sql: "DROP TABLE IF EXISTS places;", params: [] },
     { sql: "DROP TABLE IF EXISTS cities;", params: [] },
