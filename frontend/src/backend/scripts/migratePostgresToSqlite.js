@@ -18,13 +18,13 @@ const path = require("path");
 const PG_CONFIG = {
   user: "postgres",
   host: "localhost",
-  database: "test_dump",
-  password: "dalla",
+  database: "cities",
+  password: "postgres",
   port: 5432,
 };
 
-// Chemin vers la base SQLite
-const SQLITE_DB_PATH = path.join(__dirname, "../data/travel.db");
+// Chemin vers la base SQLite (directement dans assets pour l'app mobile)
+const SQLITE_DB_PATH = path.join(__dirname, "../../../assets/travel.db");
 
 // Créer le dossier data s'il n'existe pas
 const dataDir = path.dirname(SQLITE_DB_PATH);

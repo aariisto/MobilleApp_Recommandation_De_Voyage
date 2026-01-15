@@ -3,11 +3,11 @@
  * Utilise les algorithmes de similarité vectorielle
  */
 
-import CityRepository from '../repositories/CityRepository';
-import UserRepository from '../repositories/UserRepository';
-import CategoryRepository from '../repositories/CategoryRepository';
-import { findTopKSimilar, cosineSimilarity, diversifyResults, filterByThreshold } from '../algorithms/similarity';
-import { normalizeVector, averageVectors } from '../algorithms/vectorUtils';
+import CityRepository from "../repositories/CityRepository";
+import UserRepository from "../repositories/UserRepository";
+import CategoryRepository from "../repositories/CategoryRepository";
+import { cosineSimilarity } from "../algorithms/vectorUtils.js";
+import { normalizeVector, averageVectors } from "../algorithms/vectorUtils";
 
 class RecommendationService {
   /**
@@ -23,33 +23,35 @@ class RecommendationService {
         diversify = true,
         diversityLambda = 0.5,
         minSimilarityThreshold = 0.3,
-        excludeCityIds = []
+        excludeCityIds = [],
       } = options;
 
       // Récupérer le profil utilisateur
       const userProfile = await UserRepository.getProfileById(userId);
       if (!userProfile || !userProfile.preferencesArray) {
-        throw new Error('User profile or preferences not found');
+        throw new Error("User profile or preferences not found");
       }
 
       // Normaliser le vecteur de préférences
-      const normalizedPreferences = normalizeVector(userProfile.preferencesArray);
+      const normalizedPreferences = normalizeVector(
+        userProfile.preferencesArray
+      );
 
       // Récupérer toutes les villes avec leurs embeddings
       const cities = await CityRepository.getAllCitiesWithEmbeddings();
 
       // Filtrer les villes exclues
       const candidates = cities
-        .filter(city => !excludeCityIds.includes(city.id))
-        .map(city => ({
+        .filter((city) => !excludeCityIds.includes(city.id))
+        .map((city) => ({
           id: city.id,
           vector: normalizeVector(city.embeddingVector),
           metadata: {
             name: city.name,
             lat: city.lat,
             lon: city.lon,
-            country_id: city.country_id
-          }
+            country_id: city.country_id,
+          },
         }));
 
       // Trouver les villes les plus similaires
@@ -57,11 +59,14 @@ class RecommendationService {
         normalizedPreferences,
         candidates,
         topK * 2, // Prendre plus de résultats pour la diversification
-        'cosine'
+        "cosine"
       );
 
       // Filtrer par seuil de similarité
-      recommendations = filterByThreshold(recommendations, minSimilarityThreshold);
+      recommendations = filterByThreshold(
+        recommendations,
+        minSimilarityThreshold
+      );
 
       // Diversifier les résultats si demandé
       if (diversify && recommendations.length > 1) {
@@ -72,17 +77,16 @@ class RecommendationService {
       recommendations = recommendations.slice(0, topK);
 
       // Enrichir avec les détails des villes
-      return recommendations.map(rec => ({
+      return recommendations.map((rec) => ({
         cityId: rec.id,
         cityName: rec.name,
         lat: rec.lat,
         lon: rec.lon,
         similarityScore: rec.score,
-        countryId: rec.country_id
+        countryId: rec.country_id,
       }));
-
     } catch (error) {
-      console.error('Error recommending cities for user:', error);
+      console.error("Error recommending cities for user:", error);
       throw error;
     }
   }
@@ -99,33 +103,35 @@ class RecommendationService {
       const {
         diversify = false,
         diversityLambda = 0.5,
-        minSimilarityThreshold = 0.5
+        minSimilarityThreshold = 0.5,
       } = options;
 
       // Récupérer la ville de référence avec son embedding
       const referenceCity = await CityRepository.getCityWithEmbedding(cityId);
       if (!referenceCity || !referenceCity.embeddingVector) {
-        throw new Error('Reference city or embedding not found');
+        throw new Error("Reference city or embedding not found");
       }
 
       // Normaliser le vecteur de référence
-      const normalizedReference = normalizeVector(referenceCity.embeddingVector);
+      const normalizedReference = normalizeVector(
+        referenceCity.embeddingVector
+      );
 
       // Récupérer toutes les autres villes
       const cities = await CityRepository.getAllCitiesWithEmbeddings();
 
       // Préparer les candidats (exclure la ville de référence)
       const candidates = cities
-        .filter(city => city.id !== cityId)
-        .map(city => ({
+        .filter((city) => city.id !== cityId)
+        .map((city) => ({
           id: city.id,
           vector: normalizeVector(city.embeddingVector),
           metadata: {
             name: city.name,
             lat: city.lat,
             lon: city.lon,
-            country_id: city.country_id
-          }
+            country_id: city.country_id,
+          },
         }));
 
       // Trouver les villes similaires
@@ -133,11 +139,14 @@ class RecommendationService {
         normalizedReference,
         candidates,
         topK * 2,
-        'cosine'
+        "cosine"
       );
 
       // Filtrer par seuil
-      recommendations = filterByThreshold(recommendations, minSimilarityThreshold);
+      recommendations = filterByThreshold(
+        recommendations,
+        minSimilarityThreshold
+      );
 
       // Diversifier si demandé
       if (diversify && recommendations.length > 1) {
@@ -147,17 +156,16 @@ class RecommendationService {
       // Limiter au nombre demandé
       recommendations = recommendations.slice(0, topK);
 
-      return recommendations.map(rec => ({
+      return recommendations.map((rec) => ({
         cityId: rec.id,
         cityName: rec.name,
         lat: rec.lat,
         lon: rec.lon,
         similarityScore: rec.score,
-        countryId: rec.country_id
+        countryId: rec.country_id,
       }));
-
     } catch (error) {
-      console.error('Error recommending similar cities:', error);
+      console.error("Error recommending similar cities:", error);
       throw error;
     }
   }
@@ -172,23 +180,22 @@ class RecommendationService {
       // Cette méthode nécessite d'avoir des embeddings pour les catégories
       // Pour l'instant, on crée un vecteur basique
       // TODO: Implémenter un système d'embeddings de catégories
-      
+
       const allCategories = await CategoryRepository.getAllCategories();
       const vectorSize = 384; // Taille standard pour les embeddings (ajuster selon votre modèle)
-      
+
       const preferencesVector = new Float64Array(vectorSize);
-      
+
       // Approche simple : marquer les indices correspondant aux catégories
       categoryIds.forEach((categoryId, index) => {
         if (index < vectorSize) {
           preferencesVector[index] = 1.0;
         }
       });
-      
+
       return normalizeVector(preferencesVector);
-      
     } catch (error) {
-      console.error('Error creating preferences from categories:', error);
+      console.error("Error creating preferences from categories:", error);
       throw error;
     }
   }
@@ -200,19 +207,23 @@ class RecommendationService {
    * @param {Array<number>} dislikedCityIds - Villes non aimées
    * @returns {Promise<boolean>}
    */
-  async updateUserPreferencesFromHistory(userId, likedCityIds = [], dislikedCityIds = []) {
+  async updateUserPreferencesFromHistory(
+    userId,
+    likedCityIds = [],
+    dislikedCityIds = []
+  ) {
     try {
       // Récupérer les embeddings des villes aimées
       const likedCities = await Promise.all(
-        likedCityIds.map(id => CityRepository.getCityWithEmbedding(id))
+        likedCityIds.map((id) => CityRepository.getCityWithEmbedding(id))
       );
 
       const likedVectors = likedCities
-        .filter(city => city && city.embeddingVector)
-        .map(city => normalizeVector(city.embeddingVector));
+        .filter((city) => city && city.embeddingVector)
+        .map((city) => normalizeVector(city.embeddingVector));
 
       if (likedVectors.length === 0) {
-        throw new Error('No valid embeddings found for liked cities');
+        throw new Error("No valid embeddings found for liked cities");
       }
 
       // Calculer la moyenne des vecteurs aimés
@@ -221,16 +232,16 @@ class RecommendationService {
       // Si des villes sont non aimées, ajuster le vecteur
       if (dislikedCityIds.length > 0) {
         const dislikedCities = await Promise.all(
-          dislikedCityIds.map(id => CityRepository.getCityWithEmbedding(id))
+          dislikedCityIds.map((id) => CityRepository.getCityWithEmbedding(id))
         );
 
         const dislikedVectors = dislikedCities
-          .filter(city => city && city.embeddingVector)
-          .map(city => normalizeVector(city.embeddingVector));
+          .filter((city) => city && city.embeddingVector)
+          .map((city) => normalizeVector(city.embeddingVector));
 
         if (dislikedVectors.length > 0) {
           const avgDisliked = averageVectors(dislikedVectors);
-          
+
           // Soustraire l'influence des villes non aimées (avec un poids plus faible)
           preferencesVector = normalizeVector(
             preferencesVector.map((val, i) => val - 0.3 * avgDisliked[i])
@@ -242,12 +253,14 @@ class RecommendationService {
       preferencesVector = normalizeVector(preferencesVector);
 
       // Mettre à jour le profil utilisateur
-      await UserRepository.updatePreferences(userId, Array.from(preferencesVector));
+      await UserRepository.updatePreferences(
+        userId,
+        Array.from(preferencesVector)
+      );
 
       return true;
-
     } catch (error) {
-      console.error('Error updating user preferences from history:', error);
+      console.error("Error updating user preferences from history:", error);
       throw error;
     }
   }
@@ -264,16 +277,15 @@ class RecommendationService {
       const city2 = await CityRepository.getCityWithEmbedding(cityId2);
 
       if (!city1?.embeddingVector || !city2?.embeddingVector) {
-        throw new Error('City embeddings not found');
+        throw new Error("City embeddings not found");
       }
 
       const v1 = normalizeVector(city1.embeddingVector);
       const v2 = normalizeVector(city2.embeddingVector);
 
       return cosineSimilarity(v1, v2);
-
     } catch (error) {
-      console.error('Error calculating city similarity:', error);
+      console.error("Error calculating city similarity:", error);
       throw error;
     }
   }

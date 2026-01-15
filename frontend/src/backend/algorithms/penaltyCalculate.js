@@ -3,22 +3,23 @@
  * Port JavaScript du fichier penality_calculate.py
  */
 
-import dbConnection from "../database/connection.js";
 import { Logger } from "../utils/Logger.js";
+import UserCategoryRepository from "../repositories/UserCategoryRepository.js";
+import CategoryRepository from "../repositories/CategoryRepository.js";
 
 /**
  * Calcule un score de pénalité basé sur les éléments que l'utilisateur déteste.
- * 
- * @param {string[]} cityTags - Liste des catégories de la ville 
+ *
+ * @param {string[]} cityTags - Liste des catégories de la ville
  *                              (ex: ['adult.nightclub', 'museum', 'heritage.unesco'])
  * @param {Object} userDislikes - Dictionnaire des catégories détestées avec poids
  *                               Clé: catégorie détestée
  *                               Valeur: poids du dégoût (1-5)
  *                               Exemple: {'adult.nightclub': 5, 'parking': 2}
- * 
+ *
  * @returns {number} Score de pénalité à soustraire du score de similarité global
  *                  Formule: Penalty += 0.05 × Poids pour chaque catégorie détestée présente
- * 
+ *
  * @example
  * const cityTags = ['adult.nightclub', 'museum', 'heritage.unesco'];
  * const userDislikes = {'adult.nightclub': 5, 'parking': 2};
@@ -29,7 +30,12 @@ import { Logger } from "../utils/Logger.js";
  */
 export function calculatePenaltyScore(cityTags, userDislikes) {
   // Vérification des entrées
-  if (!cityTags || cityTags.length === 0 || !userDislikes || Object.keys(userDislikes).length === 0) {
+  if (
+    !cityTags ||
+    cityTags.length === 0 ||
+    !userDislikes ||
+    Object.keys(userDislikes).length === 0
+  ) {
     return 0.0;
   }
 
@@ -51,71 +57,45 @@ export function calculatePenaltyScore(cityTags, userDislikes) {
 }
 
 /**
- * Récupère les catégories d'une ville depuis la base de données SQLite.
- * 
- * @param {number} cityId - ID de la ville dans la base de données
- * @returns {Promise<string[]>} Liste des catégories de la ville
- *                              (ex: ['heritage.unesco', 'museum', 'restaurant.french'])
- * 
- * @example
- * const categories = await getCityCategoriesFromDb(1);
- * console.log(categories);
- * // ['heritage.unesco', 'tourism.sights.castle', 'catering.restaurant.french']
- */
-export async function getCityCategoriesFromDb(cityId) {
-  try {
-    // Requête pour récupérer toutes les catégories d'une ville
-    const query = `
-      SELECT DISTINCT c.name as category_name
-      FROM cities ci
-      JOIN places p ON p.city_id = ci.id
-      JOIN place_categories pc ON pc.place_id = p.id
-      JOIN categories c ON c.id = pc.category_id
-      WHERE ci.id = ?
-      ORDER BY c.name
-    `;
-
-    const result = await dbConnection.executeSql(query, [cityId]);
-
-    // Extraire les noms de catégories
-    const categories = result.rows._array.map(row => row.category_name);
-
-    Logger.debug(`✓ ${categories.length} catégories récupérées pour la ville ID ${cityId}`);
-
-    return categories;
-
-  } catch (error) {
-    Logger.error(`Erreur lors de la récupération des catégories pour la ville ${cityId}:`, error);
-    return [];
-  }
-}
-
-/**
  * Calcule directement le score de pénalité pour une ville depuis la base de données.
- * 
+ *
  * @param {number} cityId - ID de la ville
- * @param {Object} userDislikes - Dictionnaire des catégories détestées avec poids
+ * @param {number} userId - ID de l'utilisateur
  * @returns {Promise<number>} Score de pénalité calculé
- * 
+ *
  * @example
- * const userDislikes = {'adult.nightclub': 5, 'parking': 2};
- * const penalty = await calculatePenaltyForCity(1, userDislikes);
- * console.log(`Pénalité pour la ville ID 1: ${penalty}`);
+ * const penalty = await calculatePenaltyForCity(1, 123);
+ * console.log(`Pénalité pour la ville ID 1 et utilisateur ID 123: ${penalty}`);
  */
-export async function calculatePenaltyForCity(cityId, userDislikes) {
+export async function calculatePenaltyForCity(cityId, userId) {
   try {
     // Récupérer les catégories de la ville
-    const cityTags = await getCityCategoriesFromDb(cityId);
+    const cityTags = await CategoryRepository.getCityCategoriesByCity(cityId);
 
     if (!cityTags || cityTags.length === 0) {
       return 0.0;
     }
 
+    // Récupérer les dislikes de l'utilisateur
+    const userDislikesArray = await UserCategoryRepository.getUserDislikes(
+      userId
+    );
+
+    // Préparer les données au format attendu par calculatePenaltyScore
+    // Convertir le tableau [{category_name: 'xxx', points: 5}, ...]
+    // en objet {'xxx': 5, ...}
+    const userDislikes = {};
+    for (const dislike of userDislikesArray) {
+      userDislikes[dislike.category_name] = dislike.points;
+    }
+
     // Calculer la pénalité
     return calculatePenaltyScore(cityTags, userDislikes);
-
   } catch (error) {
-    Logger.error(`Erreur lors du calcul de la pénalité pour la ville ${cityId}:`, error);
+    Logger.error(
+      `Erreur lors du calcul de la pénalité pour la ville ${cityId}:`,
+      error
+    );
     return 0.0;
   }
 }
