@@ -61,6 +61,7 @@ const createCitiesTable = () => ({
       lon REAL NOT NULL,
       country_id INTEGER,
       embedding BLOB,
+      description TEXT,
       FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE CASCADE
     );
   `,

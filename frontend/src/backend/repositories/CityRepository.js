@@ -71,6 +71,24 @@ class CityRepository {
   }
 
   /**
+   * Récupère la description d'une ville par son ID
+   * @param {number} cityId
+   * @returns {Promise<string|null>}
+   */
+  async getDescriptionById(cityId) {
+    try {
+      const result = await dbConnection.executeSql(
+        "SELECT description FROM cities WHERE id = ?;",
+        [cityId]
+      );
+      return result.rows._array[0]?.description || null;
+    } catch (error) {
+      console.error("Error fetching city description:", error);
+      throw error;
+    }
+  }
+
+  /**
    * Récupère les villes par pays
    * @param {number} countryId
    * @returns {Promise<Array>}
