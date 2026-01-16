@@ -46,7 +46,21 @@ export default function App() {
         console.log(
           `   ${index + 1}. ${like.category_name} - ${like.points}/5 | ${bar}`
         );
+
       });
+      // Récupérer les dislikes de la base de données
+      console.log(
+        `\n Récupération des dislikes depuis la BD pour userId=${userId}...`
+      );
+      const userDislikes = await UserCategoryRepository.getUserDislikes(userId);
+      console.log(`${userDislikes.length} dislikes récupérés:`);
+      userDislikes.forEach((dislike, index) => {
+        const bar = "█".repeat(dislike.points) + "░".repeat(5 - dislike.points);
+        console.log(
+          `   ${index + 1}. ${dislike.category_name} - ${dislike.points}/5 | ${bar}`
+        );
+      });
+    
 
       // Catégories de test
       const user_categories = [
