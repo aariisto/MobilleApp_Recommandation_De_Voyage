@@ -1,0 +1,19 @@
+# Core Flask packages pour Travel API
+Flask==3.0.0
+Flask-CORS==4.0.0
+
+# HTTP Requests pour Unsplash API
+requests==2.31.0
+
+# Environment & Configuration
+python-dotenv==1.0.0
+
+# Image Processing (optionnel)
+Pillow==10.0.1
+
+# Production Server
+gunicorn==21.2.0
+
+# Development & Testing (optionnel)
+pytest==7.4.2
+pytest-flask==1.2.0
