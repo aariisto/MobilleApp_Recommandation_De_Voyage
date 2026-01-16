@@ -9,12 +9,14 @@ import AppNavigator from "./src/navigation/AppNavigator";
 import CityRepository from "./src/backend/repositories/CityRepository.js";
 import UserRepository from "./src/backend/repositories/UserRepository.js";
 import UserCategoryRepository from "./src/backend/repositories/UserCategoryRepository.js";
+import CategoryRepository from "./src/backend/repositories/CategoryRepository.js";
 import {
   generateUserQuery,
   generateUserQueryWithWeights,
   generateUserQueryFromUserId,
 } from "./src/backend/algorithms/userQuery.js";
 import { rankCitiesWithPenalty } from "./src/backend/algorithms/rankUtils.js";
+import ThemeFilterService from "./src/backend/services/ThemeFilterService.js";
 
 export default function App() {
   // --- VOTRE LOGIQUE BACKEND (Gardée intacte) ---
@@ -22,8 +24,42 @@ export default function App() {
     // Tests désactivés - les préférences viennent maintenant du QCM
     // testPenaltySystem();
     // showUserDislikes();
-    testNewAlgorithm(); // NOUVEAU TEST
+    // testNewAlgorithm(); // NOUVEAU TEST
+    testThemeFilter(); // TEST THEME FILTER
   }, []);
+
+  // TEST SIMPLE DU THEME FILTER SERVICE
+  const testThemeFilter = async () => {
+    try {
+      console.log("\n" + "=".repeat(80));
+      console.log("🎨 TEST THEME FILTER - Gastronomie pour City ID = 1");
+      console.log("=".repeat(80));
+
+      const cityId = 1;
+      
+      // Récupérer toutes les catégories de la ville d'abord
+      const allCategories = await CategoryRepository.getCityCategoriesByCity(cityId);
+      console.log(`\n📋 Catégories brutes récupérées (${allCategories.length}):`);
+      allCategories.forEach((cat, i) => {
+        console.log(`   ${i + 1}. "${cat}"`);
+      });
+      
+      // Tester le filtrage Gastronomie
+      const result = await ThemeFilterService.filterGastronomy(cityId);
+
+      console.log(`\n📍 Ville ID: ${result.cityId}`);
+      console.log(`🎭 Thème: ${result.theme}`);
+      console.log(`✅ Match: ${result.isMatch}`);
+      console.log(`📊 Catégories matchant Gastronomie: ${result.matched_categories.join(", ") || "Aucune"}`);
+
+      console.log("\n" + "=".repeat(80));
+      console.log("✅ Test terminé!");
+      console.log("=".repeat(80) + "\n");
+    } catch (error) {
+      console.error("❌ Erreur lors du test:", error);
+      console.error(error.stack);
+    }
+  };
 
   // TEST DU NOUVEL ALGORITHME (Logique Python Pure: embedding_likes - embedding_dislikes + pénalités)
   const testNewAlgorithm = async () => {
