@@ -3,13 +3,28 @@ import CityRepository from "../repositories/CityRepository.js";
 import InferenceService from "../services/InferenceService.js";
 import { Logger } from "../utils/Logger.js";
 import { calculatePenaltyForCity } from "./penaltyCalculate.js";
+import { generateUserQueryFromUserId } from "./userQuery.js";
 
 /**
  * Classe les villes avec pénalité pour les dislikes
+ * @param {Array<string>} userCategories - Tableau de catégories utilisateur
+ * @param {number} userId - ID de l'utilisateur
+ * @param {number} limit - Nombre de villes à retourner
  */
-export async function rankCitiesWithPenalty(userQuery, userId, limit = 10) {
+export async function rankCitiesWithPenalty(
+  userCategories,
+  userId,
+  limit = 10
+) {
   try {
     Logger.debug("Classement des villes avec pénalité...");
+
+    // Générer la requête à partir des catégories et de l'utilisateur
+    Logger.debug(
+      `Génération de la requête pour userId=${userId} avec ${userCategories.length} catégories...`
+    );
+    const userQuery = await generateUserQueryFromUserId(userId, userCategories);
+    Logger.debug(`Requête générée: "${userQuery}"`);
 
     // Générer l'embedding de la requête
     const userEmbedding = await InferenceService.generateEmbedding(userQuery);

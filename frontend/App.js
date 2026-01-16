@@ -86,45 +86,11 @@ export default function App() {
         "wheelchair.yes",
       ];
 
-      console.log(
-        `\n📝 Catégories de test: ${user_categories.length} catégories`
+      const topCities = await rankCitiesWithPenalty(
+        user_categories,
+        userId,
+        10
       );
-      console.log(`   Exemples: ${user_categories.slice(0, 5).join(", ")}...`);
-
-      // Test de generateUserQueryFromUserId
-      console.log(
-        `\n🔄 Appel de generateUserQueryFromUserId(${userId}, categories)...`
-      );
-      const query = await generateUserQueryFromUserId(userId, user_categories);
-
-      console.log(`\n✅ Requête générée:`);
-      console.log(`   "${query}"`);
-
-      // Afficher l'embedding de Paris (id: 1)
-      console.log(`\n🗼 Récupération de l'embedding de Paris (id: 1)...`);
-      const paris = await CityRepository.getCityWithEmbedding(1);
-
-      if (paris) {
-        console.log(`\n📍 Ville: ${paris.name}`);
-        console.log(`   Coordonnées: ${paris.lat}, ${paris.lon}`);
-        console.log(`   Country ID: ${paris.country_id}`);
-        console.log(
-          `   Embedding dimensions: ${
-            paris.embeddingVector ? paris.embeddingVector.length : "N/A"
-          }`
-        );
-
-        if (paris.embeddingVector) {
-          console.log(`   Premiers 10 valeurs de l'embedding:`);
-          console.log(paris.embeddingVector);
-        }
-      } else {
-        console.log(`   ⚠️ Paris non trouvé dans la base de données`);
-      }
-
-      // Ranking des villes avec pénalités
-      console.log(`\n🏙️ Classement des villes avec pénalités...`);
-      const topCities = await rankCitiesWithPenalty(query, userId, 10);
 
       console.log(`\n🏆 Top 10 villes recommandées:`);
       topCities.forEach((city, index) => {
