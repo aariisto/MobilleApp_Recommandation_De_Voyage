@@ -8,19 +8,253 @@ import AppNavigator from "./src/navigation/AppNavigator";
 // Vos imports Backend existants
 import CityRepository from "./src/backend/repositories/CityRepository.js";
 import UserRepository from "./src/backend/repositories/UserRepository.js";
-import { generateEmbeddingLocal } from "./src/backend/algorithms/vectorUtils.js";
-import { rankCitiesBySimilarity } from "./src/backend/algorithms/rankUtils.js";
+import UserCategoryRepository from "./src/backend/repositories/UserCategoryRepository.js";
+import {
+  generateUserQuery,
+  generateUserQueryWithWeights,
+  generateUserQueryFromUserId,
+} from "./src/backend/algorithms/userQuery.js";
+import { rankCitiesWithPenalty } from "./src/backend/algorithms/rankUtils.js";
 
 export default function App() {
   // --- VOTRE LOGIQUE BACKEND (Gardée intacte) ---
   useEffect(() => {
-    // testGetAllCityEmbeddings();
-    // testGenerateEmbedding();
-    // testRankCities();
-    // testCreateUser();
-    testGetProfile();
-    // testGenerateUserEmbedding();
+    // Tests désactivés - les préférences viennent maintenant du QCM
+    // testPenaltySystem();
+    // showUserDislikes();
+    testNewAlgorithm(); // NOUVEAU TEST
   }, []);
+
+  // TEST DU NOUVEL ALGORITHME (Logique Python Pure: embedding_likes - embedding_dislikes + pénalités)
+  const testNewAlgorithm = async () => {
+    try {
+      console.log("\n" + "=".repeat(80));
+      console.log("🧪 TEST generateUserQueryFromUserId");
+      console.log("=".repeat(80));
+
+      const userId = 1;
+
+      // Récupérer les likes de la base de données
+      console.log(
+        `\n📊 Récupération des likes depuis la BD pour userId=${userId}...`
+      );
+      const userLikes = await UserCategoryRepository.getUserLikes(userId);
+
+      console.log(`\n✅ ${userLikes.length} likes récupérés:`);
+      userLikes.forEach((like, index) => {
+        const bar = "█".repeat(like.points) + "░".repeat(5 - like.points);
+        console.log(
+          `   ${index + 1}. ${like.category_name} - ${like.points}/5 | ${bar}`
+        );
+      });
+
+      // Catégories de test
+      const user_categories = [
+        "building",
+        "building.commercial",
+        "building.entertainment",
+        "building.historic",
+        "building.place_of_worship",
+        "building.public_and_civil",
+        "building.tourism",
+        "commercial",
+        "commercial.shopping_mall",
+        "education",
+        "education.library",
+        "entertainment",
+        "entertainment.culture",
+        "entertainment.culture.theatre",
+        "entertainment.museum",
+        "fee",
+        "heritage",
+        "internet_access",
+        "leisure",
+        "leisure.park",
+        "no_fee",
+        "no_fee.no",
+        "religion",
+        "religion.place_of_worship",
+        "religion.place_of_worship.christianity",
+        "tourism",
+        "tourism.attraction",
+        "tourism.sights",
+        "tourism.sights.memorial",
+        "tourism.sights.memorial.ship",
+        "tourism.sights.place_of_worship",
+        "wheelchair",
+        "wheelchair.limited",
+        "wheelchair.yes",
+      ];
+
+      console.log(
+        `\n📝 Catégories de test: ${user_categories.length} catégories`
+      );
+      console.log(`   Exemples: ${user_categories.slice(0, 5).join(", ")}...`);
+
+      // Test de generateUserQueryFromUserId
+      console.log(
+        `\n🔄 Appel de generateUserQueryFromUserId(${userId}, categories)...`
+      );
+      const query = await generateUserQueryFromUserId(userId, user_categories);
+
+      console.log(`\n✅ Requête générée:`);
+      console.log(`   "${query}"`);
+
+      // Afficher l'embedding de Paris (id: 1)
+      console.log(`\n🗼 Récupération de l'embedding de Paris (id: 1)...`);
+      const paris = await CityRepository.getCityWithEmbedding(1);
+
+      if (paris) {
+        console.log(`\n📍 Ville: ${paris.name}`);
+        console.log(`   Coordonnées: ${paris.lat}, ${paris.lon}`);
+        console.log(`   Country ID: ${paris.country_id}`);
+        console.log(
+          `   Embedding dimensions: ${
+            paris.embeddingVector ? paris.embeddingVector.length : "N/A"
+          }`
+        );
+
+        if (paris.embeddingVector) {
+          console.log(`   Premiers 10 valeurs de l'embedding:`);
+          console.log(paris.embeddingVector);
+        }
+      } else {
+        console.log(`   ⚠️ Paris non trouvé dans la base de données`);
+      }
+
+      // Ranking des villes avec pénalités
+      console.log(`\n🏙️ Classement des villes avec pénalités...`);
+      const topCities = await rankCitiesWithPenalty(query, userId, 10);
+
+      console.log(`\n🏆 Top 10 villes recommandées:`);
+      topCities.forEach((city, index) => {
+        const penInfo =
+          city.penalty > 0 ? ` ⚠️ -${city.penalty.toFixed(3)}` : "";
+        const simBar = "█".repeat(Math.round(city.similarity * 20));
+        console.log(
+          `   ${index + 1}. ${city.name}\n` +
+            `      Score: ${city.score.toFixed(
+              4
+            )} | Sim: ${city.similarity.toFixed(4)}${penInfo}\n` +
+            `      ${simBar}`
+        );
+      });
+
+      console.log("\n" + "=".repeat(80));
+      console.log("✅ Test terminé avec succès!");
+      console.log("=".repeat(80) + "\n");
+    } catch (error) {
+      console.error("❌ Erreur lors du test:", error);
+      console.error(error.stack);
+    }
+  };
+
+  // Afficher les préférences sauvegardées avec poids
+  const showUserDislikes = async () => {
+    try {
+      const userId = 1;
+      const profile = await UserCategoryRepository.getUserPreferencesProfile(
+        userId
+      );
+
+      console.log("\n" + "=".repeat(80));
+      console.log("📊 PRÉFÉRENCES DE L'UTILISATEUR");
+      console.log("=".repeat(80));
+
+      // LIKES
+      console.log("\n✅ CATÉGORIES AIMÉES (LIKES):");
+      if (profile.likes.length === 0) {
+        console.log("   ⚠️ Aucune catégorie aimée");
+      } else {
+        console.log(`   Total: ${profile.likes.length} catégories\n`);
+        profile.likes.forEach((like) => {
+          const bar = "█".repeat(like.points) + "░".repeat(5 - like.points);
+          console.log(`   • ${like.category_name} (${like.points}/5) | ${bar}`);
+        });
+        const avgLikes = (
+          profile.likes.reduce((sum, l) => sum + l.points, 0) /
+          profile.likes.length
+        ).toFixed(2);
+        console.log(`\n   📈 Poids moyen: ${avgLikes}/5`);
+      }
+
+      // DISLIKES
+      console.log("\n❌ CATÉGORIES NON AIMÉES (DISLIKES):");
+      if (profile.dislikes.length === 0) {
+        console.log("   ⚠️ Aucune catégorie dislikée");
+      } else {
+        console.log(`   Total: ${profile.dislikes.length} catégories\n`);
+        profile.dislikes.forEach((dislike) => {
+          const bar =
+            "█".repeat(dislike.points) + "░".repeat(5 - dislike.points);
+          console.log(
+            `   • ${dislike.category_name} (${dislike.points}/5) | ${bar}`
+          );
+        });
+        const avgDislikes = (
+          profile.dislikes.reduce((sum, d) => sum + d.points, 0) /
+          profile.dislikes.length
+        ).toFixed(2);
+        console.log(`\n   📈 Poids moyen: ${avgDislikes}/5`);
+      }
+
+      console.log("\n" + "=".repeat(80) + "\n");
+    } catch (error) {
+      console.error("❌ Erreur affichage préférences:", error);
+    }
+  };
+
+  // Test du système de pénalité avec les données du QCM
+  const testPenaltySystem = async () => {
+    console.log("\n🧪 TEST PÉNALITÉ (données QCM)\n");
+    try {
+      const userId = 1;
+
+      // 1. Récupérer les préférences du QCM depuis la BDD
+      const profile = await UserCategoryRepository.getUserPreferencesProfile(
+        userId
+      );
+
+      if (profile.likes.length === 0 && profile.dislikes.length === 0) {
+        console.log(
+          "⚠️ Aucune préférence trouvée. Veuillez d'abord compléter le QCM!"
+        );
+        return;
+      }
+
+      console.log(
+        `👍 Likes (${profile.likes.length}):`,
+        profile.likes.map((l) => `${l.category_name}(${l.points})`).join(", ")
+      );
+      console.log(
+        `👎 Dislikes (${profile.dislikes.length}):`,
+        profile.dislikes
+          .map((d) => `${d.category_name}(${d.points})`)
+          .join(", ")
+      );
+
+      // 2. Générer l'embedding basé sur les likes du QCM
+      const likesText = profile.likes.map((l) => l.category_name).join(" ");
+      console.log("\n📝 Texte pour embedding:", likesText);
+
+      const userEmbedding = await getUserEmbedding(likesText, "");
+
+      // 3. Ranking avec pénalité
+      const topCities = await rankCitiesWithPenalty(userEmbedding, userId, 5);
+
+      console.log("\n🏙️ Top 5 villes (avec pénalités):");
+      topCities.forEach((c, i) => {
+        const penInfo = c.penalty > 0 ? ` ⚠️ pen: ${c.penalty.toFixed(3)}` : "";
+        console.log(
+          `  ${i + 1}. ${c.name} - Score: ${c.score.toFixed(
+            3
+          )} (sim: ${c.similarity.toFixed(3)}${penInfo})`
+        );
+      });
+    } catch (e) {
+      console.error("❌", e);
+    }
+  };
 
   const testGenerateUserEmbedding = async () => {
     try {
