@@ -13,7 +13,7 @@ import FavoritesScreen from '../screens/FavoritesScreen';
 import DetailsScreen from '../screens/DetailsScreen';
 import PreferencesScreen from '../screens/PreferencesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-
+import ExploreScreen from '../screens/ExploreScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -28,7 +28,7 @@ function BottomTabs() {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           if (route.name === 'Accueil') iconName = focused ? 'home' : 'home-outline';
-          else if (route.name === 'Explorer') iconName = focused ? 'search' : 'search-outline';
+          else if (route.name === 'Explorer') iconName = focused ? 'compass' : 'compass-outline';
           else if (route.name === 'Favoris') iconName = focused ? 'heart' : 'heart-outline';
           else if (route.name === 'Profil') iconName = focused ? 'person' : 'person-outline';
           
@@ -37,7 +37,7 @@ function BottomTabs() {
       })}
     >
       <Tab.Screen name="Accueil" component={HomeScreen} />
-      <Tab.Screen name="Explorer" component={HomeScreen} />
+      <Tab.Screen name="Explorer" component={ExploreScreen} />
       <Tab.Screen name="Favoris" component={FavoritesScreen} />
       <Tab.Screen name="Profil" component={ProfileScreen} />
     </Tab.Navigator>
