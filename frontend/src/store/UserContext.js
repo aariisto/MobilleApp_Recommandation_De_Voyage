@@ -41,7 +41,34 @@ export const UserProvider = ({ children }) => {
         );
       `;
       await dbConnection.executeSql(query);
-      console.log("🔨 Table user_profiles vérifiée avec succès");
+
+      // Création des tables pour les likes (V2 Algo)
+      const queryLikes = `
+        CREATE TABLE IF NOT EXISTS user_category_likes (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          user_id INTEGER,
+          category_name TEXT,
+          points INTEGER DEFAULT 1,
+          updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+          FOREIGN KEY(user_id) REFERENCES user_profiles(id)
+        );
+      `;
+      await dbConnection.executeSql(queryLikes);
+
+      // Création des tables pour les dislikes (V2 Algo)
+      const queryDislikes = `
+        CREATE TABLE IF NOT EXISTS user_category_dislikes (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          user_id INTEGER,
+          category_name TEXT,
+          points INTEGER DEFAULT 1,
+          updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+          FOREIGN KEY(user_id) REFERENCES user_profiles(id)
+        );
+      `;
+      await dbConnection.executeSql(queryDislikes);
+
+      console.log("🔨 Tables user_profiles et user_category_likes/dislikes vérifiées avec succès");
     } catch (error) {
       console.warn("⚠️ Erreur initDB (si la table existe déjà ce n'est pas grave) :", error);
     }

@@ -191,4 +191,5 @@ class UserCategoryRepository {
   }
 }
 
-export default new UserCategoryRepository();
+const userCategoryRepository = new UserCategoryRepository();
+export default userCategoryRepository;
