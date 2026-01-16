@@ -4,11 +4,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import LoadingScreen from '../screens/LoadingScreen';
+import RegisterScreen from '../screens/Auth/RegisterScreen';
+
+import { UserProvider } from '../store/UserContext';
 import HomeScreen from '../screens/HomeScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import DetailsScreen from '../screens/DetailsScreen';
 import PreferencesScreen from '../screens/PreferencesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -41,12 +46,19 @@ function BottomTabs() {
 
 export default function AppNavigator() {
   return (
+  <UserProvider>
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator 
+        initialRouteName="Loading" // <--- ON COMMENCE ICI MAINTENANT
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="Loading" component={LoadingScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Main" component={BottomTabs} />
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="Preferences" component={PreferencesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
+  </UserProvider>
   );
 }

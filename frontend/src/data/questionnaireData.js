@@ -49,7 +49,7 @@ export const questions = [
   },
   {
     id: 5,
-    question: "Accessibilité PMR",
+    question: "Accessibilité PMR ?",
     options: [
       { id: '5A', label: "Indispensable", img: 'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=500', categories: ['wheelchair.yes'] },
       { id: '5B', label: "Appréciée", img: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=500', categories: ['wheelchair.limited'] },

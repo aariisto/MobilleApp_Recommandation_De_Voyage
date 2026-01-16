@@ -11,6 +11,11 @@ const PreferencesScreen = ({ navigation }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selections, setSelections] = useState({});
 
+  const handleFinish = () => {
+    // On redirige vers l'accueil quand l'utilisateur clique
+    navigation.replace('Main');
+  };
+
   if (!questions || questions.length === 0) {
       return <SafeAreaView><Text>Chargement...</Text></SafeAreaView>;
   }
@@ -168,7 +173,11 @@ const PreferencesScreen = ({ navigation }) => {
       </View>
     </SafeAreaView>
   );
+  
 };
+
+
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },

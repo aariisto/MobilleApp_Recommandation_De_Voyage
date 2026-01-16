@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, ScrollView, Image, TextInput, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { UserContext } from '../store/UserContext';
 
 const HomeScreen = ({ navigation }) => {
+  const { userData } = useContext(UserContext);
   const categories = ['Aventure', 'Détente', 'Romantique', 'Famille'];
   
   // Fonction pour naviguer vers le détail
@@ -27,7 +29,9 @@ const HomeScreen = ({ navigation }) => {
       {/* Header */}
       <View style={styles.header}>
         <Image source={{uri: 'https://randomuser.me/api/portraits/women/44.jpg'}} style={styles.avatar} />
-        <Text style={styles.greeting}>Bonjour, Alex!</Text>
+        <Text style={styles.greeting}>
+          Bonjour {userData.prenom || 'Voyageur'}
+        </Text>
         <TouchableOpacity><Ionicons name="notifications-outline" size={24} color="black" /></TouchableOpacity>
       </View>
 
