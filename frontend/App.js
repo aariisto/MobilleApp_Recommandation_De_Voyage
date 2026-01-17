@@ -18,6 +18,8 @@ import {
   generateUserQueryFromUserId,
 } from "./src/backend/algorithms/userQuery.js";
 import { rankCitiesWithPenalty } from "./src/backend/algorithms/rankUtils.js";
+import CityActivityService from "./src/backend/services/CityActivityService.js";
+import PlaceLikedRepository from "./src/backend/repositories/PlaceLikedRepository.js";
 
 export default function App() {
   // --- VOTRE LOGIQUE BACKEND (Gardée intacte) ---
