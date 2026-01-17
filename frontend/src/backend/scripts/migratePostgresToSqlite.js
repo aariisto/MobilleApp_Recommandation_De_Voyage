@@ -164,9 +164,9 @@ function createSchema(db) {
   db.exec(`
     CREATE TABLE IF NOT EXISTS place_liked (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      id_places INTEGER NOT NULL,
+      id_ville INTEGER NOT NULL,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (id_places) REFERENCES places(id) ON DELETE CASCADE
+      FOREIGN KEY (id_ville) REFERENCES cities(id) ON DELETE CASCADE
     );
   `);
 
