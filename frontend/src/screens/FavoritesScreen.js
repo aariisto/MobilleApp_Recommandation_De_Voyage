@@ -23,12 +23,15 @@ const FavoritesScreen = ({ navigation }) => {
   const loadFavorites = async () => {
     setLoading(true);
     try {
-      const likedPlaces = await PlaceLikedRepository.getAllPlacesLiked();
+      // 1. Récupérer les likes (C'est maintenant un tableau direct d'IDs : [1, 5, 12])
+      const likedIds = await PlaceLikedRepository.getAllPlacesLiked();
       
-      if (likedPlaces.length > 0) {
-        const likedIds = likedPlaces.map(l => l.id_places);
+      if (likedIds.length > 0) {
+        // 2. Plus besoin de .map(l => l.id_places), on a déjà les IDs !
         const citiesPromises = likedIds.map(id => CityRepository.getCityById(id));
         const cities = await Promise.all(citiesPromises);
+        
+        // On filtre les nulls au cas où une ville n'existe plus
         setFavorites(cities.filter(c => c !== null));
       } else {
         setFavorites([]);
@@ -42,7 +45,10 @@ const FavoritesScreen = ({ navigation }) => {
 
   const handleUnlike = async (cityId) => {
     try {
-      await PlaceLikedRepository.removePlaceLikedByPlaceId(cityId);
+      // CORRECTION : On utilise la même fonction que dans HomeScreen
+      await PlaceLikedRepository.removePlaceLikedByCityId(cityId);
+      
+      // Mise à jour visuelle immédiate
       setFavorites(prevFavorites => prevFavorites.filter(item => item.id !== cityId));
     } catch (error) {
       console.error("Impossible de retirer le favori", error);
@@ -51,9 +57,7 @@ const FavoritesScreen = ({ navigation }) => {
   };
 
   const goToDetails = (city) => {
-      // --- CORRECTION DU BUG ---
-      // DetailsScreen a besoin d'un score pour afficher les étoiles.
-      // Comme c'est un favori, on lui donne un score parfait de 1 (100%).
+      // On donne un score par défaut de 1 (100%) car c'est un favori
       const cityWithScore = { ...city, score: 1 }; 
       
       navigation.navigate('Details', { 
@@ -103,7 +107,6 @@ const FavoritesScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       
-      {/* --- HEADER MODIFIÉ AVEC BOUTON RETOUR --- */}
       <View style={styles.headerRow}>
         <TouchableOpacity 
             style={styles.backButton} 
@@ -150,7 +153,6 @@ const FavoritesScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F8F9FA' },
   
-  // Nouveau Header Horizontal
   headerRow: { 
       flexDirection: 'row', 
       alignItems: 'center', 

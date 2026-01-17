@@ -14,18 +14,13 @@ class ThemeFilterService {
   async filterNature(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
-      cat.toLowerCase().replace(/\s+/g, "_")
+      cat.toLowerCase().replace(/\s+/g, "_"),
     );
 
-    const naturePatterns = [
-      /^natural/,
-      /^beach/,
-      /^island/,
-      /^national_park/,
-    ];
+    const naturePatterns = [/^natural/, /^beach/, /^island/, /^national_park/];
 
     const matched = categoryNames.filter((cat) =>
-      naturePatterns.some((pattern) => pattern.test(cat))
+      naturePatterns.some((pattern) => pattern.test(cat)),
     );
 
     if (matched.length > 0) {
@@ -53,7 +48,7 @@ class ThemeFilterService {
   async filterHistory(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
-      cat.toLowerCase().replace(/\s+/g, "_")
+      cat.toLowerCase().replace(/\s+/g, "_"),
     );
 
     const historyPatterns = [
@@ -65,7 +60,7 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
-      historyPatterns.some((pattern) => pattern.test(cat))
+      historyPatterns.some((pattern) => pattern.test(cat)),
     );
 
     if (matched.length > 0) {
@@ -93,7 +88,7 @@ class ThemeFilterService {
   async filterGastronomy(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
-      cat.toLowerCase().replace(/\s+/g, "_")
+      cat.toLowerCase().replace(/\s+/g, "_"),
     );
 
     const gastronomyPatterns = [
@@ -103,7 +98,7 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
-      gastronomyPatterns.some((pattern) => pattern.test(cat))
+      gastronomyPatterns.some((pattern) => pattern.test(cat)),
     );
 
     if (matched.length > 0) {
@@ -131,7 +126,7 @@ class ThemeFilterService {
   async filterShopping(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
-      cat.toLowerCase().replace(/\s+/g, "_")
+      cat.toLowerCase().replace(/\s+/g, "_"),
     );
 
     const shoppingPatterns = [
@@ -141,7 +136,7 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
-      shoppingPatterns.some((pattern) => pattern.test(cat))
+      shoppingPatterns.some((pattern) => pattern.test(cat)),
     );
 
     if (matched.length > 0) {
@@ -169,7 +164,7 @@ class ThemeFilterService {
   async filterEntertainment(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
-      cat.toLowerCase().replace(/\s+/g, "_")
+      cat.toLowerCase().replace(/\s+/g, "_"),
     );
 
     const entertainmentPatterns = [
@@ -181,7 +176,7 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
-      entertainmentPatterns.some((pattern) => pattern.test(cat))
+      entertainmentPatterns.some((pattern) => pattern.test(cat)),
     );
 
     if (matched.length > 0) {
@@ -218,15 +213,52 @@ class ThemeFilterService {
 
     if (!filterMethod) {
       throw new Error(
-        `Thème invalide: ${theme}. Thèmes acceptés: Nature, Histoire, Gastronomie, Shopping, Divertissement`
+        `Thème invalide: ${theme}. Thèmes acceptés: Nature, Histoire, Gastronomie, Shopping, Divertissement`,
       );
     }
 
-    const results = await Promise.all(
-      cityIds.map((cityId) => filterMethod(cityId))
-    );
+    // Exécution séquentielle pour éviter de surcharger SQLite (qui plante avec trop de requêtes parallèles via Promise.all)
+    const results = [];
+    for (const cityId of cityIds) {
+        try {
+            const result = await filterMethod(cityId);
+            results.push(result);
+        } catch (e) {
+            console.warn(`Erreur filtre ${theme} pour city ${cityId}:`, e);
+        }
+    }
 
     return results.filter((result) => result.isMatch);
+  }
+
+  /**
+   * Récupère tous les thèmes d'une ville
+   * @param {number} cityId - ID de la ville
+   * @returns {Promise<Array<{theme: string, matched_categories: Array}>>}
+   */
+  async getCityThemes(cityId) {
+    const themes = [
+      { name: "Nature", method: this.filterNature.bind(this) },
+      { name: "Histoire", method: this.filterHistory.bind(this) },
+      { name: "Gastronomie", method: this.filterGastronomy.bind(this) },
+      { name: "Shopping", method: this.filterShopping.bind(this) },
+      { name: "Divertissement", method: this.filterEntertainment.bind(this) },
+    ];
+
+    const results = await Promise.all(
+      themes.map(async ({ name, method }) => {
+        const result = await method(cityId);
+        return result;
+      }),
+    );
+
+    // Retourner seulement les thèmes qui matchent
+    return results
+      .filter((result) => result.isMatch)
+      .map((result) => ({
+        theme: result.theme,
+        matched_categories: result.matched_categories,
+      }));
   }
 }
 

@@ -15,6 +15,8 @@ import {
   generateUserQueryFromUserId,
 } from "./src/backend/algorithms/userQuery.js";
 import { rankCitiesWithPenalty } from "./src/backend/algorithms/rankUtils.js";
+import CityActivityService from "./src/backend/services/CityActivityService.js";
+import PlaceLikedRepository from "./src/backend/repositories/PlaceLikedRepository.js";
 
 export default function App() {
   // --- VOTRE LOGIQUE BACKEND (Gardée intacte) ---
@@ -28,90 +30,49 @@ export default function App() {
   // TEST DU NOUVEL ALGORITHME (Logique Python Pure: embedding_likes - embedding_dislikes + pénalités)
   const testNewAlgorithm = async () => {
     try {
-      console.log("\n" + "=".repeat(80));
-      console.log("🧪 TEST generateUserQueryFromUserId");
-      console.log("=".repeat(80));
+      console.log("\n\n🧪 === TEST GET ALL PLACES LIKED ===");
 
-      const userId = 1;
+      const allLiked = await PlaceLikedRepository.getAllPlacesLiked();
 
-      // Récupérer les likes de la base de données
-      console.log(
-        `\n📊 Récupération des likes depuis la BD pour userId=${userId}...`
-      );
-      const userLikes = await UserCategoryRepository.getUserLikes(userId);
+      console.log(`\n✅ Total de places likées: ${allLiked.length}`);
 
-      console.log(`\n✅ ${userLikes.length} likes récupérés:`);
-      userLikes.forEach((like, index) => {
-        const bar = "█".repeat(like.points) + "░".repeat(5 - like.points);
+      if (allLiked.length > 0) {
+        console.log("\n📍 Liste des places likées:");
+        allLiked.forEach((liked, index) => {
+          console.log(
+            `  ${index + 1}. Place ID: ${liked.id_places}, Created: ${liked.created_at}`,
+          );
+        });
+      } else {
+        console.log("⚠️ Aucune place likée trouvée dans la base de données.");
+      }
+
+      console.log("\n\n🧪 === TEST RECOMMENDATIONS FROM LIKED PLACES ===");
+
+      const recommendations =
+        await CityActivityService.getRecommendationsFromLikedPlaces();
+
+      console.log("\n✅ Recommandations récupérées:");
+      console.log(JSON.stringify(recommendations, null, 2));
+
+      // Afficher les détails par ville
+      Object.entries(recommendations).forEach(([cityId, places]) => {
         console.log(
-          `   ${index + 1}. ${like.category_name} - ${like.points}/5 | ${bar}`
+          `\n🏙️ Ville ID ${cityId}: ${places.length} places recommandées`,
         );
+        places.forEach((place, index) => {
+          console.log(`  ${index + 1}. ${place.name} (Thème: ${place.theme})`);
+        });
       });
 
-      // Catégories de test
-      const user_categories = [
-        "building",
-        "building.commercial",
-        "building.entertainment",
-        "building.historic",
-        "building.place_of_worship",
-        "building.public_and_civil",
-        "building.tourism",
-        "commercial",
-        "commercial.shopping_mall",
-        "education",
-        "education.library",
-        "entertainment",
-        "entertainment.culture",
-        "entertainment.culture.theatre",
-        "entertainment.museum",
-        "fee",
-        "heritage",
-        "internet_access",
-        "leisure",
-        "leisure.park",
-        "no_fee",
-        "no_fee.no",
-        "religion",
-        "religion.place_of_worship",
-        "religion.place_of_worship.christianity",
-        "tourism",
-        "tourism.attraction",
-        "tourism.sights",
-        "tourism.sights.memorial",
-        "tourism.sights.memorial.ship",
-        "tourism.sights.place_of_worship",
-        "wheelchair",
-        "wheelchair.limited",
-        "wheelchair.yes",
-      ];
-
-      const topCities = await rankCitiesWithPenalty(
-        user_categories,
-        userId,
-        10
-      );
-
-      console.log(`\n🏆 Top 10 villes recommandées:`);
-      topCities.forEach((city, index) => {
-        const penInfo =
-          city.penalty > 0 ? ` ⚠️ -${city.penalty.toFixed(3)}` : "";
-        const simBar = "█".repeat(Math.round(city.similarity * 20));
+      if (Object.keys(recommendations).length === 0) {
         console.log(
-          `   ${index + 1}. ${city.name}\n` +
-            `      Score: ${city.score.toFixed(
-              4
-            )} | Sim: ${city.similarity.toFixed(4)}${penInfo}\n` +
-            `      ${simBar}`
+          "⚠️ Aucune recommandation trouvée. Vérifiez qu'il y a des places likées dans la base.",
         );
-      });
-
-      console.log("\n" + "=".repeat(80));
-      console.log("✅ Test terminé avec succès!");
-      console.log("=".repeat(80) + "\n");
+      }
     } catch (error) {
-      console.error("❌ Erreur lors du test:", error);
-      console.error(error.stack);
+      console.error("❌ Erreur test recommendations:", error.message);
+      console.error(error);
     }
   };
 

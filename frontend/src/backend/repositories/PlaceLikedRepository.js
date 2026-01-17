@@ -1,5 +1,5 @@
 /**
- * Repository pour la gestion des places aimées
+ * Repository pour la gestion des villes aimées
  * Accès aux données de la table place_liked
  */
 
@@ -7,76 +7,81 @@ import dbConnection from "../database/connection";
 
 class PlaceLikedRepository {
   /**
-   * Récupère toutes les places aimées
-   * @returns {Promise<Array>}
+   * Récupère tous les IDs des villes aimées
+   * @returns {Promise<Array<number>>}
    */
   async getAllPlacesLiked() {
     try {
       const result = await dbConnection.executeSql(
-        "SELECT id, id_places, created_at FROM place_liked;",
-        [],
+        "SELECT id_ville FROM place_liked;",
+        []
       );
-      return result.rows._array;
+      // On retourne directement un tableau de nombres
+      return result.rows._array.map((row) => row.id_ville);
     } catch (error) {
-      console.error("Error fetching liked places:", error);
-      throw error;
+      console.error("Error fetching liked cities:", error);
+      return [];
     }
   }
 
   /**
-   * Récupère une place aimée par son ID
+   * Récupère une ville aimée par son ID
    * @param {number} likedId
    * @returns {Promise<Object|null>}
    */
   async getPlaceLikedById(likedId) {
     try {
       const result = await dbConnection.executeSql(
-        "SELECT id, id_places, created_at FROM place_liked WHERE id = ?;",
+        "SELECT id, id_ville, created_at FROM place_liked WHERE id = ?;",
         [likedId],
       );
       return result.rows._array[0] || null;
     } catch (error) {
-      console.error("Error fetching liked place by ID:", error);
+      console.error("Error fetching liked city by ID:", error);
       throw error;
     }
   }
 
   /**
-   * Récupère toutes les places aimées pour une place donnée
-   * @param {number} placeId
+   * Récupère toutes les entrées pour une ville donnée
+   * @param {number} cityId
    * @returns {Promise<Array>}
    */
-  async getLikedByPlaceId(placeId) {
+  async getLikedByCityId(cityId) {
     try {
       const result = await dbConnection.executeSql(
-        "SELECT id, id_places, created_at FROM place_liked WHERE id_places = ?;",
-        [placeId],
+        "SELECT id, id_ville, created_at FROM place_liked WHERE id_ville = ?;",
+        [cityId],
       );
       return result.rows._array;
     } catch (error) {
-      console.error("Error fetching liked places by place ID:", error);
+      console.error("Error fetching liked cities by city ID:", error);
       throw error;
     }
   }
 
   /**
-   * Ajoute une place aimée
-   * @param {number} placeId
+   * Ajoute une ville aimée
+   * @param {number} cityId
    * @returns {Promise<Object>}
    */
-  async addPlaceLiked(placeId) {
+  async addPlaceLiked(cityId) {
     try {
-      const result = await dbConnection.executeSql(
-        "INSERT INTO place_liked (id_places) VALUES (?);",
-        [placeId],
+      // On vérifie d'abord si ça existe déjà pour éviter les doublons
+      const check = await dbConnection.executeSql(
+        "SELECT id FROM place_liked WHERE id_ville = ?;",
+        [cityId]
       );
-      return {
-        id: result.insertId,
-        id_places: placeId,
-        created_at: new Date().toISOString(),
-      };
+      
+      if (check.rows.length > 0) return check.rows._array[0];
+
+      const result = await dbConnection.executeSql(
+        "INSERT INTO place_liked (id_ville) VALUES (?);",
+        [cityId]
+      );
+      return result;
     } catch (error) {
-      console.error("Error adding liked place:", error);
+      console.error("Error adding liked city:", error);
       throw error;
     }
   }
@@ -100,37 +105,37 @@ class PlaceLikedRepository {
   }
 
   /**
-   * Supprime une place aimée par son ID de place
-   * @param {number} placeId
+   * Supprime une ville aimée par son ID de ville
+   * @param {number} cityId
    * @returns {Promise<boolean>}
    */
-  async removePlaceLikedByPlaceId(placeId) {
+  async removePlaceLikedByCityId(cityId) {
     try {
       const result = await dbConnection.executeSql(
-        "DELETE FROM place_liked WHERE id_places = ?;",
-        [placeId],
+        "DELETE FROM place_liked WHERE id_ville = ?;",
+        [cityId]
       );
       return result.rowsAffected > 0;
     } catch (error) {
-      console.error("Error removing liked place by place ID:", error);
+      console.error("Error removing liked city:", error);
       throw error;
     }
   }
 
   /**
-   * Compte le nombre de likes pour une place
-   * @param {number} placeId
+   * Compte le nombre de likes pour une ville
+   * @param {number} cityId
    * @returns {Promise<number>}
    */
-  async countLikesForPlace(placeId) {
+  async countLikesForCity(cityId) {
     try {
       const result = await dbConnection.executeSql(
-        "SELECT COUNT(*) as count FROM place_liked WHERE id_places = ?;",
-        [placeId],
+        "SELECT COUNT(*) as count FROM place_liked WHERE id_ville = ?;",
+        [cityId],
       );
       return result.rows._array[0]?.count || 0;
     } catch (error) {
-      console.error("Error counting likes for place:", error);
+      console.error("Error counting likes for city:", error);
       throw error;
     }
   }
