@@ -21,9 +21,6 @@ const DetailsScreen = ({ route, navigation }) => {
   const [loadingDesc, setLoadingDesc] = useState(true);
   const [cityThemes, setCityThemes] = useState([]);
   const [loadingThemes, setLoadingThemes] = useState(true);
-  const [activities, setActivities] = useState({});
-  const [loadingActivities, setLoadingActivities] = useState(false);
-  const [showActivities, setShowActivities] = useState(false);
 
   // States pour la recherche de vol
   const [showFlightSearch, setShowFlightSearch] = useState(false);
@@ -126,22 +123,9 @@ const DetailsScreen = ({ route, navigation }) => {
       }
     };
 
-    const fetchActivities = async () => {
-        setLoadingActivities(true);
-        try {
-            const acts = await ThemeFilterService.getCityActivities(city.id);
-            setActivities(acts);
-        } catch (error) {
-            console.error("Erreur chargement activités:", error);
-        } finally {
-            setLoadingActivities(false);
-        }
-    };
-
     if (city && city.id) {
         fetchDescription();
         fetchThemes();
-        fetchActivities();
     }
   }, [city]);
 
@@ -232,37 +216,10 @@ const DetailsScreen = ({ route, navigation }) => {
             )}
 
 
-            <TouchableOpacity style={styles.accordion} onPress={() => setShowActivities(!showActivities)}>
+            <View style={styles.accordion}>
                 <Text style={styles.accordionTitle}>Centres d'intérêt</Text>
-                <Ionicons name={showActivities ? "chevron-up" : "chevron-down"} size={20} />
-            </TouchableOpacity>
-            
-            {showActivities && (
-                <View style={styles.activitiesContainer}>
-                    {loadingActivities ? (
-                        <ActivityIndicator size="small" color="#007AFF" />
-                    ) : (
-                        Object.entries(activities).map(([theme, items]) => {
-                            if (items.length === 0) return null;
-                            return (
-                                <View key={theme} style={styles.activityGroup}>
-                                    <Text style={styles.activityThemeTitle}>{theme}</Text>
-                                    {items.map((item, idx) => (
-                                        <View key={idx} style={styles.activityItem}>
-                                            <Ionicons name="location-sharp" size={14} color="#007AFF" style={{marginTop: 2}} />
-                                            <Text style={styles.activityName}>{item.name}</Text>
-                                        </View>
-                                    ))}
-                                </View>
-                            );
-                        })
-                    )}
-                    {!loadingActivities && Object.values(activities).every(arr => arr.length === 0) && (
-                        <Text style={styles.noActivityText}>Aucun centre d'intérêt spécifique trouvé.</Text>
-                    )}
-                </View>
-            )}
-
+                <Ionicons name="chevron-down" size={20} />
+            </View>
              <View style={styles.accordion}>
                 <Text style={styles.accordionTitle}>Localisation</Text>
                 {/* Image carte statique pour l'exemple, pourrait être dynamique aussi */}
@@ -398,12 +355,6 @@ const styles = StyleSheet.create({
     sectionHeader: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
     descText: { color: 'gray', lineHeight: 22, marginBottom: 20 },
     accordion: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 15, borderTopWidth: 1, borderColor: '#eee' },
-    activitiesContainer: { paddingVertical: 10, paddingHorizontal: 5 },
-    activityGroup: { marginBottom: 15 },
-    activityThemeTitle: { fontSize: 16, fontWeight: '600', color: '#333', marginBottom: 8, marginTop: 5 },
-    activityItem: { flexDirection: 'row', alignItems: 'flex-start', marginBottom: 6, marginLeft: 10 },
-    activityName: { marginLeft: 8, color: '#555', fontSize: 14, flex: 1 },
-    noActivityText: { fontStyle: 'italic', color: 'gray', marginLeft: 10 },
     accordionTitle: { fontWeight: 'bold', fontSize: 16 },
     mapImage: { width: '100%', height: 150, borderRadius: 15, marginTop: 10 },
     footer: { position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', padding: 20, flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderColor: '#eee', paddingBottom: 30 },
