@@ -1,9 +1,7 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Image, TextInput, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import { rankCitiesWithPenalty } from '../backend/algorithms/rankUtils';
 import { generateUserQueryFromUserId } from '../backend/algorithms/userQuery';
 import UserRepository from '../backend/repositories/UserRepository';
@@ -20,17 +18,11 @@ const HomeScreen = ({ navigation }) => {
   
   const categories = ['Nature', 'Histoire', 'Gastronomie', 'Shopping', 'Divertissement'];
 
-  // Charger le profil utilisateur au montage
+  // Charger le profil et les recommandations une seule fois au montage
   useEffect(() => {
     loadUserProfile();
+    loadRecommendations();
   }, []);
-
-  // Recharger les recommandations à chaque fois que l'écran gagne le focus
-  useFocusEffect(
-    useCallback(() => {
-      loadRecommendations();
-    }, [])
-  );
 
   const loadUserProfile = async () => {
     try {
@@ -115,7 +107,10 @@ const HomeScreen = ({ navigation }) => {
   };
 
   // Fonction pour naviguer vers le détail
-  const goToDetails = (city) => navigation.navigate('Details', { city });
+  const goToDetails = (city) => {
+    const maxScore = recommendations[0]?.score || 1;
+    navigation.navigate('Details', { city, maxScore });
+  };
 
 
   // Fonction pour aller au questionnaire 

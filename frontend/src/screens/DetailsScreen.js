@@ -9,7 +9,13 @@ import CityRepository from '../backend/repositories/CityRepository';
 const { height } = Dimensions.get('window');
 
 const DetailsScreen = ({ route, navigation }) => {
-  const { city } = route.params;
+  const { city, maxScore = 1 } = route.params;
+  
+  // Calcul des étoiles dynamiques
+  const stars = maxScore > 0 ? (city.score / maxScore) * 5 : 0;
+  const fullStars = Math.floor(stars);
+  const hasHalfStar = (stars % 1) > 0;
+  
   const [description, setDescription] = useState('');
   const [loadingDesc, setLoadingDesc] = useState(true);
 
@@ -145,8 +151,8 @@ const DetailsScreen = ({ route, navigation }) => {
                 <Text style={styles.locationText}>Destination recommandée</Text>
             </View>
             <View style={styles.ratingRow}>
-                {[...Array(4)].map((_, i) => <Ionicons key={i} name="star" size={16} color="#FFD700" />)}
-                <Ionicons name="star-half" size={16} color="#FFD700" />
+                {[...Array(fullStars)].map((_, i) => <Ionicons key={i} name="star" size={16} color="#FFD700" />)}
+                {hasHalfStar && <Ionicons name="star-half" size={16} color="#FFD700" />}
                 <Text style={styles.ratingText}>
                      {city.score ? `${Math.round(city.score * 100)}% Match` : 'Populaire'}
                 </Text>

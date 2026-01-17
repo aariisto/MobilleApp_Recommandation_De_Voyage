@@ -78,19 +78,8 @@ class CityRepository {
    */
   async getDescriptionById(cityId) {
     try {
-      // 1. Tentative depuis la base de données
-      try {
-        const result = await dbConnection.executeSql(
-          "SELECT description FROM cities WHERE id = ?;",
-          [cityId]
-        );
-        const dbDesc = result.rows._array[0]?.description;
-        if (dbDesc) return dbDesc;
-      } catch (e) {
-        // La colonne description existe peut-être pas dans cette version de la DB
-      }
-
-      // 2. Fallback sur le fichier JSON
+      // Utilise le fichier JSON pour les descriptions
+      // (la colonne description n'existe pas dans cette version de la DB)
       if (cityDescriptions) {
         const fallback = cityDescriptions.find(c => c.id === cityId);
         if (fallback && fallback.categories_gpt) {
