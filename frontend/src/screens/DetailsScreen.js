@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator, TextInput, Animated, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { WebView } from 'react-native-webview';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import cityImages from '../data/cityImages';
 import flightPricesData from '../data/flightPrices.json'; // Import des données locales
 import CityRepository from '../backend/repositories/CityRepository';
 import ThemeFilterService from '../backend/services/ThemeFilterService';
+import CityActivityService from '../backend/services/CityActivityService';
 
 const { height } = Dimensions.get('window');
 
@@ -21,6 +23,10 @@ const DetailsScreen = ({ route, navigation }) => {
   const [loadingDesc, setLoadingDesc] = useState(true);
   const [cityThemes, setCityThemes] = useState([]);
   const [loadingThemes, setLoadingThemes] = useState(true);
+  const [activities, setActivities] = useState({});
+  const [loadingActivities, setLoadingActivities] = useState(false);
+  const [showActivities, setShowActivities] = useState(false);
+  const [cityCoordinates, setCityCoordinates] = useState(null);
 
   // States pour la recherche de vol
   const [showFlightSearch, setShowFlightSearch] = useState(false);
@@ -123,9 +129,59 @@ const DetailsScreen = ({ route, navigation }) => {
       }
     };
 
+    const fetchActivities = async () => {
+        setLoadingActivities(true);
+        try {
+            const acts = await CityActivityService.getCityActivities(city.id);
+            setActivities(acts);
+        } catch (error) {
+            console.error("Erreur chargement activités:", error);
+        } finally {
+            setLoadingActivities(false);
+        }
+    };
+
+    const fetchCityCoordinates = async () => {
+        try {
+            console.log(`Recuperation coordonnees pour: ${city.name} (ID: ${city.id})`);
+            let cityData = await CityRepository.getCityById(city.id);
+
+            // Si pas de résultat par ID, essayer par nom (cas de décalage ID entre JSON et DB)
+            if (!cityData) {
+                console.log("ID non trouvé, tentative de recherche par nom...");
+                const searchResults = await CityRepository.searchCitiesByName(city.name);
+                if (searchResults && searchResults.length > 0) {
+                    cityData = searchResults.find(c => c.name.toLowerCase() === city.name.toLowerCase()) || searchResults[0];
+                }
+            }
+            
+            if (cityData) {
+                console.log("Données ville trouvées:", cityData);
+                // Gérer les noms de colonnes lat/lon ou latitude/longitude
+                const lat = cityData.lat !== undefined ? cityData.lat : cityData.latitude;
+                const lon = cityData.lon !== undefined ? cityData.lon : cityData.longitude;
+
+                if (lat !== undefined && lon !== undefined) {
+                    setCityCoordinates({
+                        latitude: parseFloat(lat),
+                        longitude: parseFloat(lon)
+                    });
+                } else {
+                    console.log("Coordonnées manquantes dans les données:", cityData);
+                }
+            } else {
+                console.log("Aucune donnée trouvée pour cette ville");
+            }
+        } catch (error) {
+            console.error("Erreur chargement coordonnées:", error);
+        }
+    };
+
     if (city && city.id) {
         fetchDescription();
         fetchThemes();
+        fetchActivities();
+        fetchCityCoordinates();
     }
   }, [city]);
 
@@ -216,14 +272,118 @@ const DetailsScreen = ({ route, navigation }) => {
             )}
 
 
-            <View style={styles.accordion}>
-                <Text style={styles.accordionTitle}>Centres d'intérêt</Text>
-                <Ionicons name="chevron-down" size={20} />
-            </View>
-             <View style={styles.accordion}>
-                <Text style={styles.accordionTitle}>Localisation</Text>
-                {/* Image carte statique pour l'exemple, pourrait être dynamique aussi */}
-                <Image source={{uri: 'https://images.unsplash.com/photo-1524661135-423995f22d0b'}} style={styles.mapImage} />
+            <TouchableOpacity style={styles.accordionHeader} onPress={() => setShowActivities(!showActivities)}>
+                <View style={styles.accordionTitleContainer}>
+                    <Ionicons name="compass" size={22} color="#007AFF" />
+                    <Text style={styles.accordionTitle}>Centres d'intérêt</Text>
+                </View>
+                <View style={[styles.chevronContainer, showActivities && styles.chevronRotated]}>
+                    <Ionicons name="chevron-down" size={20} color="#007AFF" />
+                </View>
+            </TouchableOpacity>
+            
+            {showActivities && (
+                <View style={styles.activitiesContainer}>
+                    {loadingActivities ? (
+                        <View style={styles.loadingContainer}>
+                            <ActivityIndicator size="large" color="#007AFF" />
+                            <Text style={styles.loadingText}>Chargement des activités...</Text>
+                        </View>
+                    ) : (
+                        Object.entries(activities).map(([theme, items]) => {
+                            if (items.length === 0) return null;
+                            
+                            const themeConfig = {
+                                'Nature': { color: '#06B6D4', icon: 'leaf', bgColor: '#CFFAFE' },
+                                'Histoire': { color: '#3B82F6', icon: 'book', bgColor: '#DBEAFE' },
+                                'Gastronomie': { color: '#0EA5E9', icon: 'restaurant', bgColor: '#E0F2FE' },
+                                'Shopping': { color: '#2563EB', icon: 'cart', bgColor: '#DBEAFE' },
+                                'Divertissement': { color: '#1D4ED8', icon: 'game-controller', bgColor: '#BFDBFE' }
+                            };
+                            const config = themeConfig[theme] || { color: '#3B82F6', icon: 'star', bgColor: '#DBEAFE' };
+                            
+                            return (
+                                <View key={theme} style={[styles.activityCard, { borderLeftColor: config.color }]}>
+                                    <View style={styles.activityCardHeader}>
+                                        <View style={[styles.themeIconContainer, { backgroundColor: config.bgColor }]}>
+                                            <Ionicons name={config.icon} size={20} color={config.color} />
+                                        </View>
+                                        <Text style={[styles.activityThemeTitle, { color: config.color }]}>{theme}</Text>
+                                        <View style={styles.themeBadge}>
+                                            <Text style={styles.themeBadgeText}>{items.length}</Text>
+                                        </View>
+                                    </View>
+                                    <View style={styles.activityList}>
+                                        {items.map((item, idx) => (
+                                            <View key={idx} style={styles.activityItem}>
+                                                <View style={styles.activityDot} />
+                                                <Text style={styles.activityName} numberOfLines={2}>{item.name}</Text>
+                                            </View>
+                                        ))}
+                                    </View>
+                                </View>
+                            );
+                        })
+                    )}
+                    {!loadingActivities && Object.values(activities).every(arr => arr.length === 0) && (
+                        <View style={styles.emptyStateContainer}>
+                            <Ionicons name="search-outline" size={48} color="#ccc" />
+                            <Text style={styles.emptyStateText}>Aucun centre d'intérêt trouvé</Text>
+                            <Text style={styles.emptyStateSubtext}>Essayez une autre ville</Text>
+                        </View>
+                    )}
+                </View>
+            )}
+
+             <View style={styles.locationSection}>
+                <View style={styles.locationHeader}>
+                    <Ionicons name="location" size={22} color="#3B82F6" />
+                    <Text style={styles.locationTitle}>Localisation</Text>
+                </View>
+                {cityCoordinates ? (
+                    <WebView
+                        style={styles.mapView}
+                        source={{
+                            html: `
+                                <!DOCTYPE html>
+                                <html>
+                                <head>
+                                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+                                    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+                                    <style>
+                                        body { margin: 0; padding: 0; }
+                                        #map { height: 100vh; width: 100%; }
+                                    </style>
+                                </head>
+                                <body>
+                                    <div id="map"></div>
+                                    <script>
+                                        var map = L.map('map').setView([${cityCoordinates.latitude}, ${cityCoordinates.longitude}], 13);
+                                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                            attribution: '© OpenStreetMap contributors'
+                                        }).addTo(map);
+                                        var marker = L.marker([${cityCoordinates.latitude}, ${cityCoordinates.longitude}]).addTo(map);
+                                        marker.bindPopup('<b>${city.name}</b><br>Destination').openPopup();
+                                    </script>
+                                </body>
+                                </html>
+                            `
+                        }}
+                        javaScriptEnabled={true}
+                        domStorageEnabled={true}
+                    />
+                ) : (
+                    <View style={styles.mapPlaceholder}>
+                        <ActivityIndicator size="large" color="#3B82F6" />
+                        <Text style={styles.mapPlaceholderText}>Chargement de la carte...</Text>
+                    </View>
+                )}
+                <View style={styles.coordinatesContainer}>
+                    <Text style={styles.coordinatesText}>
+                        {cityCoordinates ? `${cityCoordinates.latitude.toFixed(4)}°, ${cityCoordinates.longitude.toFixed(4)}°` : 'Coordonnées non disponibles'}
+                    </Text>
+                </View>
             </View>
         </View>
       </ScrollView>
@@ -354,8 +514,192 @@ const styles = StyleSheet.create({
     featureText: { fontSize: 10, marginTop: 5, fontWeight: '600', color: '#007AFF' },
     sectionHeader: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
     descText: { color: 'gray', lineHeight: 22, marginBottom: 20 },
-    accordion: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 15, borderTopWidth: 1, borderColor: '#eee' },
-    accordionTitle: { fontWeight: 'bold', fontSize: 16 },
+    accordionHeader: { 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        paddingVertical: 18, 
+        paddingHorizontal: 15,
+        marginTop: 10,
+        backgroundColor: '#F0F9FF',
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.05,
+        shadowRadius: 2,
+        elevation: 1
+    },
+    accordionTitleContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    accordionTitle: { 
+        fontWeight: '700', 
+        fontSize: 17,
+        color: '#1a1a1a',
+        marginLeft: 10
+    },
+    chevronContainer: {
+        padding: 4,
+        borderRadius: 20,
+        backgroundColor: '#DBEAFE'
+    },
+    chevronRotated: {
+        transform: [{ rotate: '180deg' }]
+    },
+    activitiesContainer: { 
+        paddingTop: 15,
+        paddingBottom: 10
+    },
+    loadingContainer: {
+        alignItems: 'center',
+        paddingVertical: 30
+    },
+    loadingText: {
+        marginTop: 10,
+        color: '#999',
+        fontSize: 14
+    },
+    activityCard: { 
+        backgroundColor: 'white',
+        borderRadius: 16,
+        padding: 16,
+        marginBottom: 16,
+        borderLeftWidth: 4,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.08,
+        shadowRadius: 8,
+        elevation: 3
+    },
+    activityCardHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 12
+    },
+    themeIconContainer: {
+        width: 36,
+        height: 36,
+        borderRadius: 18,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 10
+    },
+    activityThemeTitle: { 
+        fontSize: 18, 
+        fontWeight: '700',
+        flex: 1
+    },
+    themeBadge: {
+        backgroundColor: '#F0F0F0',
+        borderRadius: 12,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        minWidth: 28,
+        alignItems: 'center'
+    },
+    themeBadgeText: {
+        fontSize: 12,
+        fontWeight: '600',
+        color: '#666'
+    },
+    activityList: {
+        marginTop: 4
+    },
+    activityItem: { 
+        flexDirection: 'row', 
+        alignItems: 'flex-start',
+        paddingVertical: 8,
+        paddingHorizontal: 4
+    },
+    activityDot: {
+        width: 6,
+        height: 6,
+        borderRadius: 3,
+        backgroundColor: '#3B82F6',
+        marginTop: 6,
+        marginRight: 10
+    },
+    activityName: { 
+        color: '#1F2937', 
+        fontSize: 15,
+        lineHeight: 20,
+        flex: 1,
+        fontWeight: '600'
+    },
+    emptyStateContainer: {
+        alignItems: 'center',
+        paddingVertical: 40,
+        paddingHorizontal: 20
+    },
+    emptyStateText: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#999',
+        marginTop: 12
+    },
+    emptyStateSubtext: {
+        fontSize: 14,
+        color: '#bbb',
+        marginTop: 4
+    },
+    locationSection: {
+        marginTop: 40,
+        backgroundColor: 'white',
+        borderRadius: 16,
+        padding: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.08,
+        shadowRadius: 8,
+        elevation: 3
+    },
+    locationHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 15
+    },
+    locationTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: '#1a1a1a',
+        marginLeft: 10
+    },
+    mapView: {
+        width: '100%',
+        height: 250,
+        borderRadius: 12,
+        overflow: 'hidden'
+    },
+    customMarker: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    mapPlaceholder: {
+        width: '100%',
+        height: 250,
+        borderRadius: 12,
+        backgroundColor: '#F0F9FF',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    mapPlaceholderText: {
+        marginTop: 10,
+        color: '#666',
+        fontSize: 14
+    },
+    coordinatesContainer: {
+        marginTop: 12,
+        paddingTop: 12,
+        borderTopWidth: 1,
+        borderTopColor: '#E5E7EB',
+        alignItems: 'center'
+    },
+    coordinatesText: {
+        fontSize: 13,
+        color: '#6B7280',
+        fontWeight: '500'
+    },
     mapImage: { width: '100%', height: 150, borderRadius: 15, marginTop: 10 },
     footer: { position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', padding: 20, flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderColor: '#eee', paddingBottom: 30 },
     bookBtn: { backgroundColor: '#007AFF', paddingHorizontal: 30, paddingVertical: 15, borderRadius: 30, justifyContent: 'center' },
