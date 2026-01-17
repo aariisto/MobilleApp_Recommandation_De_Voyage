@@ -14,7 +14,7 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT id, name, parent_id FROM categories ORDER BY name;",
-        []
+        [],
       );
       return result.rows._array;
     } catch (error) {
@@ -32,7 +32,7 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT id, name, parent_id FROM categories WHERE id = ?;",
-        [categoryId]
+        [categoryId],
       );
       return result.rows._array[0] || null;
     } catch (error) {
@@ -49,7 +49,7 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT id, name, parent_id FROM categories WHERE parent_id IS NULL ORDER BY name;",
-        []
+        [],
       );
       return result.rows._array;
     } catch (error) {
@@ -67,7 +67,7 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT id, name, parent_id FROM categories WHERE parent_id = ? ORDER BY name;",
-        [parentId]
+        [parentId],
       );
       return result.rows._array;
     } catch (error) {
@@ -123,7 +123,7 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT id, name, parent_id FROM categories WHERE name LIKE ? ORDER BY name;",
-        [`%${searchTerm}%`]
+        [`%${searchTerm}%`],
       );
       return result.rows._array;
     } catch (error) {
@@ -145,7 +145,7 @@ class CategoryRepository {
          INNER JOIN place_categories pc ON c.id = pc.category_id
          WHERE pc.place_id = ?
          ORDER BY c.name;`,
-        [placeId]
+        [placeId],
       );
       return result.rows._array;
     } catch (error) {
@@ -165,7 +165,7 @@ class CategoryRepository {
 
       const result = await dbConnection.executeSql(
         "INSERT INTO categories (name, parent_id) VALUES (?, ?);",
-        [name, parent_id || null]
+        [name, parent_id || null],
       );
 
       return result.insertId;
@@ -187,7 +187,7 @@ class CategoryRepository {
 
       await dbConnection.executeSql(
         "UPDATE categories SET name = ?, parent_id = ? WHERE id = ?;",
-        [name, parent_id || null, categoryId]
+        [name, parent_id || null, categoryId],
       );
 
       return true;
@@ -222,7 +222,7 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT COUNT(*) as count FROM categories;",
-        []
+        [],
       );
       return result.rows._array[0].count;
     } catch (error) {
@@ -244,11 +244,32 @@ class CategoryRepository {
          JOIN place_categories pc ON c.id = pc.category_id
          JOIN places p ON pc.place_id = p.id
          WHERE p.city_id = ?;`,
-        [cityId]
+        [cityId],
       );
       return result.rows._array.map((row) => row.name);
     } catch (error) {
       console.error("Error fetching city categories:", error);
+      return [];
+    }
+  }
+
+  /**
+   * Récupère les noms de catégories d'une place
+   * @param {number} placeId - ID de la place
+   * @returns {Promise<string[]>} - Liste des noms de catégories
+   */
+  async getPlaceCategoriesByPlace(placeId) {
+    try {
+      const result = await dbConnection.executeSql(
+        `SELECT c.name 
+         FROM categories c
+         JOIN place_categories pc ON c.id = pc.category_id
+         WHERE pc.place_id = ?;`,
+        [placeId],
+      );
+      return result.rows._array.map((row) => row.name);
+    } catch (error) {
+      console.error("Error fetching place categories:", error);
       return [];
     }
   }
