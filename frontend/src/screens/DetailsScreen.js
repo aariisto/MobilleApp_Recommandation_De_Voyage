@@ -335,54 +335,61 @@ const DetailsScreen = ({ route, navigation }) => {
                 </View>
             )}
 
-             <View style={styles.locationSection}>
-                <View style={styles.locationHeader}>
-                    <Ionicons name="location" size={22} color="#3B82F6" />
-                    <Text style={styles.locationTitle}>Localisation</Text>
+             <View style={styles.accordionHeader}>
+                <View style={styles.accordionTitleContainer}>
+                    <Ionicons name="location" size={22} color="#007AFF" />
+                    <Text style={styles.accordionTitle}>Localisation</Text>
                 </View>
-                {cityCoordinates ? (
-                    <WebView
-                        style={styles.mapView}
-                        source={{
-                            html: `
-                                <!DOCTYPE html>
-                                <html>
-                                <head>
-                                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-                                    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-                                    <style>
-                                        body { margin: 0; padding: 0; }
-                                        #map { height: 100vh; width: 100%; }
-                                    </style>
-                                </head>
-                                <body>
-                                    <div id="map"></div>
-                                    <script>
-                                        var map = L.map('map').setView([${cityCoordinates.latitude}, ${cityCoordinates.longitude}], 13);
-                                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                            attribution: '© OpenStreetMap contributors'
-                                        }).addTo(map);
-                                        var marker = L.marker([${cityCoordinates.latitude}, ${cityCoordinates.longitude}]).addTo(map);
-                                        marker.bindPopup('<b>${city.name}</b><br>Destination').openPopup();
-                                    </script>
-                                </body>
-                                </html>
-                            `
-                        }}
-                        javaScriptEnabled={true}
-                        domStorageEnabled={true}
-                    />
-                ) : (
-                    <View style={styles.mapPlaceholder}>
-                        <ActivityIndicator size="large" color="#3B82F6" />
-                        <Text style={styles.mapPlaceholderText}>Chargement de la carte...</Text>
+            </View>
+            
+            <View style={styles.activitiesContainer}>
+                <View style={styles.locationSection}>
+                    <View style={styles.mapContainer}>
+                    {cityCoordinates ? (
+                        <WebView
+                            style={styles.mapView}
+                            source={{
+                                html: `
+                                    <!DOCTYPE html>
+                                    <html>
+                                    <head>
+                                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+                                        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+                                        <style>
+                                            body { margin: 0; padding: 0; }
+                                            #map { height: 100vh; width: 100%; }
+                                        </style>
+                                    </head>
+                                    <body>
+                                        <div id="map"></div>
+                                        <script>
+                                            var map = L.map('map').setView([${cityCoordinates.latitude}, ${cityCoordinates.longitude}], 13);
+                                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                                attribution: '© OpenStreetMap contributors'
+                                            }).addTo(map);
+                                            var marker = L.marker([${cityCoordinates.latitude}, ${cityCoordinates.longitude}]).addTo(map);
+                                            marker.bindPopup('<b>${city.name}</b><br>Destination').openPopup();
+                                        </script>
+                                    </body>
+                                    </html>
+                                `
+                            }}
+                            javaScriptEnabled={true}
+                            domStorageEnabled={true}
+                        />
+                    ) : (
+                        <View style={styles.mapPlaceholder}>
+                            <ActivityIndicator size="large" color="#3B82F6" />
+                            <Text style={styles.mapPlaceholderText}>Chargement de la carte...</Text>
+                        </View>
+                    )}
                     </View>
-                )}
-                <View style={styles.coordinatesContainer}>
-                    <Text style={styles.coordinatesText}>
-                        {cityCoordinates ? `${cityCoordinates.latitude.toFixed(4)}°, ${cityCoordinates.longitude.toFixed(4)}°` : 'Coordonnées non disponibles'}
-                    </Text>
+                    <View style={styles.coordinatesContainer}>
+                        <Text style={styles.coordinatesText}>
+                            {cityCoordinates ? `${cityCoordinates.latitude.toFixed(4)}°, ${cityCoordinates.longitude.toFixed(4)}°` : 'Coordonnées non disponibles'}
+                        </Text>
+                    </View>
                 </View>
             </View>
         </View>
@@ -644,10 +651,12 @@ const styles = StyleSheet.create({
         marginTop: 4
     },
     locationSection: {
-        marginTop: 40,
         backgroundColor: 'white',
         borderRadius: 16,
         padding: 16,
+        marginBottom: 16,
+        borderLeftWidth: 4,
+        borderLeftColor: '#3B82F6',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.08,
@@ -665,11 +674,15 @@ const styles = StyleSheet.create({
         color: '#1a1a1a',
         marginLeft: 10
     },
+    mapContainer: {
+        borderRadius: 12,
+        borderWidth: 2,
+        borderColor: '#3B82F6',
+        overflow: 'hidden'
+    },
     mapView: {
         width: '100%',
-        height: 250,
-        borderRadius: 12,
-        overflow: 'hidden'
+        height: 250
     },
     customMarker: {
         alignItems: 'center',
