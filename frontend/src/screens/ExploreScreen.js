@@ -21,13 +21,13 @@ const ExploreScreen = ({ navigation }) => {
           Préparez vos valises, cette fonctionnalité arrive très bientôt !
         </Text>
 
-        {/* Badge "Work in Progress" */}
+        {/* Badge "Work in Progress" avec le logo plan de construction */}
         <View style={styles.badge}>
             <Ionicons name="construct-outline" size={16} color="#E67E22" style={{marginRight: 5}}/>
             <Text style={styles.badgeText}>En développement</Text>
         </View>
 
-        {/* Bouton d'action (Optionnel : pour rediriger vers l'accueil si l'utilisateur s'ennuie) */}
+        {/* Bouton d'action pour rediriger vers l'accueil si l'utilisateur */}
         <TouchableOpacity 
             style={styles.button} 
             onPress={() => navigation.navigate('Accueil')}
