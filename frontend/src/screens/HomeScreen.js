@@ -1,5 +1,17 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, ScrollView, Image, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import { 
+  View, 
+  Text, 
+  ScrollView, 
+  Image, 
+  TextInput, // Ajouté depuis feature/backend_vol
+  StyleSheet, 
+  FlatList, 
+  TouchableOpacity, 
+  ActivityIndicator, 
+  Alert // Ajouté depuis feature/favlike
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native'; 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -105,7 +117,10 @@ const HomeScreen = ({ navigation }) => {
 
   const loadUserProfile = async () => {
     try {
-      const profile = await UserRepository.getProfile(['firstName', 'lastName']);
+      const profile = await UserRepository.getProfile([
+        "firstName",
+        "lastName",
+      ]);
       setUserProfile(profile);
     } catch (error) {
       console.error("Erreur chargement profil:", error);
@@ -119,16 +134,40 @@ const HomeScreen = ({ navigation }) => {
       const profile = await UserRepository.getProfile();
       if (profile && profile.id) {
         const userLikes = await UserCategoryRepository.getUserLikes(profile.id);
-        const likedCategories = userLikes.map(l => l.category_name);
+        const userDislikes = await UserCategoryRepository.getUserDislikes(
+          profile.id,
+        );
+        const likedCategories = userLikes.map((l) => l.category_name);
+
+        console.log(
+          `📊 Profil chargé - Likes: ${userLikes.length}, Dislikes: ${userDislikes.length}`,
+        );
+
+        // Afficher les dislikes qui seront utilisés pour les pénalités
+        if (userDislikes.length > 0) {
+          console.log(
+            "❌ Dislikes récupérés de la BD (pénalités à appliquer):",
+          );
+          userDislikes.forEach((d) => {
+            console.log(
+              `   - ${d.category_name}: ${d.points} points de pénalité`,
+            );
+          });
+        }
 
         if (likedCategories.length > 0) {
-           const query = await generateUserQueryFromUserId(profile.id, likedCategories);
-           const rankedCities = await rankCitiesWithPenalty(query, profile.id, 20);
+           // 3. Générer la requête utilisateur
+           
+           // 4. Calculer le classement avec pénalités (utilise automatiquement les dislikes)
+           console.log("🔄 Calcul des recommandations avec pénalités des dislikes...");
+           // On récupère un peu plus de résultats (20) pour permettre le filtrage
+           const rankedCities = await rankCitiesWithPenalty(likedCategories, profile.id);
+           console.log("✅ Recommandations calculées avec succès");
            setAllRecommendations(rankedCities);
            setRecommendations(rankedCities);
         } else {
-           setRecommendations([]);
-           setAllRecommendations([]);
+          setRecommendations([]);
+          setAllRecommendations([]);
         }
       }
     } catch (error) {
@@ -161,7 +200,7 @@ const HomeScreen = ({ navigation }) => {
 
   const goToDetails = (city) => {
     const maxScore = recommendations[0]?.score || 1;
-    navigation.navigate('Details', { city, maxScore });
+    navigation.navigate("Details", { city, maxScore });
   };
 
   const handleActivityPress = async (place) => {
@@ -212,18 +251,27 @@ const HomeScreen = ({ navigation }) => {
 
   const renderHorizontalItem = ({ item }) => {
     const localImage = cityImages[item.name];
-    const imageSource = localImage 
-        ? localImage 
-        : { uri: `http://10.0.2.2:5001/api/travel/photos/image/search?q=${encodeURIComponent(item.name)}&size=regular` };
+
+    // URL de l'image (Locale > API > Placeholder)
+    const imageSource = localImage
+      ? localImage
+      : {
+          uri: `http://10.0.2.2:5001/api/travel/photos/image/search?q=${encodeURIComponent(item.name)}&size=regular`,
+        };
 
     const isLiked = likedCityIds.has(item.id);
 
     return (
-      <TouchableOpacity style={styles.cardHorizontal} onPress={() => goToDetails(item)}>
-        <Image 
-          source={imageSource} 
-          style={styles.cardImage} 
-          defaultSource={{ uri: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1' }}
+      <TouchableOpacity
+        style={styles.cardHorizontal}
+        onPress={() => goToDetails(item)}
+      >
+        <Image
+          source={imageSource}
+          style={styles.cardImage}
+          defaultSource={{
+            uri: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1",
+          }} // Placeholder
         />
         
         <TouchableOpacity 
@@ -241,7 +289,8 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.textOverlay}>
           <Text style={styles.cardTitle}>{item.name}</Text>
           <Text style={styles.cardSubtitle}>
-            Score: {Math.round(item.score * 100)}% 
+            Score: {Math.round(item.score * 100)}%
+            {item.penalty > 0 ? ` (Pénalité: -${item.penalty.toFixed(2)})` : ""}
           </Text>
         </View>
       </TouchableOpacity>
@@ -283,32 +332,57 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+      {/* Header */}
       <View style={styles.header}>
-        <Image source={{uri: 'https://randomuser.me/api/portraits/women/44.jpg'}} style={styles.avatar} />
+        <Image
+          source={{ uri: "https://randomuser.me/api/portraits/women/44.jpg" }}
+          style={styles.avatar}
+        />
         <Text style={styles.greeting}>
-          Bonjour {userProfile?.firstName || 'Voyageur'}
+          Bonjour {userProfile?.firstName || "Voyageur"}
         </Text>
-        <TouchableOpacity><Ionicons name="notifications-outline" size={24} color="black" /></TouchableOpacity>
+        <TouchableOpacity>
+          <Ionicons name="notifications-outline" size={24} color="black" />
+        </TouchableOpacity>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 20, marginTop: 15 }}>
+        {/* Catégories de voyage */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 20, marginTop: 15 }}
+        >
           {categories.map((cat, index) => (
-            <TouchableOpacity 
-              key={index} 
-              style={[styles.categoryChip, selectedCategory === cat && styles.categoryChipSelected]}
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.categoryChip,
+                selectedCategory === cat && styles.categoryChipSelected,
+              ]}
               onPress={() => handleCategoryPress(cat)}
             >
-              <Text style={[styles.categoryText, selectedCategory === cat && styles.categoryTextSelected]}>{cat}</Text>
+              <Text
+                style={[
+                  styles.categoryText,
+                  selectedCategory === cat && styles.categoryTextSelected,
+                ]}
+              >
+                {cat}
+              </Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
 
         <Text style={styles.sectionTitle}>Recommandations pour vous</Text>
-        
+
         {loading ? (
-            <ActivityIndicator size="large" color="#007AFF" style={{marginVertical: 20}} />
+          <ActivityIndicator
+            size="large"
+            color="#007AFF"
+            style={{ marginVertical: 20 }}
+          />
         ) : recommendations.length > 0 ? (
             <FlatList 
               horizontal 
@@ -346,8 +420,14 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F8F9FA' },
-  header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginBottom: 10, paddingTop: 10 },
+  container: { flex: 1, backgroundColor: "#F8F9FA" },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    marginBottom: 10,
+    paddingTop: 10,
+  },
   avatar: { width: 40, height: 40, borderRadius: 20 },
   greeting: { fontSize: 18, fontWeight: 'bold', flex: 1, marginLeft: 10 },
   sectionTitle: { fontSize: 18, fontWeight: 'bold', margin: 20, marginBottom: 15, marginTop: 25 },

@@ -12,6 +12,7 @@ class DatabaseConnection {
     this.db = null;
     this.dbName = "travel.db";
     this.isInitialized = false;
+    this.openPromise = null;
   }
 
   /**
@@ -71,18 +72,30 @@ class DatabaseConnection {
     if (this.db) {
       return this.db;
     }
-
-    try {
-      // Copier la base de données depuis les assets avant de l'ouvrir
-      await this.copyDatabaseFromAssets();
-
-      this.db = await SQLite.openDatabaseAsync(this.dbName);
-      console.log("✅ Database opened successfully");
-      return this.db;
-    } catch (error) {
-      console.error("❌ Error opening database:", error);
-      throw error;
+    
+    // Si une ouverture est déjà en cours, on retourne la promesse existante
+    if (this.openPromise) {
+        return this.openPromise;
     }
+
+    this.openPromise = (async () => {
+        try {
+            // Copier la base de données depuis les assets avant de l'ouvrir
+            await this.copyDatabaseFromAssets();
+
+            const db = await SQLite.openDatabaseAsync(this.dbName);
+            console.log("✅ Database opened successfully");
+            this.db = db;
+            return db;
+        } catch (error) {
+            console.error("❌ Error opening database:", error);
+            throw error;
+        } finally {
+            this.openPromise = null;
+        }
+    })();
+
+    return this.openPromise;
   }
 
   /**
@@ -91,10 +104,14 @@ class DatabaseConnection {
    * @param {Array} params - Paramètres de la requête
    * @returns {Promise<Object>}
    */
-  async executeSql(sql, params = []) {
-    const db = await this.openDatabase();
-
+  async executeSql(sql, params = [], retry = true) {
     try {
+      const db = await this.openDatabase();
+      
+      if (!db) {
+        throw new Error("Database connection is null");
+      }
+
       // Pour les requêtes SELECT
       if (sql.trim().toUpperCase().startsWith("SELECT")) {
         const rows = await db.getAllAsync(sql, params);
@@ -105,6 +122,22 @@ class DatabaseConnection {
       return result;
     } catch (error) {
       console.error("SQL Error:", error);
+      console.error("SQL Query:", sql);
+      console.error("SQL Params:", params);
+      
+      // Tentative de reconnexion automatique en cas d'erreur de connexion native
+      if (retry && (error.message.includes('prepareAsync') || error.message.includes('NullPointerException'))) {
+           console.log("⚠️ Native database error detected. Attempting to reopen connection...");
+           try {
+               if (this.db) {
+                   await this.db.closeAsync(); 
+               }
+           } catch (closeError) {
+               console.log("Error closing database on retry:", closeError);
+           }
+           this.db = null; // Force reset
+           return this.executeSql(sql, params, false); // Retry once
+      }
       throw error;
     }
   }

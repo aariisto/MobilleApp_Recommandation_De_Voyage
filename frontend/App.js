@@ -9,6 +9,9 @@ import AppNavigator from "./src/navigation/AppNavigator";
 import CityRepository from "./src/backend/repositories/CityRepository.js";
 import UserRepository from "./src/backend/repositories/UserRepository.js";
 import UserCategoryRepository from "./src/backend/repositories/UserCategoryRepository.js";
+import CityActivityService from "./src/backend/services/CityActivityService.js";
+import PlaceLikedRepository from "./src/backend/repositories/PlaceLikedRepository.js";
+import PlaceRepository from "./src/backend/repositories/PlaceRepository.js";
 import {
   generateUserQuery,
   generateUserQueryWithWeights,
@@ -30,6 +33,30 @@ export default function App() {
   // TEST DU NOUVEL ALGORITHME (Logique Python Pure: embedding_likes - embedding_dislikes + pénalités)
   const testNewAlgorithm = async () => {
     try {
+      console.log("\n\n🧪 === PRÉPARATION DONNÉES TEST ===");
+      
+      // 1. Récupérer des places d'Istanbul (ID 11) pour le test
+      // On suppose que l'ID 11 est Istanbul comme mentionné
+      const istanbulPlaces = await PlaceRepository.getPlacesByCity(11);
+      
+      if (istanbulPlaces && istanbulPlaces.length > 0) {
+        // On prend la première place trouvée
+        const placeToLike = istanbulPlaces[0];
+        console.log(`📍 Tentative d'ajout d'un like pour : ${placeToLike.name} (Ville ID: ${placeToLike.city_id}, Place ID: ${placeToLike.id})`);
+        
+        // Vérifier si déjà liké pour éviter erreur de contrainte UNIQUE
+        const existingLikeCount = await PlaceLikedRepository.countLikesForPlace(placeToLike.id);
+        
+        if (existingLikeCount === 0) {
+             await PlaceLikedRepository.addPlaceLiked(placeToLike.id);
+             console.log("✅ Like ajouté avec succès !");
+        } else {
+             console.log("ℹ️ Cette place est déjà likée (pas d'ajout nécessaire).");
+        }
+      } else {
+        console.log("❌ Aucune place trouvée pour la ville ID 11. Impossible d'ajouter un like pour ce test.");
+      }
+
       console.log("\n\n🧪 === TEST GET ALL PLACES LIKED ===");
 
       const allLiked = await PlaceLikedRepository.getAllPlacesLiked();
@@ -72,171 +99,6 @@ export default function App() {
       }
     } catch (error) {
       console.error("❌ Erreur test recommendations:", error.message);
-      console.error(error);
-    }
-  };
-
-  // Afficher les préférences sauvegardées avec poids
-  const showUserDislikes = async () => {
-    try {
-      const userId = 1;
-      const profile = await UserCategoryRepository.getUserPreferencesProfile(
-        userId
-      );
-
-      console.log("\n" + "=".repeat(80));
-      console.log("📊 PRÉFÉRENCES DE L'UTILISATEUR");
-      console.log("=".repeat(80));
-
-      // LIKES
-      console.log("\n✅ CATÉGORIES AIMÉES (LIKES):");
-      if (profile.likes.length === 0) {
-        console.log("   ⚠️ Aucune catégorie aimée");
-      } else {
-        console.log(`   Total: ${profile.likes.length} catégories\n`);
-        profile.likes.forEach((like) => {
-          const bar = "█".repeat(like.points) + "░".repeat(5 - like.points);
-          console.log(`   • ${like.category_name} (${like.points}/5) | ${bar}`);
-        });
-        const avgLikes = (
-          profile.likes.reduce((sum, l) => sum + l.points, 0) /
-          profile.likes.length
-        ).toFixed(2);
-        console.log(`\n   📈 Poids moyen: ${avgLikes}/5`);
-      }
-
-      // DISLIKES
-      console.log("\n❌ CATÉGORIES NON AIMÉES (DISLIKES):");
-      if (profile.dislikes.length === 0) {
-        console.log("   ⚠️ Aucune catégorie dislikée");
-      } else {
-        console.log(`   Total: ${profile.dislikes.length} catégories\n`);
-        profile.dislikes.forEach((dislike) => {
-          const bar =
-            "█".repeat(dislike.points) + "░".repeat(5 - dislike.points);
-          console.log(
-            `   • ${dislike.category_name} (${dislike.points}/5) | ${bar}`
-          );
-        });
-        const avgDislikes = (
-          profile.dislikes.reduce((sum, d) => sum + d.points, 0) /
-          profile.dislikes.length
-        ).toFixed(2);
-        console.log(`\n   📈 Poids moyen: ${avgDislikes}/5`);
-      }
-
-      console.log("\n" + "=".repeat(80) + "\n");
-    } catch (error) {
-      console.error("❌ Erreur affichage préférences:", error);
-    }
-  };
-
-  // Test du système de pénalité avec les données du QCM
-  const testPenaltySystem = async () => {
-    console.log("\n🧪 TEST PÉNALITÉ (données QCM)\n");
-    try {
-      const userId = 1;
-
-      // 1. Récupérer les préférences du QCM depuis la BDD
-      const profile = await UserCategoryRepository.getUserPreferencesProfile(
-        userId
-      );
-
-      if (profile.likes.length === 0 && profile.dislikes.length === 0) {
-        console.log(
-          "⚠️ Aucune préférence trouvée. Veuillez d'abord compléter le QCM!"
-        );
-        return;
-      }
-
-      console.log(
-        `👍 Likes (${profile.likes.length}):`,
-        profile.likes.map((l) => `${l.category_name}(${l.points})`).join(", ")
-      );
-      console.log(
-        `👎 Dislikes (${profile.dislikes.length}):`,
-        profile.dislikes
-          .map((d) => `${d.category_name}(${d.points})`)
-          .join(", ")
-      );
-
-      // 2. Générer l'embedding basé sur les likes du QCM
-      const likesText = profile.likes.map((l) => l.category_name).join(" ");
-      console.log("\n📝 Texte pour embedding:", likesText);
-
-      const userEmbedding = await getUserEmbedding(likesText, "");
-
-      // 3. Ranking avec pénalité
-      const topCities = await rankCitiesWithPenalty(userEmbedding, userId, 5);
-
-      console.log("\n🏙️ Top 5 villes (avec pénalités):");
-      topCities.forEach((c, i) => {
-        const penInfo = c.penalty > 0 ? ` ⚠️ pen: ${c.penalty.toFixed(3)}` : "";
-        console.log(
-          `  ${i + 1}. ${c.name} - Score: ${c.score.toFixed(
-            3
-          )} (sim: ${c.similarity.toFixed(3)}${penInfo})`
-        );
-      });
-    } catch (e) {
-      console.error("❌", e);
-    }
-  };
-
-  const testGenerateUserEmbedding = async () => {
-    try {
-      console.log("\n\n🧪 === TEST GÉNÉRATION USER EMBEDDING ===");
-
-      // Vérifier si un utilisateur existe, sinon en créer un
-      const count = await UserRepository.countProfiles();
-      if (count === 0) {
-        console.log("📝 Création d'un utilisateur de test...");
-        await UserRepository.createProfile({
-          firstName: "Idir",
-          lastName: "User",
-          email: "test@example.com",
-        });
-        console.log("✅ Utilisateur créé");
-      }
-
-      const likedCategories = ["museum", "beach", "restaurant", "hotel"];
-      const dislikedCategories = ["nightclub", "casino"];
-
-      console.log("👍 Likes:", likedCategories);
-      console.log("👎 Dislikes:", dislikedCategories);
-
-      const embedding = await UserRepository.generateAndStoreUserEmbedding(
-        likedCategories,
-        dislikedCategories
-      );
-
-      console.log(
-        `✅ Embedding généré et stocké! Dimension: ${embedding.length}`
-      );
-
-      // Récupérer l'embedding stocké en BD
-      const profile = await UserRepository.getProfile(["userEmbedding"]);
-
-      if (profile && profile.userEmbedding) {
-        console.log("\n🏙️ === CLASSEMENT DES VILLES ===");
-        console.log(
-          `📊 Utilisation de l'embedding stocké (${profile.userEmbedding.length} dims)`
-        );
-
-        // Classer les villes avec l'embedding de la BD
-        const top10 = await rankCitiesBySimilarity(profile.userEmbedding);
-
-        console.log("\n✅ Top 10 des villes recommandées:");
-        top10.forEach((city, index) => {
-          console.log(
-            `  ${index + 1}. ${
-              city.name
-            } - Similarité: ${city.similarity.toFixed(4)}`
-          );
-        });
-      }
-    } catch (error) {
-      console.error("❌ Erreur:", error.message);
       console.error(error);
     }
   };
@@ -324,10 +186,10 @@ export default function App() {
     try {
       console.log("\n\n🧪 === TEST GÉNÉRATION EMBEDDING LOCAL ===");
       const embedding = await generateEmbeddingLocal(
-        "accommodation accommodation.hotel building..." // J'ai raccourci pour la lisibilité
+        "accommodation accommodation.hotel building...", // J'ai raccourci pour la lisibilité
       );
       console.log(
-        `✅ Embedding généré avec succès! Dimension: ${embedding.length}`
+        `✅ Embedding généré avec succès! Dimension: ${embedding.length}`,
       );
     } catch (error) {
       console.error("❌ Erreur génération embedding:", error.message);
@@ -347,7 +209,7 @@ export default function App() {
 
       console.log(
         "\n✅ Top 10 des villes recommandées:",
-        JSON.stringify(top10, null, 2)
+        JSON.stringify(top10, null, 2),
       );
     } catch (error) {
       console.error("❌ Erreur classement villes:", error.message);
@@ -363,4 +225,3 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-
