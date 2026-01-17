@@ -4,6 +4,7 @@
  */
 
 import CategoryRepository from "../repositories/CategoryRepository";
+import PlaceRepository from "../repositories/PlaceRepository";
 
 class ThemeFilterService {
   /**
@@ -217,9 +218,16 @@ class ThemeFilterService {
       );
     }
 
-    const results = await Promise.all(
-      cityIds.map((cityId) => filterMethod(cityId)),
-    );
+    // Exécution séquentielle pour éviter de surcharger SQLite (qui plante avec trop de requêtes parallèles via Promise.all)
+    const results = [];
+    for (const cityId of cityIds) {
+        try {
+            const result = await filterMethod(cityId);
+            results.push(result);
+        } catch (e) {
+            console.warn(`Erreur filtre ${theme} pour city ${cityId}:`, e);
+        }
+    }
 
     return results.filter((result) => result.isMatch);
   }
@@ -252,6 +260,49 @@ class ThemeFilterService {
         theme: result.theme,
         matched_categories: result.matched_categories,
       }));
+  }
+
+  /**
+   * Récupère les activités d'une ville groupées par thème
+   * @param {number} cityId
+   * @returns {Promise<Object>} Clés: thèmes, Valeurs: liste de lieux
+   */
+  async getCityActivities(cityId) {
+    const places = await PlaceRepository.getPlacesWithCategories(cityId);
+    
+    const patterns = {
+      Nature: [/^natural/, /^beach/, /^island/, /^national_park/],
+      Histoire: [/^heritage/, /^tourism\.sights/, /^religion/, /^memorial/, /^building\.historic/],
+      Gastronomie: [/^catering\.restaurant/, /^production\.winery/, /^production\.brewery/],
+      Shopping: [/^commercial\.shopping_mall/, /^commercial\.marketplace/, /^commercial\.gift_and_souvenir/],
+      Divertissement: [/^ski/, /^adult\.nightclub/, /^adult\.casino/, /^entertainment\.theme_park/, /^sport\.stadium/],
+    };
+
+    const activitiesByTheme = {
+       Nature: [],
+       Histoire: [],
+       Gastronomie: [],
+       Shopping: [],
+       Divertissement: []
+    };
+
+    for (const place of places) {
+        if (!place.categories || place.categories.length === 0) continue;
+        
+        const placeCategories = place.categories.map(c => c.toLowerCase().replace(/\s+/g, "_"));
+        
+        for (const [theme, themePatterns] of Object.entries(patterns)) {
+            const isMatch = placeCategories.some(cat => 
+                themePatterns.some(regex => regex.test(cat))
+            );
+            
+            if (isMatch) {
+                activitiesByTheme[theme].push(place);
+            }
+        }
+    }
+    
+    return activitiesByTheme;
   }
 }
 

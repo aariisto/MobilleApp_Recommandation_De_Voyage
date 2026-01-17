@@ -59,12 +59,11 @@ const HomeScreen = ({ navigation }) => {
 
         if (likedCategories.length > 0) {
            // 3. Générer la requête utilisateur
-           const query = await generateUserQueryFromUserId(profile.id, likedCategories);
-           
+
            // 4. Calculer le classement avec pénalités (utilise automatiquement les dislikes)
            console.log("🔄 Calcul des recommandations avec pénalités des dislikes...");
            // On récupère un peu plus de résultats (20) pour permettre le filtrage
-           const rankedCities = await rankCitiesWithPenalty(query, profile.id, 20);
+           const rankedCities = await rankCitiesWithPenalty(likedCategories, profile.id);
            console.log("✅ Recommandations calculées avec succès");
            setAllRecommendations(rankedCities);
            setRecommendations(rankedCities);
@@ -86,23 +85,30 @@ const HomeScreen = ({ navigation }) => {
       // Désélectionner : on remet toutes les recommandations
       setSelectedCategory(null);
       setRecommendations(allRecommendations);
-    } else {
-      // Sélectionner : on filtre
-      setSelectedCategory(category);
-      setLoading(true);
-      try {
-        const cityIds = allRecommendations.map(c => c.id);
-        // Utilisation du service de filtrage
-        const filteredResults = await ThemeFilterService.filterCitiesByTheme(cityIds, category);
-        const filteredCityIds = new Set(filteredResults.map(r => r.cityId));
-        
-        const filteredRecs = allRecommendations.filter(c => filteredCityIds.has(c.id));
-        setRecommendations(filteredRecs);
-      } catch (error) {
-        console.error("Erreur filtrage:", error);
-      } finally {
-        setLoading(false);
-      }
+      return;
+    }
+    
+    // Sélectionner : on filtre
+    setSelectedCategory(category);
+    setLoading(true);
+    try {
+      const cityIds = allRecommendations.map(c => c.id);
+      console.log(`🔍 Filtrage par thème: ${category} sur ${cityIds.length} villes`);
+      
+      // Utilisation du service de filtrage
+      const filteredResults = await ThemeFilterService.filterCitiesByTheme(cityIds, category);
+      const filteredCityIds = new Set(filteredResults.map(r => r.cityId));
+      
+      const filteredRecs = allRecommendations.filter(c => filteredCityIds.has(c.id));
+      console.log(`✅ ${filteredRecs.length} villes correspondent au thème ${category}`);
+      setRecommendations(filteredRecs);
+    } catch (error) {
+      console.error("❌ Erreur filtrage:", error);
+      // En cas d'erreur, on remet toutes les recommandations
+      setSelectedCategory(null);
+      setRecommendations(allRecommendations);
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import cityImages from '../data/cityImages';
 import flightPricesData from '../data/flightPrices.json'; // Import des données locales
 import CityRepository from '../backend/repositories/CityRepository';
+import ThemeFilterService from '../backend/services/ThemeFilterService';
 
 const { height } = Dimensions.get('window');
 
@@ -18,6 +19,11 @@ const DetailsScreen = ({ route, navigation }) => {
   
   const [description, setDescription] = useState('');
   const [loadingDesc, setLoadingDesc] = useState(true);
+  const [cityThemes, setCityThemes] = useState([]);
+  const [loadingThemes, setLoadingThemes] = useState(true);
+  const [activities, setActivities] = useState({});
+  const [loadingActivities, setLoadingActivities] = useState(false);
+  const [showActivities, setShowActivities] = useState(false);
 
   // States pour la recherche de vol
   const [showFlightSearch, setShowFlightSearch] = useState(false);
@@ -108,8 +114,34 @@ const DetailsScreen = ({ route, navigation }) => {
       }
     };
 
+    const fetchThemes = async () => {
+      try {
+        const themes = await ThemeFilterService.getCityThemes(city.id);
+        setCityThemes(themes);
+      } catch (error) {
+        console.error("Erreur chargement thèmes:", error);
+        setCityThemes([]);
+      } finally {
+        setLoadingThemes(false);
+      }
+    };
+
+    const fetchActivities = async () => {
+        setLoadingActivities(true);
+        try {
+            const acts = await ThemeFilterService.getCityActivities(city.id);
+            setActivities(acts);
+        } catch (error) {
+            console.error("Erreur chargement activités:", error);
+        } finally {
+            setLoadingActivities(false);
+        }
+    };
+
     if (city && city.id) {
         fetchDescription();
+        fetchThemes();
+        fetchActivities();
     }
   }, [city]);
 
@@ -158,11 +190,36 @@ const DetailsScreen = ({ route, navigation }) => {
                 </Text>
             </View>
 
+            {/* Thèmes de la ville */}
             <View style={styles.features}>
-                <View style={styles.featureItem}><Ionicons name="time-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Culture</Text></View>
-                <View style={styles.featureItem}><Ionicons name="restaurant-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Cuisine</Text></View>
-                <View style={styles.featureItem}><Ionicons name="camera-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Vues</Text></View>
-                <View style={styles.featureItem}><Ionicons name="walk-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Balades</Text></View>
+                {loadingThemes ? (
+                    <ActivityIndicator size="small" color="#007AFF" />
+                ) : cityThemes.length > 0 ? (
+                    cityThemes.map((themeObj, index) => {
+                        const themeConfig = {
+                            'Nature': { icon: 'leaf', label: 'Nature' },
+                            'Histoire': { icon: 'book', label: 'Histoire' },
+                            'Gastronomie': { icon: 'restaurant', label: 'Gastronomie' },
+                            'Shopping': { icon: 'cart', label: 'Shopping' },
+                            'Divertissement': { icon: 'game-controller', label: 'Divertissement' }
+                        };
+                        const config = themeConfig[themeObj.theme] || { icon: 'star', label: themeObj.theme };
+                        
+                        return (
+                            <View key={index} style={styles.featureItem}>
+                                <Ionicons name={config.icon} size={24} color="#007AFF"/>
+                                <Text style={styles.featureText}>{config.label}</Text>
+                            </View>
+                        );
+                    })
+                ) : (
+                    <>
+                        <View style={styles.featureItem}><Ionicons name="time-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Culture</Text></View>
+                        <View style={styles.featureItem}><Ionicons name="restaurant-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Cuisine</Text></View>
+                        <View style={styles.featureItem}><Ionicons name="camera-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Vues</Text></View>
+                        <View style={styles.featureItem}><Ionicons name="walk-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Balades</Text></View>
+                    </>
+                )}
             </View>
 
             <Text style={styles.sectionHeader}>Description</Text>
@@ -173,11 +230,39 @@ const DetailsScreen = ({ route, navigation }) => {
                     {description}
                 </Text>
             )}
-            
-            <View style={styles.accordion}>
+
+
+            <TouchableOpacity style={styles.accordion} onPress={() => setShowActivities(!showActivities)}>
                 <Text style={styles.accordionTitle}>Centres d'intérêt</Text>
-                <Ionicons name="chevron-down" size={20} />
-            </View>
+                <Ionicons name={showActivities ? "chevron-up" : "chevron-down"} size={20} />
+            </TouchableOpacity>
+            
+            {showActivities && (
+                <View style={styles.activitiesContainer}>
+                    {loadingActivities ? (
+                        <ActivityIndicator size="small" color="#007AFF" />
+                    ) : (
+                        Object.entries(activities).map(([theme, items]) => {
+                            if (items.length === 0) return null;
+                            return (
+                                <View key={theme} style={styles.activityGroup}>
+                                    <Text style={styles.activityThemeTitle}>{theme}</Text>
+                                    {items.map((item, idx) => (
+                                        <View key={idx} style={styles.activityItem}>
+                                            <Ionicons name="location-sharp" size={14} color="#007AFF" style={{marginTop: 2}} />
+                                            <Text style={styles.activityName}>{item.name}</Text>
+                                        </View>
+                                    ))}
+                                </View>
+                            );
+                        })
+                    )}
+                    {!loadingActivities && Object.values(activities).every(arr => arr.length === 0) && (
+                        <Text style={styles.noActivityText}>Aucun centre d'intérêt spécifique trouvé.</Text>
+                    )}
+                </View>
+            )}
+
              <View style={styles.accordion}>
                 <Text style={styles.accordionTitle}>Localisation</Text>
                 {/* Image carte statique pour l'exemple, pourrait être dynamique aussi */}
@@ -307,12 +392,18 @@ const styles = StyleSheet.create({
     locationText: { color: 'gray', marginLeft: 5 },
     ratingRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
     ratingText: { color: 'gray', marginLeft: 5, fontSize: 12 },
-    features: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 20 },
-    featureItem: { width: '23%', backgroundColor: '#F0F4F8', paddingVertical: 15, borderRadius: 15, alignItems: 'center' },
-    featureText: { fontSize: 10, marginTop: 5, fontWeight: '600' },
+    features: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginBottom: 20 },
+    featureItem: { width: '23%', backgroundColor: '#F0F4F8', paddingVertical: 15, borderRadius: 15, alignItems: 'center', marginHorizontal: 3, marginBottom: 10 },
+    featureText: { fontSize: 10, marginTop: 5, fontWeight: '600', color: '#007AFF' },
     sectionHeader: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
     descText: { color: 'gray', lineHeight: 22, marginBottom: 20 },
     accordion: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 15, borderTopWidth: 1, borderColor: '#eee' },
+    activitiesContainer: { paddingVertical: 10, paddingHorizontal: 5 },
+    activityGroup: { marginBottom: 15 },
+    activityThemeTitle: { fontSize: 16, fontWeight: '600', color: '#333', marginBottom: 8, marginTop: 5 },
+    activityItem: { flexDirection: 'row', alignItems: 'flex-start', marginBottom: 6, marginLeft: 10 },
+    activityName: { marginLeft: 8, color: '#555', fontSize: 14, flex: 1 },
+    noActivityText: { fontStyle: 'italic', color: 'gray', marginLeft: 10 },
     accordionTitle: { fontWeight: 'bold', fontSize: 16 },
     mapImage: { width: '100%', height: 150, borderRadius: 15, marginTop: 10 },
     footer: { position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', padding: 20, flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderColor: '#eee', paddingBottom: 30 },
