@@ -85,14 +85,15 @@ const HomeScreen = ({ navigation }) => {
         }
 
         if (likedCategories.length > 0) {
-          // On récupère un peu plus de résultats (20) pour permettre le filtrage
-          const rankedCities = await rankCitiesWithPenalty(
-            likedCategories,
-            profile.id,
-          );
-          console.log("✅ Recommandations calculées avec succès");
-          setAllRecommendations(rankedCities);
-          setRecommendations(rankedCities);
+           // 3. Générer la requête utilisateur
+           
+           // 4. Calculer le classement avec pénalités (utilise automatiquement les dislikes)
+           console.log("🔄 Calcul des recommandations avec pénalités des dislikes...");
+           // On récupère un peu plus de résultats (20) pour permettre le filtrage
+           const rankedCities = await rankCitiesWithPenalty(likedCategories, profile.id);
+           console.log("✅ Recommandations calculées avec succès");
+           setAllRecommendations(rankedCities);
+           setRecommendations(rankedCities);
         } else {
           setRecommendations([]);
           setAllRecommendations([]);
@@ -116,17 +117,12 @@ const HomeScreen = ({ navigation }) => {
       setSelectedCategory(category);
       setLoading(true);
       try {
-        const cityIds = allRecommendations.map((c) => c.id);
+        const cityIds = allRecommendations.map(c => c.id);
         // Utilisation du service de filtrage
-        const filteredResults = await ThemeFilterService.filterCitiesByTheme(
-          cityIds,
-          category,
-        );
-        const filteredCityIds = new Set(filteredResults.map((r) => r.cityId));
-
-        const filteredRecs = allRecommendations.filter((c) =>
-          filteredCityIds.has(c.id),
-        );
+        const filteredResults = await ThemeFilterService.filterCitiesByTheme(cityIds, category);
+        const filteredCityIds = new Set(filteredResults.map(r => r.cityId));
+        
+        const filteredRecs = allRecommendations.filter(c => filteredCityIds.has(c.id));
         setRecommendations(filteredRecs);
       } catch (error) {
         console.error("Erreur filtrage:", error);

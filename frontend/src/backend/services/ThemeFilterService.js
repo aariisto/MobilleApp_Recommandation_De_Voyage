@@ -217,9 +217,16 @@ class ThemeFilterService {
       );
     }
 
-    const results = await Promise.all(
-      cityIds.map((cityId) => filterMethod(cityId)),
-    );
+    // Exécution séquentielle pour éviter de surcharger SQLite (qui plante avec trop de requêtes parallèles via Promise.all)
+    const results = [];
+    for (const cityId of cityIds) {
+        try {
+            const result = await filterMethod(cityId);
+            results.push(result);
+        } catch (e) {
+            console.warn(`Erreur filtre ${theme} pour city ${cityId}:`, e);
+        }
+    }
 
     return results.filter((result) => result.isMatch);
   }
