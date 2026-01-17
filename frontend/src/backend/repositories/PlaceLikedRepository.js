@@ -14,12 +14,13 @@ class PlaceLikedRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT id_ville FROM place_liked;",
-        [],
+        []
       );
+      // On retourne directement un tableau de nombres
       return result.rows._array.map((row) => row.id_ville);
     } catch (error) {
       console.error("Error fetching liked cities:", error);
-      throw error;
+      return [];
     }
   }
 
@@ -66,15 +67,19 @@ class PlaceLikedRepository {
    */
   async addPlaceLiked(cityId) {
     try {
+      // On vérifie d'abord si ça existe déjà pour éviter les doublons
+      const check = await dbConnection.executeSql(
+        "SELECT id FROM place_liked WHERE id_ville = ?;",
+        [cityId]
+      );
+      
+      if (check.rows.length > 0) return check.rows._array[0];
+
       const result = await dbConnection.executeSql(
         "INSERT INTO place_liked (id_ville) VALUES (?);",
-        [cityId],
+        [cityId]
       );
-      return {
-        id: result.insertId,
-        id_ville: cityId,
-        created_at: new Date().toISOString(),
-      };
+      return result;
     } catch (error) {
       console.error("Error adding liked city:", error);
       throw error;
@@ -108,11 +113,11 @@ class PlaceLikedRepository {
     try {
       const result = await dbConnection.executeSql(
         "DELETE FROM place_liked WHERE id_ville = ?;",
-        [cityId],
+        [cityId]
       );
       return result.rowsAffected > 0;
     } catch (error) {
-      console.error("Error removing liked city by city ID:", error);
+      console.error("Error removing liked city:", error);
       throw error;
     }
   }
