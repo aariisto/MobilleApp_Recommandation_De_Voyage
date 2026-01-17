@@ -1,30 +1,33 @@
-import React, { useEffect, useContext,userData } from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, Image, ActivityIndicator } from 'react-native';
-import { UserContext } from '../store/UserContext';
+import UserRepository from '../backend/repositories/UserRepository';
 
 const LoadingScreen = ({ navigation }) => {
-  const { userData } = useContext(UserContext);
-
   useEffect(() => {
-    // On laisse un petit délai pour voir le logo, puis on décide où aller
-    const checkUser = setTimeout(() => {
-      
-      // Si la lecture de la BDD est finie (isLoaded = true)
-      if (userData.isLoaded) {
-        // Si on a un prénom, c'est que l'utilisateur existe déjà en base !
-        if (userData.prenom && userData.prenom !== '') {
+    // Vérifier si un utilisateur existe dans la base de données
+    const checkUser = async () => {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Délai pour voir le logo
+        
+        const userCount = await UserRepository.countProfiles();
+        
+        if (userCount > 0) {
           console.log("✅ Utilisateur existant détecté -> Direction Accueil");
           navigation.replace('Main'); 
         } else {
           console.log("🆕 Nouvel utilisateur -> Direction Inscription");
           navigation.replace('Register'); 
         }
+      } catch (error) {
+        console.error("Erreur lors de la vérification de l'utilisateur:", error);
+        navigation.replace('Register');
       }
-    }, 2000);
+    };
 
-    return () => clearTimeout(checkUser);
-    
-  }, [userData.isLoaded, navigation]);
+    checkUser();
+
+    return () => {};
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

@@ -1,37 +1,23 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { UserContext } from '../store/UserContext'; 
+import UserRepository from '../backend/repositories/UserRepository';
 
 const ProfileScreen = ({ navigation }) => {
-  // On récupère la fonction deleteAccount
-  const { userData, deleteAccount } = useContext(UserContext);
+  const [userProfile, setUserProfile] = useState(null);
 
-  // Fonction de confirmation
-  const handleLogoutAndReset = () => {
-    Alert.alert(
-      "Supprimer mon compte",
-      "Êtes-vous sûr de vouloir supprimer votre compte ? Toutes vos données seront effacées et vous retournerez à l'inscription.",
-      [
-        { text: "Annuler", style: "cancel" },
-        { 
-          text: "Supprimer", 
-          style: "destructive", 
-          onPress: async () => {
-            // 1. On supprime le profil de la DB + Context
-            await deleteAccount();
-            
-            // 2. On reset la navigation vers l'écran de chargement
-            // (Cela empêche l'utilisateur de faire "Retour")
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Loading' }],
-            });
-          }
-        }
-      ]
-    );
+  useEffect(() => {
+    loadUserProfile();
+  }, []);
+
+  const loadUserProfile = async () => {
+    try {
+      const profile = await UserRepository.getProfile();
+      setUserProfile(profile);
+    } catch (error) {
+      console.error("Erreur chargement profil:", error);
+    }
   };
 
   return (
@@ -53,18 +39,18 @@ const ProfileScreen = ({ navigation }) => {
                 style={styles.avatar} 
             />
             <Text style={styles.name}>
-                {userData.prenom} {userData.nom ? userData.nom.toUpperCase() : ''}
+                {userProfile?.firstName} {userProfile?.lastName ? userProfile.lastName.toUpperCase() : ''}
             </Text>
-            <Text style={styles.email}>{userData.email}</Text>
+            <Text style={styles.email}>{userProfile?.email}</Text>
 
             <View style={styles.bubblesContainer}>
                 <View style={styles.bubble}>
                     <Ionicons name="earth" size={14} color="#555" style={{ marginRight: 5 }} />
-                    <Text style={styles.bubbleText}>{userData.pays || 'Non défini'}</Text>
+                    <Text style={styles.bubbleText}>{userProfile?.country || 'Non défini'}</Text>
                 </View>
                 <View style={styles.bubble}>
                     <Ionicons name="calendar-outline" size={14} color="#555" style={{ marginRight: 5 }} />
-                    <Text style={styles.bubbleText}>{userData.dateNaissance || 'JJ/MM/AAAA'}</Text>
+                    <Text style={styles.bubbleText}>{userProfile?.dateOfBirth || 'JJ/MM/AAAA'}</Text>
                 </View>
             </View>
 
@@ -93,20 +79,6 @@ const ProfileScreen = ({ navigation }) => {
                     icon="heart-outline" label="Mes favoris" isLast={true} 
                     onPress={() => navigation.navigate('Favoris')}
                 />
-            </View>
-        </View>
-
-        <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>Zone de danger</Text>
-            <View style={styles.card}>
-                 {/* BOUTON SUPPRIMER LE COMPTE */}
-                <TouchableOpacity style={styles.deleteButton} onPress={handleLogoutAndReset}>
-                    <View style={styles.iconContainer}>
-                        <Ionicons name="trash-outline" size={22} color="#FF3B30" />
-                    </View>
-                    <Text style={styles.deleteText}>Supprimer mon compte</Text>
-                    <Ionicons name="chevron-forward" size={20} color="#ccc" />
-                </TouchableOpacity>
             </View>
         </View>
 
@@ -144,11 +116,7 @@ const styles = StyleSheet.create({
   menuItem: { flexDirection: 'row', alignItems: 'center', paddingVertical: 16, paddingHorizontal: 10, borderBottomWidth: 1, borderBottomColor: '#F0F0F0' },
   menuItemLast: { borderBottomWidth: 0 },
   iconContainer: { marginRight: 15 },
-  menuText: { flex: 1, fontSize: 16, color: '#333' },
-  
-  // Style du boutoon supprimer le compte
-  deleteButton: { flexDirection: 'row', alignItems: 'center', paddingVertical: 16, paddingHorizontal: 10 },
-  deleteText: { flex: 1, fontSize: 16, color: '#FF3B30', fontWeight: '600' }
+  menuText: { flex: 1, fontSize: 16, color: '#333' }
 });
 
 export default ProfileScreen;

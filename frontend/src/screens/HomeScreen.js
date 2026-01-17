@@ -1,9 +1,8 @@
-import React, {useContext, useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import { View, Text, ScrollView, Image, TextInput, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { UserContext } from '../store/UserContext';
 
 import { rankCitiesWithPenalty } from '../backend/algorithms/rankUtils';
 import { generateUserQueryFromUserId } from '../backend/algorithms/userQuery';
@@ -11,11 +10,16 @@ import UserRepository from '../backend/repositories/UserRepository';
 import UserCategoryRepository from '../backend/repositories/UserCategoryRepository';
 
 const HomeScreen = ({ navigation }) => {
-  const { userData } = useContext(UserContext);
+  const [userProfile, setUserProfile] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
   
   const categories = ['Aventure', 'Détente', 'Romantique', 'Famille'];
+
+  // Charger le profil utilisateur au montage
+  useEffect(() => {
+    loadUserProfile();
+  }, []);
 
   // Recharger les recommandations à chaque fois que l'écran gagne le focus
   useFocusEffect(
@@ -24,6 +28,15 @@ const HomeScreen = ({ navigation }) => {
     }, [])
   );
 
+  const loadUserProfile = async () => {
+    try {
+      const profile = await UserRepository.getProfile(['firstName', 'lastName']);
+      setUserProfile(profile);
+    } catch (error) {
+      console.error("Erreur chargement profil:", error);
+    }
+  };
+
   const loadRecommendations = async () => {
     setLoading(true);
     try {
@@ -31,16 +44,29 @@ const HomeScreen = ({ navigation }) => {
       const profile = await UserRepository.getProfile();
       
       if (profile && profile.id) {
-        // 2. Récupérer les likes pour construire la requête
+        // 2. Récupérer les likes ET les dislikes de la BD
         const userLikes = await UserCategoryRepository.getUserLikes(profile.id);
+        const userDislikes = await UserCategoryRepository.getUserDislikes(profile.id);
         const likedCategories = userLikes.map(l => l.category_name);
+
+        console.log(`📊 Profil chargé - Likes: ${userLikes.length}, Dislikes: ${userDislikes.length}`);
+        
+        // Afficher les dislikes qui seront utilisés pour les pénalités
+        if (userDislikes.length > 0) {
+          console.log("❌ Dislikes récupérés de la BD (pénalités à appliquer):");
+          userDislikes.forEach(d => {
+            console.log(`   - ${d.category_name}: ${d.points} points de pénalité`);
+          });
+        }
 
         if (likedCategories.length > 0) {
            // 3. Générer la requête utilisateur
            const query = await generateUserQueryFromUserId(profile.id, likedCategories);
            
-           // 4. Calculer le classement avec pénalités
+           // 4. Calculer le classement avec pénalités (utilise automatiquement les dislikes)
+           console.log("🔄 Calcul des recommandations avec pénalités des dislikes...");
            const rankedCities = await rankCitiesWithPenalty(query, profile.id, 10);
+           console.log("✅ Recommandations calculées avec succès");
            setRecommendations(rankedCities);
         } else {
            setRecommendations([]);
@@ -63,7 +89,7 @@ const HomeScreen = ({ navigation }) => {
   const renderHorizontalItem = ({ item }) => {
     // URL de l'image via le backend Python (Attention: 10.0.2.2 pour l'émulateur Android)
     // Fallback sur une image Unsplash générique si erreur ou chargement
-    const imageUrl = `http://10.0.2.2:5000/api/travel/photos/image/search?q=${encodeURIComponent(item.name)}&size=regular`;
+    const imageUrl = `http://10.0.2.2:5001/api/travel/photos/image/search?q=${encodeURIComponent(item.name)}&size=regular`;
 
     return (
       <TouchableOpacity style={styles.cardHorizontal} onPress={() => goToDetails(item)}>
@@ -89,7 +115,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.header}>
         <Image source={{uri: 'https://randomuser.me/api/portraits/women/44.jpg'}} style={styles.avatar} />
         <Text style={styles.greeting}>
-          Bonjour {userData.prenom || 'Voyageur'}
+          Bonjour {userProfile?.firstName || 'Voyageur'}
         </Text>
         <TouchableOpacity><Ionicons name="notifications-outline" size={24} color="black" /></TouchableOpacity>
       </View>
