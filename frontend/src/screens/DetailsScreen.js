@@ -1,15 +1,49 @@
-import React from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import cityImages from '../data/cityImages';
+import CityRepository from '../backend/repositories/CityRepository';
 
-const DetailsScreen = ({ navigation }) => {
+const DetailsScreen = ({ route, navigation }) => {
+  const { city } = route.params;
+  const [description, setDescription] = useState('');
+  const [loadingDesc, setLoadingDesc] = useState(true);
+
+  useEffect(() => {
+    const fetchDescription = async () => {
+      try {
+        const desc = await CityRepository.getDescriptionById(city.id);
+        setDescription(desc || "Aucune description disponible pour cette ville.");
+      } catch (error) {
+        console.error("Erreur chargement description:", error);
+        setDescription("Impossible de charger la description.");
+      } finally {
+        setLoadingDesc(false);
+      }
+    };
+
+    if (city && city.id) {
+        fetchDescription();
+    }
+  }, [city]);
+
+  // Gestion de l'image (Locale > Online > Fallback)
+  const localImage = cityImages[city.name];
+  const imageSource = localImage 
+      ? localImage 
+      : { uri: `http://10.0.2.2:5001/api/travel/photos/image/search?q=${encodeURIComponent(city.name)}&size=regular` };
+
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}>
         {/* Image en tête */}
         <View>
-            <Image source={{uri: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b91d'}} style={styles.imageHeader} />
+            <Image 
+                source={imageSource} 
+                style={styles.imageHeader} 
+                defaultSource={{ uri: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1' }}
+            />
             <SafeAreaView style={styles.headerIcons} edges={['top']}>
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconBtn}>
                     <Ionicons name="arrow-back" size={20} color="black" />
@@ -26,48 +60,55 @@ const DetailsScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.content}>
-            <Text style={styles.title}>Villa Luxueuse en Bord de Mer</Text>
+            <Text style={styles.title}>{city.name}</Text>
             <View style={styles.locationRow}>
                 <Ionicons name="location-outline" size={16} color="#007AFF" />
-                <Text style={styles.locationText}>Santorin, Grèce</Text>
+                <Text style={styles.locationText}>Destination recommandée</Text>
             </View>
             <View style={styles.ratingRow}>
                 {[...Array(4)].map((_, i) => <Ionicons key={i} name="star" size={16} color="#FFD700" />)}
                 <Ionicons name="star-half" size={16} color="#FFD700" />
-                <Text style={styles.ratingText}>4.8 (245 avis)</Text>
+                <Text style={styles.ratingText}>
+                     {city.score ? `${Math.round(city.score * 100)}% Match` : 'Populaire'}
+                </Text>
             </View>
 
             <View style={styles.features}>
-                <View style={styles.featureItem}><Ionicons name="time-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>7 Jours</Text></View>
-                <View style={styles.featureItem}><Ionicons name="telescope-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Vue mer</Text></View>
-                <View style={styles.featureItem}><Ionicons name="people-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>2 Pers.</Text></View>
-                <View style={styles.featureItem}><Ionicons name="calendar-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Annul. free</Text></View>
+                <View style={styles.featureItem}><Ionicons name="time-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Culture</Text></View>
+                <View style={styles.featureItem}><Ionicons name="restaurant-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Cuisine</Text></View>
+                <View style={styles.featureItem}><Ionicons name="camera-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Vues</Text></View>
+                <View style={styles.featureItem}><Ionicons name="walk-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Balades</Text></View>
             </View>
 
             <Text style={styles.sectionHeader}>Description</Text>
-            <Text style={styles.descText}>
-                Évadez-vous dans cette magnifique villa en bord de mer, offrant une vue imprenable sur la mer Égée. Profitez d'un luxe inégalé avec une piscine privée...
-            </Text>
+            {loadingDesc ? (
+                <ActivityIndicator size="small" color="#007AFF" />
+            ) : (
+                <Text style={styles.descText}>
+                    {description}
+                </Text>
+            )}
             
             <View style={styles.accordion}>
-                <Text style={styles.accordionTitle}>Équipements</Text>
+                <Text style={styles.accordionTitle}>Centres d'intérêt</Text>
                 <Ionicons name="chevron-down" size={20} />
             </View>
              <View style={styles.accordion}>
                 <Text style={styles.accordionTitle}>Localisation</Text>
+                {/* Image carte statique pour l'exemple, pourrait être dynamique aussi */}
                 <Image source={{uri: 'https://images.unsplash.com/photo-1524661135-423995f22d0b'}} style={styles.mapImage} />
             </View>
         </View>
       </ScrollView>
 
-      {/* Footer détails prix*/}
+      {/* Footer détails prix - Exemple statique ou à dynamiser plus tard */}
       <View style={styles.footer}>
         <View>
-            <Text style={styles.price}>450€</Text>
-            <Text style={styles.perNight}>/ nuit</Text>
+            <Text style={styles.price}>Explorer</Text>
+            <Text style={styles.perNight}>dès maintenant</Text>
         </View>
         <TouchableOpacity style={styles.bookBtn}>
-            <Text style={styles.bookText}>Réserver maintenant</Text>
+            <Text style={styles.bookText}>Voir les vols</Text>
         </TouchableOpacity>
       </View>
     </View>
