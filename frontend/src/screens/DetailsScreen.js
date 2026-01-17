@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator, TextInput, Animated, Dimensions } from 'react-native';
+import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator, TextInput, Animated, Dimensions, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import cityImages from '../data/cityImages';
 import flightPricesData from '../data/flightPrices.json'; // Import des données locales
@@ -30,8 +31,9 @@ const DetailsScreen = ({ route, navigation }) => {
 
   // States pour la recherche de vol
   const [showFlightSearch, setShowFlightSearch] = useState(false);
-  const [originCity, setOriginCity] = useState('');
-  const [flightDate, setFlightDate] = useState(new Date().toISOString().split('T')[0]); // YYYY-MM-DD
+  const [originCity, setOriginCity] = useState('Paris');
+  const [flightDate, setFlightDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [flightPrice, setFlightPrice] = useState(null);
   const [loadingPrice, setLoadingPrice] = useState(false);
   
@@ -70,6 +72,9 @@ const DetailsScreen = ({ route, navigation }) => {
             const destClean = city.name.trim().toUpperCase();
             const searchKey = `${originClean}_${destClean}`;
             const keyParisFallback = `PARIS_${destClean}`;
+            
+            // Formater la date pour l'affichage
+            const dateString = flightDate.toISOString().split('T')[0];
 
             // Recherche dans le fichier JSON local
             // 1. Cherche EXACTEMENT VilleDepart_VilleArrivee
@@ -426,21 +431,36 @@ const DetailsScreen = ({ route, navigation }) => {
             <View style={styles.inputGroup}>
                 <Text style={styles.label}>Ville de départ</Text>
                 <TextInput 
-                    style={styles.input} 
+                    style={[styles.input, styles.inputDisabled]} 
                     placeholder="Ex: Paris, Lyon..." 
                     value={originCity}
-                    onChangeText={setOriginCity}
+                    editable={false}
                 />
             </View>
 
             <View style={styles.inputGroup}>
                 <Text style={styles.label}>Date de départ</Text>
-                <TextInput 
-                    style={styles.input} 
-                    placeholder="YYYY-MM-DD" 
-                    value={flightDate}
-                    onChangeText={setFlightDate}
-                />
+                <TouchableOpacity 
+                    style={[styles.input, styles.datePickerButton]} 
+                    onPress={() => setShowDatePicker(true)}
+                >
+                    <Ionicons name="calendar-outline" size={20} color="#007AFF" style={{marginRight: 10}} />
+                    <Text style={styles.dateText}>{flightDate.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</Text>
+                </TouchableOpacity>
+                {showDatePicker && (
+                    <DateTimePicker
+                        value={flightDate}
+                        mode="date"
+                        display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                        minimumDate={new Date()}
+                        onChange={(event, selectedDate) => {
+                            setShowDatePicker(Platform.OS === 'ios');
+                            if (selectedDate) {
+                                setFlightDate(selectedDate);
+                            }
+                        }}
+                    />
+                )}
             </View>
 
             <View style={styles.inputGroup}>
@@ -500,6 +520,17 @@ const styles = StyleSheet.create({
     inputGroup: { marginBottom: 15 },
     label: { fontSize: 14, color: 'gray', marginBottom: 5 },
     input: { borderWidth: 1, borderColor: '#ddd', borderRadius: 10, padding: 12, fontSize: 16 },
+    inputDisabled: { backgroundColor: '#f5f5f5', color: '#999' },
+    datePickerButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#fff'
+    },
+    dateText: {
+        fontSize: 16,
+        color: '#333',
+        flex: 1
+    },
     searchBtn: { backgroundColor: '#007AFF', borderRadius: 12, padding: 15, alignItems: 'center', marginTop: 10 },
     searchBtnText: { color: 'white', fontWeight: 'bold', fontSize: 16 },
     resultContainer: { marginTop: 20, padding: 15, backgroundColor: '#F0F9FF', borderRadius: 12, alignItems: 'center' },
