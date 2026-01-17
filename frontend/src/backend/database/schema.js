@@ -205,15 +205,15 @@ const createUserCategoryDislikesTable = () => ({
 });
 
 /**
- * Table place_liked - Stocke les places aimées par les utilisateurs
+ * Table place_liked - Stocke les villes aimées par les utilisateurs
  */
 const createPlaceLikedTable = () => ({
   sql: `
     CREATE TABLE IF NOT EXISTS place_liked (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      id_places INTEGER NOT NULL,
+      id_ville INTEGER NOT NULL,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (id_places) REFERENCES places(id) ON DELETE CASCADE
+      FOREIGN KEY (id_ville) REFERENCES cities(id) ON DELETE CASCADE
     );
   `,
   params: [],

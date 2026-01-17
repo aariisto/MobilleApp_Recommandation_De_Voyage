@@ -10,6 +10,8 @@ import CityRepository from "./src/backend/repositories/CityRepository.js";
 import UserRepository from "./src/backend/repositories/UserRepository.js";
 import UserCategoryRepository from "./src/backend/repositories/UserCategoryRepository.js";
 import CityActivityService from "./src/backend/services/CityActivityService.js";
+import PlaceLikedRepository from "./src/backend/repositories/PlaceLikedRepository.js";
+import PlaceRepository from "./src/backend/repositories/PlaceRepository.js";
 import {
   generateUserQuery,
   generateUserQueryWithWeights,
@@ -29,81 +31,72 @@ export default function App() {
   // TEST DU NOUVEL ALGORITHME (Logique Python Pure: embedding_likes - embedding_dislikes + pénalités)
   const testNewAlgorithm = async () => {
     try {
-      console.log("\n\n🧪 === TEST CITY ACTIVITIES ===");
-      console.log("🏙️ Récupération des activités pour la ville ID: 1");
-
-      const activities = await CityActivityService.getCityActivities(1);
-
-      console.log("\n✅ Activités récupérées:");
-      console.log(JSON.stringify(activities, null, 2));
-
-      // Afficher le nombre de places par thème
-      Object.entries(activities).forEach(([theme, places]) => {
-        console.log(`\n📍 ${theme}: ${places.length} places`);
-        places.forEach((place, index) => {
-          console.log(`  ${index + 1}. ${place.name}`);
-        });
-      });
-    } catch (error) {
-      console.error("❌ Erreur test activities:", error.message);
-      console.error(error);
-    }
-  };
-
-  const testGenerateUserEmbedding = async () => {
-    try {
-      console.log("\n\n🧪 === TEST GÉNÉRATION USER EMBEDDING ===");
-
-      // Vérifier si un utilisateur existe, sinon en créer un
-      const count = await UserRepository.countProfiles();
-      if (count === 0) {
-        console.log("📝 Création d'un utilisateur de test...");
-        await UserRepository.createProfile({
-          firstName: "Idir",
-          lastName: "User",
-          email: "test@example.com",
-        });
-        console.log("✅ Utilisateur créé");
+      console.log("\n\n🧪 === PRÉPARATION DONNÉES TEST ===");
+      
+      // 1. Récupérer des places d'Istanbul (ID 11) pour le test
+      // On suppose que l'ID 11 est Istanbul comme mentionné
+      const istanbulPlaces = await PlaceRepository.getPlacesByCity(11);
+      
+      if (istanbulPlaces && istanbulPlaces.length > 0) {
+        // On prend la première place trouvée
+        const placeToLike = istanbulPlaces[0];
+        console.log(`📍 Tentative d'ajout d'un like pour : ${placeToLike.name} (Ville ID: ${placeToLike.city_id}, Place ID: ${placeToLike.id})`);
+        
+        // Vérifier si déjà liké pour éviter erreur de contrainte UNIQUE
+        const existingLikeCount = await PlaceLikedRepository.countLikesForPlace(placeToLike.id);
+        
+        if (existingLikeCount === 0) {
+             await PlaceLikedRepository.addPlaceLiked(placeToLike.id);
+             console.log("✅ Like ajouté avec succès !");
+        } else {
+             console.log("ℹ️ Cette place est déjà likée (pas d'ajout nécessaire).");
+        }
+      } else {
+        console.log("❌ Aucune place trouvée pour la ville ID 11. Impossible d'ajouter un like pour ce test.");
       }
 
-      const likedCategories = ["museum", "beach", "restaurant", "hotel"];
-      const dislikedCategories = ["nightclub", "casino"];
+      console.log("\n\n🧪 === TEST GET ALL PLACES LIKED ===");
 
-      console.log("👍 Likes:", likedCategories);
-      console.log("👎 Dislikes:", dislikedCategories);
+      const allLiked = await PlaceLikedRepository.getAllPlacesLiked();
 
-      const embedding = await UserRepository.generateAndStoreUserEmbedding(
-        likedCategories,
-        dislikedCategories,
-      );
+      console.log(`\n✅ Total de places likées: ${allLiked.length}`);
 
-      console.log(
-        `✅ Embedding généré et stocké! Dimension: ${embedding.length}`,
-      );
-
-      // Récupérer l'embedding stocké en BD
-      const profile = await UserRepository.getProfile(["userEmbedding"]);
-
-      if (profile && profile.userEmbedding) {
-        console.log("\n🏙️ === CLASSEMENT DES VILLES ===");
-        console.log(
-          `📊 Utilisation de l'embedding stocké (${profile.userEmbedding.length} dims)`,
-        );
-
-        // Classer les villes avec l'embedding de la BD
-        const top10 = await rankCitiesBySimilarity(profile.userEmbedding);
-
-        console.log("\n✅ Top 10 des villes recommandées:");
-        top10.forEach((city, index) => {
+      if (allLiked.length > 0) {
+        console.log("\n📍 Liste des places likées:");
+        allLiked.forEach((liked, index) => {
           console.log(
-            `  ${index + 1}. ${
-              city.name
-            } - Similarité: ${city.similarity.toFixed(4)}`,
+            `  ${index + 1}. Place ID: ${liked.id_places}, Created: ${liked.created_at}`,
           );
         });
+      } else {
+        console.log("⚠️ Aucune place likée trouvée dans la base de données.");
+      }
+
+      console.log("\n\n🧪 === TEST RECOMMENDATIONS FROM LIKED PLACES ===");
+
+      const recommendations =
+        await CityActivityService.getRecommendationsFromLikedPlaces();
+
+      console.log("\n✅ Recommandations récupérées:");
+      console.log(JSON.stringify(recommendations, null, 2));
+
+      // Afficher les détails par ville
+      Object.entries(recommendations).forEach(([cityId, places]) => {
+        console.log(
+          `\n🏙️ Ville ID ${cityId}: ${places.length} places recommandées`,
+        );
+        places.forEach((place, index) => {
+          console.log(`  ${index + 1}. ${place.name} (Thème: ${place.theme})`);
+        });
+      });
+
+      if (Object.keys(recommendations).length === 0) {
+        console.log(
+          "⚠️ Aucune recommandation trouvée. Vérifiez qu'il y a des places likées dans la base.",
+        );
       }
     } catch (error) {
-      console.error("❌ Erreur:", error.message);
+      console.error("❌ Erreur test recommendations:", error.message);
       console.error(error);
     }
   };
