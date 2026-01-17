@@ -9,6 +9,7 @@ import { generateUserQueryFromUserId } from '../backend/algorithms/userQuery';
 import UserRepository from '../backend/repositories/UserRepository';
 import UserCategoryRepository from '../backend/repositories/UserCategoryRepository';
 import ThemeFilterService from '../backend/services/ThemeFilterService';
+import cityImages from '../data/cityImages';
 
 const HomeScreen = ({ navigation }) => {
   const [userProfile, setUserProfile] = useState(null);
@@ -121,14 +122,18 @@ const HomeScreen = ({ navigation }) => {
   const startQuiz = () => navigation.navigate('Preferences');
 
   const renderHorizontalItem = ({ item }) => {
-    // URL de l'image via le backend Python (Attention: 10.0.2.2 pour l'émulateur Android)
-    // Fallback sur une image Unsplash générique si erreur ou chargement
-    const imageUrl = `http://10.0.2.2:5001/api/travel/photos/image/search?q=${encodeURIComponent(item.name)}&size=regular`;
+    // Vérifier si une image locale existe
+    const localImage = cityImages[item.name];
+    
+    // URL de l'image (Locale > API > Placeholder)
+    const imageSource = localImage 
+        ? localImage 
+        : { uri: `http://10.0.2.2:5001/api/travel/photos/image/search?q=${encodeURIComponent(item.name)}&size=regular` };
 
     return (
       <TouchableOpacity style={styles.cardHorizontal} onPress={() => goToDetails(item)}>
         <Image 
-          source={{ uri: imageUrl }} 
+          source={imageSource} 
           style={styles.cardImage} 
           defaultSource={{ uri: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1' }} // Placeholder
         />
