@@ -21,6 +21,7 @@ export const initializeDatabase = async () => {
       createUserProfilesTable(),
       createUserCategoryLikesTable(),
       createUserCategoryDislikesTable(),
+      createPlaceLikedTable(),
     ];
 
     await dbConnection.executeTransaction(tables);
@@ -204,10 +205,26 @@ const createUserCategoryDislikesTable = () => ({
 });
 
 /**
+ * Table place_liked - Stocke les places aimées par les utilisateurs
+ */
+const createPlaceLikedTable = () => ({
+  sql: `
+    CREATE TABLE IF NOT EXISTS place_liked (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id_places INTEGER NOT NULL,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (id_places) REFERENCES places(id) ON DELETE CASCADE
+    );
+  `,
+  params: [],
+});
+
+/**
  * Supprime toutes les tables (utile pour reset)
  */
 export const dropAllTables = async () => {
   const dropQueries = [
+    { sql: "DROP TABLE IF EXISTS place_liked;", params: [] },
     { sql: "DROP TABLE IF EXISTS user_category_likes;", params: [] },
     { sql: "DROP TABLE IF EXISTS user_category_dislikes;", params: [] },
     { sql: "DROP TABLE IF EXISTS place_categories;", params: [] },
@@ -228,7 +245,7 @@ export const dropAllTables = async () => {
 export const getTableInfo = async (tableName) => {
   const result = await dbConnection.executeSql(
     `PRAGMA table_info(${tableName});`,
-    []
+    [],
   );
   return result.rows._array;
 };
@@ -239,7 +256,7 @@ export const getTableInfo = async (tableName) => {
 export const countRows = async (tableName) => {
   const result = await dbConnection.executeSql(
     `SELECT COUNT(*) as count FROM ${tableName};`,
-    []
+    [],
   );
   return result.rows._array[0].count;
 };
