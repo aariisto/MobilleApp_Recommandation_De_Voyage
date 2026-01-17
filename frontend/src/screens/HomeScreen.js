@@ -86,12 +86,11 @@ const HomeScreen = ({ navigation }) => {
 
         if (likedCategories.length > 0) {
            // 3. Générer la requête utilisateur
-           const query = await generateUserQueryFromUserId(profile.id, likedCategories);
            
            // 4. Calculer le classement avec pénalités (utilise automatiquement les dislikes)
            console.log("🔄 Calcul des recommandations avec pénalités des dislikes...");
            // On récupère un peu plus de résultats (20) pour permettre le filtrage
-           const rankedCities = await rankCitiesWithPenalty(query, profile.id, 20);
+           const rankedCities = await rankCitiesWithPenalty(likedCategories, profile.id);
            console.log("✅ Recommandations calculées avec succès");
            setAllRecommendations(rankedCities);
            setRecommendations(rankedCities);
