@@ -5,6 +5,7 @@
 
 import dbConnection from "../database/connection";
 import { blobToVector, vectorToBlob } from "../algorithms/vectorUtils";
+import cityDescriptions from "../../data/cityDescriptions.json";
 
 class CityRepository {
   /**
@@ -77,11 +78,27 @@ class CityRepository {
    */
   async getDescriptionById(cityId) {
     try {
-      const result = await dbConnection.executeSql(
-        "SELECT description FROM cities WHERE id = ?;",
-        [cityId]
-      );
-      return result.rows._array[0]?.description || null;
+      // 1. Tentative depuis la base de données
+      try {
+        const result = await dbConnection.executeSql(
+          "SELECT description FROM cities WHERE id = ?;",
+          [cityId]
+        );
+        const dbDesc = result.rows._array[0]?.description;
+        if (dbDesc) return dbDesc;
+      } catch (e) {
+        // La colonne description existe peut-être pas dans cette version de la DB
+      }
+
+      // 2. Fallback sur le fichier JSON
+      if (cityDescriptions) {
+        const fallback = cityDescriptions.find(c => c.id === cityId);
+        if (fallback && fallback.categories_gpt) {
+           return fallback.categories_gpt;
+        }
+      }
+
+      return null;
     } catch (error) {
       console.error("Error fetching city description:", error);
       throw error;

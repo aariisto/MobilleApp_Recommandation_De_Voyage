@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'; 
+import React, { useState } from 'react'; 
 import { 
   View, Text, TextInput, TouchableOpacity, StyleSheet, 
   ScrollView, Alert, KeyboardAvoidingView, Platform 
@@ -7,12 +7,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CountryPicker from 'react-native-country-picker-modal';
 
-
-import { UserContext } from '../../store/UserContext'; 
+import UserRepository from '../../backend/repositories/UserRepository';
 
 const RegisterScreen = ({ navigation }) => {
-  // 3. Récupération de la fonction de sauvegarde
-  const { saveUserToDB } = useContext(UserContext);
 
   const [countryPickerVisible, setCountryPickerVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -66,13 +63,33 @@ const RegisterScreen = ({ navigation }) => {
       return;
     }
 
-    console.log("Sauvegarde en cours...", formData);
-    
-    // On sauvegarde dans le Context et la base de données
-    await saveUserToDB(formData);
+    try {
+      console.log("💾 Sauvegarde du profil utilisateur...", formData);
+      
+      // Préparer les données pour createProfile
+      const userData = {
+        firstName: formData.prenom,
+        lastName: formData.nom,
+        email: formData.email,
+        dateOfBirth: formData.dateNaissance || null,
+        country: formData.pays,
+        preferences: [], // Sera rempli après le QCM
+        weaknesses: []   // Sera rempli après le QCM
+      };
 
-    // Redirige vers le QCM
-    navigation.replace('Preferences');
+      // Sauvegarder dans la base de données avec createProfile
+      const userId = await UserRepository.createProfile(userData);
+      console.log(`✅ Profil créé avec succès! User ID: ${userId}`);
+
+      Alert.alert(
+        "Bienvenue !",
+        "Votre profil a été créé avec succès. Répondez maintenant au questionnaire.",
+        [{ text: "Continuer", onPress: () => navigation.replace('Preferences') }]
+      );
+    } catch (error) {
+      console.error("❌ Erreur lors de la création du profil:", error);
+      Alert.alert("Erreur", "Une erreur est survenue lors de la création de votre profil.");
+    }
   };
 
   return (

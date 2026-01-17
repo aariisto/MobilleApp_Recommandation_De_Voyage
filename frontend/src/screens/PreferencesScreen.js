@@ -3,6 +3,9 @@ import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView, Alert
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { questions } from '../data/questionnaireData'; 
+import UserCategoryRepository from '../backend/repositories/UserCategoryRepository';
+import UserRepository from '../backend/repositories/UserRepository';
+
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = (width - 40 - 15) / 2;
@@ -57,7 +60,7 @@ const PreferencesScreen = ({ navigation }) => {
     }
   };
 
-  const generateResults = () => {
+  const generateResults = async () => {
     let likedCategoriesSet = new Set();
     let dislikedCategoriesSet = new Set();
 
@@ -81,6 +84,28 @@ const PreferencesScreen = ({ navigation }) => {
 
     console.log("✅ Tableau J'AIME :", likedTable);
     console.log("❌ Tableau J'AIME PAS :", dislikedTable);
+
+    try {
+      // Récupération de l'utilisateur courant
+      const profile = await UserRepository.getProfile();
+      
+      if (profile && profile.id) {
+        
+        // Enregistrement des Dislikes (Pénalités)
+        for (const category of dislikedTable) {
+          await UserCategoryRepository.addOrIncrementDislike(profile.id, category);
+        }
+
+        // Enregistrement des Likes (Bonus)
+        for (const category of likedTable) {
+          await UserCategoryRepository.addOrIncrementLike(profile.id, category);
+        }
+        
+        console.log("💾 Préférences enregistrées en base de données");
+      }
+    } catch (error) {
+      console.error("⚠️ Erreur lors de l'enregistrement des préférences:", error);
+    }
 
     Alert.alert(
       "Profil terminé !",

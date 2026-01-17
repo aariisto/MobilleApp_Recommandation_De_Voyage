@@ -6,8 +6,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import LoadingScreen from '../screens/LoadingScreen';
 import RegisterScreen from '../screens/Auth/RegisterScreen';
-
-import { UserProvider } from '../store/UserContext';
 import HomeScreen from '../screens/HomeScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import DetailsScreen from '../screens/DetailsScreen';
@@ -46,10 +44,9 @@ function BottomTabs() {
 
 export default function AppNavigator() {
   return (
-  <UserProvider>
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="Loading" // <--- ON COMMENCE ICI MAINTENANT
+        initialRouteName="Loading"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Loading" component={LoadingScreen} />
@@ -59,6 +56,5 @@ export default function AppNavigator() {
         <Stack.Screen name="Preferences" component={PreferencesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-  </UserProvider>
   );
 }
