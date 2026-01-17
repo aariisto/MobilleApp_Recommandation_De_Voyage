@@ -8,13 +8,16 @@ import { rankCitiesWithPenalty } from '../backend/algorithms/rankUtils';
 import { generateUserQueryFromUserId } from '../backend/algorithms/userQuery';
 import UserRepository from '../backend/repositories/UserRepository';
 import UserCategoryRepository from '../backend/repositories/UserCategoryRepository';
+import ThemeFilterService from '../backend/services/ThemeFilterService';
 
 const HomeScreen = ({ navigation }) => {
   const [userProfile, setUserProfile] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
+  const [allRecommendations, setAllRecommendations] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(false);
   
-  const categories = ['Aventure', 'Détente', 'Romantique', 'Famille'];
+  const categories = ['Nature', 'Histoire', 'Gastronomie', 'Shopping', 'Divertissement'];
 
   // Charger le profil utilisateur au montage
   useEffect(() => {
@@ -38,6 +41,8 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const loadRecommendations = async () => {
+    if (selectedCategory) return; // Ne pas recharger si on est en train de filtrer
+
     setLoading(true);
     try {
       // 1. Récupérer le profil complet (avec ID)
@@ -65,11 +70,14 @@ const HomeScreen = ({ navigation }) => {
            
            // 4. Calculer le classement avec pénalités (utilise automatiquement les dislikes)
            console.log("🔄 Calcul des recommandations avec pénalités des dislikes...");
-           const rankedCities = await rankCitiesWithPenalty(query, profile.id, 10);
+           // On récupère un peu plus de résultats (20) pour permettre le filtrage
+           const rankedCities = await rankCitiesWithPenalty(query, profile.id, 20);
            console.log("✅ Recommandations calculées avec succès");
+           setAllRecommendations(rankedCities);
            setRecommendations(rankedCities);
         } else {
            setRecommendations([]);
+           setAllRecommendations([]);
         }
       }
     } catch (error) {
@@ -79,6 +87,32 @@ const HomeScreen = ({ navigation }) => {
     }
   };
   
+  // Gestion du filtrage par catégorie
+  const handleCategoryPress = async (category) => {
+    if (selectedCategory === category) {
+      // Désélectionner : on remet toutes les recommandations
+      setSelectedCategory(null);
+      setRecommendations(allRecommendations);
+    } else {
+      // Sélectionner : on filtre
+      setSelectedCategory(category);
+      setLoading(true);
+      try {
+        const cityIds = allRecommendations.map(c => c.id);
+        // Utilisation du service de filtrage
+        const filteredResults = await ThemeFilterService.filterCitiesByTheme(cityIds, category);
+        const filteredCityIds = new Set(filteredResults.map(r => r.cityId));
+        
+        const filteredRecs = allRecommendations.filter(c => filteredCityIds.has(c.id));
+        setRecommendations(filteredRecs);
+      } catch (error) {
+        console.error("Erreur filtrage:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
   // Fonction pour naviguer vers le détail
   const goToDetails = (city) => navigation.navigate('Details', { city });
 
@@ -125,8 +159,18 @@ const HomeScreen = ({ navigation }) => {
         {/* Catégories de voyage */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 20, marginTop: 15 }}>
           {categories.map((cat, index) => (
-            <TouchableOpacity key={index} style={styles.categoryChip}>
-              <Text style={styles.categoryText}>{cat}</Text>
+            <TouchableOpacity 
+              key={index} 
+              style={[
+                styles.categoryChip,
+                selectedCategory === cat && styles.categoryChipSelected
+              ]}
+              onPress={() => handleCategoryPress(cat)}
+            >
+              <Text style={[
+                styles.categoryText,
+                selectedCategory === cat && styles.categoryTextSelected
+              ]}>{cat}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -203,7 +247,9 @@ const styles = StyleSheet.create({
   cardTitle: { color: 'white', fontWeight: 'bold', fontSize: 18 },
   cardSubtitle: { color: 'white', fontSize: 12 },
   categoryChip: { backgroundColor: '#DDEEFF', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 20, marginRight: 10 },
+  categoryChipSelected: { backgroundColor: '#007AFF' },
   categoryText: { color: '#333' },
+  categoryTextSelected: { color: 'white', fontWeight: 'bold' },
   cardVertical: { flexDirection: 'row', backgroundColor: 'white', marginHorizontal: 20, borderRadius: 20, marginBottom: 15, padding: 10, alignItems: 'center' },
   verticalImage: { width: 80, height: 80, borderRadius: 15 },
   cardInfo: { marginLeft: 15, flex: 1 },
