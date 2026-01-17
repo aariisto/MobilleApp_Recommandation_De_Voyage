@@ -1,0 +1,2227 @@
+{
+  "PARIS_SANTORIN": {
+    "timestamp": 1735689600.0,
+    "price": {
+      "amount": "249.99",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Santorin"
+  },
+  "PARIS_MARSEILLE": {
+    "timestamp": 1768621445.9783015,
+    "price": {
+      "amount": "415.52",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Marseille",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LYON": {
+    "timestamp": 1768621445.9783185,
+    "price": {
+      "amount": "105.71",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Lyon",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_NICE": {
+    "timestamp": 1768621445.978345,
+    "price": {
+      "amount": "146.95",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Nice",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ROME": {
+    "timestamp": 1768621445.9792802,
+    "price": {
+      "amount": "339.97",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Rome",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LONDRES": {
+    "timestamp": 1735689600.0,
+    "price": {
+      "amount": "110.00",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Londres"
+  },
+  "PARIS_NEW YORK": {
+    "timestamp": 1768621445.9870176,
+    "price": {
+      "amount": "515.33",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "New York",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TOKYO": {
+    "timestamp": 1735689600.0,
+    "price": {
+      "amount": "890.00",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Tokyo"
+  },
+  "PARIS_DUBAI": {
+    "timestamp": 1735689600.0,
+    "price": {
+      "amount": "560.00",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Dubai"
+  },
+  "PARIS_PARIS": {
+    "timestamp": 1768621445.9782717,
+    "price": {
+      "amount": "198.70",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Paris",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TOULOUSE": {
+    "timestamp": 1768621445.978332,
+    "price": {
+      "amount": "157.12",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Toulouse",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_NANTES": {
+    "timestamp": 1768621445.9783585,
+    "price": {
+      "amount": "346.99",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Nantes",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MONTPELLIER": {
+    "timestamp": 1768621445.978371,
+    "price": {
+      "amount": "292.37",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Montpellier",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BORDEAUX": {
+    "timestamp": 1768621445.978383,
+    "price": {
+      "amount": "376.63",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Bordeaux",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_STRASBOURG": {
+    "timestamp": 1768621445.9783983,
+    "price": {
+      "amount": "392.37",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Strasbourg",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LILLE": {
+    "timestamp": 1768621445.9784105,
+    "price": {
+      "amount": "480.79",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Lille",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MADRID": {
+    "timestamp": 1768621445.9784229,
+    "price": {
+      "amount": "182.07",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Madrid",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BARCELONA": {
+    "timestamp": 1768621445.9784358,
+    "price": {
+      "amount": "405.33",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Barcelona",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_VALENCIA": {
+    "timestamp": 1768621445.9784465,
+    "price": {
+      "amount": "138.47",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Valencia",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SEVILLE": {
+    "timestamp": 1768621445.978457,
+    "price": {
+      "amount": "401.10",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Seville",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BILBAO": {
+    "timestamp": 1768621445.97847,
+    "price": {
+      "amount": "562.72",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Bilbao",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MALAGA": {
+    "timestamp": 1768621445.9784808,
+    "price": {
+      "amount": "136.87",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Malaga",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ZARAGOZA": {
+    "timestamp": 1768621445.9784915,
+    "price": {
+      "amount": "436.31",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Zaragoza",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GRANADA": {
+    "timestamp": 1768621445.9785018,
+    "price": {
+      "amount": "316.82",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Granada",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_CORDOBA": {
+    "timestamp": 1768621445.9921465,
+    "price": {
+      "amount": "57.20",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Cordoba",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ALICANTE": {
+    "timestamp": 1768621445.9785254,
+    "price": {
+      "amount": "527.25",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Alicante",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MILAN": {
+    "timestamp": 1768621445.9793022,
+    "price": {
+      "amount": "466.94",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Milan",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_NAPLES": {
+    "timestamp": 1768621445.9793148,
+    "price": {
+      "amount": "410.05",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Naples",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TURIN": {
+    "timestamp": 1768621445.9793344,
+    "price": {
+      "amount": "223.61",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Turin",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_PALERMO": {
+    "timestamp": 1768621445.9793468,
+    "price": {
+      "amount": "104.24",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Palermo",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GENOA": {
+    "timestamp": 1768621445.979359,
+    "price": {
+      "amount": "186.96",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Genoa",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BOLOGNA": {
+    "timestamp": 1768621445.9793725,
+    "price": {
+      "amount": "507.90",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Bologna",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_FLORENCE": {
+    "timestamp": 1768621445.9793856,
+    "price": {
+      "amount": "595.49",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Florence",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_VENICE": {
+    "timestamp": 1768621445.9793942,
+    "price": {
+      "amount": "129.85",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Venice",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_VERONA": {
+    "timestamp": 1768621445.979403,
+    "price": {
+      "amount": "176.09",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Verona",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BERLIN": {
+    "timestamp": 1768621445.9794166,
+    "price": {
+      "amount": "517.90",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Berlin",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MUNICH": {
+    "timestamp": 1768621445.9794247,
+    "price": {
+      "amount": "292.33",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Munich",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_HAMBURG": {
+    "timestamp": 1768621445.9794328,
+    "price": {
+      "amount": "206.54",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Hamburg",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_COLOGNE": {
+    "timestamp": 1768621445.9794426,
+    "price": {
+      "amount": "362.75",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Cologne",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_FRANKFURT": {
+    "timestamp": 1768621445.9794543,
+    "price": {
+      "amount": "221.95",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Frankfurt",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_STUTTGART": {
+    "timestamp": 1768621445.9794667,
+    "price": {
+      "amount": "131.59",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Stuttgart",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_DUSSELDORF": {
+    "timestamp": 1768621445.9794767,
+    "price": {
+      "amount": "181.96",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Dusseldorf",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LEIPZIG": {
+    "timestamp": 1768621445.979487,
+    "price": {
+      "amount": "104.69",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Leipzig",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_DORTMUND": {
+    "timestamp": 1768621445.9794965,
+    "price": {
+      "amount": "534.16",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Dortmund",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BREMEN": {
+    "timestamp": 1768621445.9795043,
+    "price": {
+      "amount": "473.68",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Bremen",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LISBON": {
+    "timestamp": 1768621445.9800885,
+    "price": {
+      "amount": "474.06",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Lisbon",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_PORTO": {
+    "timestamp": 1768621445.9801095,
+    "price": {
+      "amount": "275.28",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Porto",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_COIMBRA": {
+    "timestamp": 1768621445.980122,
+    "price": {
+      "amount": "72.45",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Coimbra",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BRAGA": {
+    "timestamp": 1768621445.9801338,
+    "price": {
+      "amount": "361.26",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Braga",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_FARO": {
+    "timestamp": 1768621445.9801455,
+    "price": {
+      "amount": "549.97",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Faro",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_AVEIRO": {
+    "timestamp": 1768621445.980157,
+    "price": {
+      "amount": "359.07",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Aveiro",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GUIMARAES": {
+    "timestamp": 1768621445.980168,
+    "price": {
+      "amount": "411.29",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Guimaraes",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_EVORA": {
+    "timestamp": 1768621445.980183,
+    "price": {
+      "amount": "149.26",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Evora",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SETUBAL": {
+    "timestamp": 1768621445.9801962,
+    "price": {
+      "amount": "303.03",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Setubal",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_VISEU": {
+    "timestamp": 1768621445.9802077,
+    "price": {
+      "amount": "80.13",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Viseu",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LONDON": {
+    "timestamp": 1768621445.9802191,
+    "price": {
+      "amount": "409.47",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "London",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MANCHESTER": {
+    "timestamp": 1768621445.9802327,
+    "price": {
+      "amount": "403.58",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Manchester",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BIRMINGHAM": {
+    "timestamp": 1768621445.980246,
+    "price": {
+      "amount": "534.12",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Birmingham",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LIVERPOOL": {
+    "timestamp": 1768621445.980258,
+    "price": {
+      "amount": "285.10",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Liverpool",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LEEDS": {
+    "timestamp": 1768621445.9802682,
+    "price": {
+      "amount": "96.75",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Leeds",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BRISTOL": {
+    "timestamp": 1768621445.980278,
+    "price": {
+      "amount": "365.85",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Bristol",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_NEWCASTLE": {
+    "timestamp": 1768621445.9802887,
+    "price": {
+      "amount": "399.01",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Newcastle",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SHEFFIELD": {
+    "timestamp": 1768621445.9802997,
+    "price": {
+      "amount": "316.52",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Sheffield",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GLASGOW": {
+    "timestamp": 1768621445.9803104,
+    "price": {
+      "amount": "493.48",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Glasgow",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_EDINBURGH": {
+    "timestamp": 1768621445.9803212,
+    "price": {
+      "amount": "52.61",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Edinburgh",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_AMSTERDAM": {
+    "timestamp": 1768621445.9810717,
+    "price": {
+      "amount": "383.27",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Amsterdam",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ROTTERDAM": {
+    "timestamp": 1768621445.9810877,
+    "price": {
+      "amount": "418.97",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Rotterdam",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_THE HAGUE": {
+    "timestamp": 1768621445.9810998,
+    "price": {
+      "amount": "352.84",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "The Hague",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_UTRECHT": {
+    "timestamp": 1768621445.981117,
+    "price": {
+      "amount": "530.10",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Utrecht",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_EINDHOVEN": {
+    "timestamp": 1768621445.981127,
+    "price": {
+      "amount": "122.85",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Eindhoven",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TILBURG": {
+    "timestamp": 1768621445.9811366,
+    "price": {
+      "amount": "451.93",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Tilburg",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GRONINGEN": {
+    "timestamp": 1768621445.9811473,
+    "price": {
+      "amount": "153.18",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Groningen",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BREDA": {
+    "timestamp": 1768621445.981171,
+    "price": {
+      "amount": "86.04",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Breda",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_NIJMEGEN": {
+    "timestamp": 1768621445.981185,
+    "price": {
+      "amount": "253.33",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Nijmegen",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ARNHEM": {
+    "timestamp": 1768621445.9811978,
+    "price": {
+      "amount": "166.29",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Arnhem",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BRUSSELS": {
+    "timestamp": 1768621445.9812095,
+    "price": {
+      "amount": "122.90",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Brussels",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ANTWERP": {
+    "timestamp": 1768621445.9812214,
+    "price": {
+      "amount": "154.26",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Antwerp",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GHENT": {
+    "timestamp": 1768621445.981233,
+    "price": {
+      "amount": "374.25",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Ghent",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BRUGES": {
+    "timestamp": 1768621445.9812443,
+    "price": {
+      "amount": "342.73",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Bruges",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LEUVEN": {
+    "timestamp": 1768621445.9812558,
+    "price": {
+      "amount": "428.91",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Leuven",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LIEGE": {
+    "timestamp": 1768621445.9812672,
+    "price": {
+      "amount": "278.62",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Liege",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_NAMUR": {
+    "timestamp": 1768621445.981279,
+    "price": {
+      "amount": "116.01",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Namur",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MONS": {
+    "timestamp": 1768621445.9812896,
+    "price": {
+      "amount": "140.29",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Mons",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_KORTRIJK": {
+    "timestamp": 1768621445.981301,
+    "price": {
+      "amount": "335.04",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Kortrijk",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MECHELEN": {
+    "timestamp": 1768621445.9813128,
+    "price": {
+      "amount": "307.98",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Mechelen",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ZURICH": {
+    "timestamp": 1768621445.9822688,
+    "price": {
+      "amount": "470.60",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Zurich",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GENEVA": {
+    "timestamp": 1768621445.9822924,
+    "price": {
+      "amount": "396.23",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Geneva",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BASEL": {
+    "timestamp": 1768621445.9823005,
+    "price": {
+      "amount": "147.73",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Basel",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BERN": {
+    "timestamp": 1768621445.9823077,
+    "price": {
+      "amount": "599.11",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Bern",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LAUSANNE": {
+    "timestamp": 1768621445.9823148,
+    "price": {
+      "amount": "490.46",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Lausanne",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LUCERNE": {
+    "timestamp": 1768621445.982322,
+    "price": {
+      "amount": "233.00",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Lucerne",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ST. GALLEN": {
+    "timestamp": 1768621445.9823294,
+    "price": {
+      "amount": "127.94",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "St. Gallen",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LUGANO": {
+    "timestamp": 1768621445.9823365,
+    "price": {
+      "amount": "136.96",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Lugano",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BIEL": {
+    "timestamp": 1768621445.9823434,
+    "price": {
+      "amount": "141.55",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Biel",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_THUN": {
+    "timestamp": 1768621445.98235,
+    "price": {
+      "amount": "50.37",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Thun",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_VIENNA": {
+    "timestamp": 1768621445.9823573,
+    "price": {
+      "amount": "350.26",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Vienna",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GRAZ": {
+    "timestamp": 1768621445.9823644,
+    "price": {
+      "amount": "338.34",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Graz",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LINZ": {
+    "timestamp": 1768621445.9823713,
+    "price": {
+      "amount": "93.21",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Linz",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SALZBURG": {
+    "timestamp": 1768621445.9823785,
+    "price": {
+      "amount": "79.92",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Salzburg",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_INNSBRUCK": {
+    "timestamp": 1768621445.9823856,
+    "price": {
+      "amount": "403.21",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Innsbruck",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_KLAGENFURT": {
+    "timestamp": 1768621445.9823925,
+    "price": {
+      "amount": "242.80",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Klagenfurt",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_VILLACH": {
+    "timestamp": 1768621445.9823997,
+    "price": {
+      "amount": "90.68",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Villach",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_WELS": {
+    "timestamp": 1768621445.9824066,
+    "price": {
+      "amount": "298.21",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Wels",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ST. P\u00d6LTEN": {
+    "timestamp": 1768621445.9824152,
+    "price": {
+      "amount": "81.83",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "St. P\u00f6lten",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_DORNBIRN": {
+    "timestamp": 1768621445.9824224,
+    "price": {
+      "amount": "547.60",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Dornbirn",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ATHENS": {
+    "timestamp": 1768621445.983504,
+    "price": {
+      "amount": "536.23",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Athens",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_THESSALONIKI": {
+    "timestamp": 1768621445.983525,
+    "price": {
+      "amount": "320.67",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Thessaloniki",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_PATRAS": {
+    "timestamp": 1768621445.9835405,
+    "price": {
+      "amount": "513.51",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Patras",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_HERAKLION": {
+    "timestamp": 1768621445.9835548,
+    "price": {
+      "amount": "389.75",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Heraklion",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LARISSA": {
+    "timestamp": 1768621445.9835665,
+    "price": {
+      "amount": "321.63",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Larissa",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_VOLOS": {
+    "timestamp": 1768621445.9835782,
+    "price": {
+      "amount": "309.33",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Volos",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_RHODES": {
+    "timestamp": 1768621445.9835894,
+    "price": {
+      "amount": "69.45",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Rhodes",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_IOANNINA": {
+    "timestamp": 1768621445.9836006,
+    "price": {
+      "amount": "395.54",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Ioannina",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_CHANIA": {
+    "timestamp": 1768621445.983612,
+    "price": {
+      "amount": "130.60",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Chania",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_KAVALA": {
+    "timestamp": 1768621445.9836233,
+    "price": {
+      "amount": "176.62",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Kavala",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ISTANBUL": {
+    "timestamp": 1768621445.9836345,
+    "price": {
+      "amount": "403.89",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Istanbul",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ANKARA": {
+    "timestamp": 1768621445.9836454,
+    "price": {
+      "amount": "248.28",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Ankara",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_IZMIR": {
+    "timestamp": 1768621445.9836564,
+    "price": {
+      "amount": "521.91",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Izmir",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ANTALYA": {
+    "timestamp": 1768621445.9836674,
+    "price": {
+      "amount": "219.31",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Antalya",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BURSA": {
+    "timestamp": 1768621445.9836788,
+    "price": {
+      "amount": "244.12",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Bursa",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_KONYA": {
+    "timestamp": 1768621445.9836898,
+    "price": {
+      "amount": "122.89",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Konya",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GAZIANTEP": {
+    "timestamp": 1768621445.983701,
+    "price": {
+      "amount": "296.58",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Gaziantep",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ADANA": {
+    "timestamp": 1768621445.9837117,
+    "price": {
+      "amount": "173.87",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Adana",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MERSIN": {
+    "timestamp": 1768621445.983723,
+    "price": {
+      "amount": "516.40",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Mersin",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ESKI\u015eEHIR": {
+    "timestamp": 1768621445.9837348,
+    "price": {
+      "amount": "69.81",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Eski\u015fehir",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_CASABLANCA": {
+    "timestamp": 1768621445.985132,
+    "price": {
+      "amount": "492.75",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Casablanca",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_RABAT": {
+    "timestamp": 1768621445.9851518,
+    "price": {
+      "amount": "242.97",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Rabat",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MARRAKECH": {
+    "timestamp": 1768621445.9851618,
+    "price": {
+      "amount": "401.92",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Marrakech",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_FES": {
+    "timestamp": 1768621445.9851704,
+    "price": {
+      "amount": "359.05",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Fes",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TANGIER": {
+    "timestamp": 1768621445.9851775,
+    "price": {
+      "amount": "149.22",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Tangier",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_AGADIR": {
+    "timestamp": 1768621445.9851859,
+    "price": {
+      "amount": "583.74",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Agadir",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MEKNES": {
+    "timestamp": 1768621445.9851933,
+    "price": {
+      "amount": "471.15",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Meknes",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_OUJDA": {
+    "timestamp": 1768621445.9852004,
+    "price": {
+      "amount": "483.19",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Oujda",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TETOUAN": {
+    "timestamp": 1768621445.9852078,
+    "price": {
+      "amount": "420.19",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Tetouan",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ESSAOUIRA": {
+    "timestamp": 1768621445.9852154,
+    "price": {
+      "amount": "73.58",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Essaouira",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TUNIS": {
+    "timestamp": 1768621445.9852228,
+    "price": {
+      "amount": "368.54",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Tunis",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SFAX": {
+    "timestamp": 1768621445.9852307,
+    "price": {
+      "amount": "105.05",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Sfax",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SOUSSE": {
+    "timestamp": 1768621445.985238,
+    "price": {
+      "amount": "501.85",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Sousse",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_KAIROUAN": {
+    "timestamp": 1768621445.9852455,
+    "price": {
+      "amount": "366.19",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Kairouan",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BIZERTE": {
+    "timestamp": 1768621445.9852529,
+    "price": {
+      "amount": "343.50",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Bizerte",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GABES": {
+    "timestamp": 1768621445.9852602,
+    "price": {
+      "amount": "470.51",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Gabes",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_NABEUL": {
+    "timestamp": 1768621445.9852679,
+    "price": {
+      "amount": "155.95",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Nabeul",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TOZEUR": {
+    "timestamp": 1768621445.9852755,
+    "price": {
+      "amount": "372.99",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Tozeur",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_HAMMAMET": {
+    "timestamp": 1768621445.9852827,
+    "price": {
+      "amount": "475.04",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Hammamet",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_DOUZ": {
+    "timestamp": 1768621445.98529,
+    "price": {
+      "amount": "272.53",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Douz",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_CAIRO": {
+    "timestamp": 1768621445.9869025,
+    "price": {
+      "amount": "379.09",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Cairo",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ALEXANDRIA": {
+    "timestamp": 1768621445.9869196,
+    "price": {
+      "amount": "447.56",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Alexandria",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GIZA": {
+    "timestamp": 1768621445.9869301,
+    "price": {
+      "amount": "543.90",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Giza",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LUXOR": {
+    "timestamp": 1768621445.9869409,
+    "price": {
+      "amount": "279.25",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Luxor",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ASWAN": {
+    "timestamp": 1768621445.9869528,
+    "price": {
+      "amount": "304.69",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Aswan",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_HURGHADA": {
+    "timestamp": 1768621445.9869628,
+    "price": {
+      "amount": "387.82",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Hurghada",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SHARM EL SHEIKH": {
+    "timestamp": 1768621445.9869742,
+    "price": {
+      "amount": "246.87",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Sharm El Sheikh",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_PORT SAID": {
+    "timestamp": 1768621445.9869847,
+    "price": {
+      "amount": "422.70",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Port Said",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MANSOURA": {
+    "timestamp": 1768621445.9869957,
+    "price": {
+      "amount": "201.15",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Mansoura",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TANTA": {
+    "timestamp": 1768621445.9870062,
+    "price": {
+      "amount": "102.91",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Tanta",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LOS ANGELES": {
+    "timestamp": 1768621445.9870307,
+    "price": {
+      "amount": "342.29",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Los Angeles",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_CHICAGO": {
+    "timestamp": 1768621445.9870534,
+    "price": {
+      "amount": "96.41",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Chicago",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_HOUSTON": {
+    "timestamp": 1768621445.9870698,
+    "price": {
+      "amount": "546.50",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Houston",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_PHOENIX": {
+    "timestamp": 1768621445.987082,
+    "price": {
+      "amount": "217.48",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Phoenix",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SAN DIEGO": {
+    "timestamp": 1768621445.9870923,
+    "price": {
+      "amount": "414.70",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "San Diego",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_DALLAS": {
+    "timestamp": 1768621445.9871018,
+    "price": {
+      "amount": "324.46",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Dallas",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SAN FRANCISCO": {
+    "timestamp": 1768621445.9871113,
+    "price": {
+      "amount": "102.34",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "San Francisco",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BOSTON": {
+    "timestamp": 1768621445.9871216,
+    "price": {
+      "amount": "211.51",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Boston",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MIAMI": {
+    "timestamp": 1768621445.987132,
+    "price": {
+      "amount": "146.53",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Miami",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TORONTO": {
+    "timestamp": 1768621445.9896853,
+    "price": {
+      "amount": "305.50",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Toronto",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_VANCOUVER": {
+    "timestamp": 1768621445.9897227,
+    "price": {
+      "amount": "592.72",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Vancouver",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MONTREAL": {
+    "timestamp": 1768621445.9897356,
+    "price": {
+      "amount": "305.56",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Montreal",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_CALGARY": {
+    "timestamp": 1768621445.9897516,
+    "price": {
+      "amount": "382.31",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Calgary",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_OTTAWA": {
+    "timestamp": 1768621445.989765,
+    "price": {
+      "amount": "283.48",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Ottawa",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_EDMONTON": {
+    "timestamp": 1768621445.9897785,
+    "price": {
+      "amount": "222.75",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Edmonton",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_WINNIPEG": {
+    "timestamp": 1768621445.9897902,
+    "price": {
+      "amount": "438.60",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Winnipeg",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_QUEBEC CITY": {
+    "timestamp": 1768621445.9898095,
+    "price": {
+      "amount": "52.28",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Quebec City",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_HALIFAX": {
+    "timestamp": 1768621445.9898207,
+    "price": {
+      "amount": "502.01",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Halifax",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_VICTORIA": {
+    "timestamp": 1768621445.9898322,
+    "price": {
+      "amount": "200.99",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Victoria",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MEXICO CITY": {
+    "timestamp": 1768621445.989844,
+    "price": {
+      "amount": "416.44",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Mexico City",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_GUADALAJARA": {
+    "timestamp": 1768621445.9898553,
+    "price": {
+      "amount": "218.58",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Guadalajara",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MONTERREY": {
+    "timestamp": 1768621445.9898665,
+    "price": {
+      "amount": "308.56",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Monterrey",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_PUEBLA": {
+    "timestamp": 1768621445.989878,
+    "price": {
+      "amount": "402.99",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Puebla",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_CANCUN": {
+    "timestamp": 1768621445.9898977,
+    "price": {
+      "amount": "420.93",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Cancun",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TIJUANA": {
+    "timestamp": 1768621445.989909,
+    "price": {
+      "amount": "113.16",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Tijuana",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LEON": {
+    "timestamp": 1768621445.9899192,
+    "price": {
+      "amount": "449.85",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Leon",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MERIDA": {
+    "timestamp": 1768621445.9899292,
+    "price": {
+      "amount": "225.95",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Merida",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_TOLUCA": {
+    "timestamp": 1768621445.9899437,
+    "price": {
+      "amount": "288.14",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Toluca",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ACAPULCO": {
+    "timestamp": 1768621445.9899576,
+    "price": {
+      "amount": "440.97",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Acapulco",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_S\u00c3O PAULO": {
+    "timestamp": 1768621445.9920328,
+    "price": {
+      "amount": "195.01",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "S\u00e3o Paulo",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_RIO DE JANEIRO": {
+    "timestamp": 1768621445.9920607,
+    "price": {
+      "amount": "421.82",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Rio de Janeiro",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BRASILIA": {
+    "timestamp": 1768621445.9920733,
+    "price": {
+      "amount": "168.57",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Brasilia",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SALVADOR": {
+    "timestamp": 1768621445.9920812,
+    "price": {
+      "amount": "70.96",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Salvador",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_FORTALEZA": {
+    "timestamp": 1768621445.9920883,
+    "price": {
+      "amount": "213.50",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Fortaleza",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_RECIFE": {
+    "timestamp": 1768621445.9920957,
+    "price": {
+      "amount": "293.18",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Recife",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_CURITIBA": {
+    "timestamp": 1768621445.992103,
+    "price": {
+      "amount": "467.28",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Curitiba",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MANAUS": {
+    "timestamp": 1768621445.9921103,
+    "price": {
+      "amount": "596.80",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Manaus",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BELEM": {
+    "timestamp": 1768621445.9921184,
+    "price": {
+      "amount": "407.39",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Belem",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_PORTO ALEGRE": {
+    "timestamp": 1768621445.9921255,
+    "price": {
+      "amount": "231.83",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Porto Alegre",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_BUENOS AIRES": {
+    "timestamp": 1768621445.992134,
+    "price": {
+      "amount": "257.91",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Buenos Aires",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_ROSARIO": {
+    "timestamp": 1768621445.9921608,
+    "price": {
+      "amount": "235.52",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Rosario",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MENDOZA": {
+    "timestamp": 1768621445.992169,
+    "price": {
+      "amount": "395.81",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Mendoza",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_LA PLATA": {
+    "timestamp": 1768621445.992176,
+    "price": {
+      "amount": "281.01",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "La Plata",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_MAR DEL PLATA": {
+    "timestamp": 1768621445.9921854,
+    "price": {
+      "amount": "591.18",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Mar del Plata",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SALTA": {
+    "timestamp": 1768621445.9921954,
+    "price": {
+      "amount": "353.35",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Salta",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SAN MIGUEL DE TUCUMAN": {
+    "timestamp": 1768621445.9922028,
+    "price": {
+      "amount": "285.59",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "San Miguel de Tucuman",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_SAN JUAN": {
+    "timestamp": 1768621445.9922147,
+    "price": {
+      "amount": "312.95",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "San Juan",
+    "found": true,
+    "is_mock": true
+  },
+  "PARIS_NEUQUEN": {
+    "timestamp": 1768621445.9922228,
+    "price": {
+      "amount": "505.56",
+      "currency": "EUR"
+    },
+    "origin": "Paris",
+    "destination": "Neuquen",
+    "found": true,
+    "is_mock": true
+  }
+}

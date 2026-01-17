@@ -1,13 +1,43 @@
 """
 Routes pour les vols (Travel/Flights)
 """
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from app.services.amadeus_client import AmadeusClient
 from app.services.google_flights_service import GoogleFlightsService
+from app.services.flight_price_service import FlightPriceService
 from app.utils.responses import success_response, error_response
 
 travel_bp = Blueprint('travel', __name__)
 
+@travel_bp.route('/flights/price-check', methods=['GET'])
+def check_flight_price():
+    """
+    Vérifie le prix d'un vol (Local Cache puis API).
+    Params: origin, destination, date
+    """
+    origin = request.args.get('origin')
+    destination = request.args.get('destination')
+    date = request.args.get('date') # YYYY-MM-DD
+
+    if not origin or not destination:
+        return error_response("Origin and Destination are required", 400)
+
+    # Si pas de date, on prend la date du jour + 30 jours par défaut (logique métier à adapter)
+    # Pour l'instant on exige la date
+    if not date:
+        return error_response("Date is required (YYYY-MM-DD)", 400)
+
+    try:
+        # Utilisation du nouveau service qui gère le cache local
+        price_info = FlightPriceService.fetch_and_store_price(origin, destination, date)
+        
+        if price_info:
+             return success_response(price_info, "Price retrieved successfully")
+        else:
+             return error_response("Could not retrieve price", 404)
+
+    except Exception as e:
+         return error_response(str(e), 500)
 
 @travel_bp.route('/flights/search', methods=['GET'])
 def search_flights():
