@@ -132,41 +132,6 @@ class CityActivityService {
   }
 
   /**
-   * Récupère les activités avec détails complets (incluant les catégories)
-   * @param {number} cityId - ID de la ville
-   * @returns {Promise<Object>}
-   */
-  async getCityActivitiesWithDetails(cityId) {
-    try {
-      const activities = await this.getCityActivities(cityId);
-      const activitiesWithDetails = {};
-
-      for (const [theme, places] of Object.entries(activities)) {
-        if (places.length > 0) {
-          const placesWithCategories = await Promise.all(
-            places.map(async (place) => {
-              const categories =
-                await CategoryRepository.getPlaceCategoriesByPlace(place.id);
-              return {
-                ...place,
-                categories,
-              };
-            }),
-          );
-          activitiesWithDetails[theme] = placesWithCategories;
-        } else {
-          activitiesWithDetails[theme] = [];
-        }
-      }
-
-      return activitiesWithDetails;
-    } catch (error) {
-      console.error("Error fetching city activities with details:", error);
-      throw error;
-    }
-  }
-
-  /**
    * Récupère des recommandations basées sur les places likées
    * Pour chaque ville où il y a des places likées :
    * - Récupère 2 places au hasard de 2 thèmes différents (si possible)
@@ -174,79 +139,69 @@ class CityActivityService {
    */
   async getRecommendationsFromLikedPlaces() {
     try {
-      // 1. Récupérer toutes les places likées
-      const allLiked = await PlaceLikedRepository.getAllPlacesLiked();
+      // 1. Récupérer directement les city_id des places likées (JOIN SQL)
+      const cityIds = await PlaceLikedRepository.getAllPlacesLiked();
 
-      // 2. Grouper par ville
-      const citiesMap = new Map();
-      for (const liked of allLiked) {
-        const place = await PlaceRepository.getPlaceById(liked.id_places);
-        if (place && place.city_id) {
-          if (!citiesMap.has(place.city_id)) {
-            citiesMap.set(place.city_id, []);
-          }
-        }
+      console.log(
+        `🏙️ DEBUG: Villes identifiées via les likes : ${cityIds.join(", ")}`,
+      );
+
+      if (cityIds.length === 0) {
+        console.log("⚠️ Aucune ville likée trouvée dans la DB.");
+        return {};
       }
 
       const recommendations = {};
 
-      // 3. Pour chaque ville, récupérer 2 places de thèmes différents
-      for (const cityId of citiesMap.keys()) {
-        // Récupérer les thèmes disponibles de cette ville
-        const cityThemes = await ThemeFilterService.getCityThemes(cityId);
+      // 2. Pour chaque ville, récupérer les activités et sélectionner 2 places
+      for (const cityId of cityIds) {
+        console.log(`🔄 Processing City ID: ${cityId}`);
+        // Utiliser getCityActivities pour obtenir les places par thème
+        const activities = await this.getCityActivities(cityId);
 
-        // Mélanger les thèmes pour avoir de la variété
-        const shuffledThemes = cityThemes.sort(() => Math.random() - 0.5);
+        console.log(
+          `📊 Activities for city ${cityId}:`,
+          Object.keys(activities)
+            .map((theme) => `${theme}: ${activities[theme].length} places`)
+            .join(", "),
+        );
+
+        // Préparer un tableau de [thème, places]
+        const themesWithPlaces = Object.entries(activities).filter(
+          ([theme, places]) => places.length > 0,
+        );
+
+        console.log(
+          `✅ Themes with places for city ${cityId}: ${themesWithPlaces.map(([t]) => t).join(", ")}`,
+        );
+
+        // Mélanger les thèmes pour la variété
+        const shuffledThemes = themesWithPlaces.sort(() => Math.random() - 0.5);
 
         const selectedPlaces = [];
-        const usedThemes = new Set();
 
-        // Essayer de trouver 2 places de thèmes différents
-        for (const themeInfo of shuffledThemes) {
+        // Essayer de sélectionner 2 places de thèmes différents
+        for (const [theme, places] of shuffledThemes) {
           if (selectedPlaces.length >= 2) break;
 
-          // Récupérer les places pour ce thème
-          const result = await this.getActivitiesByTheme(
-            cityId,
-            themeInfo.theme,
-          );
+          // Prendre une place aléatoire de ce thème
+          const randomPlace = places[Math.floor(Math.random() * places.length)];
 
-          if (result.isMatch && result.places.length > 0) {
-            // Prendre une place au hasard
-            const randomPlace =
-              result.places[Math.floor(Math.random() * result.places.length)];
-
-            // Éviter les doublons
-            const isDuplicate = selectedPlaces.some(
-              (p) => p.id === randomPlace.id,
-            );
-
-            if (!isDuplicate) {
-              selectedPlaces.push({
-                ...randomPlace,
-                theme: themeInfo.theme,
-              });
-              usedThemes.add(themeInfo.theme);
-            }
-          }
+          selectedPlaces.push({
+            ...randomPlace,
+            theme: theme,
+          });
         }
 
-        // Si on n'a qu'une seule place, essayer d'en ajouter une autre du même thème
-        if (selectedPlaces.length === 1 && usedThemes.size > 0) {
-          const firstTheme = Array.from(usedThemes)[0];
-          const result = await this.getActivitiesByTheme(cityId, firstTheme);
-
-          for (const place of result.places) {
-            if (selectedPlaces.length >= 2) break;
-            if (!selectedPlaces.some((p) => p.id === place.id)) {
-              selectedPlaces.push({ ...place, theme: firstTheme });
-            }
-          }
-        }
-
+        console.log(
+          `🎯 Selected ${selectedPlaces.length} places for city ${cityId}`,
+        );
         recommendations[cityId] = selectedPlaces;
       }
 
+      console.log(
+        `📋 Final recommendations cities: ${Object.keys(recommendations).join(", ")}`,
+      );
       return recommendations;
     } catch (error) {
       console.error("Error getting recommendations from liked places:", error);
