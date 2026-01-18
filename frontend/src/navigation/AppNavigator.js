@@ -1,8 +1,9 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useAppTheme } from '../theme/ThemeProvider';
 
 import LoadingScreen from '../screens/LoadingScreen';
 import RegisterScreen from '../screens/Auth/RegisterScreen';
@@ -12,17 +13,27 @@ import DetailsScreen from '../screens/DetailsScreen';
 import PreferencesScreen from '../screens/PreferencesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ExploreScreen from '../screens/ExploreScreen'; // Ajout de l'importation de l'écran ExploreScreen
+import PersonalInfoScreen from '../screens/Profile/PersonalInfoScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function BottomTabs() {
+  const { colors, isDark } = useAppTheme();
+
   return (
     <Tab.Navigator 
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarStyle: { height: 60, paddingBottom: 10 },
-        tabBarActiveTintColor: '#007AFF',
+        tabBarStyle: {
+          height: 60,
+          paddingBottom: 10,
+          backgroundColor: colors.card,
+          borderTopColor: colors.border,
+          borderTopWidth: 1,
+        },
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.mutedText,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           if (route.name === 'Accueil') iconName = focused ? 'home' : 'home-outline';
@@ -44,8 +55,35 @@ function BottomTabs() {
 }
 
 export default function AppNavigator() {
+  const { colors, isDark } = useAppTheme();
+
+  // Créer un thème personnalisé basé sur le thème actuel
+  const customTheme = isDark
+    ? {
+        ...DarkTheme,
+        colors: {
+          ...DarkTheme.colors,
+          primary: colors.primary,
+          background: colors.background,
+          card: colors.card,
+          text: colors.text,
+          border: colors.border,
+        },
+      }
+    : {
+        ...DefaultTheme,
+        colors: {
+          ...DefaultTheme.colors,
+          primary: colors.primary,
+          background: colors.background,
+          card: colors.card,
+          text: colors.text,
+          border: colors.border,
+        },
+      };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={customTheme}>
       <Stack.Navigator 
         initialRouteName="Loading"
         screenOptions={{ headerShown: false }}
@@ -55,6 +93,7 @@ export default function AppNavigator() {
         <Stack.Screen name="Main" component={BottomTabs} />
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="Preferences" component={PreferencesScreen} />
+        <Stack.Screen name="PersonalInfo" component={PersonalInfoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

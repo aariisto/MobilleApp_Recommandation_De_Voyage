@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndi
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native'; 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useAppTheme } from '../theme/ThemeProvider';
 
 // Import des Repositories
 import PlaceLikedRepository from '../backend/repositories/PlaceLikedRepository';
