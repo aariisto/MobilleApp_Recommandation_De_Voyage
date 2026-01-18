@@ -15,6 +15,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native'; 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useAppTheme } from '../theme/ThemeProvider';
 
 // Algorithmes et Repositories
 import { rankCitiesWithPenalty } from '../backend/algorithms/rankUtils';
@@ -30,6 +31,7 @@ import cityImages from '../data/cityImages';
 import CategoryFeedbackModal from '../components/CategoryFeedbackModal';
 
 const HomeScreen = ({ navigation }) => {
+  const { colors } = useAppTheme();
   const [userProfile, setUserProfile] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
   const [allRecommendations, setAllRecommendations] = useState([]);
@@ -306,7 +308,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const renderActivityItem = (place, index) => {
-    const colors = getThemeColors(place.theme);
+    const themeColors = getThemeColors(place.theme);
     const iconName = getThemeIcon(place.theme);
 
     return (
@@ -316,8 +318,8 @@ const HomeScreen = ({ navigation }) => {
         onPress={() => handleActivityPress(place)}
         activeOpacity={0.7}
       >
-          <View style={[styles.iconContainer, { backgroundColor: colors.bg }]}>
-             <Ionicons name={iconName} size={32} color={colors.text} />
+          <View style={[styles.iconContainer, { backgroundColor: themeColors.bg }]}>
+             <Ionicons name={iconName} size={32} color={themeColors.text} />
           </View>
 
           <View style={styles.cardInfo}>
@@ -329,8 +331,8 @@ const HomeScreen = ({ navigation }) => {
               </Text>
               
               {place.theme && (
-                <View style={[styles.tag, { backgroundColor: colors.bg, borderColor: colors.border }]}>
-                    <Text style={[styles.tagText, { color: colors.text }]}>{place.theme}</Text>
+                <View style={[styles.tag, { backgroundColor: themeColors.bg, borderColor: themeColors.border }]}>
+                    <Text style={[styles.tagText, { color: themeColors.text }]}>{place.theme}</Text>
                 </View>
               )}
           </View>
@@ -340,18 +342,18 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={["top", "left", "right"]}>
       {/* Header */}
       <View style={styles.header}>
         <Image
           source={{ uri: "https://randomuser.me/api/portraits/women/44.jpg" }}
           style={styles.avatar}
         />
-        <Text style={styles.greeting}>
+        <Text style={[styles.greeting, { color: colors.text }]}>
           Bonjour {userProfile?.firstName || "Voyageur"}
         </Text>
         <TouchableOpacity>
-          <Ionicons name="notifications-outline" size={24} color="black" />
+          <Ionicons name="notifications-outline" size={24} color={colors.text} />
         </TouchableOpacity>
       </View>
 
@@ -367,6 +369,7 @@ const HomeScreen = ({ navigation }) => {
               key={index}
               style={[
                 styles.categoryChip,
+                { backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1 },
                 selectedCategory === cat && styles.categoryChipSelected,
               ]}
               onPress={() => handleCategoryPress(cat)}
@@ -374,6 +377,7 @@ const HomeScreen = ({ navigation }) => {
               <Text
                 style={[
                   styles.categoryText,
+                  { color: colors.text },
                   selectedCategory === cat && styles.categoryTextSelected,
                 ]}
               >
@@ -383,7 +387,8 @@ const HomeScreen = ({ navigation }) => {
           ))}
         </ScrollView>
 
-        <Text style={styles.sectionTitle}>Recommandations pour vous</Text>
+        {/* Scroll Horizontal */}
+        <Text style={[styles.sectionTitle, { color: colors.text }]}>Recommandations pour vous</Text>
 
         {loading ? (
           <ActivityIndicator
@@ -403,11 +408,11 @@ const HomeScreen = ({ navigation }) => {
             />
         ) : (
             <View style={{paddingHorizontal: 20}}>
-                <Text style={{color: 'gray', fontStyle: 'italic'}}>Répondez au quiz pour obtenir des recommandations !</Text>
+                <Text style={{color: colors.text, fontStyle: 'italic', opacity: 0.6}}>Répondez au quiz pour obtenir des recommandations !</Text>
             </View>
         )}
 
-        <Text style={styles.sectionTitle}>Activité qui pourrait vous plaire</Text>
+        <Text style={[styles.sectionTitle, { color: colors.text }]}>Activité qui pourrait vous plaire</Text>
         
         {likedCityIds.size > 0 && suggestedActivities.length > 0 ? (
           <View style={{ marginBottom: 20 }}>
@@ -415,7 +420,7 @@ const HomeScreen = ({ navigation }) => {
           </View>
         ) : (
           <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
-              <Text style={{ color: 'gray', fontStyle: 'italic', lineHeight: 20 }}>
+              <Text style={{ color: colors.text, fontStyle: 'italic', lineHeight: 20, opacity: 0.6 }}>
                 Ajoutez des villes en favoris ❤️ pour voir des activités proposées ici !
               </Text>
           </View>
@@ -437,7 +442,7 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F8F9FA" },
+  container: { flex: 1 },
   header: {
     flexDirection: "row",
     alignItems: "center",
