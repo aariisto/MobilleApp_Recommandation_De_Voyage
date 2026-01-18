@@ -25,10 +25,19 @@ class UserRepository {
    */
   async createProfile(userData) {
     try {
+      // Migration rapide : Ajout de la colonne gender si elle n'existe pas
+      try {
+        await dbConnection.executeSql('ALTER TABLE user_profiles ADD COLUMN gender TEXT;');
+        console.log("✅ Column 'gender' added successfully");
+      } catch (e) {
+        console.log("ℹ️ Column 'gender' might already exist or error:", e.message);
+      }
+
       const {
         firstName,
         lastName,
         email,
+        gender = null,
         dateOfBirth = null,
         country = null,
         preferences = [],
@@ -37,6 +46,8 @@ class UserRepository {
         weaknessesVector = null,
         userEmbedding = null,
       } = userData;
+
+      console.log("💾 Inserting profile with Gender:", gender);
 
       const vectorBlob = preferencesVector
         ? vectorToBlob(preferencesVector)
@@ -51,12 +62,13 @@ class UserRepository {
         : null;
 
       const result = await dbConnection.executeSql(
-        `INSERT INTO user_profiles (firstName, lastName, email, dateOfBirth, country, preferences, preferences_vector, weaknesses, weaknesses_vector, user_embedding) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+        `INSERT INTO user_profiles (firstName, lastName, email, gender, dateOfBirth, country, preferences, preferences_vector, weaknesses, weaknesses_vector, user_embedding) 
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
         [
           firstName,
           lastName,
           email,
+          gender, // Ajout du genre
           dateOfBirth,
           country,
           JSON.stringify(preferences),
@@ -95,6 +107,10 @@ class UserRepository {
       if (userData.email !== undefined) {
         fields.push("email = ?");
         values.push(userData.email);
+      }
+      if (userData.gender !== undefined) {
+        fields.push("gender = ?");
+        values.push(userData.gender);
       }
       if (userData.dateOfBirth !== undefined) {
         fields.push("dateOfBirth = ?");
@@ -181,8 +197,9 @@ class UserRepository {
    */
   async getProfile(fields = []) {
     try {
+      // On récupère le dernier profil créé (ORDER BY id DESC)
       const result = await dbConnection.executeSql(
-        "SELECT * FROM user_profiles LIMIT 1;",
+        "SELECT * FROM user_profiles ORDER BY id DESC LIMIT 1;",
         []
       );
 
@@ -198,6 +215,7 @@ class UserRepository {
         firstName: row.firstName,
         lastName: row.lastName,
         email: row.email,
+        gender: row.gender, // Ajout du mapping pour le genre
         dateOfBirth: row.dateOfBirth,
         country: row.country,
         preferences: row.preferences ? JSON.parse(row.preferences) : [],

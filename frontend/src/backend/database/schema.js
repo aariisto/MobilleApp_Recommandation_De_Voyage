@@ -150,6 +150,7 @@ const createUserProfilesTable = () => ({
       firstName TEXT NOT NULL,
       lastName TEXT NOT NULL,
       email TEXT UNIQUE NOT NULL,
+      gender TEXT,
       dateOfBirth TEXT,
       country TEXT,
       preferences TEXT,
