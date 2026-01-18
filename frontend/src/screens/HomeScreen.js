@@ -27,6 +27,7 @@ import CityActivityService from '../backend/services/CityActivityService';
 import CityRepository from '../backend/repositories/CityRepository';
 
 import cityImages from '../data/cityImages';
+import CategoryFeedbackModal from '../components/CategoryFeedbackModal';
 
 const HomeScreen = ({ navigation }) => {
   const [userProfile, setUserProfile] = useState(null);
@@ -37,6 +38,9 @@ const HomeScreen = ({ navigation }) => {
   
   const [likedCityIds, setLikedCityIds] = useState(new Set());
   const [suggestedActivities, setSuggestedActivities] = useState([]);
+  
+  const [categoryModalVisible, setCategoryModalVisible] = useState(false);
+  const [selectedCityForFeedback, setSelectedCityForFeedback] = useState(null);
 
   const categories = ['Nature', 'Histoire', 'Gastronomie', 'Shopping', 'Divertissement'];
 
@@ -107,6 +111,10 @@ const HomeScreen = ({ navigation }) => {
         const newSet = new Set(likedCityIds);
         newSet.add(city.id);
         setLikedCityIds(newSet);
+        
+        // Afficher le modal pour feedback
+        setSelectedCityForFeedback(city);
+        setCategoryModalVisible(true);
         
         loadUserLikesAndActivities();
       }
@@ -415,6 +423,15 @@ const HomeScreen = ({ navigation }) => {
         
         <View style={{height: 60}} />
       </ScrollView>
+
+      <CategoryFeedbackModal
+        visible={categoryModalVisible}
+        city={selectedCityForFeedback}
+        onClose={() => {
+          setCategoryModalVisible(false);
+          setSelectedCityForFeedback(null);
+        }}
+      />
     </SafeAreaView>
   );
 };
