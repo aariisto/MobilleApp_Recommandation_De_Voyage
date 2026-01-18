@@ -10,7 +10,6 @@ import CityRepository from "./src/backend/repositories/CityRepository.js";
 import UserRepository from "./src/backend/repositories/UserRepository.js";
 import UserCategoryRepository from "./src/backend/repositories/UserCategoryRepository.js";
 import CityActivityService from "./src/backend/services/CityActivityService.js";
-import PlaceLikedRepository from "./src/backend/repositories/PlaceLikedRepository.js";
 import PlaceRepository from "./src/backend/repositories/PlaceRepository.js";
 import {
   generateUserQuery,
@@ -18,7 +17,6 @@ import {
   generateUserQueryFromUserId,
 } from "./src/backend/algorithms/userQuery.js";
 import { rankCitiesWithPenalty } from "./src/backend/algorithms/rankUtils.js";
-import CityActivityService from "./src/backend/services/CityActivityService.js";
 import PlaceLikedRepository from "./src/backend/repositories/PlaceLikedRepository.js";
 
 export default function App() {
