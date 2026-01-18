@@ -25,34 +25,42 @@ export default function App() {
     // Tests désactivés - les préférences viennent maintenant du QCM
     // testPenaltySystem();
     // showUserDislikes();
-    testNewAlgorithm(); // NOUVEAU TEST
+    // testNewAlgorithm(); // NOUVEAU TEST
   }, []);
 
   // TEST DU NOUVEL ALGORITHME (Logique Python Pure: embedding_likes - embedding_dislikes + pénalités)
   const testNewAlgorithm = async () => {
     try {
       console.log("\n\n🧪 === PRÉPARATION DONNÉES TEST ===");
-      
+
       // 1. Récupérer des places d'Istanbul (ID 11) pour le test
       // On suppose que l'ID 11 est Istanbul comme mentionné
       const istanbulPlaces = await PlaceRepository.getPlacesByCity(11);
-      
+
       if (istanbulPlaces && istanbulPlaces.length > 0) {
         // On prend la première place trouvée
         const placeToLike = istanbulPlaces[0];
-        console.log(`📍 Tentative d'ajout d'un like pour : ${placeToLike.name} (Ville ID: ${placeToLike.city_id}, Place ID: ${placeToLike.id})`);
-        
+        console.log(
+          `📍 Tentative d'ajout d'un like pour : ${placeToLike.name} (Ville ID: ${placeToLike.city_id}, Place ID: ${placeToLike.id})`,
+        );
+
         // Vérifier si déjà liké pour éviter erreur de contrainte UNIQUE
-        const existingLikeCount = await PlaceLikedRepository.countLikesForPlace(placeToLike.id);
-        
+        const existingLikeCount = await PlaceLikedRepository.countLikesForPlace(
+          placeToLike.id,
+        );
+
         if (existingLikeCount === 0) {
-             await PlaceLikedRepository.addPlaceLiked(placeToLike.id);
-             console.log("✅ Like ajouté avec succès !");
+          await PlaceLikedRepository.addPlaceLiked(placeToLike.id);
+          console.log("✅ Like ajouté avec succès !");
         } else {
-             console.log("ℹ️ Cette place est déjà likée (pas d'ajout nécessaire).");
+          console.log(
+            "ℹ️ Cette place est déjà likée (pas d'ajout nécessaire).",
+          );
         }
       } else {
-        console.log("❌ Aucune place trouvée pour la ville ID 11. Impossible d'ajouter un like pour ce test.");
+        console.log(
+          "❌ Aucune place trouvée pour la ville ID 11. Impossible d'ajouter un like pour ce test.",
+        );
       }
 
       console.log("\n\n🧪 === TEST GET ALL PLACES LIKED ===");
