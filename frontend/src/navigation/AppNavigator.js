@@ -9,6 +9,7 @@ import RegisterScreen from '../screens/Auth/RegisterScreen';
 import HomeScreen from '../screens/HomeScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import DetailsScreen from '../screens/DetailsScreen';
+import WelcomeScreen from '../screens/WelcomeScreen'; 
 import PreferencesScreen from '../screens/PreferencesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ExploreScreen from '../screens/ExploreScreen'; // Ajout de l'importation de l'écran ExploreScreen
@@ -52,6 +53,7 @@ export default function AppNavigator() {
       >
         <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} /> 
         <Stack.Screen name="Main" component={BottomTabs} />
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="Preferences" component={PreferencesScreen} />

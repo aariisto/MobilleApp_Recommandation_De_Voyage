@@ -1,17 +1,15 @@
-import React, { useState } from 'react'; 
+import React, { useState, useEffect } from 'react'; 
 import { 
   View, Text, TextInput, TouchableOpacity, StyleSheet, 
   ScrollView, Alert, KeyboardAvoidingView, Platform 
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import CountryPicker from 'react-native-country-picker-modal';
 
 import UserRepository from '../../backend/repositories/UserRepository';
 
 const RegisterScreen = ({ navigation }) => {
 
-  const [countryPickerVisible, setCountryPickerVisible] = useState(false);
   const [formData, setFormData] = useState({
     civilite: '', 
     nom: '',
@@ -22,7 +20,36 @@ const RegisterScreen = ({ navigation }) => {
     countryCode: 'FR' 
   });
 
-  // --- COMPOSANT RADIO BUTTON ---
+  const [isUpdateMode, setIsUpdateMode] = useState(false);
+
+  // Au chargement, on vérifie si l'utilisateur existe déjà
+  useEffect(() => {
+    const loadExistingData = async () => {
+      try {
+        const count = await UserRepository.countProfiles();
+        if (count > 0) {
+          const profile = await UserRepository.getProfile();
+          if (profile) {
+            console.log("📝 Mode modification activé - Chargement des données");
+            setFormData({
+              civilite: '', // Ce champ n'est pas stocké en BDD dans votre modèle actuel, on le laisse vide ou on gère ça plus tard
+              nom: profile.lastName || '',
+              prenom: profile.firstName || '',
+              email: profile.email || '',
+              dateNaissance: profile.dateOfBirth || '',
+              pays: profile.country || 'France',
+              countryCode: 'FR'
+            });
+            setIsUpdateMode(true);
+          }
+        }
+      } catch (error) {
+        console.error("Erreur chargement profil existant:", error);
+      }
+    };
+    loadExistingData();
+  }, []);
+
   const RadioButton = ({ label, value }) => {
     const isSelected = formData.civilite === value;
     return (
@@ -43,7 +70,6 @@ const RegisterScreen = ({ navigation }) => {
     setFormData({ ...formData, [field]: value });
   };
   
-  
   const handleDateChange = (text) => { 
     let cleaned = text.replace(/[^0-9]/g, '');
     if (cleaned.length >= 3) cleaned = `${cleaned.slice(0, 2)}/${cleaned.slice(2)}`;
@@ -51,44 +77,39 @@ const RegisterScreen = ({ navigation }) => {
     setFormData({ ...formData, dateNaissance: cleaned });
   };
   
-  const onSelectCountry = (country) => {
-    setFormData({ ...formData, pays: country.name, countryCode: country.cca2 });
-    setCountryPickerVisible(false);
-  };
-
   const handleSubmit = async () => {
-    // Vérifications basiques
-    if (!formData.civilite || !formData.nom || !formData.prenom || !formData.email || !formData.pays) {
-      Alert.alert("Attention", "Veuillez remplir tous les champs obligatoires.");
+    if (!formData.nom || !formData.prenom || !formData.email) {
+      Alert.alert("Attention", "Veuillez remplir les champs obligatoires (Nom, Prénom, Email).");
       return;
     }
 
     try {
-      console.log("💾 Sauvegarde du profil utilisateur...", formData);
-      
-      // Préparer les données pour createProfile
       const userData = {
         firstName: formData.prenom,
         lastName: formData.nom,
         email: formData.email,
         dateOfBirth: formData.dateNaissance || null,
-        country: formData.pays,
-        preferences: [], // Sera rempli après le QCM
-        weaknesses: []   // Sera rempli après le QCM
+        country: 'France',
       };
 
-      // Sauvegarder dans la base de données avec createProfile
-      const userId = await UserRepository.createProfile(userData);
-      console.log(`✅ Profil créé avec succès! User ID: ${userId}`);
+      if (isUpdateMode) {
+        console.log("🔄 Mise à jour du profil...", userData);
+        await UserRepository.updateProfile(userData);
+        console.log("✅ Profil mis à jour !");
+      } else {
+        console.log("💾 Création du profil...", userData);
+        userData.preferences = [];
+        userData.weaknesses = [];
+        await UserRepository.createProfile(userData);
+        console.log("✅ Profil créé !");
+      }
 
-      Alert.alert(
-        "Bienvenue !",
-        "Votre profil a été créé avec succès. Répondez maintenant au questionnaire.",
-        [{ text: "Continuer", onPress: () => navigation.replace('Preferences') }]
-      );
+      // Redirection vers Welcome
+      navigation.replace('Welcome');
+
     } catch (error) {
-      console.error("❌ Erreur lors de la création du profil:", error);
-      Alert.alert("Erreur", "Une erreur est survenue lors de la création de votre profil.");
+      console.error("❌ Erreur sauvegarde:", error);
+      Alert.alert("Erreur", "Une erreur est survenue.");
     }
   };
 
@@ -98,8 +119,12 @@ const RegisterScreen = ({ navigation }) => {
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
           
           <View style={styles.headerContainer}>
-            <Text style={styles.title}>Bienvenue sur AirAtlas</Text>
-            <Text style={styles.subtitle}>Créez votre profil voyageur</Text>
+            <Text style={styles.title}>
+                {isUpdateMode ? "Modifier mes infos" : "Bienvenue sur AirAtlas"}
+            </Text>
+            <Text style={styles.subtitle}>
+                {isUpdateMode ? "Corrigez vos informations ci-dessous" : "Créez votre profil voyageur"}
+            </Text>
           </View>
 
           <View style={styles.formContainer}>
@@ -137,28 +162,20 @@ const RegisterScreen = ({ navigation }) => {
                 <TextInput style={styles.input} placeholder="JJ/MM/AAAA" keyboardType="numeric" maxLength={10} value={formData.dateNaissance} onChangeText={handleDateChange}/>
             </View>
 
-            {/* Pays */}
+            {/* Pays - Fixe */}
             <View style={styles.inputGroup}>
                 <Text style={styles.label}>Pays</Text>
-                <TouchableOpacity style={styles.countryInputContainer} onPress={() => setCountryPickerVisible(true)}>
-                  <View pointerEvents="none">
-                    <CountryPicker
-                        {...{
-                        countryCode: formData.countryCode,
-                        visible: countryPickerVisible, 
-                        onClose: () => setCountryPickerVisible(false),
-                        withFilter: true, withFlag: true, withCountryNameButton: false, withAlphaFilter: false, withEmoji: true,
-                        onSelect: onSelectCountry, translation: 'fra',
-                        }}
-                    />
-                  </View>
-                  <Text style={styles.countryNameText}>{formData.pays || "Sélectionner un pays"}</Text>
-                  <Ionicons name="chevron-down" size={20} color="gray" style={{marginRight: 15}} />
-                </TouchableOpacity>
+                <View style={[styles.countryInputContainer, styles.disabledInput]}>
+                  <Text style={{ fontSize: 24, marginLeft: 10 }}>🇫🇷</Text>
+                  <Text style={[styles.countryNameText, { color: '#555' }]}>France</Text>
+                  <Ionicons name="lock-closed-outline" size={18} color="#999" style={{marginRight: 15}} />
+                </View>
             </View>
 
             <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.buttonText}>Commencer l'aventure</Text>
+                <Text style={styles.buttonText}>
+                    {isUpdateMode ? "Valider les modifications" : "Commencer l'aventure"}
+                </Text>
                 <Ionicons name="arrow-forward" size={20} color="white" style={{marginLeft: 10}}/>
             </TouchableOpacity>
 
@@ -169,7 +186,6 @@ const RegisterScreen = ({ navigation }) => {
   );
 };
 
-// Gardez vos styles existants
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
   scrollContent: { flexGrow: 1, padding: 20, justifyContent: 'center' },
@@ -187,7 +203,8 @@ const styles = StyleSheet.create({
   radioText: { fontSize: 13, color: '#333' },
   input: { backgroundColor: '#F5F7FA', padding: 15, borderRadius: 12, fontSize: 16, borderWidth: 1, borderColor: '#E1E1E1' },
   countryInputContainer: { backgroundColor: '#F5F7FA', borderRadius: 12, borderWidth: 1, borderColor: '#E1E1E1', flexDirection: 'row', alignItems: 'center', height: 55 },
-  countryNameText: { flex: 1, fontSize: 16, color: '#000', marginLeft: 5 },
+  disabledInput: { backgroundColor: '#E9ECEF', borderColor: '#D1D5DB' },
+  countryNameText: { flex: 1, fontSize: 16, color: '#000', marginLeft: 10 },
   button: { backgroundColor: '#004aad', paddingVertical: 18, borderRadius: 15, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 20, shadowColor: '#004aad', shadowOpacity: 0.3, shadowRadius: 10, elevation: 5 },
   buttonText: { color: 'white', fontSize: 18, fontWeight: 'bold' }
 });
