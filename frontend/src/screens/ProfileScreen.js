@@ -4,6 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import UserRepository from '../backend/repositories/UserRepository';
 
+// Import avatars locaux
+const avatarHomme = require('../../assets/avatar_homme.png');
+const avatarFemme = require('../../assets/avatar_femme.png');
+const avatarAnonyme = require('../../assets/avatar_anonyme.png');
+
 const ProfileScreen = ({ navigation }) => {
   const [userProfile, setUserProfile] = useState(null);
 
@@ -14,9 +19,34 @@ const ProfileScreen = ({ navigation }) => {
   const loadUserProfile = async () => {
     try {
       const profile = await UserRepository.getProfile();
+      // DEBUG: Alerte pour voir ce qui est récupéré
+      if (profile) {
+        // Alert.alert("DEBUG PROFIL", JSON.stringify(profile, null, 2));
+      }
       setUserProfile(profile);
     } catch (error) {
       console.error("Erreur chargement profil:", error);
+    }
+  };
+
+  const getAvatarSource = () => {
+    // Debug dans la console pour voir ce qui est évalué
+    console.log("🔍 getAvatarSource - Genre évalué:", userProfile?.gender);
+
+    if (!userProfile?.gender) {
+         // Par défaut si pas de genre (ou pas renseigné au début)
+         return { uri: 'https://avatar.iran.liara.run/public/38' }; // Neutre
+    }
+    
+    // Normalisation pour éviter les erreurs d'espace ou de casse
+    const gender = userProfile.gender.trim();
+
+    if (gender === 'Mme') {
+        return avatarFemme;
+    } else if (gender === 'M.') {
+        return avatarHomme;
+    } else {
+        return avatarAnonyme;
     }
   };
 
@@ -35,12 +65,17 @@ const ProfileScreen = ({ navigation }) => {
         {/* Bloc Profil */}
         <View style={styles.profileHeader}>
             <Image 
-                source={{ uri: 'https://randomuser.me/api/portraits/women/44.jpg' }} 
+                source={getAvatarSource()} 
                 style={styles.avatar} 
             />
             <Text style={styles.name}>
                 {userProfile?.firstName} {userProfile?.lastName ? userProfile.lastName.toUpperCase() : ''}
             </Text>
+            {/* 
+            <Text style={{ textAlign: 'center', color: 'gray', fontSize: 12 }}>
+                (Debug Genre: {userProfile?.gender || 'Aucun'})
+            </Text>
+            */}
             <Text style={styles.email}>{userProfile?.email}</Text>
 
             <View style={styles.bubblesContainer}>

@@ -29,6 +29,11 @@ import CityRepository from '../backend/repositories/CityRepository';
 import cityImages from '../data/cityImages';
 import CategoryFeedbackModal from '../components/CategoryFeedbackModal';
 
+// Import avatars locaux
+const avatarHomme = require('../../assets/avatar_homme.png');
+const avatarFemme = require('../../assets/avatar_femme.png');
+const avatarAnonyme = require('../../assets/avatar_anonyme.png');
+
 const HomeScreen = ({ navigation }) => {
   const [userProfile, setUserProfile] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
@@ -128,10 +133,26 @@ const HomeScreen = ({ navigation }) => {
       const profile = await UserRepository.getProfile([
         "firstName",
         "lastName",
+        "gender" // Ajout du champ genre pour l'avatar
       ]);
       setUserProfile(profile);
     } catch (error) {
       console.error("Erreur chargement profil:", error);
+    }
+  };
+
+  // Helper pour l'avatar (identique à ProfileScreen)
+  const getAvatarSource = () => {
+    if (!userProfile?.gender) {
+         return { uri: 'https://avatar.iran.liara.run/public/38' }; 
+    }
+    const gender = userProfile.gender.trim();
+    if (gender === 'Mme') {
+        return avatarFemme;
+    } else if (gender === 'M.') {
+        return avatarHomme;
+    } else {
+        return avatarAnonyme;
     }
   };
 
@@ -277,9 +298,8 @@ const HomeScreen = ({ navigation }) => {
         <Image
           source={imageSource}
           style={styles.cardImage}
-          defaultSource={{
-            uri: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1",
-          }} // Placeholder
+          // Suppression du defaultSource statique qui pouvait forcer une image
+          // defaultSource={{ uri: "..." }} 
         />
         
         <TouchableOpacity 
@@ -344,7 +364,7 @@ const HomeScreen = ({ navigation }) => {
       {/* Header */}
       <View style={styles.header}>
         <Image
-          source={{ uri: "https://randomuser.me/api/portraits/women/44.jpg" }}
+          source={getAvatarSource()}
           style={styles.avatar}
         />
         <Text style={styles.greeting}>

@@ -66,16 +66,22 @@ const RegisterScreen = ({ navigation }) => {
     try {
       console.log("💾 Sauvegarde du profil utilisateur...", formData);
       
+      console.log("📝 FormData before submit:", JSON.stringify(formData));
+
       // Préparer les données pour createProfile
       const userData = {
         firstName: formData.prenom,
         lastName: formData.nom,
         email: formData.email,
+        gender: formData.civilite, // Ajout du genre (Mme, M., N/R)
         dateOfBirth: formData.dateNaissance || null,
         country: formData.pays,
         preferences: [], // Sera rempli après le QCM
         weaknesses: []   // Sera rempli après le QCM
       };
+
+      // DEBUG: Afficher une alerte pour vérifier les données avant envoi
+      Alert.alert("DEBUG DONNÉES", `Envoi: ${JSON.stringify(userData, null, 2)}`);
 
       // Sauvegarder dans la base de données avec createProfile
       const userId = await UserRepository.createProfile(userData);
