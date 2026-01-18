@@ -18,6 +18,7 @@ import {
 } from "./src/backend/algorithms/userQuery.js";
 import { rankCitiesWithPenalty } from "./src/backend/algorithms/rankUtils.js";
 import PlaceLikedRepository from "./src/backend/repositories/PlaceLikedRepository.js";
+import WelcomeScreen from './src/screens/WelcomeScreen';
 
 export default function App() {
   // --- VOTRE LOGIQUE BACKEND (Gardée intacte) ---

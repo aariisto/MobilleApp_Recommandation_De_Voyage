@@ -14,18 +14,12 @@ const PreferencesScreen = ({ navigation }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selections, setSelections] = useState({});
 
-  const handleFinish = () => {
-    // On redirige vers l'accueil quand l'utilisateur clique
-    navigation.replace('Main');
-  };
-
   if (!questions || questions.length === 0) {
       return <SafeAreaView><Text>Chargement...</Text></SafeAreaView>;
   }
 
   const currentQuestion = questions[currentQuestionIndex];
   
-  // Vérifie si au moins une proposition est sélectionnée
   const hasSelectionForCurrentQuestion = () => {
     return currentQuestion.options.some(opt => selections[opt.id] !== undefined);
   };
@@ -44,7 +38,6 @@ const PreferencesScreen = ({ navigation }) => {
   };
 
   const handleNext = () => {
-    // Le bouton est désactivé 
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
@@ -68,7 +61,6 @@ const PreferencesScreen = ({ navigation }) => {
       if(q.options) {
           q.options.forEach(opt => {
             const status = selections[opt.id];
-            
             if (status === 'like' && opt.categories) {
               opt.categories.forEach(cat => likedCategoriesSet.add(cat));
             }
@@ -82,26 +74,15 @@ const PreferencesScreen = ({ navigation }) => {
     const likedTable = Array.from(likedCategoriesSet);
     const dislikedTable = Array.from(dislikedCategoriesSet);
 
-    console.log("✅ Tableau J'AIME :", likedTable);
-    console.log("❌ Tableau J'AIME PAS :", dislikedTable);
-
     try {
-      // Récupération de l'utilisateur courant
       const profile = await UserRepository.getProfile();
-      
       if (profile && profile.id) {
-        
-        // Enregistrement des Dislikes (Pénalités)
         for (const category of dislikedTable) {
           await UserCategoryRepository.addOrIncrementDislike(profile.id, category);
         }
-
-        // Enregistrement des Likes (Bonus)
         for (const category of likedTable) {
           await UserCategoryRepository.addOrIncrementLike(profile.id, category);
         }
-        
-        console.log("💾 Préférences enregistrées en base de données");
       }
     } catch (error) {
       console.error("⚠️ Erreur lors de l'enregistrement des préférences:", error);
@@ -112,20 +93,25 @@ const PreferencesScreen = ({ navigation }) => {
       `Merci ! Nous avons identifié ${likedTable.length} centres d'intérêt.`,
       [{ 
           text: "Voir résultats", 
-          onPress: () => navigation.navigate('Main', { userPreferences: likedTable }) 
+          onPress: () => navigation.replace('Main', { userPreferences: likedTable }) 
       }]
     );
   };
 
-  // Variable booléenne pour l'état du bouton
   const isNextDisabled = !hasSelectionForCurrentQuestion();
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.header}>
-         <TouchableOpacity onPress={handleBack} style={{padding: 5}}>
-            <Ionicons name="arrow-back" size={24} color="black" />
-         </TouchableOpacity>
+         {/* Bouton caché si index est 0 */}
+         {currentQuestionIndex > 0 ? (
+             <TouchableOpacity onPress={handleBack} style={{padding: 5}}>
+                <Ionicons name="arrow-back" size={24} color="black" />
+             </TouchableOpacity>
+         ) : (
+             <View style={{width: 34}} /> // Espace vide pour garder le titre centré
+         )}
+         
          <Text style={styles.headerTitle}>Préférences ({currentQuestionIndex + 1}/{questions.length})</Text>
          <View style={{width: 34}} /> 
       </View>
@@ -137,12 +123,12 @@ const PreferencesScreen = ({ navigation }) => {
 
         <Text style={styles.question}>{currentQuestion.question}</Text>
         <Text style={styles.subTitle}>Sélectionnez au moins une option pour continuer</Text>
+        <Text style={styles.subTitle}>1 click = ✅ | 2 click = ❌ </Text>
 
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.grid}>
                 {currentQuestion.options.map((opt) => {
                     const status = selections[opt.id]; 
-                    
                     return (
                         <TouchableOpacity 
                             key={opt.id} 
@@ -155,13 +141,10 @@ const PreferencesScreen = ({ navigation }) => {
                             activeOpacity={0.8}
                         >
                             <Image source={{uri: opt.img}} style={styles.cardImage} resizeMode="cover" />
-                            
                             <View style={styles.darkOverlay} />
                             {status === 'like' && <View style={styles.likeOverlay} />}
                             {status === 'dislike' && <View style={styles.dislikeOverlay} />}
-
                             <Text style={styles.cardLabel}>{opt.label}</Text>
-
                             {status === 'like' && (
                                 <View style={[styles.iconBadge, { backgroundColor: '#007AFF' }]}>
                                     <Ionicons name="checkmark" size={16} color="white" />
@@ -181,12 +164,16 @@ const PreferencesScreen = ({ navigation }) => {
       </View>
       
       <View style={styles.footer}>
-          <TouchableOpacity style={styles.btnSecondary} onPress={handleBack}>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>Précédent</Text>
-          </TouchableOpacity>
+          {/*  Bouton Précédent désactivé/invisible si index 0 */}
+          {currentQuestionIndex > 0 ? (
+            <TouchableOpacity style={styles.btnSecondary} onPress={handleBack}>
+                <Text style={{fontWeight: 'bold', color: 'black'}}>Précédent</Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={[styles.btnSecondary, {backgroundColor:'transparent'}]} />
+          )}
           
           <TouchableOpacity 
-            // Application du style "disabled" si la condition est vraie
             style={[styles.btnPrimary, isNextDisabled && styles.btnDisabled]} 
             onPress={handleNext}
             disabled={isNextDisabled}
@@ -198,11 +185,7 @@ const PreferencesScreen = ({ navigation }) => {
       </View>
     </SafeAreaView>
   );
-  
 };
-
-
-
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
@@ -229,10 +212,7 @@ const styles = StyleSheet.create({
   footer: { flexDirection: 'row', justifyContent: 'space-between', padding: 20, borderTopWidth: 1, borderColor: '#f0f0f0', backgroundColor: 'white' },
   
   btnPrimary: { backgroundColor: '#007AFF', paddingVertical: 15, borderRadius: 30, width: '48%', alignItems: 'center', justifyContent: 'center' },
-  
-  // Style quand le bouton est désactivé (Gris/Bleu pâle)
   btnDisabled: { backgroundColor: '#A0C4FF', opacity: 0.7 }, 
-  
   btnSecondary: { backgroundColor: '#F0F2F5', paddingVertical: 15, borderRadius: 30, width: '48%', alignItems: 'center', justifyContent: 'center' }
 });
 
