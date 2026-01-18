@@ -5,17 +5,19 @@ import { WebView } from 'react-native-webview';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import cityImages from '../data/cityImages';
-import flightPricesData from '../data/flightPrices.json'; // Import des données locales
+import flightPricesData from '../data/flightPrices.json'; 
+
+// Imports Backend
 import CityRepository from '../backend/repositories/CityRepository';
 import ThemeFilterService from '../backend/services/ThemeFilterService';
 import CityActivityService from '../backend/services/CityActivityService';
+import PlaceLikedRepository from '../backend/repositories/PlaceLikedRepository';
 
 const { height } = Dimensions.get('window');
 
 const DetailsScreen = ({ route, navigation }) => {
   const { city, maxScore = 1 } = route.params;
   
-  // Calcul des étoiles dynamiques
   const stars = maxScore > 0 ? (city.score / maxScore) * 5 : 0;
   const fullStars = Math.floor(stars);
   const hasHalfStar = (stars % 1) > 0;
@@ -29,6 +31,9 @@ const DetailsScreen = ({ route, navigation }) => {
   const [showActivities, setShowActivities] = useState(false);
   const [cityCoordinates, setCityCoordinates] = useState(null);
 
+  // etat pour le like
+  const [isLiked, setIsLiked] = useState(false);
+
   // States pour la recherche de vol
   const [showFlightSearch, setShowFlightSearch] = useState(false);
   const [originCity, setOriginCity] = useState('Paris');
@@ -37,63 +42,80 @@ const DetailsScreen = ({ route, navigation }) => {
   const [flightPrice, setFlightPrice] = useState(null);
   const [loadingPrice, setLoadingPrice] = useState(false);
   
-  // Animation pour le panel
   const slideAnim = useRef(new Animated.Value(height)).current;
 
-  // Ouvrir/Fermer le panel
+  // Animation Panel Vol
   useEffect(() => {
     if (showFlightSearch) {
       Animated.timing(slideAnim, {
-        toValue: 0, // Le panel remonte complétement à sa position (bottom: 0)
+        toValue: 0,
         duration: 300,
         useNativeDriver: true,
       }).start();
     } else {
       Animated.timing(slideAnim, {
-        toValue: height, // Le panel redescend hors écran
+        toValue: height,
         duration: 300,
         useNativeDriver: true,
       }).start();
     }
   }, [showFlightSearch]);
 
+  // Vérification si la ville est likée
+  useEffect(() => {
+    const checkLikeStatus = async () => {
+      try {
+        const likedIds = await PlaceLikedRepository.getAllPlacesLiked();
+        // Si l'ID de la ville actuelle est dans la liste, le cœur sera rouge
+        if (likedIds.includes(city.id)) {
+            setIsLiked(true);
+        }
+      } catch (error) {
+        console.error("Erreur vérification like:", error);
+      }
+    };
+    checkLikeStatus();
+  }, [city.id]);
+
+  //  Fonction afin d'ajouter ou de retirer le like
+  const toggleLike = async () => {
+    try {
+        if (isLiked) {
+            // Suppression de l'endroit liké
+            await PlaceLikedRepository.removePlaceLikedByCityId(city.id);
+            setIsLiked(false);
+        } else {
+            // Ajout de l'endroit liké
+            await PlaceLikedRepository.addPlaceLiked(city.id);
+            setIsLiked(true);
+        }
+    } catch (error) {
+        console.error("Erreur toggle like details:", error);
+    }
+  };
+
   const fetchPrice = async () => {
     if (!originCity) return alert("Veuillez entrer une ville de départ");
-    
     setLoadingPrice(true);
     setFlightPrice(null);
-
-    // Simulation d'un délai réseau pour l'UX
     setTimeout(() => {
         try {
-            // Création de la clé de recherche (ex: PARIS_LONDRES)
-            // On nettoie les entrées (majusucles, sans espaces inutiles)
             const originClean = originCity.trim().toUpperCase();
             const destClean = city.name.trim().toUpperCase();
             const searchKey = `${originClean}_${destClean}`;
             const keyParisFallback = `PARIS_${destClean}`;
             
-            // Formater la date pour l'affichage
-            const dateString = flightDate.toISOString().split('T')[0];
-
-            // Recherche dans le fichier JSON local
-            // 1. Cherche EXACTEMENT VilleDepart_VilleArrivee
-            // 2. Si non trouvé et que l'utilisateur a tapé "Paris", cherche PARIS_VilleArrivee
             let foundData = flightPricesData[searchKey];
-            
-            // Fallback: Si l'utilisateur met "Paris" ou "PARIS" mais que la casse diffère légèrement ou s'il y a un alias
             if (!foundData && originClean === 'PARIS') {
                 foundData = flightPricesData[keyParisFallback];
             }
 
             if (foundData && foundData.price) {
-                // Succès : On utilise directement les données du fichier JSON
                 setFlightPrice({
                     amount: foundData.price.amount,
                     currency: foundData.price.currency
                 });
             } else {
-                // Si pas trouvé dans le JSON, on génère un prix MOCK (pour ne jamais bloquer l'utilisateur)
                 const mockPrice = Math.floor(Math.random() * (500 - 100 + 1) + 100);
                 setFlightPrice({
                     amount: mockPrice.toString(),
@@ -106,7 +128,7 @@ const DetailsScreen = ({ route, navigation }) => {
         } finally {
             setLoadingPrice(false);
         }
-    }, 500); // Petit délai de 500ms pour l'effet de chargement
+    }, 500);
   };
 
   useEffect(() => {
@@ -148,34 +170,22 @@ const DetailsScreen = ({ route, navigation }) => {
 
     const fetchCityCoordinates = async () => {
         try {
-            console.log(`Recuperation coordonnees pour: ${city.name} (ID: ${city.id})`);
             let cityData = await CityRepository.getCityById(city.id);
-
-            // Si pas de résultat par ID, essayer par nom (cas de décalage ID entre JSON et DB)
             if (!cityData) {
-                console.log("ID non trouvé, tentative de recherche par nom...");
                 const searchResults = await CityRepository.searchCitiesByName(city.name);
                 if (searchResults && searchResults.length > 0) {
                     cityData = searchResults.find(c => c.name.toLowerCase() === city.name.toLowerCase()) || searchResults[0];
                 }
             }
-            
             if (cityData) {
-                console.log("Données ville trouvées:", cityData);
-                // Gérer les noms de colonnes lat/lon ou latitude/longitude
                 const lat = cityData.lat !== undefined ? cityData.lat : cityData.latitude;
                 const lon = cityData.lon !== undefined ? cityData.lon : cityData.longitude;
-
                 if (lat !== undefined && lon !== undefined) {
                     setCityCoordinates({
                         latitude: parseFloat(lat),
                         longitude: parseFloat(lon)
                     });
-                } else {
-                    console.log("Coordonnées manquantes dans les données:", cityData);
                 }
-            } else {
-                console.log("Aucune donnée trouvée pour cette ville");
             }
         } catch (error) {
             console.error("Erreur chargement coordonnées:", error);
@@ -190,7 +200,6 @@ const DetailsScreen = ({ route, navigation }) => {
     }
   }, [city]);
 
-  // Gestion de l'image (Locale > Online > Fallback)
   const localImage = cityImages[city.name];
   const imageSource = localImage 
       ? localImage 
@@ -210,12 +219,15 @@ const DetailsScreen = ({ route, navigation }) => {
                 <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconBtn}>
                     <Ionicons name="arrow-back" size={20} color="black" />
                 </TouchableOpacity>
+                
                 <View style={{flexDirection:'row'}}>
-                    <TouchableOpacity style={[styles.iconBtn, {marginRight: 10}]}>
-                         <Ionicons name="share-outline" size={20} color="black" />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconBtn}>
-                         <Ionicons name="heart-outline" size={20} color="black" />
+                    
+                    <TouchableOpacity style={styles.iconBtn} onPress={toggleLike}>
+                         <Ionicons 
+                            name={isLiked ? "heart" : "heart-outline"} 
+                            size={20} 
+                            color={isLiked ? "#FF3B30" : "black"} 
+                         />
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
@@ -235,7 +247,6 @@ const DetailsScreen = ({ route, navigation }) => {
                 </Text>
             </View>
 
-            {/* Thèmes de la ville */}
             <View style={styles.features}>
                 {loadingThemes ? (
                     <ActivityIndicator size="small" color="#007AFF" />
@@ -261,8 +272,6 @@ const DetailsScreen = ({ route, navigation }) => {
                     <>
                         <View style={styles.featureItem}><Ionicons name="time-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Culture</Text></View>
                         <View style={styles.featureItem}><Ionicons name="restaurant-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Cuisine</Text></View>
-                        <View style={styles.featureItem}><Ionicons name="camera-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Vues</Text></View>
-                        <View style={styles.featureItem}><Ionicons name="walk-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Balades</Text></View>
                     </>
                 )}
             </View>
@@ -275,7 +284,6 @@ const DetailsScreen = ({ route, navigation }) => {
                     {description}
                 </Text>
             )}
-
 
             <TouchableOpacity style={styles.accordionHeader} onPress={() => setShowActivities(!showActivities)}>
                 <View style={styles.accordionTitleContainer}>
@@ -400,7 +408,6 @@ const DetailsScreen = ({ route, navigation }) => {
         </View>
       </ScrollView>
 
-      {/* Footer détails prix */}
       <View style={styles.footer}>
         <View>
             <Text style={styles.price}>Explorer</Text>
@@ -411,7 +418,6 @@ const DetailsScreen = ({ route, navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Flight Search Panel Overlay */}
       {showFlightSearch && (
         <TouchableOpacity 
             style={styles.overlay} 
@@ -503,7 +509,7 @@ const styles = StyleSheet.create({
     flightPanel: {
         position: 'absolute',
         left: 0, right: 0, bottom: 0,
-        height: height * 0.8, // Augmenté à 80% de l'écran pour bien voir tous les champs
+        height: height * 0.8,
         backgroundColor: 'white',
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,

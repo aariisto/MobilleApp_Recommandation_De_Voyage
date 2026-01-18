@@ -1,16 +1,15 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { 
   View, 
   Text, 
   ScrollView, 
   Image, 
-  TextInput, // Ajouté depuis feature/backend_vol
+  TextInput, 
   StyleSheet, 
   FlatList, 
   TouchableOpacity, 
   ActivityIndicator, 
-  Alert // Ajouté depuis feature/favlike
+  Alert 
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native'; 
@@ -55,7 +54,18 @@ const HomeScreen = ({ navigation }) => {
     }, [])
   );
 
-  // 👇 FONCTION MODIFIÉE POUR RÉCUPÉRER LE NOM DE LA VILLE
+  const handleRefresh = async () => {
+    try {
+        await Promise.all([
+            loadUserProfile(),
+            loadRecommendations(false), 
+            loadUserLikesAndActivities()
+        ]);
+    } catch (error) {
+        console.error("Erreur lors du rafraîchissement:", error);
+    }
+  };
+
   const loadUserLikesAndActivities = async () => {
     try {
       const likesIds = await PlaceLikedRepository.getAllPlacesLiked();
@@ -63,16 +73,13 @@ const HomeScreen = ({ navigation }) => {
       setLikedCityIds(idsSet);
 
       if (likesIds.length > 0) {
-        // Récupère les activités groupées par ID de ville
         const activitiesMap = await CityActivityService.getRecommendationsFromLikedPlaces();
         
         const enrichedList = [];
 
-        // Pour chaque ville, on récupère son nom et on l'ajoute aux activités
         for (const [cityId, places] of Object.entries(activitiesMap)) {
             const city = await CityRepository.getCityById(cityId);
             if (city) {
-                // On ajoute le nom de la ville à chaque activité
                 const placesWithCityName = places.map(p => ({ 
                     ...p, 
                     cityName: city.name 
@@ -81,9 +88,7 @@ const HomeScreen = ({ navigation }) => {
             }
         }
 
-        // On mélange la liste pour varier les plaisirs (ne pas avoir 2 fois la même ville à la suite)
         const shuffledList = enrichedList.sort(() => Math.random() - 0.5);
-        
         setSuggestedActivities(shuffledList);
       } else {
         setSuggestedActivities([]);
@@ -112,7 +117,6 @@ const HomeScreen = ({ navigation }) => {
         newSet.add(city.id);
         setLikedCityIds(newSet);
         
-        // Afficher le modal pour feedback
         setSelectedCityForFeedback(city);
         setCategoryModalVisible(true);
         
@@ -135,42 +139,19 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-  const loadRecommendations = async () => {
+  const loadRecommendations = async (showLoader = true) => {
     if (selectedCategory) return; 
-    setLoading(true);
+    
+    if (showLoader) setLoading(true);
+
     try {
       const profile = await UserRepository.getProfile();
       if (profile && profile.id) {
         const userLikes = await UserCategoryRepository.getUserLikes(profile.id);
-        const userDislikes = await UserCategoryRepository.getUserDislikes(
-          profile.id,
-        );
         const likedCategories = userLikes.map((l) => l.category_name);
 
-        console.log(
-          `📊 Profil chargé - Likes: ${userLikes.length}, Dislikes: ${userDislikes.length}`,
-        );
-
-        // Afficher les dislikes qui seront utilisés pour les pénalités
-        if (userDislikes.length > 0) {
-          console.log(
-            "❌ Dislikes récupérés de la BD (pénalités à appliquer):",
-          );
-          userDislikes.forEach((d) => {
-            console.log(
-              `   - ${d.category_name}: ${d.points} points de pénalité`,
-            );
-          });
-        }
-
         if (likedCategories.length > 0) {
-           // 3. Générer la requête utilisateur
-           
-           // 4. Calculer le classement avec pénalités (utilise automatiquement les dislikes)
-           console.log("🔄 Calcul des recommandations avec pénalités des dislikes...");
-           // On récupère un peu plus de résultats (20) pour permettre le filtrage
            const rankedCities = await rankCitiesWithPenalty(likedCategories, profile.id);
-           console.log("✅ Recommandations calculées avec succès");
            setAllRecommendations(rankedCities);
            setRecommendations(rankedCities);
         } else {
@@ -181,7 +162,7 @@ const HomeScreen = ({ navigation }) => {
     } catch (error) {
       console.error("Erreur chargement recommandations:", error);
     } finally {
-      setLoading(false);
+      if (showLoader) setLoading(false);
     }
   };
   
@@ -259,8 +240,6 @@ const HomeScreen = ({ navigation }) => {
 
   const renderHorizontalItem = ({ item }) => {
     const localImage = cityImages[item.name];
-
-    // URL de l'image (Locale > API > Placeholder)
     const imageSource = localImage
       ? localImage
       : {
@@ -279,7 +258,7 @@ const HomeScreen = ({ navigation }) => {
           style={styles.cardImage}
           defaultSource={{
             uri: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1",
-          }} // Placeholder
+          }}
         />
         
         <TouchableOpacity 
@@ -322,8 +301,6 @@ const HomeScreen = ({ navigation }) => {
 
           <View style={styles.cardInfo}>
               <Text style={styles.verticalTitle} numberOfLines={1}>{place.name}</Text>
-              
-              {/* 👇 AFFICHAGE DU NOM DE LA VILLE ICI */}
               <Text style={styles.verticalSubtitle} numberOfLines={1}>
                  {place.cityName || 'Destination'}
               </Text>
@@ -350,17 +327,17 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.greeting}>
           Bonjour {userProfile?.firstName || "Voyageur"}
         </Text>
-        <TouchableOpacity>
-          <Ionicons name="notifications-outline" size={24} color="black" />
-        </TouchableOpacity>
+        {/* L'icône de notification a été supprimée ici */}
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Catégories de voyage */}
+        
+        <Text style={styles.sectionTitle}>Recommandations pour vous</Text>
+
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 20, marginTop: 15 }}
+          contentContainerStyle={{ paddingHorizontal: 20, marginBottom: 15 }}
         >
           {categories.map((cat, index) => (
             <TouchableOpacity
@@ -382,8 +359,6 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
           ))}
         </ScrollView>
-
-        <Text style={styles.sectionTitle}>Recommandations pour vous</Text>
 
         {loading ? (
           <ActivityIndicator
@@ -407,7 +382,13 @@ const HomeScreen = ({ navigation }) => {
             </View>
         )}
 
-        <Text style={styles.sectionTitle}>Activité qui pourrait vous plaire</Text>
+        {/* Section Activités avec titre + bouton refresh alignés */}
+        <View style={styles.activityHeader}>
+            <Text style={styles.activityTitleText}>Activité qui pourrait vous plaire</Text>
+            <TouchableOpacity onPress={handleRefresh} style={{ padding: 5 }}>
+                <Ionicons name="refresh" size={22} color="#007AFF" />
+            </TouchableOpacity>
+        </View>
         
         {likedCityIds.size > 0 && suggestedActivities.length > 0 ? (
           <View style={{ marginBottom: 20 }}>
@@ -442,13 +423,28 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 20,
-    marginBottom: 10,
+    marginBottom: 5,
     paddingTop: 10,
   },
   avatar: { width: 40, height: 40, borderRadius: 20 },
   greeting: { fontSize: 18, fontWeight: 'bold', flex: 1, marginLeft: 10 },
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', margin: 20, marginBottom: 15, marginTop: 25 },
   
+  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginHorizontal: 20, marginBottom: 15, marginTop: 15 },
+  
+  activityHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    marginTop: 35, 
+    marginBottom: 15
+  },
+  activityTitleText: {
+    fontSize: 18, 
+    fontWeight: 'bold',
+    color: '#333'
+  },
+
   cardHorizontal: { width: 220, height: 280, marginRight: 15, borderRadius: 20, overflow: 'hidden', backgroundColor: 'black' },
   cardImage: { width: '100%', height: '100%', opacity: 0.8 },
   
@@ -465,6 +461,7 @@ const styles = StyleSheet.create({
   textOverlay: { position: 'absolute', bottom: 15, left: 15 },
   cardTitle: { color: 'white', fontWeight: 'bold', fontSize: 18 },
   cardSubtitle: { color: 'white', fontSize: 12 },
+  
   categoryChip: { backgroundColor: '#DDEEFF', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 20, marginRight: 10 },
   categoryChipSelected: { backgroundColor: '#007AFF' },
   categoryText: { color: '#333' },

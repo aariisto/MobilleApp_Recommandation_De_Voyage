@@ -137,6 +137,7 @@ const PreferencesScreen = ({ navigation }) => {
 
         <Text style={styles.question}>{currentQuestion.question}</Text>
         <Text style={styles.subTitle}>Sélectionnez au moins une option pour continuer</Text>
+        <Text style={styles.subTitle}>1 click = ✅ | 2 click = ❌ </Text>
 
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.grid}>

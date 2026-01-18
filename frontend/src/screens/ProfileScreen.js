@@ -63,8 +63,8 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitle}>Compte</Text>
             <View style={styles.card}>
-                <MenuItem icon="person-outline" label="Informations personnelles" isLast={false} />
-                <MenuItem icon="notifications-outline" label="Notifications" isLast={true} />
+                {/* J'ai passé isLast={true} car c'est le seul élément maintenant */}
+                <MenuItem icon="person-outline" label="Informations personnelles" isLast={true} />
             </View>
         </View>
 
