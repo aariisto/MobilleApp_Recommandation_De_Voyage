@@ -88,17 +88,10 @@ const RegisterScreen = ({ navigation }) => {
         firstName: formData.prenom,
         lastName: formData.nom,
         email: formData.email,
-        gender: formData.civilite, // Ajout du genre (Mme, M., N/R)
         dateOfBirth: formData.dateNaissance || null,
         country: 'France',
       };
 
-      // DEBUG: Afficher une alerte pour vérifier les données avant envoi
-      Alert.alert("DEBUG DONNÉES", `Envoi: ${JSON.stringify(userData, null, 2)}`);
-
-      // Sauvegarder dans la base de données avec createProfile
-      const userId = await UserRepository.createProfile(userData);
-      console.log(`✅ Profil créé avec succès! User ID: ${userId}`);
       if (isUpdateMode) {
         console.log("🔄 Mise à jour du profil...", userData);
         await UserRepository.updateProfile(userData);

@@ -160,7 +160,7 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-  const loadRecommendations = async () => {
+  const loadRecommendations = async (showLoader = true) => {
     if (selectedCategory) return; 
     
     if (showLoader) setLoading(true);
