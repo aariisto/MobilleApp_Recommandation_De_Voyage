@@ -88,6 +88,7 @@ const RegisterScreen = ({ navigation }) => {
         firstName: formData.prenom,
         lastName: formData.nom,
         email: formData.email,
+        gender: formData.civilite, // Ajout du genre (Mme, M., N/R)
         dateOfBirth: formData.dateNaissance || null,
         country: 'France',
       };
