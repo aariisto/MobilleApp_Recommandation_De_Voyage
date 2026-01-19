@@ -4,11 +4,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '../context/ThemeContext';
 import CityRepository from '../backend/repositories/CityRepository';
 import cityImages from '../data/cityImages';
 import { getClimate, getClimateIcon, getClimateColor, getClimateLabel } from '../data/climateData';
 
 const ExploreScreen = ({ navigation }) => {
+  const { theme } = useTheme();
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -110,33 +112,33 @@ const ExploreScreen = ({ navigation }) => {
 
   if (loading) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#004aad" />
-          <Text style={styles.loadingText}>Chargement des destinations...</Text>
+          <Text style={[styles.loadingText, { color: theme.text }]}>Chargement des destinations...</Text>
         </View>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Explorer</Text>
+        <Text style={[styles.headerTitle, { color: theme.text }]}>Explorer</Text>
         <TouchableOpacity onPress={loadRandomCities}>
-          <Ionicons name="refresh-outline" size={24} color="#000" />
+          <Ionicons name="refresh-outline" size={24} color={theme.text} />
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.subtitle}>Découvrez de nouvelles destinations</Text>
-      <Text style={styles.subtitle}>Date d'arrivée :</Text>
+      <Text style={[styles.subtitle, { color: theme.text }]}>Découvrez de nouvelles destinations</Text>
+      <Text style={[styles.subtitle, { color: theme.text }]}>Date d'arrivée :</Text>
 
       {/* Filtres */}
       <View style={styles.filtersContainer}>
         {/* Sélecteur de date */}
-        <TouchableOpacity style={styles.dateButton} onPress={() => setShowDatePicker(true)}>
-          <Ionicons name="calendar-outline" size={18} color="#004aad" />
-          <Text style={styles.dateText}>
+        <TouchableOpacity style={[styles.dateButton, { backgroundColor: theme.card }]} onPress={() => setShowDatePicker(true)}>
+          <Ionicons name="calendar-outline" size={18} color={theme.primary} />
+          <Text style={[styles.dateText, { color: theme.primary }]}>
             {selectedDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })}
           </Text>
         </TouchableOpacity>
@@ -144,31 +146,55 @@ const ExploreScreen = ({ navigation }) => {
         {/* Filtres de climat */}
         <View style={styles.climateFilters}>
           <TouchableOpacity 
-            style={[styles.climateFilterButton, selectedClimate === 'froid' && styles.climateFilterActive]}
+            style={[
+              styles.climateFilterButton, 
+              { backgroundColor: theme.card, borderColor: theme.border },
+              selectedClimate === 'froid' && { backgroundColor: '#4A90E2', borderColor: '#4A90E2' }
+            ]}
             onPress={() => toggleClimateFilter('froid')}
           >
             <Ionicons name="snow-outline" size={16} color={selectedClimate === 'froid' ? '#fff' : '#4A90E2'} />
-            <Text style={[styles.climateFilterText, selectedClimate === 'froid' && styles.climateFilterTextActive]}>
+            <Text style={[
+              styles.climateFilterText, 
+              { color: theme.text },
+              selectedClimate === 'froid' && styles.climateFilterTextActive
+            ]}>
               Froid
             </Text>
           </TouchableOpacity>
 
           <TouchableOpacity 
-            style={[styles.climateFilterButton, selectedClimate === 'tempéré' && styles.climateFilterActive]}
+            style={[
+              styles.climateFilterButton, 
+              { backgroundColor: theme.card, borderColor: theme.border },
+              selectedClimate === 'tempéré' && { backgroundColor: '#FFA726', borderColor: '#FFA726' }
+            ]}
             onPress={() => toggleClimateFilter('tempéré')}
           >
             <Ionicons name="partly-sunny-outline" size={16} color={selectedClimate === 'tempéré' ? '#fff' : '#FFA726'} />
-            <Text style={[styles.climateFilterText, selectedClimate === 'tempéré' && styles.climateFilterTextActive]}>
+            <Text style={[
+              styles.climateFilterText, 
+              { color: theme.text },
+              selectedClimate === 'tempéré' && styles.climateFilterTextActive
+            ]}>
               Tempéré
             </Text>
           </TouchableOpacity>
 
           <TouchableOpacity 
-            style={[styles.climateFilterButton, selectedClimate === 'chaud' && styles.climateFilterActive]}
+            style={[
+              styles.climateFilterButton, 
+              { backgroundColor: theme.card, borderColor: theme.border },
+              selectedClimate === 'chaud' && { backgroundColor: '#FF6B6B', borderColor: '#FF6B6B' }
+            ]}
             onPress={() => toggleClimateFilter('chaud')}
           >
             <Ionicons name="sunny-outline" size={16} color={selectedClimate === 'chaud' ? '#fff' : '#FF6B6B'} />
-            <Text style={[styles.climateFilterText, selectedClimate === 'chaud' && styles.climateFilterTextActive]}>
+            <Text style={[
+              styles.climateFilterText, 
+              { color: theme.text },
+              selectedClimate === 'chaud' && styles.climateFilterTextActive
+            ]}>
               Chaud
             </Text>
           </TouchableOpacity>
