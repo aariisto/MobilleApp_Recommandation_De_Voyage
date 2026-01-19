@@ -220,12 +220,12 @@ class ThemeFilterService {
     // Exécution séquentielle pour éviter de surcharger SQLite (qui plante avec trop de requêtes parallèles via Promise.all)
     const results = [];
     for (const cityId of cityIds) {
-        try {
-            const result = await filterMethod(cityId);
-            results.push(result);
-        } catch (e) {
-            console.warn(`Erreur filtre ${theme} pour city ${cityId}:`, e);
-        }
+      try {
+        const result = await filterMethod(cityId);
+        results.push(result);
+      } catch (e) {
+        console.warn(`Erreur filtre ${theme} pour city ${cityId}:`, e);
+      }
     }
 
     return results.filter((result) => result.isMatch);
@@ -259,6 +259,56 @@ class ThemeFilterService {
         theme: result.theme,
         matched_categories: result.matched_categories,
       }));
+  }
+
+  /**
+   * Détecte les thèmes à partir d'un tableau de catégories
+   * @param {Array<string>} categories - Tableau des noms de catégories
+   * @returns {Object} - Objet contenant true/false pour chaque thème
+   */
+  getThemesFromCategories(categories) {
+    const categoryNames = categories.map((cat) =>
+      cat.toLowerCase().replace(/\s+/g, "_"),
+    );
+
+    const patterns = {
+      Nature: [/^natural/, /^beach/, /^island/, /^national_park/],
+      Histoire: [
+        /^heritage/,
+        /^tourism\.sights/,
+        /^religion/,
+        /^memorial/,
+        /^building\.historic/,
+      ],
+      Gastronomie: [
+        /^catering\.restaurant/,
+        /^production\.winery/,
+        /^production\.brewery/,
+      ],
+      Shopping: [
+        /^commercial\.shopping_mall/,
+        /^commercial\.marketplace/,
+        /^commercial\.gift_and_souvenir/,
+      ],
+      Divertissement: [
+        /^ski/,
+        /^adult\.nightclub/,
+        /^adult\.casino/,
+        /^entertainment\.theme_park/,
+        /^sport\.stadium/,
+      ],
+    };
+
+    const result = {};
+
+    // Pour chaque thème, vérifier si au moins une catégorie correspond
+    for (const [theme, themePatterns] of Object.entries(patterns)) {
+      result[theme] = categoryNames.some((cat) =>
+        themePatterns.some((pattern) => pattern.test(cat)),
+      );
+    }
+
+    return result;
   }
 }
 

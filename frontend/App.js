@@ -19,7 +19,7 @@ import {
 } from "./src/backend/algorithms/userQuery.js";
 import { rankCitiesWithPenalty } from "./src/backend/algorithms/rankUtils.js";
 import PlaceLikedRepository from "./src/backend/repositories/PlaceLikedRepository.js";
-import WelcomeScreen from './src/screens/WelcomeScreen';
+import WelcomeScreen from "./src/screens/WelcomeScreen";
 
 export default function App() {
   // --- VOTRE LOGIQUE BACKEND (Gardée intacte) ---
@@ -33,90 +33,71 @@ export default function App() {
   // TEST DU NOUVEL ALGORITHME (Logique Python Pure: embedding_likes - embedding_dislikes + pénalités)
   const testNewAlgorithm = async () => {
     try {
-      await perfMonitor.startMonitoring('Algorithm Test');
-      
-      console.log("\n\n🧪 === PRÉPARATION DONNÉES TEST ===");
-      await perfMonitor.checkpoint('Starting data preparation');
-      
-      // 1. Récupérer des places d'Istanbul (ID 11) pour le test
-      // On suppose que l'ID 11 est Istanbul comme mentionné
-      const istanbulPlaces = await PlaceRepository.getPlacesByCity(11);
-      await perfMonitor.checkpoint('Fetched Istanbul places');
-      
-      if (istanbulPlaces && istanbulPlaces.length > 0) {
-        // On prend la première place trouvée
-        const placeToLike = istanbulPlaces[0];
-        console.log(`📍 Tentative d'ajout d'un like pour : ${placeToLike.name} (Ville ID: ${placeToLike.city_id}, Place ID: ${placeToLike.id})`);
-        
-        // Vérifier si déjà liké pour éviter erreur de contrainte UNIQUE
-        const existingLikeCount = await PlaceLikedRepository.countLikesForCity(placeToLike.city_id);
-        await perfMonitor.checkpoint('Checked place likes');
-        
-        if (existingLikeCount === 0) {
-             await PlaceLikedRepository.addPlaceLiked(placeToLike.city_id);
-             console.log("✅ Like ajouté avec succès !");
-        } else {
-             console.log("ℹ️ Cette place est déjà likée (pas d'ajout nécessaire).");
-        }
-      } else {
-        console.log("❌ Aucune place trouvée pour la ville ID 11. Impossible d'ajouter un like pour ce test.");
-      }
+      await perfMonitor.startMonitoring("Algorithm Test");
 
-      console.log("\n\n🧪 === TEST GET ALL PLACES LIKED ===");
-      await perfMonitor.checkpoint('Testing liked places retrieval');
+      console.log("\n\n🧪 === TEST getCitiesEmbeddingsByCategories ===");
+      await perfMonitor.checkpoint(
+        "Starting getCitiesEmbeddingsByCategories test",
+      );
 
-      const allLiked = await PlaceLikedRepository.getAllPlacesLiked();
-      await perfMonitor.checkpoint('Retrieved all liked places');
+      const testCategories = [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation",
+        "building.catering",
+        "building.commercial",
+        "building.entertainment",
+        "building.place_of_worship",
+        "building.public_and_civil",
+        "building.residential",
+        "building.tourism",
+        "catering",
+        "catering.bar",
+        "catering.restaurant",
+        "catering.restaurant.brazilian",
+        "commercial",
+        "commercial.shopping_mall",
+        "entertainment",
+        "entertainment.culture",
+        "entertainment.culture.theatre",
+        "entertainment.museum",
+        "entertainment.theme_park",
+        "fee",
+        "internet_access",
+        "internet_access.for_customers",
+        "internet_access.free",
+        "no_fee",
+        "no_fee.no",
+        "religion",
+        "religion.place_of_worship",
+        "religion.place_of_worship.christianity",
+        "tourism",
+        "tourism.attraction",
+        "tourism.sights.place_of_worship",
+        "tourism.sights.place_of_worship.church",
+        "wheelchair",
+        "wheelchair.yes",
+      ];
 
-      console.log(`\n✅ Total de places likées: ${allLiked.length}`);
+      const citiesEmbeddings =
+        await CityRepository.getCitiesEmbeddingsByCategories(testCategories);
+      await perfMonitor.checkpoint("getCitiesEmbeddingsByCategories completed");
 
-      if (allLiked.length > 0) {
-        console.log("\n📍 Liste des villes likées:");
-        allLiked.forEach((cityId, index) => {
-          console.log(
-            `  ${index + 1}. Ville ID: ${cityId}`,
-          );
+      console.log(
+        `\n✅ ${citiesEmbeddings.length} villes trouvées avec embeddings`,
+      );
+
+      if (citiesEmbeddings.length > 0) {
+        console.log("\n📊 Aperçu des 5 premières villes:");
+        citiesEmbeddings.slice(0, 5).forEach((city, index) => {
+          console.log(`  ${index + 1}. ${city.name} (ID: ${city.id})`);
         });
-        await perfMonitor.checkpoint('Listed all liked places');
-      } else {
-        console.log("⚠️ Aucune place likée trouvée dans la base de données.");
-        await perfMonitor.checkpoint('No liked places found');
       }
-
-      console.log("\n\n🧪 === TEST RECOMMENDATIONS FROM LIKED PLACES ===");
-      await perfMonitor.checkpoint('Starting recommendation algorithm');
-
-      const recommendations =
-        await CityActivityService.getRecommendationsFromLikedPlaces();
-      await perfMonitor.checkpoint('Algorithm completed - recommendations fetched');
-
-      console.log("\n✅ Recommandations récupérées:");
-      await perfMonitor.checkpoint('Parsed recommendations JSON');
-
-      // Afficher les détails par ville
-      if (Object.keys(recommendations).length > 0) {
-        Object.entries(recommendations).forEach(([cityId, places]) => {
-          console.log(
-            `\n🏙️ Ville ID ${cityId}: ${places.length} places recommandées`,
-          );
-          places.forEach((place, index) => {
-            console.log(`  ${index + 1}. ${place.name} (Thème: ${place.theme})`);
-          });
-        });
-        await perfMonitor.checkpoint('Displayed all recommendation details');
-      } else {
-        console.log(
-          "⚠️ Aucune recommandation trouvée. Vérifiez qu'il y a des places likées dans la base.",
-        );
-        await perfMonitor.checkpoint('No recommendations found');
-      }
-      
-      await perfMonitor.checkpoint('Completed recommendations');
-      await perfMonitor.stopMonitoring('Algorithm Test');
     } catch (error) {
       console.error("❌ Erreur test recommendations:", error.message);
       console.error(error);
-      await perfMonitor.stopMonitoring('Algorithm Test - ERROR');
+      await perfMonitor.stopMonitoring("Algorithm Test - ERROR");
     }
   };
 
