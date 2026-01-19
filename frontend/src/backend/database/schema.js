@@ -63,6 +63,11 @@ const createCitiesTable = () => ({
       country_id INTEGER,
       embedding BLOB,
       description TEXT,
+      isNature INTEGER,
+      ishistoire INTEGER,
+      isgastronomie INTEGER,
+      isshopping INTEGER,
+      isdivertissement INTEGER,
       FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE CASCADE
     );
   `,

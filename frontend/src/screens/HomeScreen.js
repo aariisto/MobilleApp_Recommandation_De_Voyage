@@ -25,6 +25,7 @@ import ThemeFilterService from '../backend/services/ThemeFilterService';
 import PlaceLikedRepository from '../backend/repositories/PlaceLikedRepository';
 import CityActivityService from '../backend/services/CityActivityService';
 import CityRepository from '../backend/repositories/CityRepository';
+import { PerformanceMonitor } from '../utils/PerformanceMonitor';
 
 import cityImages from '../data/cityImages';
 import CategoryFeedbackModal from '../components/CategoryFeedbackModal';
@@ -174,7 +175,19 @@ const HomeScreen = ({ navigation }) => {
         const likedCategories = userLikes.map((l) => l.category_name);
 
         if (likedCategories.length > 0) {
+           const perf = new PerformanceMonitor('rankCitiesWithPenalty');
+           await perf.startMonitoring('rankCitiesWithPenalty');
            const rankedCities = await rankCitiesWithPenalty(likedCategories, profile.id);
+           const report = await perf.stopMonitoring('rankCitiesWithPenalty');
+           
+           // Affiche tableau simple
+           console.table([{
+             'Function': 'rankCitiesWithPenalty',
+             'Duration (ms)': parseFloat(report.duration),
+             'Memory (MB)': parseFloat(report.memoryDelta),
+             'CPU (ms)': parseFloat(report.avgCPUTime)
+           }]);
+           
            setAllRecommendations(rankedCities);
            setRecommendations(rankedCities);
         } else {

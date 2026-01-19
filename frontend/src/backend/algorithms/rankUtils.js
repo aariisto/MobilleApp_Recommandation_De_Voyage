@@ -14,14 +14,14 @@ import { generateUserQueryFromUserId } from "./userQuery.js";
 export async function rankCitiesWithPenalty(
   userCategories,
   userId,
-  limit = 10
+  limit = 10,
 ) {
   try {
     Logger.debug("Classement des villes avec pénalité...");
 
     // Générer la requête à partir des catégories et de l'utilisateur
     Logger.debug(
-      `Génération de la requête pour userId=${userId} avec ${userCategories.length} catégories...`
+      `Génération de la requête pour userId=${userId} avec ${userCategories.length} catégories...`,
     );
     const userQuery = await generateUserQueryFromUserId(userId, userCategories);
     Logger.debug(`Requête générée: "${userQuery}"`);
@@ -30,7 +30,8 @@ export async function rankCitiesWithPenalty(
     const userEmbedding = await InferenceService.generateEmbedding(userQuery);
     Logger.debug(`Embedding généré (${userEmbedding.length} dimensions)`);
 
-    const cities = await CityRepository.getAllCityEmbeddings();
+    const cities =
+      await CityRepository.getCitiesEmbeddingsByCategories(userCategories);
     Logger.debug(`${cities.length} villes récupérées`);
 
     // Calcul similarité + pénalité pour chaque ville
@@ -47,7 +48,7 @@ export async function rankCitiesWithPenalty(
           penalty: penalty,
           score: score,
         };
-      })
+      }),
     );
 
     // Tri par score décroissant
@@ -59,10 +60,10 @@ export async function rankCitiesWithPenalty(
     topN.forEach((city, index) => {
       Logger.debug(
         `  ${index + 1}. ${city.name} - Score: ${city.score.toFixed(
-          4
+          4,
         )} (sim: ${city.similarity.toFixed(4)} - pen: ${city.penalty.toFixed(
-          4
-        )})`
+          4,
+        )})`,
       );
     });
 
