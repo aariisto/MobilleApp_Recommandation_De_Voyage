@@ -309,10 +309,8 @@ class ThemeFilterService {
     }
 
     return result;
-   * Calcule les statistiques des thèmes pour une liste de villes
-   * @param {Array<number>} cityIds - Liste des IDs des villes
-   * @returns {Promise<Array<{name: string, population: number, color: string, legendFontColor: string, legendFontSize: number}>>}
-   */
+  }
+
   async calculateThemeStatistics(cityIds) {
     const themeCounts = {
       Nature: 0,
