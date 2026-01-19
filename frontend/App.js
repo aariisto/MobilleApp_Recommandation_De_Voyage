@@ -4,6 +4,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 // Imports de la nouvelle interface (Navigation)
 import AppNavigator from "./src/navigation/AppNavigator";
+import { perfMonitor } from "./src/utils/PerformanceMonitor";
 
 // Vos imports Backend existants
 import CityRepository from "./src/backend/repositories/CityRepository.js";
@@ -32,11 +33,15 @@ export default function App() {
   // TEST DU NOUVEL ALGORITHME (Logique Python Pure: embedding_likes - embedding_dislikes + pénalités)
   const testNewAlgorithm = async () => {
     try {
+      await perfMonitor.startMonitoring('Algorithm Test');
+      
       console.log("\n\n🧪 === PRÉPARATION DONNÉES TEST ===");
+      await perfMonitor.checkpoint('Starting data preparation');
       
       // 1. Récupérer des places d'Istanbul (ID 11) pour le test
       // On suppose que l'ID 11 est Istanbul comme mentionné
       const istanbulPlaces = await PlaceRepository.getPlacesByCity(11);
+      await perfMonitor.checkpoint('Fetched Istanbul places');
       
       if (istanbulPlaces && istanbulPlaces.length > 0) {
         // On prend la première place trouvée
@@ -44,10 +49,11 @@ export default function App() {
         console.log(`📍 Tentative d'ajout d'un like pour : ${placeToLike.name} (Ville ID: ${placeToLike.city_id}, Place ID: ${placeToLike.id})`);
         
         // Vérifier si déjà liké pour éviter erreur de contrainte UNIQUE
-        const existingLikeCount = await PlaceLikedRepository.countLikesForPlace(placeToLike.id);
+        const existingLikeCount = await PlaceLikedRepository.countLikesForCity(placeToLike.city_id);
+        await perfMonitor.checkpoint('Checked place likes');
         
         if (existingLikeCount === 0) {
-             await PlaceLikedRepository.addPlaceLiked(placeToLike.id);
+             await PlaceLikedRepository.addPlaceLiked(placeToLike.city_id);
              console.log("✅ Like ajouté avec succès !");
         } else {
              console.log("ℹ️ Cette place est déjà likée (pas d'ajout nécessaire).");
@@ -57,48 +63,60 @@ export default function App() {
       }
 
       console.log("\n\n🧪 === TEST GET ALL PLACES LIKED ===");
+      await perfMonitor.checkpoint('Testing liked places retrieval');
 
       const allLiked = await PlaceLikedRepository.getAllPlacesLiked();
+      await perfMonitor.checkpoint('Retrieved all liked places');
 
       console.log(`\n✅ Total de places likées: ${allLiked.length}`);
 
       if (allLiked.length > 0) {
-        console.log("\n📍 Liste des places likées:");
-        allLiked.forEach((liked, index) => {
+        console.log("\n📍 Liste des villes likées:");
+        allLiked.forEach((cityId, index) => {
           console.log(
-            `  ${index + 1}. Place ID: ${liked.id_places}, Created: ${liked.created_at}`,
+            `  ${index + 1}. Ville ID: ${cityId}`,
           );
         });
+        await perfMonitor.checkpoint('Listed all liked places');
       } else {
         console.log("⚠️ Aucune place likée trouvée dans la base de données.");
+        await perfMonitor.checkpoint('No liked places found');
       }
 
       console.log("\n\n🧪 === TEST RECOMMENDATIONS FROM LIKED PLACES ===");
+      await perfMonitor.checkpoint('Starting recommendation algorithm');
 
       const recommendations =
         await CityActivityService.getRecommendationsFromLikedPlaces();
+      await perfMonitor.checkpoint('Algorithm completed - recommendations fetched');
 
       console.log("\n✅ Recommandations récupérées:");
-      console.log(JSON.stringify(recommendations, null, 2));
+      await perfMonitor.checkpoint('Parsed recommendations JSON');
 
       // Afficher les détails par ville
-      Object.entries(recommendations).forEach(([cityId, places]) => {
-        console.log(
-          `\n🏙️ Ville ID ${cityId}: ${places.length} places recommandées`,
-        );
-        places.forEach((place, index) => {
-          console.log(`  ${index + 1}. ${place.name} (Thème: ${place.theme})`);
+      if (Object.keys(recommendations).length > 0) {
+        Object.entries(recommendations).forEach(([cityId, places]) => {
+          console.log(
+            `\n🏙️ Ville ID ${cityId}: ${places.length} places recommandées`,
+          );
+          places.forEach((place, index) => {
+            console.log(`  ${index + 1}. ${place.name} (Thème: ${place.theme})`);
+          });
         });
-      });
-
-      if (Object.keys(recommendations).length === 0) {
+        await perfMonitor.checkpoint('Displayed all recommendation details');
+      } else {
         console.log(
           "⚠️ Aucune recommandation trouvée. Vérifiez qu'il y a des places likées dans la base.",
         );
+        await perfMonitor.checkpoint('No recommendations found');
       }
+      
+      await perfMonitor.checkpoint('Completed recommendations');
+      await perfMonitor.stopMonitoring('Algorithm Test');
     } catch (error) {
       console.error("❌ Erreur test recommendations:", error.message);
       console.error(error);
+      await perfMonitor.stopMonitoring('Algorithm Test - ERROR');
     }
   };
 

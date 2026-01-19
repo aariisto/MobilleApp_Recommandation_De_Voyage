@@ -8,9 +8,8 @@
   },
   "dependencies": {
     "better-sqlite3": "^9.2.2",
-    "pg": "^8.11.3",
-    "react-dom": "19.1.0",
-    "react-native-web": "^0.21.0"
+    "pg": "^8.11.3"
+   
   },
   "devDependencies": {
     "dotenv": "^16.3.1"
