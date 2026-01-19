@@ -1,8 +1,9 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme as NavigationDefaultTheme, DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '../context/ThemeContext';
 
 import LoadingScreen from '../screens/LoadingScreen';
 import RegisterScreen from '../screens/Auth/RegisterScreen';
@@ -29,12 +30,20 @@ function ProfileStackNavigator() {
 }
 
 function BottomTabs() {
+  const { theme } = useTheme();
+  
   return (
     <Tab.Navigator 
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarStyle: { height: 60, paddingBottom: 10 },
-        tabBarActiveTintColor: '#007AFF',
+        tabBarStyle: { 
+          height: 60, 
+          paddingBottom: 10,
+          backgroundColor: theme.card,
+          borderTopColor: theme.border,
+        },
+        tabBarActiveTintColor: theme.primary,
+        tabBarInactiveTintColor: theme.textSecondary,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           if (route.name === 'Accueil') iconName = focused ? 'home' : 'home-outline';
@@ -56,8 +65,23 @@ function BottomTabs() {
 }
 
 export default function AppNavigator() {
+  const { theme, isDark } = useTheme();
+  
+  const navigationTheme = {
+    ...(isDark ? NavigationDarkTheme : NavigationDefaultTheme),
+    colors: {
+      ...(isDark ? NavigationDarkTheme.colors : NavigationDefaultTheme.colors),
+      primary: theme.primary,
+      background: theme.background,
+      card: theme.card,
+      text: theme.text,
+      border: theme.border,
+      notification: theme.primary,
+    },
+  };
+  
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator 
         initialRouteName="Loading"
         screenOptions={{ headerShown: false }}

@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '../context/ThemeContext';
 import cityImages from '../data/cityImages';
 import flightPricesData from '../data/flightPrices.json'; 
 
@@ -16,6 +17,7 @@ import PlaceLikedRepository from '../backend/repositories/PlaceLikedRepository';
 const { height } = Dimensions.get('window');
 
 const DetailsScreen = ({ route, navigation }) => {
+  const { theme } = useTheme();
   const { city, maxScore = 1 } = route.params;
   
   const stars = maxScore > 0 ? (city.score / maxScore) * 5 : 0;
@@ -206,7 +208,7 @@ const DetailsScreen = ({ route, navigation }) => {
       : { uri: `http://10.0.2.2:5001/api/travel/photos/image/search?q=${encodeURIComponent(city.name)}&size=regular` };
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View style={{ flex: 1, backgroundColor: theme.background }}>
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}>
         {/* Image en tête */}
         <View>
@@ -216,17 +218,17 @@ const DetailsScreen = ({ route, navigation }) => {
                 defaultSource={{ uri: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1' }}
             />
             <SafeAreaView style={styles.headerIcons} edges={['top']}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconBtn}>
-                    <Ionicons name="arrow-back" size={20} color="black" />
+                <TouchableOpacity onPress={() => navigation.goBack()} style={[styles.iconBtn, { backgroundColor: theme.card }]}>
+                    <Ionicons name="arrow-back" size={20} color={theme.text} />
                 </TouchableOpacity>
                 
                 <View style={{flexDirection:'row'}}>
                     
-                    <TouchableOpacity style={styles.iconBtn} onPress={toggleLike}>
+                    <TouchableOpacity style={[styles.iconBtn, { backgroundColor: theme.card }]} onPress={toggleLike}>
                          <Ionicons 
                             name={isLiked ? "heart" : "heart-outline"} 
                             size={20} 
-                            color={isLiked ? "#FF3B30" : "black"} 
+                            color={isLiked ? "#FF3B30" : theme.text} 
                          />
                     </TouchableOpacity>
                 </View>
@@ -234,22 +236,22 @@ const DetailsScreen = ({ route, navigation }) => {
         </View>
 
         <View style={styles.content}>
-            <Text style={styles.title}>{city.name}</Text>
+            <Text style={[styles.title, { color: theme.text }]}>{city.name}</Text>
             <View style={styles.locationRow}>
-                <Ionicons name="location-outline" size={16} color="#007AFF" />
-                <Text style={styles.locationText}>Destination recommandée</Text>
+                <Ionicons name="location-outline" size={16} color={theme.primary} />
+                <Text style={[styles.locationText, { color: theme.textSecondary }]}>Destination recommandée</Text>
             </View>
             <View style={styles.ratingRow}>
                 {[...Array(fullStars)].map((_, i) => <Ionicons key={i} name="star" size={16} color="#FFD700" />)}
                 {hasHalfStar && <Ionicons name="star-half" size={16} color="#FFD700" />}
-                <Text style={styles.ratingText}>
+                <Text style={[styles.ratingText, { color: theme.textSecondary }]}>
                      {city.score ? `${Math.round(city.score * 100)}% Match` : 'Populaire'}
                 </Text>
             </View>
 
             <View style={styles.features}>
                 {loadingThemes ? (
-                    <ActivityIndicator size="small" color="#007AFF" />
+                    <ActivityIndicator size="small" color={theme.primary} />
                 ) : cityThemes.length > 0 ? (
                     cityThemes.map((themeObj, index) => {
                         const themeConfig = {
@@ -262,36 +264,36 @@ const DetailsScreen = ({ route, navigation }) => {
                         const config = themeConfig[themeObj.theme] || { icon: 'star', label: themeObj.theme };
                         
                         return (
-                            <View key={index} style={styles.featureItem}>
-                                <Ionicons name={config.icon} size={24} color="#007AFF"/>
-                                <Text style={styles.featureText}>{config.label}</Text>
+                            <View key={index} style={[styles.featureItem, { backgroundColor: theme.card }]}>
+                                <Ionicons name={config.icon} size={24} color={theme.primary}/>
+                                <Text style={[styles.featureText, { color: theme.text }]}>{config.label}</Text>
                             </View>
                         );
                     })
                 ) : (
                     <>
-                        <View style={styles.featureItem}><Ionicons name="time-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Culture</Text></View>
-                        <View style={styles.featureItem}><Ionicons name="restaurant-outline" size={24} color="#007AFF"/><Text style={styles.featureText}>Cuisine</Text></View>
+                        <View style={[styles.featureItem, { backgroundColor: theme.card }]}><Ionicons name="time-outline" size={24} color={theme.primary}/><Text style={[styles.featureText, { color: theme.text }]}>Culture</Text></View>
+                        <View style={[styles.featureItem, { backgroundColor: theme.card }]}><Ionicons name="restaurant-outline" size={24} color={theme.primary}/><Text style={[styles.featureText, { color: theme.text }]}>Cuisine</Text></View>
                     </>
                 )}
             </View>
 
-            <Text style={styles.sectionHeader}>Description</Text>
+            <Text style={[styles.sectionHeader, { color: theme.text }]}>Description</Text>
             {loadingDesc ? (
-                <ActivityIndicator size="small" color="#007AFF" />
+                <ActivityIndicator size="small" color={theme.primary} />
             ) : (
-                <Text style={styles.descText}>
+                <Text style={[styles.descText, { color: theme.textSecondary }]}>
                     {description}
                 </Text>
             )}
 
-            <TouchableOpacity style={styles.accordionHeader} onPress={() => setShowActivities(!showActivities)}>
+            <TouchableOpacity style={[styles.accordionHeader, { backgroundColor: theme.card }]} onPress={() => setShowActivities(!showActivities)}>
                 <View style={styles.accordionTitleContainer}>
-                    <Ionicons name="compass" size={22} color="#007AFF" />
-                    <Text style={styles.accordionTitle}>Centres d'intérêt</Text>
+                    <Ionicons name="compass" size={22} color={theme.primary} />
+                    <Text style={[styles.accordionTitle, { color: theme.text }]}>Centres d'intérêt</Text>
                 </View>
                 <View style={[styles.chevronContainer, showActivities && styles.chevronRotated]}>
-                    <Ionicons name="chevron-down" size={20} color="#007AFF" />
+                    <Ionicons name="chevron-down" size={20} color={theme.primary} />
                 </View>
             </TouchableOpacity>
             
@@ -299,11 +301,11 @@ const DetailsScreen = ({ route, navigation }) => {
                 <View style={styles.activitiesContainer}>
                     {loadingActivities ? (
                         <View style={styles.loadingContainer}>
-                            <ActivityIndicator size="large" color="#007AFF" />
-                            <Text style={styles.loadingText}>Chargement des activités...</Text>
+                            <ActivityIndicator size="large" color={theme.primary} />
+                            <Text style={[styles.loadingText, { color: theme.textSecondary }]}>Chargement des activités...</Text>
                         </View>
                     ) : (
-                        Object.entries(activities).map(([theme, items]) => {
+                        Object.entries(activities).map(([themeKey, items]) => {
                             if (items.length === 0) return null;
                             
                             const themeConfig = {
@@ -313,24 +315,37 @@ const DetailsScreen = ({ route, navigation }) => {
                                 'Shopping': { color: '#2563EB', icon: 'cart', bgColor: '#DBEAFE' },
                                 'Divertissement': { color: '#1D4ED8', icon: 'game-controller', bgColor: '#BFDBFE' }
                             };
-                            const config = themeConfig[theme] || { color: '#3B82F6', icon: 'star', bgColor: '#DBEAFE' };
+                            const config = themeConfig[themeKey] || { color: '#3B82F6', icon: 'star', bgColor: '#DBEAFE' };
                             
                             return (
-                                <View key={theme} style={[styles.activityCard, { borderLeftColor: config.color }]}>
+                                <View key={themeKey} style={[
+                                    styles.activityCard, 
+                                    { 
+                                        borderLeftColor: config.color, 
+                                        backgroundColor: theme.card,
+                                        shadowColor: theme.isDark ? '#000' : '#000',
+                                        shadowOffset: { width: 0, height: theme.isDark ? 4 : 2 },
+                                        shadowOpacity: theme.isDark ? 0.5 : 0.1,
+                                        shadowRadius: theme.isDark ? 8 : 4,
+                                        elevation: theme.isDark ? 12 : 3,
+                                        borderWidth: theme.isDark ? 1 : 0,
+                                        borderColor: theme.isDark ? 'rgba(255,255,255,0.1)' : 'transparent'
+                                    }
+                                ]}>
                                     <View style={styles.activityCardHeader}>
                                         <View style={[styles.themeIconContainer, { backgroundColor: config.bgColor }]}>
                                             <Ionicons name={config.icon} size={20} color={config.color} />
                                         </View>
-                                        <Text style={[styles.activityThemeTitle, { color: config.color }]}>{theme}</Text>
-                                        <View style={styles.themeBadge}>
-                                            <Text style={styles.themeBadgeText}>{items.length}</Text>
+                                        <Text style={[styles.activityThemeTitle, { color: config.color }]}>{themeKey}</Text>
+                                        <View style={[styles.themeBadge, { backgroundColor: theme.primaryLight }]}>
+                                            <Text style={[styles.themeBadgeText, { color: theme.primary }]}>{items.length}</Text>
                                         </View>
                                     </View>
                                     <View style={styles.activityList}>
                                         {items.map((item, idx) => (
                                             <View key={idx} style={styles.activityItem}>
-                                                <View style={styles.activityDot} />
-                                                <Text style={styles.activityName} numberOfLines={2}>{item.name}</Text>
+                                                <View style={[styles.activityDot, { backgroundColor: theme.primary }]} />
+                                                <Text style={[styles.activityName, { color: theme.text }]} numberOfLines={2}>{item.name}</Text>
                                             </View>
                                         ))}
                                     </View>
@@ -340,24 +355,24 @@ const DetailsScreen = ({ route, navigation }) => {
                     )}
                     {!loadingActivities && Object.values(activities).every(arr => arr.length === 0) && (
                         <View style={styles.emptyStateContainer}>
-                            <Ionicons name="search-outline" size={48} color="#ccc" />
-                            <Text style={styles.emptyStateText}>Aucun centre d'intérêt trouvé</Text>
-                            <Text style={styles.emptyStateSubtext}>Essayez une autre ville</Text>
+                            <Ionicons name="search-outline" size={48} color={theme.textSecondary} />
+                            <Text style={[styles.emptyStateText, { color: theme.text }]}>Aucun centre d'intérêt trouvé</Text>
+                            <Text style={[styles.emptyStateSubtext, { color: theme.textSecondary }]}>Essayez une autre ville</Text>
                         </View>
                     )}
                 </View>
             )}
 
-             <View style={styles.accordionHeader}>
+             <View style={[styles.accordionHeader, { backgroundColor: theme.card }]}>
                 <View style={styles.accordionTitleContainer}>
-                    <Ionicons name="location" size={22} color="#007AFF" />
-                    <Text style={styles.accordionTitle}>Localisation</Text>
+                    <Ionicons name="location" size={22} color={theme.primary} />
+                    <Text style={[styles.accordionTitle, { color: theme.text }]}>Localisation</Text>
                 </View>
             </View>
             
             <View style={styles.activitiesContainer}>
                 <View style={styles.locationSection}>
-                    <View style={styles.mapContainer}>
+                    <View style={[styles.mapContainer, { borderWidth: 2, borderColor: theme.border }]}>
                     {cityCoordinates ? (
                         <WebView
                             style={styles.mapView}
@@ -393,13 +408,13 @@ const DetailsScreen = ({ route, navigation }) => {
                         />
                     ) : (
                         <View style={styles.mapPlaceholder}>
-                            <ActivityIndicator size="large" color="#3B82F6" />
-                            <Text style={styles.mapPlaceholderText}>Chargement de la carte...</Text>
+                            <ActivityIndicator size="large" color={theme.primary} />
+                            <Text style={[styles.mapPlaceholderText, { color: theme.textSecondary }]}>Chargement de la carte...</Text>
                         </View>
                     )}
                     </View>
                     <View style={styles.coordinatesContainer}>
-                        <Text style={styles.coordinatesText}>
+                        <Text style={[styles.coordinatesText, { color: theme.textSecondary }]}>
                             {cityCoordinates ? `${cityCoordinates.latitude.toFixed(4)}°, ${cityCoordinates.longitude.toFixed(4)}°` : 'Coordonnées non disponibles'}
                         </Text>
                     </View>
@@ -408,12 +423,12 @@ const DetailsScreen = ({ route, navigation }) => {
         </View>
       </ScrollView>
 
-      <View style={styles.footer}>
+      <View style={[styles.footer, { backgroundColor: theme.card, borderTopColor: theme.border }]}>
         <View>
-            <Text style={styles.price}>Explorer</Text>
-            <Text style={styles.perNight}>dès maintenant</Text>
+            <Text style={[styles.price, { color: theme.text }]}>Explorer</Text>
+            <Text style={[styles.perNight, { color: theme.textSecondary }]}>dès maintenant</Text>
         </View>
-        <TouchableOpacity style={styles.bookBtn} onPress={() => setShowFlightSearch(true)}>
+        <TouchableOpacity style={[styles.bookBtn, { backgroundColor: theme.primary }]} onPress={() => setShowFlightSearch(true)}>
             <Text style={styles.bookText}>Voir les vols</Text>
         </TouchableOpacity>
       </View>
@@ -426,32 +441,33 @@ const DetailsScreen = ({ route, navigation }) => {
         />
       )}
       
-      <Animated.View style={[styles.flightPanel, { transform: [{ translateY: slideAnim }] }]}>
+      <Animated.View style={[styles.flightPanel, { backgroundColor: theme.card, transform: [{ translateY: slideAnim }] }]}>
             <View style={styles.panelHeader}>
-                <Text style={styles.panelTitle}>Recherche de Vol</Text>
+                <Text style={[styles.panelTitle, { color: theme.text }]}>Recherche de Vol</Text>
                 <TouchableOpacity onPress={() => setShowFlightSearch(false)}>
-                    <Ionicons name="close-circle" size={28} color="#ccc" />
+                    <Ionicons name="close-circle" size={28} color={theme.textSecondary} />
                 </TouchableOpacity>
             </View>
 
             <View style={styles.inputGroup}>
-                <Text style={styles.label}>Ville de départ</Text>
+                <Text style={[styles.label, { color: theme.text }]}>Ville de départ</Text>
                 <TextInput 
-                    style={[styles.input, styles.inputDisabled]} 
+                    style={[styles.input, styles.inputDisabled, { backgroundColor: theme.background, color: theme.textSecondary, borderColor: theme.border }]} 
                     placeholder="Ex: Paris, Lyon..." 
+                    placeholderTextColor={theme.textSecondary}
                     value={originCity}
                     editable={false}
                 />
             </View>
 
             <View style={styles.inputGroup}>
-                <Text style={styles.label}>Date de départ</Text>
+                <Text style={[styles.label, { color: theme.text }]}>Date de départ</Text>
                 <TouchableOpacity 
-                    style={[styles.input, styles.datePickerButton]} 
+                    style={[styles.input, styles.datePickerButton, { backgroundColor: theme.background, borderColor: theme.border }]} 
                     onPress={() => setShowDatePicker(true)}
                 >
-                    <Ionicons name="calendar-outline" size={20} color="#007AFF" style={{marginRight: 10}} />
-                    <Text style={styles.dateText}>{flightDate.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</Text>
+                    <Ionicons name="calendar-outline" size={20} color={theme.primary} style={{marginRight: 10}} />
+                    <Text style={[styles.dateText, { color: theme.text }]}>{flightDate.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</Text>
                 </TouchableOpacity>
                 {showDatePicker && (
                     <DateTimePicker
@@ -470,13 +486,13 @@ const DetailsScreen = ({ route, navigation }) => {
             </View>
 
             <View style={styles.inputGroup}>
-                <Text style={styles.label}>Ville d'arrivée</Text>
-                <View style={[styles.input, {backgroundColor: '#f0f0f0', justifyContent:'center'}]}>
-                    <Text style={{color:'#555'}}>{city.name}</Text>
+                <Text style={[styles.label, { color: theme.text }]}>Ville d'arrivée</Text>
+                <View style={[styles.input, {backgroundColor: theme.background, borderColor: theme.border, justifyContent:'center'}]}>
+                    <Text style={{color: theme.text}}>{city.name}</Text>
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.searchBtn} onPress={fetchPrice} disabled={loadingPrice}>
+            <TouchableOpacity style={[styles.searchBtn, { backgroundColor: theme.primary }]} onPress={fetchPrice} disabled={loadingPrice}>
                 {loadingPrice ? (
                     <ActivityIndicator color="white" />
                 ) : (
@@ -485,12 +501,12 @@ const DetailsScreen = ({ route, navigation }) => {
             </TouchableOpacity>
 
             {flightPrice && (
-                <View style={styles.resultContainer}>
-                    <Text style={styles.resultLabel}>Meilleur prix trouvé :</Text>
-                    <Text style={styles.resultPrice}>
+                <View style={[styles.resultContainer, { backgroundColor: theme.primaryLight }]}>
+                    <Text style={[styles.resultLabel, { color: theme.primary }]}>Meilleur prix trouvé :</Text>
+                    <Text style={[styles.resultPrice, { color: theme.primary }]}>
                         {flightPrice.amount} {flightPrice.currency}
                     </Text>
-                    <Text style={styles.resultInfo}>Vol direct (estimé)</Text>
+                    <Text style={[styles.resultInfo, { color: theme.textSecondary }]}>Vol direct (estimé)</Text>
                 </View>
             )}
       </Animated.View>
@@ -510,7 +526,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0, right: 0, bottom: 0,
         height: height * 0.8,
-        backgroundColor: 'white',
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         padding: 20,
@@ -605,7 +620,6 @@ const styles = StyleSheet.create({
         fontSize: 14
     },
     activityCard: { 
-        backgroundColor: 'white',
         borderRadius: 16,
         padding: 16,
         marginBottom: 16,
@@ -665,7 +679,6 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     activityName: { 
-        color: '#1F2937', 
         fontSize: 15,
         lineHeight: 20,
         flex: 1,
@@ -688,7 +701,6 @@ const styles = StyleSheet.create({
         marginTop: 4
     },
     locationSection: {
-        backgroundColor: 'white',
         borderRadius: 16,
         padding: 16,
         marginBottom: 16,
@@ -708,13 +720,10 @@ const styles = StyleSheet.create({
     locationTitle: {
         fontSize: 18,
         fontWeight: '700',
-        color: '#1a1a1a',
         marginLeft: 10
     },
     mapContainer: {
         borderRadius: 12,
-        borderWidth: 2,
-        borderColor: '#3B82F6',
         overflow: 'hidden'
     },
     mapView: {

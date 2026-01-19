@@ -2,10 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '../context/ThemeContext';
 
 const ExploreScreen = ({ navigation }) => {
+  const { theme } = useTheme();
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.content}>
         
         {/* Cercle décoratif d'arrière-plan */}
@@ -14,9 +17,9 @@ const ExploreScreen = ({ navigation }) => {
             <Ionicons name="map-outline" size={80} color="#004aad" />
         </View>
 
-        <Text style={styles.title}>Exploration en cours...</Text>
+        <Text style={[styles.title, { color: theme.text }]}>Exploration en cours...</Text>
         
-        <Text style={styles.description}>
+        <Text style={[styles.description, { color: theme.textSecondary }]}>
           Nous construisons une toute nouvelle façon de découvrir le monde. 
           Préparez vos valises, cette fonctionnalité arrive très bientôt !
         </Text>

@@ -2,11 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Animated, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '../context/ThemeContext';
 import UserRepository from '../backend/repositories/UserRepository';
 
 const { width } = Dimensions.get('window');
 
 const WelcomeScreen = ({ navigation }) => {
+  const { theme } = useTheme();
   const [userName, setUserName] = useState('');
   
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -53,38 +55,38 @@ const WelcomeScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       
       {/* Bouton Retour */}
-      <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
-        <Ionicons name="arrow-back" size={24} color="#004aad" />
-        <Text style={styles.backText}>Modifier mes infos</Text>
+      <TouchableOpacity style={[styles.backButton, { backgroundColor: theme.card }]} onPress={handleGoBack}>
+        <Ionicons name="arrow-back" size={24} color={theme.primary} />
+        <Text style={[styles.backText, { color: theme.primary }]}>Modifier mes infos</Text>
       </TouchableOpacity>
 
       <Animated.View style={[styles.content, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
         
         <View style={styles.iconContainer}>
-            <View style={styles.circleBg}>
-                <Ionicons name="airplane" size={60} color="#004aad" style={styles.icon} />
+            <View style={[styles.circleBg, { backgroundColor: theme.primaryLight }]}>
+                <Ionicons name="airplane" size={60} color={theme.primary} style={styles.icon} />
             </View>
         </View>
 
-        <Text style={styles.title}>Bienvenue,</Text>
-        <Text style={styles.name}>{userName || 'Voyageur'} !</Text>
+        <Text style={[styles.title, { color: theme.text }]}>Bienvenue,</Text>
+        <Text style={[styles.name, { color: theme.text }]}>{userName || 'Voyageur'} !</Text>
 
         <View style={styles.messageContainer}>
-            <Text style={styles.message}>
+            <Text style={[styles.message, { color: theme.textSecondary }]}>
                 Nous sommes ravis de vous compter parmi nous. 🌍
             </Text>
-            <Text style={styles.subMessage}>
-                Pour vous proposer des destinations qui vous font <Text style={styles.highlight}>vraiment vibrer</Text>, nous avons besoin de mieux connaître vos goûts.
+            <Text style={[styles.subMessage, { color: theme.textSecondary }]}>
+                Pour vous proposer des destinations qui vous font <Text style={[styles.highlight, { color: theme.primary }]}>vraiment vibrer</Text>, nous avons besoin de mieux connaître vos goûts.
             </Text>
-            <Text style={styles.subMessage}>
+            <Text style={[styles.subMessage, { color: theme.textSecondary }]}>
                 Répondez à quelques questions rapides pour calibrer votre boussole de voyage.
             </Text>
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={handleStart} activeOpacity={0.8}>
+        <TouchableOpacity style={[styles.button, { backgroundColor: theme.primary }]} onPress={handleStart} activeOpacity={0.8}>
             <Text style={styles.buttonText}>Personnaliser mon expérience</Text>
             <Ionicons name="arrow-forward" size={20} color="white" style={{marginLeft: 10}} />
         </TouchableOpacity>

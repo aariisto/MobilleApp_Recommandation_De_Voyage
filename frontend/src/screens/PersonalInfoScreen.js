@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from '../context/ThemeContext';
 import UserRepository from '../backend/repositories/UserRepository';
 
 const NAME_REGEX = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,50}$/;
@@ -88,6 +89,7 @@ const isAtLeastTenYearsOld = (value) => {
 };
 
 const PersonalInfoScreen = ({ navigation }) => {
+	const { theme } = useTheme();
 	const insets = useSafeAreaInsets();
 	const [loading, setLoading] = useState(true);
 	const [saving, setSaving] = useState(false);
@@ -227,15 +229,15 @@ const PersonalInfoScreen = ({ navigation }) => {
 	};
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<View style={[styles.header, { paddingTop: insets.top + 12 }]}>
+		<SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+			<View style={[styles.header, { paddingTop: insets.top + 12, backgroundColor: theme.card, borderBottomColor: theme.border }]}>
 				<View style={styles.headerRow}>
 					<TouchableOpacity onPress={() => navigation.goBack()} disabled={saving}>
-						<Text style={[styles.headerActionText, saving && styles.headerActionDisabled]}>
+						<Text style={[styles.headerActionText, { color: theme.primary }, saving && styles.headerActionDisabled]}>
 							Annuler
 						</Text>
 					</TouchableOpacity>
-					<Text style={styles.headerTitle} numberOfLines={1}>
+					<Text style={[styles.headerTitle, { color: theme.text }]} numberOfLines={1}>
 						Informations personnelles
 					</Text>
 					<View style={styles.headerSpacer} />
@@ -244,19 +246,20 @@ const PersonalInfoScreen = ({ navigation }) => {
 
 			{loading ? (
 				<View style={styles.loadingContainer}>
-					<ActivityIndicator size="large" color="#111" />
-					<Text style={styles.loadingText}>Chargement...</Text>
+					<ActivityIndicator size="large" color={theme.primary} />
+					<Text style={[styles.loadingText, { color: theme.textSecondary }]}>Chargement...</Text>
 				</View>
 			) : (
 				<ScrollView contentContainerStyle={styles.scrollContent}>
-					<View style={styles.card}>
+					<View style={[styles.card, { backgroundColor: theme.card }]}>
 						<View style={styles.section}>
-							<Text style={styles.label}>Prénom</Text>
+							<Text style={[styles.label, { color: theme.text }]}>Prénom</Text>
 							<TextInput
-								style={styles.input}
+								style={[styles.input, { backgroundColor: theme.background, color: theme.text, borderColor: theme.border }]}
 								value={form.firstName}
 								onChangeText={(value) => updateField('firstName', value)}
 								placeholder="Prénom"
+								placeholderTextColor={theme.textSecondary}
 								autoCapitalize="words"
 								returnKeyType="next"
 								onSubmitEditing={() => lastNameRef.current?.focus()}
@@ -265,13 +268,14 @@ const PersonalInfoScreen = ({ navigation }) => {
 						</View>
 
 						<View style={styles.section}>
-							<Text style={styles.label}>Nom</Text>
+							<Text style={[styles.label, { color: theme.text }]}>Nom</Text>
 							<TextInput
 								ref={lastNameRef}
-								style={styles.input}
+								style={[styles.input, { backgroundColor: theme.background, color: theme.text, borderColor: theme.border }]}
 								value={form.lastName}
 								onChangeText={(value) => updateField('lastName', value)}
 								placeholder="Nom"
+								placeholderTextColor={theme.textSecondary}
 								autoCapitalize="words"
 								returnKeyType="next"
 								onSubmitEditing={() => countryRef.current?.focus()}
@@ -280,25 +284,27 @@ const PersonalInfoScreen = ({ navigation }) => {
 						</View>
 
 						<View style={styles.section}>
-							<Text style={styles.label}>Email</Text>
+							<Text style={[styles.label, { color: theme.text }]}>Email</Text>
 							<TextInput
-								style={[styles.input, styles.inputDisabled]}
+								style={[styles.input, styles.inputDisabled, { backgroundColor: theme.background, color: theme.textSecondary, borderColor: theme.border }]}
 								value={form.email}
 								editable={false}
 								keyboardType="email-address"
 								autoCapitalize="none"
 								placeholder="Email"
+								placeholderTextColor={theme.textSecondary}
 							/>
 						</View>
 
 						<View style={styles.section}>
-							<Text style={styles.label}>Pays</Text>
+							<Text style={[styles.label, { color: theme.text }]}>Pays</Text>
 							<TextInput
 								ref={countryRef}
-								style={styles.input}
+								style={[styles.input, { backgroundColor: theme.background, color: theme.text, borderColor: theme.border }]}
 								value={form.country}
 								onChangeText={(value) => updateField('country', value)}
 								placeholder="Pays"
+								placeholderTextColor={theme.textSecondary}
 								autoCapitalize="words"
 								returnKeyType="next"
 								onSubmitEditing={() => dateOfBirthRef.current?.focus()}
@@ -307,13 +313,14 @@ const PersonalInfoScreen = ({ navigation }) => {
 						</View>
 
 						<View style={styles.sectionNoBorder}>
-							<Text style={styles.label}>Date de naissance</Text>
+							<Text style={[styles.label, { color: theme.text }]}>Date de naissance</Text>
 							<TextInput
 								ref={dateOfBirthRef}
-								style={styles.input}
+								style={[styles.input, { backgroundColor: theme.background, color: theme.text, borderColor: theme.border }]}
 								value={form.dateOfBirth}
 								onChangeText={(value) => updateField('dateOfBirth', formatDateInput(value))}
 								placeholder="JJ/MM/AAAA"
+								placeholderTextColor={theme.textSecondary}
 								keyboardType="number-pad"
 								returnKeyType="done"
 								onSubmitEditing={handleSave}
