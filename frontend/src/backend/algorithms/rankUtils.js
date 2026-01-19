@@ -30,7 +30,7 @@ export async function rankCitiesWithPenalty(
     const userEmbedding = await InferenceService.generateEmbedding(userQuery);
     Logger.debug(`Embedding généré (${userEmbedding.length} dimensions)`);
 
-    const cities = await CityRepository.getAllCityEmbeddings();
+    const cities = await CityRepository.getCitiesEmbeddingsByCategories(userCategories);
     Logger.debug(`${cities.length} villes récupérées`);
 
     // Calcul similarité + pénalité pour chaque ville
