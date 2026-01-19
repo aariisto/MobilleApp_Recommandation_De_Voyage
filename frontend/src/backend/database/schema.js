@@ -21,7 +21,10 @@ export const initializeDatabase = async () => {
       createUserProfilesTable(),
       createUserCategoryLikesTable(),
       createUserCategoryDislikesTable(),
+<<<<<<< HEAD
       createPlaceLikedTable(),
+=======
+>>>>>>> main
     ];
 
     await dbConnection.executeTransaction(tables);
@@ -63,11 +66,14 @@ const createCitiesTable = () => ({
       country_id INTEGER,
       embedding BLOB,
       description TEXT,
+<<<<<<< HEAD
       isNature INTEGER,
       ishistoire INTEGER,
       isgastronomie INTEGER,
       isshopping INTEGER,
       isdivertissement INTEGER,
+=======
+>>>>>>> main
       FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE CASCADE
     );
   `,
@@ -211,6 +217,7 @@ const createUserCategoryDislikesTable = () => ({
 });
 
 /**
+<<<<<<< HEAD
  * Table place_liked - Stocke les villes aimées par les utilisateurs
  */
 const createPlaceLikedTable = () => ({
@@ -226,11 +233,16 @@ const createPlaceLikedTable = () => ({
 });
 
 /**
+=======
+>>>>>>> main
  * Supprime toutes les tables (utile pour reset)
  */
 export const dropAllTables = async () => {
   const dropQueries = [
+<<<<<<< HEAD
     { sql: "DROP TABLE IF EXISTS place_liked;", params: [] },
+=======
+>>>>>>> main
     { sql: "DROP TABLE IF EXISTS user_category_likes;", params: [] },
     { sql: "DROP TABLE IF EXISTS user_category_dislikes;", params: [] },
     { sql: "DROP TABLE IF EXISTS place_categories;", params: [] },

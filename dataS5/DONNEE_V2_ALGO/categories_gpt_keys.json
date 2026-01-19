@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "version": 4,
   "include_themes": {
@@ -83,3 +84,90 @@
     "fallback": "A destination offering a mix of travel experiences and local atmosphere."
   }
 }
+=======
+{
+  "version": 4,
+  "include_themes": {
+    "nature": {
+      "any_prefixes": ["natural", "beach", "island", "national_park"],
+      "leaf_extraction_prefixes": [
+        "natural",
+        "beach",
+        "island",
+        "national_park"
+      ],
+      "max_leaf_items": 3
+    },
+    "history": {
+      "any_prefixes": [
+        "heritage",
+        "tourism.sights",
+        "religion",
+        "memorial",
+        "building.historic"
+      ],
+      "sights_leaf_extraction_prefix": "tourism.sights",
+      "preferred_sights": [
+        "castle",
+        "ruines",
+        "monastery",
+        "cathedral",
+        "church",
+        "chapel",
+        "mosque",
+        "synagogue",
+        "temple",
+        "archaeological_site",
+        "fort",
+        "city_gate"
+      ],
+      "max_sights": 3
+    },
+    "gastronomy": {
+      "restaurants_prefix": "catering.restaurant",
+      "cuisines_blacklist": ["restaurant", "regional"],
+      "max_cuisines": 3,
+      "production_prefixes": ["production.winery", "production.brewery"]
+    },
+    "shopping": {
+      "any_exact": [
+        "commercial.shopping_mall",
+        "commercial.marketplace",
+        "commercial.gift_and_souvenir"
+      ]
+    },
+    "fun_sport": {
+      "any_prefixes": [
+        "ski",
+        "adult.nightclub",
+        "adult.casino",
+        "entertainment.theme_park",
+        "sport.stadium"
+      ]
+    }
+  },
+  "ignore": {
+    "roots": [
+      "administrative",
+      "office",
+      "parking",
+      "highway",
+      "education",
+      "healthcare",
+      "fee",
+      "internet_access",
+      "wheelchair",
+      "access",
+      "access_limited",
+      "man_made",
+      "building"
+    ],
+    "allowed_exceptions": ["building.historic"],
+    "notes": "Ignore supermarkets/pharmacies/etc. Only keep shopping_mall, marketplace, gift_and_souvenir. Ignore general building/man_made unless historic."
+  },
+  "sentence_rules": {
+    "style": "One concise English sentence with connected phrases; do not dump comma-separated keywords.",
+    "fallback": "A destination offering a mix of travel experiences and local atmosphere."
+  }
+}
+>>>>>>> main

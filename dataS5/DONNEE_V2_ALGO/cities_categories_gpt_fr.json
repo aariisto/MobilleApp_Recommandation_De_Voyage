@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
   {
     "id": 1,
@@ -999,4 +1000,1007 @@
     "name": "Neuquen",
     "categories_gpt": "Neuquén est une ville réputée pour ses restaurants servant une cuisine argentine et ses pizzas et ses centres commerciaux."
   }
+=======
+[
+  {
+    "id": 1,
+    "name": "Paris",
+    "categories_gpt": "Paris est une ville réputée pour son patrimoine historique, ses monuments tels que le site archéologique, le château et la cathédrale, ainsi que ses sites religieux, ses restaurants servant du poisson, de la cuisine française et italienne et ses centres commerciaux."
+  },
+  {
+    "id": 2,
+    "name": "Marseille",
+    "categories_gpt": "Marseille est une ville réputée pour ses magnifiques paysages comme ses zones protégées et son parc national, son patrimoine historique, ses monuments comme le site archéologique, le château et la cathédrale, ses sites religieux et ses restaurants servant une cuisine africaine, argentine et asiatique."
+  },
+  {
+    "id": 3,
+    "name": "Lyon",
+    "categories_gpt": "Lyon est une ville réputée pour son patrimoine historique et ses monuments emblématiques, ses restaurants servant une cuisine argentine, asiatique et chinoise, ses brasseries, ses centres commerciaux et ses marchés locaux."
+  },
+  {
+    "id": 4,
+    "name": "Toulouse",
+    "categories_gpt": "Toulouse est une ville réputée pour son patrimoine historique, ses monuments tels que le site archéologique, le château et l'église, ses sites religieux, ses restaurants servant une cuisine américaine, argentine et asiatique, ses brasseries et ses centres commerciaux."
+  },
+  {
+    "id": 5,
+    "name": "Nice",
+    "categories_gpt": "Nice est une ville réputée pour son patrimoine historique, ses restaurants servant une cuisine asiatique, européenne et de poisson, ses brasseries et ses centres commerciaux."
+  },
+  {
+    "id": 6,
+    "name": "Nantes",
+    "categories_gpt": "Nantes est une ville réputée pour son patrimoine historique et ses monuments tels que le château, le mémorial et les avions, les restaurants servant une cuisine afghane, africaine et asiatique et les centres commerciaux."
+  },
+  {
+    "id": 7,
+    "name": "Montpellier",
+    "categories_gpt": "Montpellier est une ville réputée pour ses restaurants servant une cuisine africaine, américaine et asiatique, ses brasseries et ses centres commerciaux."
+  },
+  {
+    "id": 8,
+    "name": "Bordeaux",
+    "categories_gpt": "Bordeaux est une ville réputée pour son patrimoine historique et ses monuments emblématiques, ses restaurants servant une cuisine argentine, asiatique et burger, ainsi que ses centres commerciaux."
+  },
+  {
+    "id": 9,
+    "name": "Strasbourg",
+    "categories_gpt": "Strasbourg est une ville réputée pour son patrimoine historique, ses monuments tels que la cathédrale et ses lieux de culte, ainsi que ses sites religieux et ses restaurants servant une cuisine arabe, asiatique et brésilienne et ses brasseries."
+  },
+  {
+    "id": 10,
+    "name": "Lille",
+    "categories_gpt": "Lille est une ville réputée pour son patrimoine historique et ses monuments tels que le site et la tour archéologiques, les restaurants servant une cuisine américaine, asiatique et caribéenne, les brasseries et les centres commerciaux."
+  },
+  {
+    "id": 11,
+    "name": "Madrid",
+    "categories_gpt": "Madrid est une ville réputée pour son patrimoine historique, ses monuments tels que le monastère, l'église et les lieux de culte, les sites religieux et les monuments commémoratifs, les restaurants servant une cuisine asiatique, de hamburger et de poulet, ainsi que les centres commerciaux et les marchés locaux."
+  },
+  {
+    "id": 12,
+    "name": "Barcelona",
+    "categories_gpt": "Barcelone est une ville réputée pour son patrimoine historique, ses monuments tels que le château, la cathédrale et l'église, ses sites religieux, ses restaurants servant une cuisine italienne, mexicaine et pizzeria, ses brasseries, ses centres commerciaux et ses marchés locaux."
+  },
+  {
+    "id": 13,
+    "name": "Valencia",
+    "categories_gpt": "Valence est une ville réputée pour son patrimoine historique et ses monuments emblématiques, ses restaurants servant une cuisine américaine, de hamburgers et de poisson, ainsi que ses centres commerciaux et ses marchés locaux."
+  },
+  {
+    "id": 14,
+    "name": "Seville",
+    "categories_gpt": "Séville est une ville réputée pour ses magnifiques paysages comme ses zones protégées, son patrimoine historique et ses monuments comme le site archéologique, le château et le mémorial, ainsi que ses restaurants servant une cuisine américaine, arabe et argentine."
+  },
+  {
+    "id": 15,
+    "name": "Bilbao",
+    "categories_gpt": "Bilbao est une ville réputée pour ses restaurants servant une cuisine asiatique, burger et chinoise et ses centres commerciaux."
+  },
+  {
+    "id": 16,
+    "name": "Malaga",
+    "categories_gpt": "Malaga est une ville réputée pour ses magnifiques paysages tels que ses zones protégées, son patrimoine historique, ses monuments tels que son site archéologique, son château et sa chapelle, ses sites religieux et ses monuments commémoratifs, ainsi que ses restaurants servant une cuisine argentine, asiatique et géorgienne."
+  },
+  {
+    "id": 17,
+    "name": "Zaragoza",
+    "categories_gpt": "Saragosse est une ville réputée pour ses monuments tels que le château, la cathédrale et l'église, les sites religieux et l'architecture historique, les restaurants servant des barbecues, la cuisine chinoise et indienne et les centres commerciaux."
+  },
+  {
+    "id": 18,
+    "name": "Granada",
+    "categories_gpt": "Grenade est une ville réputée pour ses magnifiques paysages comme ses zones protégées et son parc national, son patrimoine historique, ses monuments comme la cathédrale et ses lieux de culte, ses sites religieux et ses restaurants servant une cuisine américaine, de hamburgers et de poisson."
+  },
+  {
+    "id": 19,
+    "name": "Cordoba",
+    "categories_gpt": "Cordoue est une ville réputée pour ses sites archéologiques, son château et sa mosquée, ses sites religieux et son architecture historique, ses restaurants servant une cuisine américaine, burger et indienne et ses centres commerciaux."
+  },
+  {
+    "id": 20,
+    "name": "Alicante",
+    "categories_gpt": "Alicante est une ville réputée pour ses magnifiques paysages comme ses zones protégées, ses monuments comme son château et ses restaurants servant une cuisine africaine, américaine et asiatique."
+  },
+  {
+    "id": 21,
+    "name": "Rome",
+    "categories_gpt": "Rome est une ville réputée pour ses magnifiques paysages comme les zones protégées, son patrimoine historique, ses monuments comme le site archéologique, le château et l'église, les sites religieux et les restaurants servant une cuisine chinoise, italienne et persane."
+  },
+  {
+    "id": 22,
+    "name": "Milan",
+    "categories_gpt": "Milan est une ville réputée pour ses magnifiques paysages comme les zones protégées, son patrimoine historique, ses monuments comme le site archéologique, la cathédrale et l'église, les sites religieux et les restaurants servant une cuisine chinoise, de poisson et italienne."
+  },
+  {
+    "id": 23,
+    "name": "Naples",
+    "categories_gpt": "Naples est une ville réputée pour ses magnifiques paysages tels que ses zones protégées, ses monuments tels que son site archéologique, son château, son église et son architecture historique, ainsi que ses restaurants servant une cuisine américaine, asiatique et des burgers."
+  },
+  {
+    "id": 24,
+    "name": "Turin",
+    "categories_gpt": "Turin est une ville réputée pour son patrimoine historique, ses monuments tels que le château, l'église et les lieux de culte, ainsi que ses sites religieux et ses restaurants servant une cuisine africaine, américaine et chinoise."
+  },
+  {
+    "id": 25,
+    "name": "Palermo",
+    "categories_gpt": "Palerme est une ville réputée pour ses magnifiques paysages tels que les zones protégées, son patrimoine historique, ses monuments tels que le site archéologique, le château et la cathédrale, ainsi que ses sites religieux et ses restaurants servant une cuisine africaine, du poulet et du poisson."
+  },
+  {
+    "id": 26,
+    "name": "Genoa",
+    "categories_gpt": "Gênes est une ville réputée pour ses magnifiques paysages tels que les zones protégées, son patrimoine historique, ses monuments tels que le phare, le mémorial et le monument, ainsi que ses monuments commémoratifs et ses restaurants servant une cuisine asiatique, des hamburgers et une cuisine chinoise."
+  },
+  {
+    "id": 27,
+    "name": "Bologna",
+    "categories_gpt": "Bologne est une ville réputée pour ses magnifiques paysages comme ses zones protégées, ses monuments emblématiques et son architecture historique, ainsi que ses restaurants servant une cuisine africaine, arabe et chinoise."
+  },
+  {
+    "id": 28,
+    "name": "Florence",
+    "categories_gpt": "Florence is a city renowned for its historical heritage, landmarks like cathedral and places of worship, and religious sites, restaurants serving american, asian, and chinese cuisine, and shopping malls."
+  },
+  {
+    "id": 29,
+    "name": "Venice",
+    "categories_gpt": "Venise est une ville réputée pour ses monuments tels que ses églises, ses lieux de culte et ses sites religieux, ses restaurants servant une cuisine américaine, de burger et italienne, ses brasseries et ses centres commerciaux."
+  },
+  {
+    "id": 30,
+    "name": "Verona",
+    "categories_gpt": "Vérone est une ville réputée pour ses sites archéologiques, sa cathédrale et son église, ses sites religieux et son architecture historique, ses restaurants servant une cuisine américaine, argentine et burger et ses centres commerciaux."
+  },
+  {
+    "id": 31,
+    "name": "Berlin",
+    "categories_gpt": "Berlin est une ville réputée pour ses magnifiques paysages comme la plage, son patrimoine historique, ses monuments comme le château, la cathédrale et l'église, ses sites religieux et ses monuments commémoratifs, ainsi que ses restaurants servant une cuisine française, allemande et grecque."
+  },
+  {
+    "id": 32,
+    "name": "Munich",
+    "categories_gpt": "Munich est une ville réputée pour ses magnifiques paysages comme les zones protégées, son patrimoine historique, ses monuments comme le château, l'église et l'hôtel de ville, ses sites religieux, ses restaurants servant une cuisine balkanique, bavaroise et burger et ses brasseries."
+  },
+  {
+    "id": 33,
+    "name": "Hamburg",
+    "categories_gpt": "Hambourg est une ville réputée pour son patrimoine historique, ses monuments tels que l'église, l'hôtel de ville et son mémorial, ses sites religieux, ses restaurants servant une cuisine brésilienne, de hamburger et chinoise, ses brasseries et ses centres commerciaux."
+  },
+  {
+    "id": 34,
+    "name": "Cologne",
+    "categories_gpt": "Cologne est une ville réputée pour ses magnifiques paysages comme la plage, son patrimoine historique, ses monuments comme la cathédrale et ses lieux de culte, ses sites religieux et ses restaurants servant une cuisine américaine, arabe et asiatique."
+  },
+  {
+    "id": 35,
+    "name": "Frankfurt",
+    "categories_gpt": "Francfort est une ville réputée pour son patrimoine historique et ses monuments tels que l'église, les restaurants servant une cuisine asiatique, balkanique et chinoise, ainsi que les centres commerciaux et les marchés locaux."
+  },
+  {
+    "id": 36,
+    "name": "Stuttgart",
+    "categories_gpt": "Stuttgart est une ville réputée pour son patrimoine historique, ses monuments tels que le château, la chapelle et le mémorial, ainsi que ses sites religieux, ses restaurants servant des hamburgers, de la cuisine chinoise et allemande, ses établissements vinicoles et ses brasseries, ainsi que ses centres commerciaux et ses marchés locaux."
+  },
+  {
+    "id": 37,
+    "name": "Dusseldorf",
+    "categories_gpt": "Düsseldorf est une ville réputée pour son patrimoine historique et ses monuments tels que le site archéologique, les restaurants servant une cuisine africaine, asiatique et burger, les brasseries et les centres commerciaux."
+  },
+  {
+    "id": 38,
+    "name": "Leipzig",
+    "categories_gpt": "Leipzig est une ville réputée pour son patrimoine historique, ses monuments tels que l'église, l'hôtel de ville et les lieux de culte, ainsi que ses sites religieux, ses restaurants servant une cuisine américaine, asiatique et chinoise, ses brasseries et ses centres commerciaux."
+  },
+  {
+    "id": 39,
+    "name": "Dortmund",
+    "categories_gpt": "Dortmund est une ville réputée pour son patrimoine historique et ses monuments tels que la tour, les restaurants servant une cuisine asiatique, au barbecue et aux hamburgers, ainsi que les centres commerciaux."
+  },
+  {
+    "id": 40,
+    "name": "Bremen",
+    "categories_gpt": "Brême est une ville réputée pour ses magnifiques paysages comme la plage, son patrimoine historique, ses monuments comme la cathédrale, son église et son mémorial, ses sites religieux, ses restaurants servant une cuisine arabe, asiatique et balkanique et ses brasseries."
+  },
+  {
+    "id": 41,
+    "name": "Lisbon",
+    "categories_gpt": "Lisbonne est une ville réputée pour ses magnifiques paysages comme la forêt et les zones protégées, son patrimoine historique, ses monuments comme le site archéologique, le château et la chapelle, ainsi que les sites religieux et les restaurants servant une cuisine autrichienne, des hamburgers et du poulet."
+  },
+  {
+    "id": 42,
+    "name": "Porto",
+    "categories_gpt": "Porto est une ville réputée pour son patrimoine historique, ses monuments tels que le site archéologique, le château et la cathédrale, ainsi que ses sites religieux, ses restaurants servant des hamburgers, du poulet et de la cuisine indienne, ses brasseries, ses centres commerciaux et ses marchés locaux."
+  },
+  {
+    "id": 43,
+    "name": "Coimbra",
+    "categories_gpt": "Coimbra est une ville réputée pour ses magnifiques paysages comme la forêt, son patrimoine historique et ses restaurants servant une cuisine américaine, barbecue et brésilienne et ses brasseries."
+  },
+  {
+    "id": 44,
+    "name": "Braga",
+    "categories_gpt": "Braga est une ville réputée pour ses magnifiques paysages tels que les zones protégées, son patrimoine historique, ses monuments tels que le site archéologique, le château et la cathédrale, ainsi que ses sites religieux, ainsi que ses restaurants servant une cuisine asiatique, barbecue et brésilienne et ses brasseries."
+  },
+  {
+    "id": 45,
+    "name": "Faro",
+    "categories_gpt": "Faro est une ville réputée pour ses magnifiques paysages comme la zone protégée et la plage, son patrimoine historique et ses monuments comme le site archéologique et la porte de la ville, ainsi que ses restaurants servant une cuisine asiatique, de hamburger et chinoise."
+  },
+  {
+    "id": 46,
+    "name": "Aveiro",
+    "categories_gpt": "Aveiro est une ville réputée pour ses magnifiques paysages comme ses zones protégées et sa plage, son patrimoine historique et ses monuments comme le mémorial, le pilori et le navire, ainsi que ses restaurants servant des barbecues, des hamburgers et une cuisine chinoise."
+  },
+  {
+    "id": 47,
+    "name": "Guimaraes",
+    "categories_gpt": "Guimaraes est une ville réputée pour ses magnifiques paysages comme la zone protégée et la plage, son patrimoine historique et ses monuments comme le site archéologique, le château et le pont, ainsi que ses restaurants servant une cuisine américaine, barbecue et burger."
+  },
+  {
+    "id": 48,
+    "name": "Evora",
+    "categories_gpt": "Evora est une ville réputée pour son patrimoine historique et ses monuments tels que son château, ses restaurants servant une cuisine asiatique, brésilienne et burger, ainsi que ses centres commerciaux."
+  },
+  {
+    "id": 49,
+    "name": "Setubal",
+    "categories_gpt": "Setubal est une ville réputée pour ses magnifiques paysages comme la zone protégée et la plage, son patrimoine historique et ses monuments comme le site archéologique, le mémorial et le pilori, ainsi que ses restaurants servant une cuisine brésilienne, française et indienne."
+  },
+  {
+    "id": 50,
+    "name": "Viseu",
+    "categories_gpt": "Viseu est une ville réputée pour ses magnifiques paysages comme la forêt, son patrimoine historique et ses monuments comme la porte de la ville, le pont et le mémorial, ainsi que ses restaurants servant des hamburgers, du poulet et une cuisine française."
+  },
+  {
+    "id": 51,
+    "name": "London",
+    "categories_gpt": "Londres est une ville réputée pour son patrimoine historique, ses monuments tels que le château, l'église et les lieux de culte, les sites religieux, les monuments commémoratifs et les restaurants servant une cuisine vietnamienne."
+  },
+  {
+    "id": 52,
+    "name": "Manchester",
+    "categories_gpt": "Manchester est une ville réputée pour ses monuments emblématiques et son architecture historique, ses restaurants servant une cuisine asiatique, chinoise et internationale et ses centres commerciaux."
+  },
+  {
+    "id": 53,
+    "name": "Birmingham",
+    "categories_gpt": "Birmingham est une ville réputée pour son patrimoine historique, ses monuments emblématiques et ses restaurants servant une cuisine américaine, asiatique et chinoise."
+  },
+  {
+    "id": 54,
+    "name": "Liverpool",
+    "categories_gpt": "Liverpool est une ville réputée pour ses monuments tels que son château et son architecture historique, ses restaurants servant une cuisine brésilienne, de burger et grecque, ainsi que ses centres commerciaux."
+  },
+  {
+    "id": 55,
+    "name": "Leeds",
+    "categories_gpt": "Leeds est une ville réputée pour ses restaurants servant une cuisine chinoise, indienne et méditerranéenne et ses centres commerciaux."
+  },
+  {
+    "id": 56,
+    "name": "Bristol",
+    "categories_gpt": "Bristol est une ville réputée pour ses monuments tels que le pont, le mémorial, le navire, son architecture historique et ses restaurants servant une cuisine américaine, indienne et mexicaine."
+  },
+  {
+    "id": 57,
+    "name": "Newcastle",
+    "categories_gpt": "Newcastle est une ville réputée pour ses magnifiques paysages comme la forêt, ses zones protégées et sa plage, ses monuments comme son château et son architecture historique, ainsi que ses restaurants servant du poisson, du fish and chips et une cuisine italienne."
+  },
+  {
+    "id": 58,
+    "name": "Sheffield",
+    "categories_gpt": "Sheffield est une ville réputée pour ses monuments emblématiques et ses restaurants servant une cuisine américaine, chinoise et indienne."
+  },
+  {
+    "id": 59,
+    "name": "Glasgow",
+    "categories_gpt": "Glasgow est une ville réputée pour ses restaurants servant une cuisine indienne et thaïlandaise."
+  },
+  {
+    "id": 60,
+    "name": "Edinburgh",
+    "categories_gpt": "Édimbourg est une ville réputée pour son patrimoine historique, ses monuments comme le château, la cathédrale et l'église, ainsi que ses sites religieux, ses restaurants servant une cuisine française, ses centres commerciaux et ses boutiques de souvenirs."
+  },
+  {
+    "id": 61,
+    "name": "Amsterdam",
+    "categories_gpt": "Amsterdam est une ville réputée pour ses monuments tels que son église, son mémorial, ses lieux de culte, ses sites religieux et ses restaurants servant une cuisine chinoise et internationale."
+  },
+  {
+    "id": 62,
+    "name": "Rotterdam",
+    "categories_gpt": "Rotterdam est une ville réputée pour ses monuments tels que son mémorial, son navire, sa tour et son architecture historique, ses restaurants servant des hamburgers, de la cuisine française et indonésienne et ses parcs à thème."
+  },
+  {
+    "id": 63,
+    "name": "The Hague",
+    "categories_gpt": "La Haye est une ville réputée pour son patrimoine historique, ses monuments tels que l'église, les lieux de culte et le moulin à vent, ainsi que ses sites religieux, ses restaurants servant du poisson et de la cuisine thaïlandaise et ses centres commerciaux."
+  },
+  {
+    "id": 64,
+    "name": "Utrecht",
+    "categories_gpt": "Une destination offrant un mélange d’expériences de voyage et d’ambiance locale."
+  },
+  {
+    "id": 65,
+    "name": "Eindhoven",
+    "categories_gpt": "Eindhoven est une ville réputée pour ses restaurants servant une cuisine asiatique, chinoise et française."
+  },
+  {
+    "id": 66,
+    "name": "Tilburg",
+    "categories_gpt": "Tilburg est une ville réputée pour ses restaurants servant une cuisine asiatique et chinoise, ses brasseries et ses parcs à thème."
+  },
+  {
+    "id": 67,
+    "name": "Groningen",
+    "categories_gpt": "Groningue est une ville réputée pour ses restaurants servant une cuisine chinoise, grecque et indienne."
+  },
+  {
+    "id": 68,
+    "name": "Breda",
+    "categories_gpt": "Breda est une ville réputée pour son patrimoine historique, ses monuments tels que l'église, son mémorial et ses lieux de culte, ainsi que ses sites religieux et ses restaurants servant une cuisine italienne, japonaise et des pizzas."
+  },
+  {
+    "id": 69,
+    "name": "Nijmegen",
+    "categories_gpt": "Nimègue est une ville réputée pour ses monuments tels que son fort et son architecture historique, ses restaurants servant une cuisine chinoise, internationale et italienne et ses parcs à thème."
+  },
+  {
+    "id": 70,
+    "name": "Arnhem",
+    "categories_gpt": "Arnhem est une ville réputée pour ses magnifiques paysages comme ses zones protégées, son patrimoine historique et ses restaurants servant des grillades, des plats chinois et français."
+  },
+  {
+    "id": 71,
+    "name": "Brussels",
+    "categories_gpt": "Bruxelles est une ville réputée pour son patrimoine historique, ses monuments tels que la cathédrale et ses lieux de culte, ses sites religieux, ses restaurants servant des barbecues, de la cuisine chinoise et française et ses centres commerciaux."
+  },
+  {
+    "id": 72,
+    "name": "Antwerp",
+    "categories_gpt": "Anvers est une ville réputée pour ses magnifiques paysages comme ses zones protégées, son patrimoine historique et ses monuments comme le mémorial et le navire, ainsi que ses restaurants servant une cuisine asiatique, belge et italienne."
+  },
+  {
+    "id": 73,
+    "name": "Ghent",
+    "categories_gpt": "Gand est une ville réputée pour ses magnifiques paysages comme ses zones protégées, son patrimoine historique et ses monuments comme son château et ses ruines, ainsi que ses restaurants servant une cuisine asiatique, internationale et italienne."
+  },
+  {
+    "id": 74,
+    "name": "Bruges",
+    "categories_gpt": "Bruges est une ville réputée pour ses magnifiques paysages comme les zones protégées, son patrimoine historique, ses monuments comme le château, la porte de la ville et l'église, ses sites religieux et ses restaurants servant une cuisine asiatique, belge et italienne."
+  },
+  {
+    "id": 75,
+    "name": "Leuven",
+    "categories_gpt": "Louvain est une ville réputée pour ses restaurants servant une cuisine asiatique, des burgers et du poulet."
+  },
+  {
+    "id": 76,
+    "name": "Liege",
+    "categories_gpt": "Liège est une ville réputée pour son patrimoine historique, ses monuments emblématiques et ses restaurants servant une cuisine africaine, asiatique et belge."
+  },
+  {
+    "id": 77,
+    "name": "Namur",
+    "categories_gpt": "Namur est une ville réputée pour son patrimoine historique et ses restaurants servant une cuisine belge, française et italienne."
+  },
+  {
+    "id": 78,
+    "name": "Mons",
+    "categories_gpt": "Mons est une ville réputée pour son patrimoine historique et ses monuments tels que la tour et les restaurants servant une cuisine africaine, chinoise et française."
+  },
+  {
+    "id": 79,
+    "name": "Kortrijk",
+    "categories_gpt": "Courtrai est une ville réputée pour ses restaurants servant une cuisine asiatique, chinoise et friture et ses parcs à thème."
+  },
+  {
+    "id": 80,
+    "name": "Mechelen",
+    "categories_gpt": "Malines est une ville réputée pour son patrimoine historique et ses monuments comme le château, l'église et les restaurants servant une cuisine asiatique, belge et chinoise."
+  },
+  {
+    "id": 81,
+    "name": "Zurich",
+    "categories_gpt": "Zurich est une ville réputée pour ses restaurants servant une cuisine française, italienne et thaïlandaise et ses centres commerciaux."
+  },
+  {
+    "id": 82,
+    "name": "Geneva",
+    "categories_gpt": "Genève est une ville réputée pour ses restaurants servant une cuisine française, italienne et des pizzas."
+  },
+  {
+    "id": 83,
+    "name": "Basel",
+    "categories_gpt": "Une destination offrant un mélange d’expériences de voyage et d’ambiance locale."
+  },
+  {
+    "id": 84,
+    "name": "Bern",
+    "categories_gpt": "Berne est une ville réputée pour son patrimoine historique et ses monuments emblématiques, ses restaurants servant une cuisine orientale et ses centres commerciaux."
+  },
+  {
+    "id": 85,
+    "name": "Lausanne",
+    "categories_gpt": "Lausanne est une ville réputée pour ses restaurants servant une cuisine italienne."
+  },
+  {
+    "id": 86,
+    "name": "Lucerne",
+    "categories_gpt": "Lucerne est une ville réputée pour ses monuments tels que son mémorial, son navire et son architecture historique, ses restaurants servant une cuisine asiatique, de poisson et italienne, ainsi que ses centres commerciaux."
+  },
+  {
+    "id": 87,
+    "name": "St. Gallen",
+    "categories_gpt": "Saint-Gall est une ville réputée pour ses restaurants servant une cuisine française, internationale et italienne."
+  },
+  {
+    "id": 88,
+    "name": "Lugano",
+    "categories_gpt": "Lugano est une ville réputée pour ses restaurants servant une cuisine italienne et des pizzas, ainsi que pour ses parcs à thème et ses casinos."
+  },
+  {
+    "id": 89,
+    "name": "Biel",
+    "categories_gpt": "Bienne est une ville réputée pour ses restaurants servant une cuisine asiatique, espagnole et syrienne."
+  },
+  {
+    "id": 90,
+    "name": "Thun",
+    "categories_gpt": "Thoune est une ville réputée pour ses monuments tels que le château, l'église et les lieux de culte, les sites religieux, son architecture historique et ses restaurants servant une cuisine asiatique, chinoise et italienne."
+  },
+  {
+    "id": 91,
+    "name": "Vienna",
+    "categories_gpt": "Vienne est une ville réputée pour son patrimoine historique, ses monuments comme le château, la cathédrale et la chapelle, ainsi que ses sites religieux, ses restaurants servant une cuisine méditerranéenne et ses centres commerciaux."
+  },
+  {
+    "id": 92,
+    "name": "Graz",
+    "categories_gpt": "Graz est une ville réputée pour son patrimoine historique, ses restaurants servant une cuisine africaine, américaine et autrichienne, ses brasseries et ses centres commerciaux."
+  },
+  {
+    "id": 93,
+    "name": "Linz",
+    "categories_gpt": "Linz est une ville réputée pour ses restaurants servant une cuisine asiatique, indienne et italienne, ainsi que pour ses brasseries et ses centres commerciaux."
+  },
+  {
+    "id": 94,
+    "name": "Salzburg",
+    "categories_gpt": "Salzbourg est une ville réputée pour ses monuments tels que ses églises, ses lieux de culte et ses sites religieux, ses restaurants servant une cuisine autrichienne et méditerranéenne et ses centres commerciaux."
+  },
+  {
+    "id": 95,
+    "name": "Innsbruck",
+    "categories_gpt": "Innsbruck est une ville réputée pour ses excellents restaurants locaux et ses centres commerciaux."
+  },
+  {
+    "id": 96,
+    "name": "Klagenfurt",
+    "categories_gpt": "Klagenfurt est une ville réputée pour ses restaurants servant une cuisine internationale, italienne et des pizzas et ses centres commerciaux."
+  },
+  {
+    "id": 97,
+    "name": "Villach",
+    "categories_gpt": "Villach est une ville réputée pour ses restaurants servant une cuisine chinoise, italienne et mexicaine et ses centres commerciaux."
+  },
+  {
+    "id": 98,
+    "name": "Wels",
+    "categories_gpt": "Wels est une ville réputée pour ses restaurants servant une cuisine asiatique, chinoise et italienne, ainsi que pour ses brasseries et ses centres commerciaux."
+  },
+  {
+    "id": 99,
+    "name": "St. Pölten",
+    "categories_gpt": "St. Pölten est une ville réputée pour ses monuments tels que la synagogue et ses restaurants servant une cuisine asiatique, grecque et indienne."
+  },
+  {
+    "id": 100,
+    "name": "Dornbirn",
+    "categories_gpt": "Dornbirn est une ville réputée pour son patrimoine historique et ses monuments tels que son château, ses restaurants servant une cuisine asiatique, autrichienne et burger, ainsi que ses centres commerciaux."
+  },
+  {
+    "id": 101,
+    "name": "Athens",
+    "categories_gpt": "Athènes est une ville réputée pour ses monuments tels que son site archéologique, ses centres commerciaux et ses stades."
+  },
+  {
+    "id": 102,
+    "name": "Thessaloniki",
+    "categories_gpt": "Thessalonique est une ville réputée pour ses monuments tels que ses églises, ses lieux de culte et ses sites religieux, ses restaurants servant une cuisine grecque, méditerranéenne et pizza, ainsi que ses marchés locaux."
+  },
+  {
+    "id": 103,
+    "name": "Patras",
+    "categories_gpt": "Patras est une ville réputée pour ses magnifiques paysages comme ses zones protégées, ses monuments comme son château et ses restaurants servant une cuisine grecque, italienne et méditerranéenne et ses vignobles."
+  },
+  {
+    "id": 104,
+    "name": "Heraklion",
+    "categories_gpt": "Héraklion est une ville réputée pour ses monuments tels que son château, son architecture historique et ses restaurants servant du poisson, une cuisine grecque et méditerranéenne."
+  },
+  {
+    "id": 105,
+    "name": "Larissa",
+    "categories_gpt": "Larissa est une ville réputée pour ses monuments tels que ses ruines, son architecture historique et ses restaurants servant une cuisine grecque et italienne."
+  },
+  {
+    "id": 106,
+    "name": "Volos",
+    "categories_gpt": "Volos est une ville réputée pour ses magnifiques paysages comme la plage, ses monuments comme son site archéologique et ses excellents restaurants locaux."
+  },
+  {
+    "id": 107,
+    "name": "Rhodes",
+    "categories_gpt": "Rhodes est une ville réputée pour ses monuments tels que ses ruines et ses restaurants servant une cuisine italienne."
+  },
+  {
+    "id": 108,
+    "name": "Ioannina",
+    "categories_gpt": "Ioannina est une ville réputée pour ses magnifiques paysages comme la montagne, l'entrée de la grotte et la zone protégée, ses monuments comme le château et ses restaurants servant une cuisine grecque."
+  },
+  {
+    "id": 109,
+    "name": "Chania",
+    "categories_gpt": "La Canée est une ville réputée pour ses restaurants servant une cuisine chinoise, grecque et indienne et ses centres commerciaux."
+  },
+  {
+    "id": 110,
+    "name": "Kavala",
+    "categories_gpt": "Kavala est une ville réputée pour ses monuments tels que les lieux de culte, les sites religieux et les restaurants servant une cuisine méditerranéenne."
+  },
+  {
+    "id": 111,
+    "name": "Istanbul",
+    "categories_gpt": "Istanbul est une ville réputée pour ses monuments tels que la mosquée, les lieux de culte et la tour, les sites religieux, son architecture historique, ses centres commerciaux et ses marchés locaux."
+  },
+  {
+    "id": 112,
+    "name": "Ankara",
+    "categories_gpt": "Ankara est une ville réputée pour ses monuments emblématiques, son architecture historique et ses centres commerciaux."
+  },
+  {
+    "id": 113,
+    "name": "Izmir",
+    "categories_gpt": "Izmir est une ville réputée pour ses restaurants servant des pizzas et de la cuisine turque, ses centres commerciaux et ses parcs à thème."
+  },
+  {
+    "id": 114,
+    "name": "Antalya",
+    "categories_gpt": "Antalya est une ville réputée pour ses restaurants servant une cuisine américaine, burger et turque et ses centres commerciaux."
+  },
+  {
+    "id": 115,
+    "name": "Bursa",
+    "categories_gpt": "Bursa est une ville réputée pour ses monuments tels que la mosquée et les lieux de culte, les sites religieux et l'architecture historique, les restaurants servant du kebab et de la cuisine turque et les centres commerciaux."
+  },
+  {
+    "id": 116,
+    "name": "Konya",
+    "categories_gpt": "Konya est une ville réputée pour ses restaurants servant de la soupe et de la cuisine turque et ses centres commerciaux."
+  },
+  {
+    "id": 117,
+    "name": "Gaziantep",
+    "categories_gpt": "Gaziantep est une ville réputée pour ses magnifiques paysages comme la forêt et ses zones protégées, ses restaurants servant du kebab et de la cuisine turque et ses centres commerciaux."
+  },
+  {
+    "id": 118,
+    "name": "Adana",
+    "categories_gpt": "Adana est une ville réputée pour ses restaurants servant du poisson, des pizzas et des fruits de mer."
+  },
+  {
+    "id": 119,
+    "name": "Mersin",
+    "categories_gpt": "Mersin est une ville réputée pour ses monuments tels que son site archéologique et ses restaurants servant une cuisine japonaise, du kebab et des fruits de mer."
+  },
+  {
+    "id": 120,
+    "name": "Eskişehir",
+    "categories_gpt": "Eskişehir est une ville réputée pour ses restaurants servant une cuisine asiatique, des hamburgers et des pizzas et ses centres commerciaux."
+  },
+  {
+    "id": 121,
+    "name": "Casablanca",
+    "categories_gpt": "Casablanca est une ville réputée pour ses magnifiques paysages comme sa plage, ses restaurants servant une cuisine asiatique, chinoise et internationale et ses centres commerciaux."
+  },
+  {
+    "id": 122,
+    "name": "Rabat",
+    "categories_gpt": "Rabat est une ville réputée pour ses restaurants servant une cuisine asiatique, française et internationale et ses centres commerciaux."
+  },
+  {
+    "id": 123,
+    "name": "Marrakech",
+    "categories_gpt": "Marrakech est une ville réputée pour ses monuments tels que son château, son architecture historique et ses restaurants servant une cuisine internationale, italienne et marocaine."
+  },
+  {
+    "id": 124,
+    "name": "Fes",
+    "categories_gpt": "Fès est une ville réputée pour ses restaurants servant une cuisine africaine, chinoise et internationale."
+  },
+  {
+    "id": 125,
+    "name": "Tangier",
+    "categories_gpt": "Tanger est une ville réputée pour ses restaurants servant une cuisine arabe, française et indienne et ses centres commerciaux."
+  },
+  {
+    "id": 126,
+    "name": "Agadir",
+    "categories_gpt": "Agadir est une ville réputée pour ses magnifiques paysages comme sa zone protégée et son parc national, ses restaurants servant une cuisine marocaine et ses centres commerciaux."
+  },
+  {
+    "id": 127,
+    "name": "Meknes",
+    "categories_gpt": "Meknès est une ville réputée pour son patrimoine historique et ses monuments tels que la porte de la ville et ses restaurants servant des hamburgers, des plats marocains et des pizzas."
+  },
+  {
+    "id": 128,
+    "name": "Oujda",
+    "categories_gpt": "Oujda est une ville réputée pour ses restaurants servant une cuisine sandwich."
+  },
+  {
+    "id": 129,
+    "name": "Tetouan",
+    "categories_gpt": "Tétouan est une ville réputée pour ses monuments comme son château et ses excellents restaurants locaux."
+  },
+  {
+    "id": 130,
+    "name": "Essaouira",
+    "categories_gpt": "Une destination offrant un mélange d’expériences de voyage et d’ambiance locale."
+  },
+  {
+    "id": 131,
+    "name": "Tunis",
+    "categories_gpt": "Tunis est une ville réputée pour ses restaurants servant des burgers, une cuisine française et italienne et ses parcs à thème."
+  },
+  {
+    "id": 132,
+    "name": "Sfax",
+    "categories_gpt": "Une destination offrant un mélange d’expériences de voyage et d’ambiance locale."
+  },
+  {
+    "id": 133,
+    "name": "Sousse",
+    "categories_gpt": "Sousse est une ville réputée pour ses restaurants servant une cuisine internationale, japonaise et sushi et ses parcs à thème."
+  },
+  {
+    "id": 134,
+    "name": "Kairouan",
+    "categories_gpt": "Une destination offrant un mélange d’expériences de voyage et d’ambiance locale."
+  },
+  {
+    "id": 135,
+    "name": "Bizerte",
+    "categories_gpt": "Bizerte est une ville réputée pour ses excellents restaurants locaux."
+  },
+  {
+    "id": 136,
+    "name": "Gabes",
+    "categories_gpt": "Une destination offrant un mélange d’expériences de voyage et d’ambiance locale."
+  },
+  {
+    "id": 137,
+    "name": "Nabeul",
+    "categories_gpt": "Une destination offrant un mélange d’expériences de voyage et d’ambiance locale."
+  },
+  {
+    "id": 138,
+    "name": "Tozeur",
+    "categories_gpt": "Tozeur est une ville réputée pour ses excellents restaurants locaux et ses parcs à thème."
+  },
+  {
+    "id": 139,
+    "name": "Hammamet",
+    "categories_gpt": "Hammamet est une ville réputée pour ses restaurants servant une cuisine française, ses centres commerciaux et ses parcs à thème."
+  },
+  {
+    "id": 140,
+    "name": "Douz",
+    "categories_gpt": "Douz est une ville réputée pour ses bons restaurants locaux."
+  },
+  {
+    "id": 141,
+    "name": "Cairo",
+    "categories_gpt": "Le Caire est une ville réputée pour ses restaurants servant une cuisine américaine et ses centres commerciaux."
+  },
+  {
+    "id": 142,
+    "name": "Alexandria",
+    "categories_gpt": "Alexandrie est une ville réputée pour ses magnifiques paysages comme la plage, ses monuments comme le site archéologique et le château, ainsi que ses restaurants servant une cuisine grecque, italienne et des pizzas."
+  },
+  {
+    "id": 143,
+    "name": "Giza",
+    "categories_gpt": "Gizeh est une ville réputée pour ses restaurants servant une cuisine américaine et ses centres commerciaux."
+  },
+  {
+    "id": 144,
+    "name": "Luxor",
+    "categories_gpt": "Louxor est une ville réputée pour son patrimoine historique, ses monuments tels que son site archéologique, ses ruines et son mémorial, ainsi que ses mémoriaux et ses restaurants servant une cuisine arabe et internationale."
+  },
+  {
+    "id": 145,
+    "name": "Aswan",
+    "categories_gpt": "Assouan est une ville réputée pour ses magnifiques paysages comme l'île, ses monuments comme le site archéologique, la cathédrale et le temple, les sites religieux, son architecture historique et ses excellents restaurants locaux."
+  },
+  {
+    "id": 146,
+    "name": "Hurghada",
+    "categories_gpt": "Hurghada est une ville réputée pour ses restaurants servant une cuisine arabe et internationale et ses centres commerciaux."
+  },
+  {
+    "id": 147,
+    "name": "Sharm El Sheikh",
+    "categories_gpt": "Charm el-Cheikh est une ville réputée pour ses magnifiques paysages comme sa plage et ses excellents restaurants locaux."
+  },
+  {
+    "id": 148,
+    "name": "Port Said",
+    "categories_gpt": "Port-Saïd est une ville réputée pour ses monuments emblématiques, son architecture historique et ses restaurants servant des pizzas et des fruits de mer."
+  },
+  {
+    "id": 149,
+    "name": "Mansoura",
+    "categories_gpt": "Mansourah est une ville réputée pour ses restaurants servant une cuisine arabe et kebab et ses brasseries."
+  },
+  {
+    "id": 150,
+    "name": "Tanta",
+    "categories_gpt": "Tanta est une ville réputée pour ses excellents restaurants locaux et ses centres commerciaux."
+  },
+  {
+    "id": 151,
+    "name": "New York",
+    "categories_gpt": "New York est une ville réputée pour ses magnifiques paysages comme l'île, son patrimoine historique et ses monuments comme le pont, ainsi que ses restaurants servant une cuisine américaine et des pizzas."
+  },
+  {
+    "id": 152,
+    "name": "Los Angeles",
+    "categories_gpt": "Los Angeles est une ville réputée pour ses restaurants servant une cuisine américaine, chinoise et japonaise et ses centres commerciaux."
+  },
+  {
+    "id": 153,
+    "name": "Chicago",
+    "categories_gpt": "Chicago est une ville réputée pour ses monuments comme sa tour et ses restaurants servant une cuisine américaine, allemande et grecque."
+  },
+  {
+    "id": 154,
+    "name": "Houston",
+    "categories_gpt": "Houston est une ville réputée pour ses restaurants servant une cuisine américaine, chinoise et grecque et ses centres commerciaux."
+  },
+  {
+    "id": 155,
+    "name": "Phoenix",
+    "categories_gpt": "Phoenix est une ville réputée pour ses magnifiques paysages comme ses zones protégées, ses restaurants servant une cuisine américaine, française et italienne et ses parcs à thème."
+  },
+  {
+    "id": 156,
+    "name": "San Diego",
+    "categories_gpt": "San Diego est une ville réputée pour son patrimoine historique et ses monuments tels que le mémorial, le navire, les restaurants servant une cuisine américaine, asiatique et chinoise et les brasseries."
+  },
+  {
+    "id": 157,
+    "name": "Dallas",
+    "categories_gpt": "Dallas est une ville réputée pour ses restaurants servant une cuisine américaine, barbecue et mexicaine."
+  },
+  {
+    "id": 158,
+    "name": "San Francisco",
+    "categories_gpt": "San Francisco est une ville réputée pour son patrimoine historique et ses monuments tels que le fort, le mémorial et le navire, ses restaurants servant une cuisine américaine, italienne et mexicaine et ses parcs à thème."
+  },
+  {
+    "id": 159,
+    "name": "Boston",
+    "categories_gpt": "Boston est une ville réputée pour ses magnifiques paysages comme ses zones protégées, son patrimoine historique et ses monuments emblématiques, ainsi que ses restaurants servant une cuisine américaine, asiatique et chinoise."
+  },
+  {
+    "id": 160,
+    "name": "Miami",
+    "categories_gpt": "Miami est une ville réputée pour son patrimoine historique, ses monuments emblématiques et ses restaurants servant une cuisine américaine."
+  },
+  {
+    "id": 161,
+    "name": "Toronto",
+    "categories_gpt": "Toronto est une ville réputée pour ses magnifiques paysages comme la plage, ses monuments comme la tour et l'architecture historique, ainsi que ses restaurants servant une cuisine italienne et steak house et ses brasseries."
+  },
+  {
+    "id": 162,
+    "name": "Vancouver",
+    "categories_gpt": "Vancouver est une ville réputée pour ses restaurants servant une cuisine japonaise, marocaine et steak house et ses centres commerciaux."
+  },
+  {
+    "id": 163,
+    "name": "Montreal",
+    "categories_gpt": "Montréal est une ville réputée pour ses monuments tels que son château, son église et ses lieux de culte, ses sites religieux et son architecture historique, ses restaurants servant une cuisine indienne et ses centres commerciaux."
+  },
+  {
+    "id": 164,
+    "name": "Calgary",
+    "categories_gpt": "Calgary est une ville réputée pour ses restaurants servant une cuisine chinoise, grecque et italienne et ses centres commerciaux."
+  },
+  {
+    "id": 165,
+    "name": "Ottawa",
+    "categories_gpt": "Ottawa est une ville réputée pour son patrimoine historique et ses monuments emblématiques, ses restaurants servant du barbecue, du poulet et de la cuisine grecque, ainsi que ses centres commerciaux."
+  },
+  {
+    "id": 166,
+    "name": "Edmonton",
+    "categories_gpt": "Edmonton est une ville réputée pour ses monuments emblématiques et son architecture historique, ses restaurants servant des grillades, de la cuisine indienne et italienne et ses centres commerciaux."
+  },
+  {
+    "id": 167,
+    "name": "Winnipeg",
+    "categories_gpt": "Winnipeg est une ville réputée pour ses restaurants servant une cuisine internationale, italienne et japonaise, ses brasseries, ses centres commerciaux et ses boutiques de souvenirs."
+  },
+  {
+    "id": 168,
+    "name": "Quebec City",
+    "categories_gpt": "La ville de Québec est une ville réputée pour ses magnifiques paysages comme ses zones protégées, ses monuments emblématiques et ses restaurants servant une cuisine asiatique, burger et chinoise."
+  },
+  {
+    "id": 169,
+    "name": "Halifax",
+    "categories_gpt": "Halifax est une ville réputée pour son patrimoine historique et ses monuments tels que son château et ses restaurants servant une cuisine chinoise, méditerranéenne et des pizzas."
+  },
+  {
+    "id": 170,
+    "name": "Victoria",
+    "categories_gpt": "Victoria est une ville réputée pour ses monuments tels que la synagogue et les lieux de culte, les sites religieux et l'architecture historique, les restaurants servant une cuisine asiatique et vietnamienne et les centres commerciaux."
+  },
+  {
+    "id": 171,
+    "name": "Mexico City",
+    "categories_gpt": "La ville de Mexico est une ville réputée pour son patrimoine historique et ses monuments tels que son église, ses excellents restaurants locaux et ses marchés locaux."
+  },
+  {
+    "id": 172,
+    "name": "Guadalajara",
+    "categories_gpt": "Guadalajara est une ville réputée pour son patrimoine historique, ses restaurants servant une cuisine argentine, à base de poisson et japonaise, ainsi que ses centres commerciaux."
+  },
+  {
+    "id": 173,
+    "name": "Monterrey",
+    "categories_gpt": "Monterrey est une ville réputée pour ses restaurants servant une cuisine de poisson et de fruits de mer."
+  },
+  {
+    "id": 174,
+    "name": "Puebla",
+    "categories_gpt": "Puebla est une ville réputée pour ses restaurants servant une cuisine américaine, mexicaine et pizzeria et ses centres commerciaux."
+  },
+  {
+    "id": 175,
+    "name": "Cancun",
+    "categories_gpt": "Cancún est une ville réputée pour ses restaurants servant des plats de burger, japonais et mexicains."
+  },
+  {
+    "id": 176,
+    "name": "Tijuana",
+    "categories_gpt": "Tijuana est une ville réputée pour ses restaurants servant une cuisine chinoise, italienne et mexicaine et ses centres commerciaux."
+  },
+  {
+    "id": 177,
+    "name": "Leon",
+    "categories_gpt": "Leon est une ville réputée pour ses restaurants servant une cuisine argentine, burger et mexicaine et ses centres commerciaux."
+  },
+  {
+    "id": 178,
+    "name": "Merida",
+    "categories_gpt": "Mérida est une ville réputée pour ses magnifiques paysages comme ses zones protégées, ses restaurants servant une cuisine brésilienne, française et italienne et ses centres commerciaux."
+  },
+  {
+    "id": 179,
+    "name": "Toluca",
+    "categories_gpt": "Toluca est une ville réputée pour ses restaurants servant des tacos et ses centres commerciaux."
+  },
+  {
+    "id": 180,
+    "name": "Acapulco",
+    "categories_gpt": "Acapulco est une ville réputée pour ses magnifiques paysages comme sa zone protégée, sa plage et son île, ses monuments commémoratifs et ses restaurants servant une cuisine mexicaine et des fruits de mer."
+  },
+  {
+    "id": 181,
+    "name": "São Paulo",
+    "categories_gpt": "São Paulo est une ville réputée pour ses monuments tels que la cathédrale et les lieux de culte, les sites religieux et l'architecture historique, les excellents restaurants locaux, les centres commerciaux et les marchés locaux."
+  },
+  {
+    "id": 182,
+    "name": "Rio de Janeiro",
+    "categories_gpt": "Rio de Janeiro est une ville réputée pour ses monuments tels que la cathédrale, l'église et le mémorial, les sites religieux et l'architecture historique, les restaurants servant une cuisine française et les centres commerciaux."
+  },
+  {
+    "id": 183,
+    "name": "Brasilia",
+    "categories_gpt": "Brasilia est une ville réputée pour ses magnifiques paysages comme la forêt, ses monuments comme les églises et les lieux de culte et les sites religieux, ainsi que ses restaurants servant une cuisine argentine, barbecue et chinoise."
+  },
+  {
+    "id": 184,
+    "name": "Salvador",
+    "categories_gpt": "Salvador est une ville réputée pour ses monuments tels que son fort et son architecture historique, ses restaurants servant des hamburgers, une cuisine internationale et italienne et ses centres commerciaux."
+  },
+  {
+    "id": 185,
+    "name": "Fortaleza",
+    "categories_gpt": "Fortaleza est une ville réputée pour ses restaurants servant une cuisine barbecue, brésilienne et burger et ses centres commerciaux."
+  },
+  {
+    "id": 186,
+    "name": "Recife",
+    "categories_gpt": "Recife est une ville réputée pour ses monuments tels que ses églises, ses lieux de culte et ses sites religieux, ses restaurants servant une cuisine brésilienne et ses centres commerciaux."
+  },
+  {
+    "id": 187,
+    "name": "Curitiba",
+    "categories_gpt": "Curitiba est une ville réputée pour ses monuments tels que le château et le centre de conférence et son architecture historique, ses restaurants servant une cuisine argentine, barbecue et italienne, ainsi que ses centres commerciaux."
+  },
+  {
+    "id": 188,
+    "name": "Manaus",
+    "categories_gpt": "Manaus est une ville réputée pour ses restaurants servant une cuisine brésilienne et burger et ses centres commerciaux."
+  },
+  {
+    "id": 189,
+    "name": "Belem",
+    "categories_gpt": "Belem est une ville réputée pour ses magnifiques paysages comme ses zones protégées, son patrimoine historique et ses monuments comme le phare et ses restaurants servant des hamburgers, des sandwichs et des steak house."
+  },
+  {
+    "id": 190,
+    "name": "Porto Alegre",
+    "categories_gpt": "Porto Alegre est une ville réputée pour son patrimoine historique, ses restaurants servant une cuisine japonaise et des pizzas et ses centres commerciaux."
+  },
+  {
+    "id": 191,
+    "name": "Buenos Aires",
+    "categories_gpt": "Buenos Aires est une ville réputée pour son patrimoine historique, ses monuments tels que son mémorial, son navire et ses lieux de culte, ainsi que ses sites religieux et ses centres commerciaux."
+  },
+  {
+    "id": 192,
+    "name": "Cordoba",
+    "categories_gpt": "Cordoue est une ville réputée pour ses restaurants servant une cuisine argentine, des pizzas et des sushis et ses centres commerciaux."
+  },
+  {
+    "id": 193,
+    "name": "Rosario",
+    "categories_gpt": "Rosario est une ville réputée pour ses magnifiques paysages comme la zone protégée et la plage, son patrimoine historique et ses monuments comme le mémorial et le monument, ainsi que ses restaurants servant du poisson, du fish and chips et des pizzas."
+  },
+  {
+    "id": 194,
+    "name": "Mendoza",
+    "categories_gpt": "Mendoza est une ville réputée pour ses restaurants servant une cuisine argentine, indienne et sushi, ses centres commerciaux et ses parcs à thème."
+  },
+  {
+    "id": 195,
+    "name": "La Plata",
+    "categories_gpt": "La Plata est une ville réputée pour ses monuments tels que la cathédrale, le pont, l'hôtel de ville, ses sites religieux, ses restaurants servant des hamburgers et ses centres commerciaux."
+  },
+  {
+    "id": 196,
+    "name": "Mar del Plata",
+    "categories_gpt": "Mar del Plata est une ville réputée pour ses magnifiques paysages comme sa plage et ses restaurants servant des sushis."
+  },
+  {
+    "id": 197,
+    "name": "Salta",
+    "categories_gpt": "Salta est une ville réputée pour ses magnifiques paysages tels que ses zones protégées et son parc national, son patrimoine historique, ses monuments tels que les lieux de culte et les sites religieux, ainsi que ses restaurants servant des pizzas."
+  },
+  {
+    "id": 198,
+    "name": "San Miguel de Tucuman",
+    "categories_gpt": "San Miguel de Tucuman est une ville réputée pour ses monuments emblématiques, ses restaurants servant une cuisine italienne et de sushi et ses centres commerciaux."
+  },
+  {
+    "id": 199,
+    "name": "San Juan",
+    "categories_gpt": "Une destination offrant un mélange d’expériences de voyage et d’ambiance locale."
+  },
+  {
+    "id": 200,
+    "name": "Neuquen",
+    "categories_gpt": "Neuquén est une ville réputée pour ses restaurants servant une cuisine argentine et ses pizzas et ses centres commerciaux."
+  }
+>>>>>>> main
 ]

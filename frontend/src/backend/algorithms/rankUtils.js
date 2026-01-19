@@ -3,6 +3,7 @@ import CityRepository from "../repositories/CityRepository.js";
 import InferenceService from "../services/InferenceService.js";
 import { Logger } from "../utils/Logger.js";
 import { calculatePenaltyForCity } from "./penaltyCalculate.js";
+<<<<<<< HEAD
 import { generateUserQueryFromUserId } from "./userQuery.js";
 
 /**
@@ -26,12 +27,26 @@ export async function rankCitiesWithPenalty(
     const userQuery = await generateUserQueryFromUserId(userId, userCategories);
     Logger.debug(`Requête générée: "${userQuery}"`);
 
+=======
+
+/**
+ * Classe les villes avec pénalité pour les dislikes
+ */
+export async function rankCitiesWithPenalty(userQuery, userId, limit = 10) {
+  try {
+    Logger.debug("Classement des villes avec pénalité...");
+
+>>>>>>> main
     // Générer l'embedding de la requête
     const userEmbedding = await InferenceService.generateEmbedding(userQuery);
     Logger.debug(`Embedding généré (${userEmbedding.length} dimensions)`);
 
+<<<<<<< HEAD
     const cities =
       await CityRepository.getCitiesEmbeddingsByCategories(userCategories);
+=======
+    const cities = await CityRepository.getAllCityEmbeddings();
+>>>>>>> main
     Logger.debug(`${cities.length} villes récupérées`);
 
     // Calcul similarité + pénalité pour chaque ville
@@ -48,7 +63,11 @@ export async function rankCitiesWithPenalty(
           penalty: penalty,
           score: score,
         };
+<<<<<<< HEAD
       }),
+=======
+      })
+>>>>>>> main
     );
 
     // Tri par score décroissant
@@ -60,10 +79,17 @@ export async function rankCitiesWithPenalty(
     topN.forEach((city, index) => {
       Logger.debug(
         `  ${index + 1}. ${city.name} - Score: ${city.score.toFixed(
+<<<<<<< HEAD
           4,
         )} (sim: ${city.similarity.toFixed(4)} - pen: ${city.penalty.toFixed(
           4,
         )})`,
+=======
+          4
+        )} (sim: ${city.similarity.toFixed(4)} - pen: ${city.penalty.toFixed(
+          4
+        )})`
+>>>>>>> main
       );
     });
 

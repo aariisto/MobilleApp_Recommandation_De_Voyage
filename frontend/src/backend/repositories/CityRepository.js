@@ -79,6 +79,7 @@ class CityRepository {
    */
   async getDescriptionById(cityId) {
     try {
+<<<<<<< HEAD
       // Utilise le fichier JSON pour les descriptions
       // (la colonne description n'existe pas dans cette version de la DB)
       if (cityDescriptions) {
@@ -89,6 +90,13 @@ class CityRepository {
       }
 
       return null;
+=======
+      const result = await dbConnection.executeSql(
+        "SELECT description FROM cities WHERE id = ?;",
+        [cityId]
+      );
+      return result.rows._array[0]?.description || null;
+>>>>>>> main
     } catch (error) {
       console.error("Error fetching city description:", error);
       throw error;

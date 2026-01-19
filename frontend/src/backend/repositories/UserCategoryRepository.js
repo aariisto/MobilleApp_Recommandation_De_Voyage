@@ -191,5 +191,9 @@ class UserCategoryRepository {
   }
 }
 
+<<<<<<< HEAD
 const userCategoryRepository = new UserCategoryRepository();
 export default userCategoryRepository;
+=======
+export default new UserCategoryRepository();
+>>>>>>> main

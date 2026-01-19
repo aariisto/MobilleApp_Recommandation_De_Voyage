@@ -71,11 +71,14 @@ function createSchema(db) {
       country_id INTEGER,
       embedding BLOB,
       description TEXT,
+<<<<<<< HEAD
       isnature INTEGER,
       ishistoire INTEGER,
       isgastronomie INTEGER ,
       isshopping INTEGER ,
       isdivertissement INTEGER,
+=======
+>>>>>>> main
       FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE CASCADE
     );
   `);
@@ -165,6 +168,7 @@ function createSchema(db) {
     );
   `);
 
+<<<<<<< HEAD
   // Table place_liked
   db.exec(`
     CREATE TABLE IF NOT EXISTS place_liked (
@@ -175,6 +179,8 @@ function createSchema(db) {
     );
   `);
 
+=======
+>>>>>>> main
   console.log("✅ Schema created");
 }
 

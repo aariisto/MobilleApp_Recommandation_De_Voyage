@@ -24,6 +24,10 @@ def create_app(config_name='default'):
     
     app.register_blueprint(main_bp, url_prefix='/api')
     app.register_blueprint(travel_bp, url_prefix='/api/travel')
+<<<<<<< HEAD
     app.register_blueprint(photo_bp, url_prefix='/api/travel/photos')
+=======
+    app.register_blueprint(photo_bp, url_prefix='/api/photos')
+>>>>>>> main
     
     return app

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
   {
     "id": 1,
@@ -999,4 +1000,1007 @@
     "name": "Neuquen",
     "categories_gpt": "A destination featuring restaurants serving argentinian and pizza cuisine and shopping malls."
   }
+=======
+[
+  {
+    "id": 1,
+    "name": "Paris",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like archaeological site, castle, and cathedral, and religious sites, restaurants serving fish, french, and italian cuisine, and shopping malls."
+  },
+  {
+    "id": 2,
+    "name": "Marseille",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area and national park, historical heritage, landmarks like archaeological site, castle, and cathedral, and religious sites, and restaurants serving african, argentinian, and asian cuisine."
+  },
+  {
+    "id": 3,
+    "name": "Lyon",
+    "categories_gpt": "A destination featuring historical heritage and iconic landmarks, restaurants serving argentinian, asian, and chinese cuisine and breweries, and shopping malls and local marketplaces."
+  },
+  {
+    "id": 4,
+    "name": "Toulouse",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like archaeological site, castle, and church, and religious sites, restaurants serving american, argentinian, and asian cuisine and breweries, and shopping malls."
+  },
+  {
+    "id": 5,
+    "name": "Nice",
+    "categories_gpt": "A destination featuring historical heritage, restaurants serving asian, european, and fish cuisine and breweries, and shopping malls."
+  },
+  {
+    "id": 6,
+    "name": "Nantes",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like castle, memorial, and aircraft, restaurants serving afghan, african, and asian cuisine, and shopping malls."
+  },
+  {
+    "id": 7,
+    "name": "Montpellier",
+    "categories_gpt": "A destination featuring restaurants serving african, american, and asian cuisine and breweries and shopping malls."
+  },
+  {
+    "id": 8,
+    "name": "Bordeaux",
+    "categories_gpt": "A destination featuring historical heritage and iconic landmarks, restaurants serving argentinian, asian, and burger cuisine, and shopping malls."
+  },
+  {
+    "id": 9,
+    "name": "Strasbourg",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like cathedral and places of worship, and religious sites and restaurants serving arab, asian, and brazilian cuisine and breweries."
+  },
+  {
+    "id": 10,
+    "name": "Lille",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like archaeological site and tower, restaurants serving american, asian, and caribbean cuisine and breweries, and shopping malls."
+  },
+  {
+    "id": 11,
+    "name": "Madrid",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like monastery, church, and places of worship, religious sites, and memorials, restaurants serving asian, burger, and chicken cuisine, and shopping malls and local marketplaces."
+  },
+  {
+    "id": 12,
+    "name": "Barcelona",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like castle, cathedral, and church, and religious sites, restaurants serving italian, mexican, and pizza cuisine and breweries, and shopping malls and local marketplaces."
+  },
+  {
+    "id": 13,
+    "name": "Valencia",
+    "categories_gpt": "A destination featuring historical heritage and iconic landmarks, restaurants serving american, burger, and fish cuisine, and shopping malls and local marketplaces."
+  },
+  {
+    "id": 14,
+    "name": "Seville",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage and landmarks like archaeological site, castle, and memorial, and restaurants serving american, arab, and argentinian cuisine."
+  },
+  {
+    "id": 15,
+    "name": "Bilbao",
+    "categories_gpt": "A destination featuring restaurants serving asian, burger, and chinese cuisine and shopping malls."
+  },
+  {
+    "id": 16,
+    "name": "Malaga",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage, landmarks like archaeological site, castle, and chapel, religious sites, and memorials, and restaurants serving argentinian, asian, and georgian cuisine."
+  },
+  {
+    "id": 17,
+    "name": "Zaragoza",
+    "categories_gpt": "A destination featuring landmarks like castle, cathedral, and church, religious sites, and historic architecture, restaurants serving barbecue, chinese, and indian cuisine, and shopping malls."
+  },
+  {
+    "id": 18,
+    "name": "Granada",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area and national park, historical heritage, landmarks like cathedral and places of worship, and religious sites, and restaurants serving american, burger, and fish cuisine."
+  },
+  {
+    "id": 19,
+    "name": "Cordoba",
+    "categories_gpt": "A destination featuring landmarks like archaeological site, castle, and mosque, religious sites, and historic architecture, restaurants serving american, burger, and indian cuisine, and shopping malls."
+  },
+  {
+    "id": 20,
+    "name": "Alicante",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, landmarks like castle, and restaurants serving african, american, and asian cuisine."
+  },
+  {
+    "id": 21,
+    "name": "Rome",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage, landmarks like archaeological site, castle, and church, and religious sites, and restaurants serving chinese, italian, and persian cuisine."
+  },
+  {
+    "id": 22,
+    "name": "Milan",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage, landmarks like archaeological site, cathedral, and church, and religious sites, and restaurants serving chinese, fish, and italian cuisine."
+  },
+  {
+    "id": 23,
+    "name": "Naples",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, landmarks like archaeological site, castle, and church and historic architecture, and restaurants serving american, asian, and burger cuisine."
+  },
+  {
+    "id": 24,
+    "name": "Turin",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like castle, church, and places of worship, and religious sites and restaurants serving african, american, and chinese cuisine."
+  },
+  {
+    "id": 25,
+    "name": "Palermo",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage, landmarks like archaeological site, castle, and cathedral, and religious sites, and restaurants serving african, chicken, and fish cuisine."
+  },
+  {
+    "id": 26,
+    "name": "Genoa",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage, landmarks like lighthouse, memorial, and monument, and memorials, and restaurants serving asian, burger, and chinese cuisine."
+  },
+  {
+    "id": 27,
+    "name": "Bologna",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, iconic landmarks and historic architecture, and restaurants serving african, arab, and chinese cuisine."
+  },
+  {
+    "id": 28,
+    "name": "Florence",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like cathedral and places of worship, and religious sites, restaurants serving american, asian, and chinese cuisine, and shopping malls."
+  },
+  {
+    "id": 29,
+    "name": "Venice",
+    "categories_gpt": "A destination featuring landmarks like church and places of worship and religious sites, restaurants serving american, burger, and italian cuisine and breweries, and shopping malls."
+  },
+  {
+    "id": 30,
+    "name": "Verona",
+    "categories_gpt": "A destination featuring landmarks like archaeological site, cathedral, and church, religious sites, and historic architecture, restaurants serving american, argentinian, and burger cuisine, and shopping malls."
+  },
+  {
+    "id": 31,
+    "name": "Berlin",
+    "categories_gpt": "A destination featuring beautiful landscapes like beach, historical heritage, landmarks like castle, cathedral, and church, religious sites, and memorials, and restaurants serving french, german, and greek cuisine."
+  },
+  {
+    "id": 32,
+    "name": "Munich",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage, landmarks like castle, church, and city hall, and religious sites, and restaurants serving balkan, bavarian, and burger cuisine and breweries."
+  },
+  {
+    "id": 33,
+    "name": "Hamburg",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like church, city hall, and memorial, and religious sites, restaurants serving brazilian, burger, and chinese cuisine and breweries, and shopping malls."
+  },
+  {
+    "id": 34,
+    "name": "Cologne",
+    "categories_gpt": "A destination featuring beautiful landscapes like beach, historical heritage, landmarks like cathedral and places of worship, and religious sites, and restaurants serving american, arab, and asian cuisine."
+  },
+  {
+    "id": 35,
+    "name": "Frankfurt",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like church, restaurants serving asian, balkan, and chinese cuisine, and shopping malls and local marketplaces."
+  },
+  {
+    "id": 36,
+    "name": "Stuttgart",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like castle, chapel, and memorial, and religious sites, restaurants serving burger, chinese, and german cuisine and wineries and breweries, and shopping malls and local marketplaces."
+  },
+  {
+    "id": 37,
+    "name": "Dusseldorf",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like archaeological site, restaurants serving african, asian, and burger cuisine and breweries, and shopping malls."
+  },
+  {
+    "id": 38,
+    "name": "Leipzig",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like church, city hall, and places of worship, and religious sites, restaurants serving american, asian, and chinese cuisine and breweries, and shopping malls."
+  },
+  {
+    "id": 39,
+    "name": "Dortmund",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like tower, restaurants serving asian, barbecue, and burger cuisine, and shopping malls."
+  },
+  {
+    "id": 40,
+    "name": "Bremen",
+    "categories_gpt": "A destination featuring beautiful landscapes like beach, historical heritage, landmarks like cathedral, church, and memorial, and religious sites, and restaurants serving arab, asian, and balkan cuisine and breweries."
+  },
+  {
+    "id": 41,
+    "name": "Lisbon",
+    "categories_gpt": "A destination featuring beautiful landscapes like forest and protected area, historical heritage, landmarks like archaeological site, castle, and chapel, and religious sites, and restaurants serving austrian, burger, and chicken cuisine."
+  },
+  {
+    "id": 42,
+    "name": "Porto",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like archaeological site, castle, and cathedral, and religious sites, restaurants serving burger, chicken, and indian cuisine and breweries, and shopping malls and local marketplaces."
+  },
+  {
+    "id": 43,
+    "name": "Coimbra",
+    "categories_gpt": "A destination featuring beautiful landscapes like forest, historical heritage, and restaurants serving american, barbecue, and brazilian cuisine and breweries."
+  },
+  {
+    "id": 44,
+    "name": "Braga",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage, landmarks like archaeological site, castle, and cathedral, and religious sites, and restaurants serving asian, barbecue, and brazilian cuisine and breweries."
+  },
+  {
+    "id": 45,
+    "name": "Faro",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area and beach, historical heritage and landmarks like archaeological site and city gate, and restaurants serving asian, burger, and chinese cuisine."
+  },
+  {
+    "id": 46,
+    "name": "Aveiro",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area and beach, historical heritage and landmarks like memorial, pillory, and ship, and restaurants serving barbecue, burger, and chinese cuisine."
+  },
+  {
+    "id": 47,
+    "name": "Guimaraes",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area and beach, historical heritage and landmarks like archaeological site, castle, and bridge, and restaurants serving american, barbecue, and burger cuisine."
+  },
+  {
+    "id": 48,
+    "name": "Evora",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like castle, restaurants serving asian, brazilian, and burger cuisine, and shopping malls."
+  },
+  {
+    "id": 49,
+    "name": "Setubal",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area and beach, historical heritage and landmarks like archaeological site, memorial, and pillory, and restaurants serving brazilian, french, and indian cuisine."
+  },
+  {
+    "id": 50,
+    "name": "Viseu",
+    "categories_gpt": "A destination featuring beautiful landscapes like forest, historical heritage and landmarks like city gate, bridge, and memorial, and restaurants serving burger, chicken, and french cuisine."
+  },
+  {
+    "id": 51,
+    "name": "London",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like castle, church, and places of worship, religious sites, and memorials and restaurants serving vietnamese cuisine."
+  },
+  {
+    "id": 52,
+    "name": "Manchester",
+    "categories_gpt": "A destination featuring iconic landmarks and historic architecture, restaurants serving asian, chinese, and international cuisine, and shopping malls."
+  },
+  {
+    "id": 53,
+    "name": "Birmingham",
+    "categories_gpt": "A destination featuring historical heritage and iconic landmarks and restaurants serving american, asian, and chinese cuisine."
+  },
+  {
+    "id": 54,
+    "name": "Liverpool",
+    "categories_gpt": "A destination featuring landmarks like castle and historic architecture, restaurants serving brazilian, burger, and greek cuisine, and shopping malls."
+  },
+  {
+    "id": 55,
+    "name": "Leeds",
+    "categories_gpt": "A destination featuring restaurants serving chinese, indian, and mediterranean cuisine and shopping malls."
+  },
+  {
+    "id": 56,
+    "name": "Bristol",
+    "categories_gpt": "A destination featuring landmarks like bridge, memorial, and ship and historic architecture and restaurants serving american, indian, and mexican cuisine."
+  },
+  {
+    "id": 57,
+    "name": "Newcastle",
+    "categories_gpt": "A destination featuring beautiful landscapes like forest, protected area, and beach, landmarks like castle and historic architecture, and restaurants serving fish, fish and chips, and italian cuisine."
+  },
+  {
+    "id": 58,
+    "name": "Sheffield",
+    "categories_gpt": "A destination featuring iconic landmarks and restaurants serving american, chinese, and indian cuisine."
+  },
+  {
+    "id": 59,
+    "name": "Glasgow",
+    "categories_gpt": "A destination featuring restaurants serving indian and thai cuisine."
+  },
+  {
+    "id": 60,
+    "name": "Edinburgh",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like castle, cathedral, and church, and religious sites, restaurants serving french cuisine, and shopping malls and souvenir shops."
+  },
+  {
+    "id": 61,
+    "name": "Amsterdam",
+    "categories_gpt": "A destination featuring landmarks like church, memorial, and places of worship and religious sites and restaurants serving chinese and international cuisine."
+  },
+  {
+    "id": 62,
+    "name": "Rotterdam",
+    "categories_gpt": "A destination featuring landmarks like memorial, ship, and tower and historic architecture, restaurants serving burger, french, and indonesian cuisine, and theme parks."
+  },
+  {
+    "id": 63,
+    "name": "The Hague",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like church, places of worship, and windmill, and religious sites, restaurants serving fish and thai cuisine, and shopping malls."
+  },
+  {
+    "id": 64,
+    "name": "Utrecht",
+    "categories_gpt": "A destination offering a mix of travel experiences and local atmosphere."
+  },
+  {
+    "id": 65,
+    "name": "Eindhoven",
+    "categories_gpt": "A destination featuring restaurants serving asian, chinese, and french cuisine."
+  },
+  {
+    "id": 66,
+    "name": "Tilburg",
+    "categories_gpt": "A destination featuring restaurants serving asian and chinese cuisine and breweries and theme parks."
+  },
+  {
+    "id": 67,
+    "name": "Groningen",
+    "categories_gpt": "A destination featuring restaurants serving chinese, greek, and indian cuisine."
+  },
+  {
+    "id": 68,
+    "name": "Breda",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like church, memorial, and places of worship, and religious sites and restaurants serving italian, japanese, and pizza cuisine."
+  },
+  {
+    "id": 69,
+    "name": "Nijmegen",
+    "categories_gpt": "A destination featuring landmarks like fort and historic architecture, restaurants serving chinese, international, and italian cuisine, and theme parks."
+  },
+  {
+    "id": 70,
+    "name": "Arnhem",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage, and restaurants serving barbecue, chinese, and french cuisine."
+  },
+  {
+    "id": 71,
+    "name": "Brussels",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like cathedral and places of worship, and religious sites, restaurants serving barbecue, chinese, and french cuisine, and shopping malls."
+  },
+  {
+    "id": 72,
+    "name": "Antwerp",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage and landmarks like memorial and ship, and restaurants serving asian, belgian, and italian cuisine."
+  },
+  {
+    "id": 73,
+    "name": "Ghent",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage and landmarks like castle and ruines, and restaurants serving asian, international, and italian cuisine."
+  },
+  {
+    "id": 74,
+    "name": "Bruges",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage, landmarks like castle, city gate, and church, and religious sites, and restaurants serving asian, belgian, and italian cuisine."
+  },
+  {
+    "id": 75,
+    "name": "Leuven",
+    "categories_gpt": "A destination featuring restaurants serving asian, burger, and chicken cuisine."
+  },
+  {
+    "id": 76,
+    "name": "Liege",
+    "categories_gpt": "A destination featuring historical heritage and iconic landmarks and restaurants serving african, asian, and belgian cuisine."
+  },
+  {
+    "id": 77,
+    "name": "Namur",
+    "categories_gpt": "A destination featuring historical heritage and restaurants serving belgian, french, and italian cuisine."
+  },
+  {
+    "id": 78,
+    "name": "Mons",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like tower and restaurants serving african, chinese, and french cuisine."
+  },
+  {
+    "id": 79,
+    "name": "Kortrijk",
+    "categories_gpt": "A destination featuring restaurants serving asian, chinese, and friture cuisine and theme parks."
+  },
+  {
+    "id": 80,
+    "name": "Mechelen",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like castle and church and restaurants serving asian, belgian, and chinese cuisine."
+  },
+  {
+    "id": 81,
+    "name": "Zurich",
+    "categories_gpt": "A destination featuring restaurants serving french, italian, and thai cuisine and shopping malls."
+  },
+  {
+    "id": 82,
+    "name": "Geneva",
+    "categories_gpt": "A destination featuring restaurants serving french, italian, and pizza cuisine."
+  },
+  {
+    "id": 83,
+    "name": "Basel",
+    "categories_gpt": "A destination offering a mix of travel experiences and local atmosphere."
+  },
+  {
+    "id": 84,
+    "name": "Bern",
+    "categories_gpt": "A destination featuring historical heritage and iconic landmarks, restaurants serving oriental cuisine, and shopping malls."
+  },
+  {
+    "id": 85,
+    "name": "Lausanne",
+    "categories_gpt": "A destination featuring restaurants serving italian cuisine."
+  },
+  {
+    "id": 86,
+    "name": "Lucerne",
+    "categories_gpt": "A destination featuring landmarks like memorial and ship and historic architecture, restaurants serving asian, fish, and italian cuisine, and shopping malls."
+  },
+  {
+    "id": 87,
+    "name": "St. Gallen",
+    "categories_gpt": "A destination featuring restaurants serving french, international, and italian cuisine."
+  },
+  {
+    "id": 88,
+    "name": "Lugano",
+    "categories_gpt": "A destination featuring restaurants serving italian and pizza cuisine and theme parks and casinos."
+  },
+  {
+    "id": 89,
+    "name": "Biel",
+    "categories_gpt": "A destination featuring restaurants serving asian, spanish, and syrian cuisine."
+  },
+  {
+    "id": 90,
+    "name": "Thun",
+    "categories_gpt": "A destination featuring landmarks like castle, church, and places of worship, religious sites, and historic architecture and restaurants serving asian, chinese, and italian cuisine."
+  },
+  {
+    "id": 91,
+    "name": "Vienna",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like castle, cathedral, and chapel, and religious sites, restaurants serving mediterranean cuisine, and shopping malls."
+  },
+  {
+    "id": 92,
+    "name": "Graz",
+    "categories_gpt": "A destination featuring historical heritage, restaurants serving african, american, and austrian cuisine and breweries, and shopping malls."
+  },
+  {
+    "id": 93,
+    "name": "Linz",
+    "categories_gpt": "A destination featuring restaurants serving asian, indian, and italian cuisine and breweries and shopping malls."
+  },
+  {
+    "id": 94,
+    "name": "Salzburg",
+    "categories_gpt": "A destination featuring landmarks like church and places of worship and religious sites, restaurants serving austrian and mediterranean cuisine, and shopping malls."
+  },
+  {
+    "id": 95,
+    "name": "Innsbruck",
+    "categories_gpt": "A destination featuring great local restaurants and shopping malls."
+  },
+  {
+    "id": 96,
+    "name": "Klagenfurt",
+    "categories_gpt": "A destination featuring restaurants serving international, italian, and pizza cuisine and shopping malls."
+  },
+  {
+    "id": 97,
+    "name": "Villach",
+    "categories_gpt": "A destination featuring restaurants serving chinese, italian, and mexican cuisine and shopping malls."
+  },
+  {
+    "id": 98,
+    "name": "Wels",
+    "categories_gpt": "A destination featuring restaurants serving asian, chinese, and italian cuisine and breweries and shopping malls."
+  },
+  {
+    "id": 99,
+    "name": "St. Pölten",
+    "categories_gpt": "A destination featuring landmarks like synagogue and restaurants serving asian, greek, and indian cuisine."
+  },
+  {
+    "id": 100,
+    "name": "Dornbirn",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like castle, restaurants serving asian, austrian, and burger cuisine, and shopping malls."
+  },
+  {
+    "id": 101,
+    "name": "Athens",
+    "categories_gpt": "A destination featuring landmarks like archaeological site, shopping malls, and stadium events."
+  },
+  {
+    "id": 102,
+    "name": "Thessaloniki",
+    "categories_gpt": "A destination featuring landmarks like church and places of worship and religious sites, restaurants serving greek, mediterranean, and pizza cuisine, and local marketplaces."
+  },
+  {
+    "id": 103,
+    "name": "Patras",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, landmarks like castle, and restaurants serving greek, italian, and mediterranean cuisine and wineries."
+  },
+  {
+    "id": 104,
+    "name": "Heraklion",
+    "categories_gpt": "A destination featuring landmarks like castle and historic architecture and restaurants serving fish, greek, and mediterranean cuisine."
+  },
+  {
+    "id": 105,
+    "name": "Larissa",
+    "categories_gpt": "A destination featuring landmarks like ruines and historic architecture and restaurants serving greek and italian cuisine."
+  },
+  {
+    "id": 106,
+    "name": "Volos",
+    "categories_gpt": "A destination featuring beautiful landscapes like beach, landmarks like archaeological site, and great local restaurants."
+  },
+  {
+    "id": 107,
+    "name": "Rhodes",
+    "categories_gpt": "A destination featuring landmarks like ruines and restaurants serving italian cuisine."
+  },
+  {
+    "id": 108,
+    "name": "Ioannina",
+    "categories_gpt": "A destination featuring beautiful landscapes like mountain, cave entrance, and protected area, landmarks like castle, and restaurants serving greek cuisine."
+  },
+  {
+    "id": 109,
+    "name": "Chania",
+    "categories_gpt": "A destination featuring restaurants serving chinese, greek, and indian cuisine and shopping malls."
+  },
+  {
+    "id": 110,
+    "name": "Kavala",
+    "categories_gpt": "A destination featuring landmarks like places of worship and religious sites and restaurants serving mediterranean cuisine."
+  },
+  {
+    "id": 111,
+    "name": "Istanbul",
+    "categories_gpt": "A destination featuring landmarks like mosque, places of worship, and tower, religious sites, and historic architecture and shopping malls and local marketplaces."
+  },
+  {
+    "id": 112,
+    "name": "Ankara",
+    "categories_gpt": "A destination featuring iconic landmarks and historic architecture and shopping malls."
+  },
+  {
+    "id": 113,
+    "name": "Izmir",
+    "categories_gpt": "A destination featuring restaurants serving pizza and turkish cuisine, shopping malls, and theme parks."
+  },
+  {
+    "id": 114,
+    "name": "Antalya",
+    "categories_gpt": "A destination featuring restaurants serving american, burger, and turkish cuisine and shopping malls."
+  },
+  {
+    "id": 115,
+    "name": "Bursa",
+    "categories_gpt": "A destination featuring landmarks like mosque and places of worship, religious sites, and historic architecture, restaurants serving kebab and turkish cuisine, and shopping malls."
+  },
+  {
+    "id": 116,
+    "name": "Konya",
+    "categories_gpt": "A destination featuring restaurants serving soup and turkish cuisine and shopping malls."
+  },
+  {
+    "id": 117,
+    "name": "Gaziantep",
+    "categories_gpt": "A destination featuring beautiful landscapes like forest and protected area, restaurants serving kebab and turkish cuisine, and shopping malls."
+  },
+  {
+    "id": 118,
+    "name": "Adana",
+    "categories_gpt": "A destination featuring restaurants serving fish, pizza, and seafood cuisine."
+  },
+  {
+    "id": 119,
+    "name": "Mersin",
+    "categories_gpt": "A destination featuring landmarks like archaeological site and restaurants serving japanese, kebab, and seafood cuisine."
+  },
+  {
+    "id": 120,
+    "name": "Eskişehir",
+    "categories_gpt": "A destination featuring restaurants serving asian, burger, and pizza cuisine and shopping malls."
+  },
+  {
+    "id": 121,
+    "name": "Casablanca",
+    "categories_gpt": "A destination featuring beautiful landscapes like beach, restaurants serving asian, chinese, and international cuisine, and shopping malls."
+  },
+  {
+    "id": 122,
+    "name": "Rabat",
+    "categories_gpt": "A destination featuring restaurants serving asian, french, and international cuisine and shopping malls."
+  },
+  {
+    "id": 123,
+    "name": "Marrakech",
+    "categories_gpt": "A destination featuring landmarks like castle and historic architecture and restaurants serving international, italian, and moroccan cuisine."
+  },
+  {
+    "id": 124,
+    "name": "Fes",
+    "categories_gpt": "A destination featuring restaurants serving african, chinese, and international cuisine."
+  },
+  {
+    "id": 125,
+    "name": "Tangier",
+    "categories_gpt": "A destination featuring restaurants serving arab, french, and indian cuisine and shopping malls."
+  },
+  {
+    "id": 126,
+    "name": "Agadir",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area and national park, restaurants serving moroccan cuisine, and shopping malls."
+  },
+  {
+    "id": 127,
+    "name": "Meknes",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like city gate and restaurants serving burger, moroccan, and pizza cuisine."
+  },
+  {
+    "id": 128,
+    "name": "Oujda",
+    "categories_gpt": "A destination featuring restaurants serving sandwich cuisine."
+  },
+  {
+    "id": 129,
+    "name": "Tetouan",
+    "categories_gpt": "A destination featuring landmarks like castle and great local restaurants."
+  },
+  {
+    "id": 130,
+    "name": "Essaouira",
+    "categories_gpt": "A destination offering a mix of travel experiences and local atmosphere."
+  },
+  {
+    "id": 131,
+    "name": "Tunis",
+    "categories_gpt": "A destination featuring restaurants serving burger, french, and italian cuisine and theme parks."
+  },
+  {
+    "id": 132,
+    "name": "Sfax",
+    "categories_gpt": "A destination offering a mix of travel experiences and local atmosphere."
+  },
+  {
+    "id": 133,
+    "name": "Sousse",
+    "categories_gpt": "A destination featuring restaurants serving international, japanese, and sushi cuisine and theme parks."
+  },
+  {
+    "id": 134,
+    "name": "Kairouan",
+    "categories_gpt": "A destination offering a mix of travel experiences and local atmosphere."
+  },
+  {
+    "id": 135,
+    "name": "Bizerte",
+    "categories_gpt": "A destination featuring great local restaurants."
+  },
+  {
+    "id": 136,
+    "name": "Gabes",
+    "categories_gpt": "A destination offering a mix of travel experiences and local atmosphere."
+  },
+  {
+    "id": 137,
+    "name": "Nabeul",
+    "categories_gpt": "A destination offering a mix of travel experiences and local atmosphere."
+  },
+  {
+    "id": 138,
+    "name": "Tozeur",
+    "categories_gpt": "A destination featuring great local restaurants and theme parks."
+  },
+  {
+    "id": 139,
+    "name": "Hammamet",
+    "categories_gpt": "A destination featuring restaurants serving french cuisine, shopping malls, and theme parks."
+  },
+  {
+    "id": 140,
+    "name": "Douz",
+    "categories_gpt": "A destination featuring great local restaurants."
+  },
+  {
+    "id": 141,
+    "name": "Cairo",
+    "categories_gpt": "A destination featuring restaurants serving american cuisine and shopping malls."
+  },
+  {
+    "id": 142,
+    "name": "Alexandria",
+    "categories_gpt": "A destination featuring beautiful landscapes like beach, landmarks like archaeological site and castle, and restaurants serving greek, italian, and pizza cuisine."
+  },
+  {
+    "id": 143,
+    "name": "Giza",
+    "categories_gpt": "A destination featuring restaurants serving american cuisine and shopping malls."
+  },
+  {
+    "id": 144,
+    "name": "Luxor",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like archaeological site, ruines, and memorial, and memorials and restaurants serving arab and international cuisine."
+  },
+  {
+    "id": 145,
+    "name": "Aswan",
+    "categories_gpt": "A destination featuring beautiful landscapes like island, landmarks like archaeological site, cathedral, and temple, religious sites, and historic architecture, and great local restaurants."
+  },
+  {
+    "id": 146,
+    "name": "Hurghada",
+    "categories_gpt": "A destination featuring restaurants serving arab and international cuisine and shopping malls."
+  },
+  {
+    "id": 147,
+    "name": "Sharm El Sheikh",
+    "categories_gpt": "A destination featuring beautiful landscapes like beach and great local restaurants."
+  },
+  {
+    "id": 148,
+    "name": "Port Said",
+    "categories_gpt": "A destination featuring iconic landmarks and historic architecture and restaurants serving pizza and seafood cuisine."
+  },
+  {
+    "id": 149,
+    "name": "Mansoura",
+    "categories_gpt": "A destination featuring restaurants serving arab and kebab cuisine and breweries."
+  },
+  {
+    "id": 150,
+    "name": "Tanta",
+    "categories_gpt": "A destination featuring great local restaurants and shopping malls."
+  },
+  {
+    "id": 151,
+    "name": "New York",
+    "categories_gpt": "A destination featuring beautiful landscapes like island, historical heritage and landmarks like bridge, and restaurants serving american and pizza cuisine."
+  },
+  {
+    "id": 152,
+    "name": "Los Angeles",
+    "categories_gpt": "A destination featuring restaurants serving american, chinese, and japanese cuisine and shopping malls."
+  },
+  {
+    "id": 153,
+    "name": "Chicago",
+    "categories_gpt": "A destination featuring landmarks like tower and restaurants serving american, german, and greek cuisine."
+  },
+  {
+    "id": 154,
+    "name": "Houston",
+    "categories_gpt": "A destination featuring restaurants serving american, chinese, and greek cuisine and shopping malls."
+  },
+  {
+    "id": 155,
+    "name": "Phoenix",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, restaurants serving american, french, and italian cuisine, and theme parks."
+  },
+  {
+    "id": 156,
+    "name": "San Diego",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like memorial and ship and restaurants serving american, asian, and chinese cuisine and breweries."
+  },
+  {
+    "id": 157,
+    "name": "Dallas",
+    "categories_gpt": "A destination featuring restaurants serving american, barbecue, and mexican cuisine."
+  },
+  {
+    "id": 158,
+    "name": "San Francisco",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like fort, memorial, and ship, restaurants serving american, italian, and mexican cuisine, and theme parks."
+  },
+  {
+    "id": 159,
+    "name": "Boston",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage and iconic landmarks, and restaurants serving american, asian, and chinese cuisine."
+  },
+  {
+    "id": 160,
+    "name": "Miami",
+    "categories_gpt": "A destination featuring historical heritage and iconic landmarks and restaurants serving american cuisine."
+  },
+  {
+    "id": 161,
+    "name": "Toronto",
+    "categories_gpt": "A destination featuring beautiful landscapes like beach, landmarks like tower and historic architecture, and restaurants serving italian and steak house cuisine and breweries."
+  },
+  {
+    "id": 162,
+    "name": "Vancouver",
+    "categories_gpt": "A destination featuring restaurants serving japanese, moroccan, and steak house cuisine and shopping malls."
+  },
+  {
+    "id": 163,
+    "name": "Montreal",
+    "categories_gpt": "A destination featuring landmarks like castle, church, and places of worship, religious sites, and historic architecture, restaurants serving indian cuisine, and shopping malls."
+  },
+  {
+    "id": 164,
+    "name": "Calgary",
+    "categories_gpt": "A destination featuring restaurants serving chinese, greek, and italian cuisine and shopping malls."
+  },
+  {
+    "id": 165,
+    "name": "Ottawa",
+    "categories_gpt": "A destination featuring historical heritage and iconic landmarks, restaurants serving barbecue, chicken, and greek cuisine, and shopping malls."
+  },
+  {
+    "id": 166,
+    "name": "Edmonton",
+    "categories_gpt": "A destination featuring iconic landmarks and historic architecture, restaurants serving barbecue, indian, and italian cuisine, and shopping malls."
+  },
+  {
+    "id": 167,
+    "name": "Winnipeg",
+    "categories_gpt": "A destination featuring restaurants serving international, italian, and japanese cuisine and breweries and shopping malls and souvenir shops."
+  },
+  {
+    "id": 168,
+    "name": "Quebec City",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, iconic landmarks, and restaurants serving asian, burger, and chinese cuisine."
+  },
+  {
+    "id": 169,
+    "name": "Halifax",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like castle and restaurants serving chinese, mediterranean, and pizza cuisine."
+  },
+  {
+    "id": 170,
+    "name": "Victoria",
+    "categories_gpt": "A destination featuring landmarks like synagogue and places of worship, religious sites, and historic architecture, restaurants serving asian and vietnamese cuisine, and shopping malls."
+  },
+  {
+    "id": 171,
+    "name": "Mexico City",
+    "categories_gpt": "A destination featuring historical heritage and landmarks like church, great local restaurants, and local marketplaces."
+  },
+  {
+    "id": 172,
+    "name": "Guadalajara",
+    "categories_gpt": "A destination featuring historical heritage, restaurants serving argentinian, fish, and japanese cuisine, and shopping malls."
+  },
+  {
+    "id": 173,
+    "name": "Monterrey",
+    "categories_gpt": "A destination featuring restaurants serving fish and seafood cuisine."
+  },
+  {
+    "id": 174,
+    "name": "Puebla",
+    "categories_gpt": "A destination featuring restaurants serving american, mexican, and pizza cuisine and shopping malls."
+  },
+  {
+    "id": 175,
+    "name": "Cancun",
+    "categories_gpt": "A destination featuring restaurants serving burger, japanese, and mexican cuisine."
+  },
+  {
+    "id": 176,
+    "name": "Tijuana",
+    "categories_gpt": "A destination featuring restaurants serving chinese, italian, and mexican cuisine and shopping malls."
+  },
+  {
+    "id": 177,
+    "name": "Leon",
+    "categories_gpt": "A destination featuring restaurants serving argentinian, burger, and mexican cuisine and shopping malls."
+  },
+  {
+    "id": 178,
+    "name": "Merida",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, restaurants serving brazilian, french, and italian cuisine, and shopping malls."
+  },
+  {
+    "id": 179,
+    "name": "Toluca",
+    "categories_gpt": "A destination featuring restaurants serving tacos cuisine and shopping malls."
+  },
+  {
+    "id": 180,
+    "name": "Acapulco",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, beach, and island, memorials, and restaurants serving mexican and seafood cuisine."
+  },
+  {
+    "id": 181,
+    "name": "São Paulo",
+    "categories_gpt": "A destination featuring landmarks like cathedral and places of worship, religious sites, and historic architecture, great local restaurants, and shopping malls and local marketplaces."
+  },
+  {
+    "id": 182,
+    "name": "Rio de Janeiro",
+    "categories_gpt": "A destination featuring landmarks like cathedral, church, and memorial, religious sites, and historic architecture, restaurants serving french cuisine, and shopping malls."
+  },
+  {
+    "id": 183,
+    "name": "Brasilia",
+    "categories_gpt": "A destination featuring beautiful landscapes like forest, landmarks like church and places of worship and religious sites, and restaurants serving argentinian, barbecue, and chinese cuisine."
+  },
+  {
+    "id": 184,
+    "name": "Salvador",
+    "categories_gpt": "A destination featuring landmarks like fort and historic architecture, restaurants serving burger, international, and italian cuisine, and shopping malls."
+  },
+  {
+    "id": 185,
+    "name": "Fortaleza",
+    "categories_gpt": "A destination featuring restaurants serving barbecue, brazilian, and burger cuisine and shopping malls."
+  },
+  {
+    "id": 186,
+    "name": "Recife",
+    "categories_gpt": "A destination featuring landmarks like church and places of worship and religious sites, restaurants serving brazilian cuisine, and shopping malls."
+  },
+  {
+    "id": 187,
+    "name": "Curitiba",
+    "categories_gpt": "A destination featuring landmarks like castle and conference centre and historic architecture, restaurants serving argentinian, barbecue, and italian cuisine, and shopping malls."
+  },
+  {
+    "id": 188,
+    "name": "Manaus",
+    "categories_gpt": "A destination featuring restaurants serving brazilian and burger cuisine and shopping malls."
+  },
+  {
+    "id": 189,
+    "name": "Belem",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area, historical heritage and landmarks like lighthouse, and restaurants serving burger, sandwich, and steak house cuisine."
+  },
+  {
+    "id": 190,
+    "name": "Porto Alegre",
+    "categories_gpt": "A destination featuring historical heritage, restaurants serving japanese and pizza cuisine, and shopping malls."
+  },
+  {
+    "id": 191,
+    "name": "Buenos Aires",
+    "categories_gpt": "A destination featuring historical heritage, landmarks like memorial, ship, and places of worship, and religious sites and shopping malls."
+  },
+  {
+    "id": 192,
+    "name": "Cordoba",
+    "categories_gpt": "A destination featuring restaurants serving argentinian, pizza, and sushi cuisine and shopping malls."
+  },
+  {
+    "id": 193,
+    "name": "Rosario",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area and beach, historical heritage and landmarks like memorial and monument, and restaurants serving fish, fish and chips, and pizza cuisine."
+  },
+  {
+    "id": 194,
+    "name": "Mendoza",
+    "categories_gpt": "A destination featuring restaurants serving argentinian, indian, and sushi cuisine, shopping malls, and theme parks."
+  },
+  {
+    "id": 195,
+    "name": "La Plata",
+    "categories_gpt": "A destination featuring landmarks like cathedral, bridge, and city hall and religious sites, restaurants serving burger cuisine, and shopping malls."
+  },
+  {
+    "id": 196,
+    "name": "Mar del Plata",
+    "categories_gpt": "A destination featuring beautiful landscapes like beach and restaurants serving sushi cuisine."
+  },
+  {
+    "id": 197,
+    "name": "Salta",
+    "categories_gpt": "A destination featuring beautiful landscapes like protected area and national park, historical heritage, landmarks like places of worship, and religious sites, and restaurants serving pizza cuisine."
+  },
+  {
+    "id": 198,
+    "name": "San Miguel de Tucuman",
+    "categories_gpt": "A destination featuring iconic landmarks, restaurants serving italian and sushi cuisine, and shopping malls."
+  },
+  {
+    "id": 199,
+    "name": "San Juan",
+    "categories_gpt": "A destination offering a mix of travel experiences and local atmosphere."
+  },
+  {
+    "id": 200,
+    "name": "Neuquen",
+    "categories_gpt": "A destination featuring restaurants serving argentinian and pizza cuisine and shopping malls."
+  }
+>>>>>>> main
 ]

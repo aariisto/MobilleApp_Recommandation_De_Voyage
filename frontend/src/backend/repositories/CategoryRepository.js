@@ -14,7 +14,11 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT id, name, parent_id FROM categories ORDER BY name;",
+<<<<<<< HEAD
         [],
+=======
+        []
+>>>>>>> main
       );
       return result.rows._array;
     } catch (error) {
@@ -32,7 +36,11 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT id, name, parent_id FROM categories WHERE id = ?;",
+<<<<<<< HEAD
         [categoryId],
+=======
+        [categoryId]
+>>>>>>> main
       );
       return result.rows._array[0] || null;
     } catch (error) {
@@ -49,7 +57,11 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT id, name, parent_id FROM categories WHERE parent_id IS NULL ORDER BY name;",
+<<<<<<< HEAD
         [],
+=======
+        []
+>>>>>>> main
       );
       return result.rows._array;
     } catch (error) {
@@ -67,7 +79,11 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT id, name, parent_id FROM categories WHERE parent_id = ? ORDER BY name;",
+<<<<<<< HEAD
         [parentId],
+=======
+        [parentId]
+>>>>>>> main
       );
       return result.rows._array;
     } catch (error) {
@@ -123,7 +139,11 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT id, name, parent_id FROM categories WHERE name LIKE ? ORDER BY name;",
+<<<<<<< HEAD
         [`%${searchTerm}%`],
+=======
+        [`%${searchTerm}%`]
+>>>>>>> main
       );
       return result.rows._array;
     } catch (error) {
@@ -165,7 +185,11 @@ class CategoryRepository {
 
       const result = await dbConnection.executeSql(
         "INSERT INTO categories (name, parent_id) VALUES (?, ?);",
+<<<<<<< HEAD
         [name, parent_id || null],
+=======
+        [name, parent_id || null]
+>>>>>>> main
       );
 
       return result.insertId;
@@ -187,7 +211,11 @@ class CategoryRepository {
 
       await dbConnection.executeSql(
         "UPDATE categories SET name = ?, parent_id = ? WHERE id = ?;",
+<<<<<<< HEAD
         [name, parent_id || null, categoryId],
+=======
+        [name, parent_id || null, categoryId]
+>>>>>>> main
       );
 
       return true;
@@ -222,7 +250,11 @@ class CategoryRepository {
     try {
       const result = await dbConnection.executeSql(
         "SELECT COUNT(*) as count FROM categories;",
+<<<<<<< HEAD
         [],
+=======
+        []
+>>>>>>> main
       );
       return result.rows._array[0].count;
     } catch (error) {
@@ -244,7 +276,11 @@ class CategoryRepository {
          JOIN place_categories pc ON c.id = pc.category_id
          JOIN places p ON pc.place_id = p.id
          WHERE p.city_id = ?;`,
+<<<<<<< HEAD
         [cityId],
+=======
+        [cityId]
+>>>>>>> main
       );
       return result.rows._array.map((row) => row.name);
     } catch (error) {
@@ -252,6 +288,7 @@ class CategoryRepository {
       return [];
     }
   }
+<<<<<<< HEAD
 
   /**
    * Récupère les noms de catégories d'une place
@@ -273,6 +310,8 @@ class CategoryRepository {
       return [];
     }
   }
+=======
+>>>>>>> main
 }
 
 export default new CategoryRepository();
