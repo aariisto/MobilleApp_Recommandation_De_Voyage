@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { PieChart } from "react-native-chart-kit";
 import UserRepository from '../backend/repositories/UserRepository';
+import PlaceLikedRepository from '../backend/repositories/PlaceLikedRepository';
+import ThemeFilterService from '../backend/services/ThemeFilterService';
 
 // Import avatars locaux
 const avatarHomme = require('../../assets/avatar_homme.png');
@@ -11,10 +15,43 @@ const avatarAnonyme = require('../../assets/avatar_anonyme.png');
 
 const ProfileScreen = ({ navigation }) => {
   const [userProfile, setUserProfile] = useState(null);
+  const [stats, setStats] = useState([]);
+  const [isStatsExpanded, setIsStatsExpanded] = useState(false);
 
-  useEffect(() => {
-    loadUserProfile();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      loadUserProfile();
+      loadStats();
+    }, [])
+  );
+
+  const loadStats = async () => {
+    try {
+        const likedIds = await PlaceLikedRepository.getAllPlacesLiked();
+        if (likedIds && likedIds.length > 0) {
+            const data = await ThemeFilterService.calculateThemeStatistics(likedIds);
+            
+            // Calculer le total pour les pourcentages
+            const total = data.reduce((acc, curr) => acc + curr.population, 0);
+            
+            // Convertir en pourcentages
+            const statsWithPercentages = data.map(item => {
+                const percentage = total > 0 ? (item.population / total) * 100 : 0;
+                return {
+                    ...item,
+                    population: parseFloat(percentage.toFixed(1)), // Valeur numérique pour le graphique
+                    name: `${item.name}`, // Nom simple ou avec % si voulu: `${item.name} (${percentage.toFixed(0)}%)`
+                };
+            });
+            
+            setStats(statsWithPercentages);
+        } else {
+            setStats([]);
+        }
+    } catch (e) {
+        console.error("Erreur chargement stats:", e);
+    }
+  };
 
   const loadUserProfile = async () => {
     try {
@@ -102,6 +139,49 @@ const ProfileScreen = ({ navigation }) => {
                 <MenuItem icon="person-outline" label="Informations personnelles" isLast={true} />
             </View>
         </View>
+
+        {stats.length > 0 && (
+            <View style={styles.sectionContainer}>
+                <Text style={styles.sectionTitle}>Statistiques</Text>
+                <View style={styles.card}>
+                    <TouchableOpacity 
+                        style={[styles.menuItem, isStatsExpanded ? { borderBottomWidth: 1, borderBottomColor: '#F0F0F0' } : styles.menuItemLast]} 
+                        onPress={() => setIsStatsExpanded(!isStatsExpanded)}
+                    >
+                        <View style={styles.iconContainer}>
+                            <Ionicons name="pie-chart-outline" size={22} color="#004aad" />
+                        </View>
+                        <Text style={styles.menuText}>Voir mes statistiques</Text>
+                        <Ionicons name={isStatsExpanded ? "chevron-up" : "chevron-down"} size={20} color="#ccc" />
+                    </TouchableOpacity>
+
+                    {isStatsExpanded && (
+                        <View style={{ alignItems: 'center', paddingVertical: 15 }}>
+                            <PieChart
+                                data={stats}
+                                width={Dimensions.get("window").width - 60}
+                                height={220}
+                                chartConfig={{
+                                    backgroundColor: "#ffffff",
+                                    backgroundGradientFrom: "#ffffff",
+                                    backgroundGradientTo: "#ffffff",
+                                    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                }}
+                                accessor={"population"}
+                                backgroundColor={"transparent"}
+                                paddingLeft={"15"}
+                                center={[10, 0]}
+                                hasLegend={true}
+                            />
+                            <Text style={{textAlign: 'center', color: 'gray', fontSize: 12, marginTop: 5}}>
+                                Répartition de vos favoris (%)
+                            </Text>
+                        </View>
+                    )}
+                </View>
+            </View>
+        )}
 
         <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitle}>Préférences de voyage</Text>
