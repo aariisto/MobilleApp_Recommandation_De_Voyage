@@ -129,6 +129,7 @@ const ExploreScreen = ({ navigation }) => {
       </View>
 
       <Text style={styles.subtitle}>Découvrez de nouvelles destinations</Text>
+      <Text style={styles.subtitle}>Date d'arrivée :</Text>
 
       {/* Filtres */}
       <View style={styles.filtersContainer}>
