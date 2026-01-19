@@ -12,10 +12,21 @@ import DetailsScreen from '../screens/DetailsScreen';
 import WelcomeScreen from '../screens/WelcomeScreen'; 
 import PreferencesScreen from '../screens/PreferencesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import PersonalInfoScreen from '../screens/PersonalInfoScreen';
 import ExploreScreen from '../screens/ExploreScreen'; // Ajout de l'importation de l'écran ExploreScreen
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const ProfileStack = createNativeStackNavigator();
+
+function ProfileStackNavigator() {
+  return (
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      <ProfileStack.Screen name="PersonalInfo" component={PersonalInfoScreen} />
+    </ProfileStack.Navigator>
+  );
+}
 
 function BottomTabs() {
   return (
@@ -39,7 +50,7 @@ function BottomTabs() {
       {/* Ajout de ExploreScreen dans l'onglet Explore */}
       <Tab.Screen name="Explorer" component={ExploreScreen} /> 
       <Tab.Screen name="Favoris" component={FavoritesScreen} />
-      <Tab.Screen name="Profil" component={ProfileScreen} />
+      <Tab.Screen name="Profil" component={ProfileStackNavigator} />
     </Tab.Navigator>
   );
 }

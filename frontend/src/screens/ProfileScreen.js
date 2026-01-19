@@ -126,9 +126,7 @@ const ProfileScreen = ({ navigation }) => {
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.editButton}>
-                <Text style={styles.editButtonText}>Modifier le profil</Text>
-            </TouchableOpacity>
+
         </View>
 
         {/* Menu Sections */}
@@ -136,7 +134,12 @@ const ProfileScreen = ({ navigation }) => {
             <Text style={styles.sectionTitle}>Compte</Text>
             <View style={styles.card}>
                 {/* J'ai passé isLast={true} car c'est le seul élément maintenant */}
-                <MenuItem icon="person-outline" label="Informations personnelles" isLast={true} />
+                <MenuItem
+                    icon="person-outline"
+                    label="Informations personnelles"
+                    isLast={true}
+                    onPress={() => navigation.navigate('PersonalInfo')}
+                />
             </View>
         </View>
 
@@ -223,8 +226,6 @@ const styles = StyleSheet.create({
   bubblesContainer: { flexDirection: 'row', justifyContent: 'center', marginBottom: 20 },
   bubble: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#F0F2F5', paddingVertical: 6, paddingHorizontal: 12, borderRadius: 20, marginHorizontal: 5 },
   bubbleText: { fontSize: 13, color: '#444', fontWeight: '500' },
-  editButton: { backgroundColor: '#EBF5FF', paddingVertical: 10, paddingHorizontal: 24, borderRadius: 25 },
-  editButtonText: { color: '#004aad', fontWeight: '600', fontSize: 14 },
   sectionContainer: { paddingHorizontal: 20, marginBottom: 20 },
   sectionTitle: { fontSize: 14, fontWeight: 'bold', color: '#666', marginBottom: 8, marginLeft: 4 },
   card: { backgroundColor: 'white', borderRadius: 16, paddingHorizontal: 5, shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 },
