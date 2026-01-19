@@ -1,0 +1,1196 @@
+{
+  "Paris": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Marseille": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Lyon": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Toulouse": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Nice": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Nantes": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Montpellier": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Bordeaux": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Strasbourg": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Lille": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Madrid": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Barcelona": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Valencia": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Seville": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Bilbao": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Malaga": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Zaragoza": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Granada": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Cordoba": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Alicante": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Rome": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Milan": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Naples": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Turin": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Palermo": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Genoa": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Bologna": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Florence": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Venice": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Verona": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Berlin": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Munich": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Hamburg": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Cologne": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Frankfurt": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Stuttgart": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Dusseldorf": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Leipzig": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Dortmund": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Bremen": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Lisbon": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Porto": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Coimbra": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Braga": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Faro": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Aveiro": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Guimaraes": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Evora": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Setubal": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Viseu": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "London": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Manchester": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Birmingham": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Liverpool": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Leeds": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Bristol": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Newcastle": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Sheffield": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Glasgow": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Edinburgh": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Amsterdam": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Rotterdam": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "The Hague": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Utrecht": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Eindhoven": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Tilburg": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Groningen": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Breda": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Nijmegen": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Arnhem": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Brussels": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Antwerp": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Ghent": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Bruges": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Leuven": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Liege": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Namur": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Mons": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Kortrijk": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Mechelen": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Zurich": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Geneva": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Basel": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Bern": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Lausanne": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Lucerne": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "St. Gallen": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Lugano": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Biel": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Thun": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Vienna": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Graz": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Linz": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Salzburg": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Innsbruck": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Klagenfurt": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Villach": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Wels": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "St. Pölten": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Dornbirn": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Athens": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Thessaloniki": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Patras": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Heraklion": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Larissa": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Volos": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Rhodes": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Ioannina": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Chania": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Kavala": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Istanbul": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Ankara": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Izmir": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Antalya": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "chaud",
+    "automne": "tempéré"
+  },
+  "Bursa": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Konya": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Gaziantep": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Adana": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Mersin": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Eskişehir": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Casablanca": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Rabat": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Marrakech": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Fes": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Tangier": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Agadir": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Meknes": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Oujda": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Tetouan": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Essaouira": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Tunis": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Sfax": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Sousse": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Kairouan": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Bizerte": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Gabes": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Nabeul": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Tozeur": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Hammamet": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Douz": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Cairo": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Alexandria": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Giza": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Luxor": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Aswan": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Hurghada": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Sharm El Sheikh": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Port Said": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Mansoura": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Tanta": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "New York": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Los Angeles": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Chicago": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Houston": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Phoenix": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "San Diego": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Dallas": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "San Francisco": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Boston": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Miami": {
+    "hiver": "tempéré",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Toronto": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Vancouver": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Montreal": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Calgary": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Ottawa": {
+    "hiver": "froid",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "froid"
+  },
+  "Edmonton": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "froid",
+    "automne": "froid"
+  },
+  "Winnipeg": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "froid",
+    "automne": "froid"
+  },
+  "Quebec City": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "froid",
+    "automne": "froid"
+  },
+  "Halifax": {
+    "hiver": "froid",
+    "printemps": "froid",
+    "été": "froid",
+    "automne": "froid"
+  },
+  "Victoria": {
+    "hiver": "tempéré",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Mexico City": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Guadalajara": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Monterrey": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Puebla": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Cancun": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Tijuana": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Leon": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Merida": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Toluca": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Acapulco": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "São Paulo": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Rio de Janeiro": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Brasilia": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Salvador": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Fortaleza": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Recife": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Curitiba": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Manaus": {
+    "hiver": "chaud",
+    "printemps": "chaud",
+    "été": "chaud",
+    "automne": "chaud"
+  },
+  "Belem": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Porto Alegre": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Buenos Aires": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Rosario": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Mendoza": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "La Plata": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Mar del Plata": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Salta": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "San Miguel de Tucuman": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "San Juan": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  },
+  "Neuquen": {
+    "hiver": "chaud",
+    "printemps": "tempéré",
+    "été": "tempéré",
+    "automne": "tempéré"
+  }
+}
