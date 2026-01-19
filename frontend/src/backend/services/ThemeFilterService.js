@@ -14,6 +14,15 @@ class ThemeFilterService {
   async filterNature(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
+<<<<<<< HEAD
+      cat.toLowerCase().replace(/\s+/g, "_"),
+    );
+
+    const naturePatterns = [/^natural/, /^beach/, /^island/, /^national_park/];
+
+    const matched = categoryNames.filter((cat) =>
+      naturePatterns.some((pattern) => pattern.test(cat)),
+=======
       cat.toLowerCase().replace(/\s+/g, "_")
     );
 
@@ -26,6 +35,7 @@ class ThemeFilterService {
 
     const matched = categoryNames.filter((cat) =>
       naturePatterns.some((pattern) => pattern.test(cat))
+>>>>>>> main
     );
 
     if (matched.length > 0) {
@@ -53,7 +63,11 @@ class ThemeFilterService {
   async filterHistory(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
+<<<<<<< HEAD
+      cat.toLowerCase().replace(/\s+/g, "_"),
+=======
       cat.toLowerCase().replace(/\s+/g, "_")
+>>>>>>> main
     );
 
     const historyPatterns = [
@@ -65,7 +79,11 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
+<<<<<<< HEAD
+      historyPatterns.some((pattern) => pattern.test(cat)),
+=======
       historyPatterns.some((pattern) => pattern.test(cat))
+>>>>>>> main
     );
 
     if (matched.length > 0) {
@@ -93,7 +111,11 @@ class ThemeFilterService {
   async filterGastronomy(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
+<<<<<<< HEAD
+      cat.toLowerCase().replace(/\s+/g, "_"),
+=======
       cat.toLowerCase().replace(/\s+/g, "_")
+>>>>>>> main
     );
 
     const gastronomyPatterns = [
@@ -103,7 +125,11 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
+<<<<<<< HEAD
+      gastronomyPatterns.some((pattern) => pattern.test(cat)),
+=======
       gastronomyPatterns.some((pattern) => pattern.test(cat))
+>>>>>>> main
     );
 
     if (matched.length > 0) {
@@ -131,7 +157,11 @@ class ThemeFilterService {
   async filterShopping(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
+<<<<<<< HEAD
+      cat.toLowerCase().replace(/\s+/g, "_"),
+=======
       cat.toLowerCase().replace(/\s+/g, "_")
+>>>>>>> main
     );
 
     const shoppingPatterns = [
@@ -141,7 +171,11 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
+<<<<<<< HEAD
+      shoppingPatterns.some((pattern) => pattern.test(cat)),
+=======
       shoppingPatterns.some((pattern) => pattern.test(cat))
+>>>>>>> main
     );
 
     if (matched.length > 0) {
@@ -169,7 +203,11 @@ class ThemeFilterService {
   async filterEntertainment(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
+<<<<<<< HEAD
+      cat.toLowerCase().replace(/\s+/g, "_"),
+=======
       cat.toLowerCase().replace(/\s+/g, "_")
+>>>>>>> main
     );
 
     const entertainmentPatterns = [
@@ -181,7 +219,11 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
+<<<<<<< HEAD
+      entertainmentPatterns.some((pattern) => pattern.test(cat)),
+=======
       entertainmentPatterns.some((pattern) => pattern.test(cat))
+>>>>>>> main
     );
 
     if (matched.length > 0) {
@@ -218,6 +260,147 @@ class ThemeFilterService {
 
     if (!filterMethod) {
       throw new Error(
+<<<<<<< HEAD
+        `Thème invalide: ${theme}. Thèmes acceptés: Nature, Histoire, Gastronomie, Shopping, Divertissement`,
+      );
+    }
+
+    // Exécution séquentielle pour éviter de surcharger SQLite (qui plante avec trop de requêtes parallèles via Promise.all)
+    const results = [];
+    for (const cityId of cityIds) {
+      try {
+        const result = await filterMethod(cityId);
+        results.push(result);
+      } catch (e) {
+        console.warn(`Erreur filtre ${theme} pour city ${cityId}:`, e);
+      }
+    }
+
+    return results.filter((result) => result.isMatch);
+  }
+
+  /**
+   * Récupère tous les thèmes d'une ville
+   * @param {number} cityId - ID de la ville
+   * @returns {Promise<Array<{theme: string, matched_categories: Array}>>}
+   */
+  async getCityThemes(cityId) {
+    const themes = [
+      { name: "Nature", method: this.filterNature.bind(this) },
+      { name: "Histoire", method: this.filterHistory.bind(this) },
+      { name: "Gastronomie", method: this.filterGastronomy.bind(this) },
+      { name: "Shopping", method: this.filterShopping.bind(this) },
+      { name: "Divertissement", method: this.filterEntertainment.bind(this) },
+    ];
+
+    const results = await Promise.all(
+      themes.map(async ({ name, method }) => {
+        const result = await method(cityId);
+        return result;
+      }),
+    );
+
+    // Retourner seulement les thèmes qui matchent
+    return results
+      .filter((result) => result.isMatch)
+      .map((result) => ({
+        theme: result.theme,
+        matched_categories: result.matched_categories,
+      }));
+  }
+
+  /**
+   * Détecte les thèmes à partir d'un tableau de catégories
+   * @param {Array<string>} categories - Tableau des noms de catégories
+   * @returns {Object} - Objet contenant true/false pour chaque thème
+   */
+  getThemesFromCategories(categories) {
+    const categoryNames = categories.map((cat) =>
+      cat.toLowerCase().replace(/\s+/g, "_"),
+    );
+
+    const patterns = {
+      Nature: [/^natural/, /^beach/, /^island/, /^national_park/],
+      Histoire: [
+        /^heritage/,
+        /^tourism\.sights/,
+        /^religion/,
+        /^memorial/,
+        /^building\.historic/,
+      ],
+      Gastronomie: [
+        /^catering\.restaurant/,
+        /^production\.winery/,
+        /^production\.brewery/,
+      ],
+      Shopping: [
+        /^commercial\.shopping_mall/,
+        /^commercial\.marketplace/,
+        /^commercial\.gift_and_souvenir/,
+      ],
+      Divertissement: [
+        /^ski/,
+        /^adult\.nightclub/,
+        /^adult\.casino/,
+        /^entertainment\.theme_park/,
+        /^sport\.stadium/,
+      ],
+    };
+
+    const result = {};
+
+    // Pour chaque thème, vérifier si au moins une catégorie correspond
+    for (const [theme, themePatterns] of Object.entries(patterns)) {
+      result[theme] = categoryNames.some((cat) =>
+        themePatterns.some((pattern) => pattern.test(cat)),
+      );
+    }
+
+    return result;
+  }
+
+  async calculateThemeStatistics(cityIds) {
+    const themeCounts = {
+      Nature: 0,
+      Histoire: 0,
+      Gastronomie: 0,
+      Shopping: 0,
+      Divertissement: 0,
+    };
+
+    // Pour chaque ville, on récupère ses thèmes
+    for (const cityId of cityIds) {
+      try {
+        const themes = await this.getCityThemes(cityId);
+        themes.forEach((t) => {
+          if (themeCounts[t.theme] !== undefined) {
+            themeCounts[t.theme]++;
+          }
+        });
+      } catch (error) {
+        console.warn(`Erreur calcul stats pour city ${cityId}:`, error);
+      }
+    }
+
+    // Couleurs définies pour le chart
+    const themeColors = {
+      Nature: "#4CAF50", // Vert
+      Histoire: "#FF9800", // Orange
+      Gastronomie: "#F44336", // Rouge
+      Shopping: "#9C27B0", // Violet
+      Divertissement: "#2196F3", // Bleu
+    };
+
+    return Object.keys(themeCounts)
+      .map((theme) => ({
+        name: theme,
+        population: themeCounts[theme], // React Native Chart Kit utilise 'population' pour la valeur
+        color: themeColors[theme],
+        legendFontColor: "#7F7F7F",
+        legendFontSize: 12,
+      }))
+      .filter((item) => item.population > 0); // On ne retourne que les thèmes présents
+=======
         `Thème invalide: ${theme}. Thèmes acceptés: Nature, Histoire, Gastronomie, Shopping, Divertissement`
       );
     }
@@ -227,6 +410,7 @@ class ThemeFilterService {
     );
 
     return results.filter((result) => result.isMatch);
+>>>>>>> main
   }
 }
 

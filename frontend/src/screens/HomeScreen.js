@@ -1,127 +1,532 @@
-import React from 'react';
-import { View, Text, ScrollView, Image, TextInput, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { 
+  View, 
+  Text, 
+  ScrollView, 
+  Image, 
+  TextInput, 
+  StyleSheet, 
+  FlatList, 
+  TouchableOpacity, 
+  ActivityIndicator, 
+  Alert 
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFocusEffect } from '@react-navigation/native'; 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '../context/ThemeContext';
+
+// Algorithmes et Repositories
+import { rankCitiesWithPenalty } from '../backend/algorithms/rankUtils';
+import { generateUserQueryFromUserId } from '../backend/algorithms/userQuery';
+import UserRepository from '../backend/repositories/UserRepository';
+import UserCategoryRepository from '../backend/repositories/UserCategoryRepository';
+import ThemeFilterService from '../backend/services/ThemeFilterService';
+import PlaceLikedRepository from '../backend/repositories/PlaceLikedRepository';
+import CityActivityService from '../backend/services/CityActivityService';
+import CityRepository from '../backend/repositories/CityRepository';
+import { PerformanceMonitor } from '../utils/PerformanceMonitor';
+
+import cityImages from '../data/cityImages';
+import CategoryFeedbackModal from '../components/CategoryFeedbackModal';
+
+// Import avatars locaux
+const avatarHomme = require('../../assets/avatar_homme.png');
+const avatarFemme = require('../../assets/avatar_femme.png');
+const avatarAnonyme = require('../../assets/avatar_anonyme.png');
 
 const HomeScreen = ({ navigation }) => {
-  const categories = ['Aventure', 'Détente', 'Romantique', 'Famille'];
+  const { theme } = useTheme();
+  const [userProfile, setUserProfile] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
+  const [allRecommendations, setAllRecommendations] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [loading, setLoading] = useState(false);
   
-  // Fonction pour naviguer vers le détail
-  const goToDetails = () => navigation.navigate('Details');
+  const [likedCityIds, setLikedCityIds] = useState(new Set());
+  const [suggestedActivities, setSuggestedActivities] = useState([]);
+  
+  const [categoryModalVisible, setCategoryModalVisible] = useState(false);
+  const [selectedCityForFeedback, setSelectedCityForFeedback] = useState(null);
 
-  // --- NOUVEAU : Fonction pour aller au questionnaire ---
-  const startQuiz = () => navigation.navigate('Preferences');
+  const categories = ['Nature', 'Histoire', 'Gastronomie', 'Shopping', 'Divertissement'];
 
-  const renderHorizontalItem = () => (
-    <TouchableOpacity style={styles.cardHorizontal} onPress={goToDetails}>
-      <Image source={{uri: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4'}} style={styles.cardImage} />
-      <View style={styles.textOverlay}>
-        <Text style={styles.cardTitle}>Bali, Indonésie</Text>
-        <Text style={styles.cardSubtitle}>Paradis tropical</Text>
-      </View>
-    </TouchableOpacity>
+  useEffect(() => {
+    loadUserProfile();
+    loadRecommendations();
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadUserLikesAndActivities();
+    }, [])
   );
 
+  const handleRefresh = async () => {
+    try {
+        await Promise.all([
+            loadUserProfile(),
+            loadRecommendations(false), 
+            loadUserLikesAndActivities()
+        ]);
+    } catch (error) {
+        console.error("Erreur lors du rafraîchissement:", error);
+    }
+  };
+
+  const loadUserLikesAndActivities = async () => {
+    try {
+      const likesIds = await PlaceLikedRepository.getAllPlacesLiked();
+      const idsSet = new Set(likesIds);
+      setLikedCityIds(idsSet);
+
+      if (likesIds.length > 0) {
+        const activitiesMap = await CityActivityService.getRecommendationsFromLikedPlaces();
+        
+        const enrichedList = [];
+
+        for (const [cityId, places] of Object.entries(activitiesMap)) {
+            const city = await CityRepository.getCityById(cityId);
+            if (city) {
+                const placesWithCityName = places.map(p => ({ 
+                    ...p, 
+                    cityName: city.name 
+                }));
+                enrichedList.push(...placesWithCityName);
+            }
+        }
+
+        const shuffledList = enrichedList.sort(() => Math.random() - 0.5);
+        setSuggestedActivities(shuffledList);
+      } else {
+        setSuggestedActivities([]);
+      }
+    } catch (error) {
+      console.error("Erreur chargement likes/activités:", error);
+    }
+  };
+
+  const toggleLike = async (city) => {
+    try {
+      if (likedCityIds.has(city.id)) {
+        await PlaceLikedRepository.removePlaceLikedByCityId(city.id);
+        
+        const newSet = new Set(likedCityIds);
+        newSet.delete(city.id);
+        setLikedCityIds(newSet);
+        
+        if (newSet.size === 0) setSuggestedActivities([]);
+        else loadUserLikesAndActivities();
+
+      } else {
+        await PlaceLikedRepository.addPlaceLiked(city.id);
+        
+        const newSet = new Set(likedCityIds);
+        newSet.add(city.id);
+        setLikedCityIds(newSet);
+        
+        setSelectedCityForFeedback(city);
+        setCategoryModalVisible(true);
+        
+        loadUserLikesAndActivities();
+      }
+    } catch (error) {
+      console.error("Erreur toggle like:", error);
+    }
+  };
+
+  const loadUserProfile = async () => {
+    try {
+      const profile = await UserRepository.getProfile([
+        "firstName",
+        "lastName",
+        "gender" // Ajout du champ genre pour l'avatar
+      ]);
+      setUserProfile(profile);
+    } catch (error) {
+      console.error("Erreur chargement profil:", error);
+    }
+  };
+
+  // Helper pour l'avatar (identique à ProfileScreen)
+  const getAvatarSource = () => {
+    if (!userProfile?.gender) {
+         return { uri: 'https://avatar.iran.liara.run/public/38' }; 
+    }
+    const gender = userProfile.gender.trim();
+    if (gender === 'Mme') {
+        return avatarFemme;
+    } else if (gender === 'M.') {
+        return avatarHomme;
+    } else {
+        return avatarAnonyme;
+    }
+  };
+
+  const loadRecommendations = async (showLoader = true) => {
+    if (selectedCategory) return; 
+    
+    if (showLoader) setLoading(true);
+
+    try {
+      const profile = await UserRepository.getProfile();
+      if (profile && profile.id) {
+        const userLikes = await UserCategoryRepository.getUserLikes(profile.id);
+        const likedCategories = userLikes.map((l) => l.category_name);
+
+        if (likedCategories.length > 0) {
+           const perf = new PerformanceMonitor('rankCitiesWithPenalty');
+           await perf.startMonitoring('rankCitiesWithPenalty');
+           const rankedCities = await rankCitiesWithPenalty(likedCategories, profile.id);
+           const report = await perf.stopMonitoring('rankCitiesWithPenalty');
+           
+           // Affiche tableau simple
+           console.table([{
+             'Function': 'rankCitiesWithPenalty',
+             'Duration (ms)': parseFloat(report.duration),
+             'Memory (MB)': parseFloat(report.memoryDelta),
+             'CPU (ms)': parseFloat(report.avgCPUTime)
+           }]);
+           
+           setAllRecommendations(rankedCities);
+           setRecommendations(rankedCities);
+        } else {
+          setRecommendations([]);
+          setAllRecommendations([]);
+        }
+      }
+    } catch (error) {
+      console.error("Erreur chargement recommandations:", error);
+    } finally {
+      if (showLoader) setLoading(false);
+    }
+  };
+  
+  const handleCategoryPress = async (category) => {
+    if (selectedCategory === category) {
+      setSelectedCategory(null);
+      setRecommendations(allRecommendations);
+    } else {
+      setSelectedCategory(category);
+      setLoading(true);
+      try {
+        const cityIds = allRecommendations.map(c => c.id);
+        const filteredResults = await ThemeFilterService.filterCitiesByTheme(cityIds, category);
+        const filteredCityIds = new Set(filteredResults.map(r => r.cityId));
+        const filteredRecs = allRecommendations.filter(c => filteredCityIds.has(c.id));
+        setRecommendations(filteredRecs);
+      } catch (error) {
+        console.error("Erreur filtrage:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  const goToDetails = (city) => {
+    const maxScore = recommendations[0]?.score || 1;
+    navigation.navigate("Details", { city, maxScore });
+  };
+
+  const handleActivityPress = async (place) => {
+    if (!place.city_id) return;
+
+    try {
+        const recommendedCity = allRecommendations.find(c => c.id === place.city_id);
+        
+        if (recommendedCity) {
+            goToDetails(recommendedCity);
+            return;
+        }
+
+        const parentCity = await CityRepository.getCityById(place.city_id);
+        
+        if (parentCity) {
+            const cityWithSafeScore = { ...parentCity, score: 1 };
+            goToDetails(cityWithSafeScore);
+        } else {
+            Alert.alert("Oups", "Ville introuvable.");
+        }
+    } catch (error) {
+        console.error("Erreur navigation:", error);
+    }
+  };
+
+  const getThemeIcon = (theme) => {
+    switch (theme) {
+      case 'Nature': return 'leaf';
+      case 'Histoire': return 'library'; 
+      case 'Gastronomie': return 'restaurant';
+      case 'Shopping': return 'cart';
+      case 'Divertissement': return 'ticket'; 
+      default: return 'location';
+    }
+  };
+
+  const getThemeColors = (theme) => {
+    switch (theme) {
+      case 'Nature': return { bg: '#E8F5E9', text: '#2E7D32', border: '#C8E6C9' };
+      case 'Histoire': return { bg: '#FFF3E0', text: '#EF6C00', border: '#FFE0B2' };
+      case 'Gastronomie': return { bg: '#FCE4EC', text: '#C2185B', border: '#F8BBD0' };
+      case 'Shopping': return { bg: '#F3E5F5', text: '#7B1FA2', border: '#E1BEE7' };
+      case 'Divertissement': return { bg: '#E3F2FD', text: '#1565C0', border: '#BBDEFB' };
+      default: return { bg: '#F5F5F5', text: '#616161', border: '#E0E0E0' };
+    }
+  };
+
+  const renderHorizontalItem = ({ item }) => {
+    const localImage = cityImages[item.name];
+    const imageSource = localImage
+      ? localImage
+      : {
+          uri: `http://10.0.2.2:5001/api/travel/photos/image/search?q=${encodeURIComponent(item.name)}&size=regular`,
+        };
+
+    const isLiked = likedCityIds.has(item.id);
+
+    return (
+      <TouchableOpacity
+        style={styles.cardHorizontal}
+        onPress={() => goToDetails(item)}
+      >
+        <Image
+          source={imageSource}
+          style={styles.cardImage}
+          // Suppression du defaultSource statique qui pouvait forcer une image
+          // defaultSource={{ uri: "..." }} 
+        />
+        
+        <TouchableOpacity 
+            style={styles.heartButton} 
+            onPress={() => toggleLike(item)}
+            activeOpacity={0.7}
+        >
+            <Ionicons 
+                name={isLiked ? "heart" : "heart-outline"} 
+                size={22} 
+                color={isLiked ? "#FF3B30" : "white"} 
+            />
+        </TouchableOpacity>
+        
+        <View style={styles.textOverlay}>
+          <Text style={styles.cardTitle}>{item.name}</Text>
+          <Text style={styles.cardSubtitle}>
+            Score: {Math.round(item.score * 100)}%
+            {item.penalty > 0 ? ` (Pénalité: -${item.penalty.toFixed(2)})` : ""}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const renderActivityItem = (place, index) => {
+    const colors = getThemeColors(place.theme);
+    const iconName = getThemeIcon(place.theme);
+
+    return (
+      <TouchableOpacity 
+        key={index} 
+        style={[styles.cardVertical, { backgroundColor: theme.card }]}
+        onPress={() => handleActivityPress(place)}
+        activeOpacity={0.7}
+      >
+          <View style={[styles.iconContainer, { backgroundColor: colors.bg }]}>
+             <Ionicons name={iconName} size={32} color={colors.text} />
+          </View>
+
+          <View style={styles.cardInfo}>
+              <Text style={[styles.verticalTitle, { color: theme.text }]} numberOfLines={1}>{place.name}</Text>
+              <Text style={[styles.verticalSubtitle, { color: theme.textSecondary }]} numberOfLines={1}>
+                 {place.cityName || 'Destination'}
+              </Text>
+              
+              {place.theme && (
+                <View style={[styles.tag, { backgroundColor: colors.bg, borderColor: colors.border }]}>
+                    <Text style={[styles.tagText, { color: colors.text }]}>{place.theme}</Text>
+                </View>
+              )}
+          </View>
+          <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />
+      </TouchableOpacity>
+    );
+  };
+
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={["top", "left", "right"]}>
       {/* Header */}
       <View style={styles.header}>
-        <Image source={{uri: 'https://randomuser.me/api/portraits/women/44.jpg'}} style={styles.avatar} />
-        <Text style={styles.greeting}>Bonjour, Alex!</Text>
-        <TouchableOpacity><Ionicons name="notifications-outline" size={24} color="black" /></TouchableOpacity>
+        <Image
+          source={getAvatarSource()}
+          style={styles.avatar}
+        />
+        <Text style={[styles.greeting, { color: theme.text }]}>
+          Bonjour {userProfile?.firstName || "Voyageur"}
+        </Text>
+        {/* L'icône de notification a été supprimée ici */}
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Barre de recherche */}
-        <View style={styles.searchBar}>
-          <Ionicons name="search" size={20} color="gray" />
-          <TextInput placeholder="Où voulez-vous aller ?" style={styles.input} />
-        </View>
+        
+        <Text style={[styles.sectionTitle, { color: theme.text }]}>Recommandations pour vous</Text>
 
-        {/* Bouton quiz  */}
-        <View style={{ paddingHorizontal: 20, marginTop: 15 }}>
-            <TouchableOpacity style={styles.quizButton} onPress={startQuiz}>
-                <Text style={styles.quizButtonText}>✨ Trouver mon voyage idéal ✨</Text>
-                <Ionicons name="arrow-forward" size={20} color="white" />
-            </TouchableOpacity>
-        </View>
-
-        {/* Scroll Horizontal */}
-        <Text style={styles.sectionTitle}>Destinations du moment</Text>
-        <FlatList 
-          horizontal 
-          data={[1, 2, 3]} 
-          renderItem={renderHorizontalItem} 
+        <ScrollView
+          horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 20 }}
-        />
-
-        {/* Catégories de voyage */}
-        <Text style={styles.sectionTitle}>Inspirations par thème</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 20 }}>
+          contentContainerStyle={{ paddingHorizontal: 20, marginBottom: 15 }}
+        >
           {categories.map((cat, index) => (
-            <View key={index} style={styles.categoryChip}>
-              <Text style={styles.categoryText}>{cat}</Text>
-            </View>
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.categoryChip,
+                { backgroundColor: selectedCategory === cat ? theme.primary : theme.card },
+                selectedCategory === cat && styles.categoryChipSelected,
+              ]}
+              onPress={() => handleCategoryPress(cat)}
+            >
+              <Text
+                style={[
+                  styles.categoryText,
+                  { color: selectedCategory === cat ? 'white' : theme.text },
+                  selectedCategory === cat && styles.categoryTextSelected,
+                ]}
+              >
+                {cat}
+              </Text>
+            </TouchableOpacity>
           ))}
         </ScrollView>
 
-        {/* Liste Verticale */}
-        <Text style={styles.sectionTitle}>Recommandé pour vous</Text>
-        <TouchableOpacity onPress={goToDetails} style={styles.cardVertical}>
-            <Image source={{uri: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963'}} style={styles.verticalImage}/>
-            <View style={styles.cardInfo}>
-                <Text style={styles.verticalTitle}>Cinque Terre, Italie</Text>
-                <Text style={styles.verticalSubtitle}>Côte pittoresque</Text>
-                <View style={styles.tag}><Text style={styles.tagText}>Romantique</Text></View>
+        {loading ? (
+          <ActivityIndicator
+            size="large"
+            color="#007AFF"
+            style={{ marginVertical: 20 }}
+          />
+        ) : recommendations.length > 0 ? (
+            <FlatList 
+              horizontal 
+              data={recommendations} 
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={renderHorizontalItem} 
+              extraData={likedCityIds}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 20 }}
+            />
+        ) : (
+            <View style={{paddingHorizontal: 20}}>
+              <Text style={{color: theme.textSecondary, fontStyle: 'italic'}}>Répondez au quiz pour obtenir des recommandations !</Text>
             </View>
-        </TouchableOpacity>
+        )}
+
+        {/* Section Activités avec titre + bouton refresh alignés */}
+        <View style={styles.activityHeader}>
+          <Text style={[styles.activityTitleText, { color: theme.text }]}>Activité qui pourrait vous plaire</Text>
+            <TouchableOpacity onPress={handleRefresh} style={{ padding: 5 }}>
+                <Ionicons name="refresh" size={22} color="#007AFF" />
+            </TouchableOpacity>
+        </View>
         
-        <View style={{height: 80}} />
+        {likedCityIds.size > 0 && suggestedActivities.length > 0 ? (
+          <View style={{ marginBottom: 20 }}>
+            {suggestedActivities.slice(0, 5).map((place, index) => renderActivityItem(place, index))}
+          </View>
+        ) : (
+          <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
+              <Text style={{ color: theme.textSecondary, fontStyle: 'italic', lineHeight: 20 }}>
+                Ajoutez des villes en favoris ❤️ pour voir des activités proposées ici !
+              </Text>
+          </View>
+        )}
+        
+        <View style={{height: 60}} />
       </ScrollView>
+
+      <CategoryFeedbackModal
+        visible={categoryModalVisible}
+        city={selectedCityForFeedback}
+        onClose={() => {
+          setCategoryModalVisible(false);
+          setSelectedCityForFeedback(null);
+        }}
+      />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F8F9FA' },
-  header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginBottom: 10, paddingTop: 10 },
+  container: { flex: 1, backgroundColor: "#F8F9FA" },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    marginBottom: 5,
+    paddingTop: 10,
+  },
   avatar: { width: 40, height: 40, borderRadius: 20 },
   greeting: { fontSize: 18, fontWeight: 'bold', flex: 1, marginLeft: 10 },
-  searchBar: { flexDirection: 'row', backgroundColor: '#E9ECEF', marginHorizontal: 20, padding: 12, borderRadius: 12, alignItems: 'center' },
-  input: { marginLeft: 10, flex: 1 },
   
-  // Styles du Bouton Quiz
-  quizButton: { 
-      backgroundColor: '#007AFF', 
-      flexDirection: 'row', 
-      justifyContent: 'space-between', 
-      alignItems: 'center', 
-      padding: 15, 
-      borderRadius: 15,
-      shadowColor: "#007AFF",
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.3,
-      shadowRadius: 5,
-      elevation: 5
+  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginHorizontal: 20, marginBottom: 15, marginTop: 15 },
+  
+  activityHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    marginTop: 35, 
+    marginBottom: 15
   },
-  quizButtonText: { color: 'white', fontWeight: 'bold', fontSize: 16 },
+  activityTitleText: {
+    fontSize: 18, 
+    fontWeight: 'bold',
+    color: '#333'
+  },
 
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', margin: 20, marginBottom: 15, marginTop: 25 },
   cardHorizontal: { width: 220, height: 280, marginRight: 15, borderRadius: 20, overflow: 'hidden', backgroundColor: 'black' },
   cardImage: { width: '100%', height: '100%', opacity: 0.8 },
+  
+  heartButton: {
+    position: 'absolute',
+    top: 15,
+    right: 15,
+    backgroundColor: 'rgba(0,0,0,0.3)', 
+    borderRadius: 20,
+    padding: 6,
+    zIndex: 10
+  },
+
   textOverlay: { position: 'absolute', bottom: 15, left: 15 },
   cardTitle: { color: 'white', fontWeight: 'bold', fontSize: 18 },
   cardSubtitle: { color: 'white', fontSize: 12 },
+  
   categoryChip: { backgroundColor: '#DDEEFF', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 20, marginRight: 10 },
+  categoryChipSelected: { backgroundColor: '#007AFF' },
   categoryText: { color: '#333' },
-  cardVertical: { flexDirection: 'row', backgroundColor: 'white', marginHorizontal: 20, borderRadius: 20, marginBottom: 15, padding: 10, alignItems: 'center' },
-  verticalImage: { width: 80, height: 80, borderRadius: 15 },
+  categoryTextSelected: { color: 'white', fontWeight: 'bold' },
+  
+  cardVertical: { flexDirection: 'row', backgroundColor: 'white', marginHorizontal: 20, borderRadius: 20, marginBottom: 15, padding: 10, alignItems: 'center', shadowColor: "#000", shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 },
+  
+  iconContainer: { 
+      width: 80, 
+      height: 80, 
+      borderRadius: 15, 
+      justifyContent: 'center', 
+      alignItems: 'center' 
+  },
+
   cardInfo: { marginLeft: 15, flex: 1 },
-  verticalTitle: { fontWeight: 'bold', fontSize: 16 },
-  verticalSubtitle: { color: 'gray', marginBottom: 5 },
-  tag: { backgroundColor: '#FFE4C4', alignSelf: 'flex-start', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8 },
-  tagText: { color: '#D2691E', fontSize: 10, fontWeight: 'bold' }
+  verticalTitle: { fontWeight: 'bold', fontSize: 16, color: '#333' },
+  verticalSubtitle: { color: 'gray', marginBottom: 5, fontSize: 12 },
+  
+  tag: { 
+      alignSelf: 'flex-start', 
+      paddingHorizontal: 10, 
+      paddingVertical: 4, 
+      borderRadius: 8, 
+      borderWidth: 1,
+      marginTop: 5
+  },
+  tagText: { fontSize: 11, fontWeight: 'bold' }
 });
 
 export default HomeScreen;

@@ -21,6 +21,10 @@ export const initializeDatabase = async () => {
       createUserProfilesTable(),
       createUserCategoryLikesTable(),
       createUserCategoryDislikesTable(),
+<<<<<<< HEAD
+      createPlaceLikedTable(),
+=======
+>>>>>>> main
     ];
 
     await dbConnection.executeTransaction(tables);
@@ -62,6 +66,14 @@ const createCitiesTable = () => ({
       country_id INTEGER,
       embedding BLOB,
       description TEXT,
+<<<<<<< HEAD
+      isNature INTEGER,
+      ishistoire INTEGER,
+      isgastronomie INTEGER,
+      isshopping INTEGER,
+      isdivertissement INTEGER,
+=======
+>>>>>>> main
       FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE CASCADE
     );
   `,
@@ -149,6 +161,7 @@ const createUserProfilesTable = () => ({
       firstName TEXT NOT NULL,
       lastName TEXT NOT NULL,
       email TEXT UNIQUE NOT NULL,
+      gender TEXT,
       dateOfBirth TEXT,
       country TEXT,
       preferences TEXT,
@@ -204,10 +217,32 @@ const createUserCategoryDislikesTable = () => ({
 });
 
 /**
+<<<<<<< HEAD
+ * Table place_liked - Stocke les villes aimées par les utilisateurs
+ */
+const createPlaceLikedTable = () => ({
+  sql: `
+    CREATE TABLE IF NOT EXISTS place_liked (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id_ville INTEGER NOT NULL,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (id_ville) REFERENCES cities(id) ON DELETE CASCADE
+    );
+  `,
+  params: [],
+});
+
+/**
+=======
+>>>>>>> main
  * Supprime toutes les tables (utile pour reset)
  */
 export const dropAllTables = async () => {
   const dropQueries = [
+<<<<<<< HEAD
+    { sql: "DROP TABLE IF EXISTS place_liked;", params: [] },
+=======
+>>>>>>> main
     { sql: "DROP TABLE IF EXISTS user_category_likes;", params: [] },
     { sql: "DROP TABLE IF EXISTS user_category_dislikes;", params: [] },
     { sql: "DROP TABLE IF EXISTS place_categories;", params: [] },
@@ -228,7 +263,7 @@ export const dropAllTables = async () => {
 export const getTableInfo = async (tableName) => {
   const result = await dbConnection.executeSql(
     `PRAGMA table_info(${tableName});`,
-    []
+    [],
   );
   return result.rows._array;
 };
@@ -239,7 +274,7 @@ export const getTableInfo = async (tableName) => {
 export const countRows = async (tableName) => {
   const result = await dbConnection.executeSql(
     `SELECT COUNT(*) as count FROM ${tableName};`,
-    []
+    [],
   );
   return result.rows._array[0].count;
 };

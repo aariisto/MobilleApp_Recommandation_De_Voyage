@@ -71,6 +71,14 @@ function createSchema(db) {
       country_id INTEGER,
       embedding BLOB,
       description TEXT,
+<<<<<<< HEAD
+      isnature INTEGER,
+      ishistoire INTEGER,
+      isgastronomie INTEGER ,
+      isshopping INTEGER ,
+      isdivertissement INTEGER,
+=======
+>>>>>>> main
       FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE CASCADE
     );
   `);
@@ -160,6 +168,19 @@ function createSchema(db) {
     );
   `);
 
+<<<<<<< HEAD
+  // Table place_liked
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS place_liked (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id_ville INTEGER NOT NULL,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (id_ville) REFERENCES cities(id) ON DELETE CASCADE
+    );
+  `);
+
+=======
+>>>>>>> main
   console.log("✅ Schema created");
 }
 
@@ -170,11 +191,11 @@ async function migrateCountries(pgClient, sqliteDb) {
   console.log("📦 Migrating countries...");
 
   const result = await pgClient.query(
-    "SELECT id, name FROM countries ORDER BY id;"
+    "SELECT id, name FROM countries ORDER BY id;",
   );
 
   const insert = sqliteDb.prepare(
-    "INSERT INTO countries (id, name) VALUES (?, ?)"
+    "INSERT INTO countries (id, name) VALUES (?, ?)",
   );
   const insertMany = sqliteDb.transaction((countries) => {
     for (const country of countries) {
@@ -195,11 +216,11 @@ async function migrateCities(pgClient, sqliteDb) {
   console.log("📦 Migrating cities...");
 
   const result = await pgClient.query(
-    "SELECT id, name, lat, lon, country_id, embedding FROM cities ORDER BY id;"
+    "SELECT id, name, lat, lon, country_id, embedding, description, isnature, ishistoire, isgastronomie, isshopping, isdivertissement FROM cities ORDER BY id;",
   );
 
   const insert = sqliteDb.prepare(
-    "INSERT INTO cities (id, name, lat, lon, country_id, embedding) VALUES (?, ?, ?, ?, ?, ?)"
+    "INSERT INTO cities (id, name, lat, lon, country_id, embedding, description, isnature, ishistoire, isgastronomie, isshopping, isdivertissement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
   );
 
   const insertMany = sqliteDb.transaction((cities) => {
@@ -213,7 +234,13 @@ async function migrateCities(pgClient, sqliteDb) {
         city.lat,
         city.lon,
         city.country_id,
-        embeddingBlob
+        embeddingBlob,
+        city.description || null,
+        city.isnature || 0,
+        city.ishistoire || 0,
+        city.isgastronomie || 0,
+        city.isshopping || 0,
+        city.isdivertissement || 0,
       );
     }
   });
@@ -231,11 +258,11 @@ async function migrateCategories(pgClient, sqliteDb) {
   console.log("📦 Migrating categories...");
 
   const result = await pgClient.query(
-    "SELECT id, name, parent_id FROM categories ORDER BY id;"
+    "SELECT id, name, parent_id FROM categories ORDER BY id;",
   );
 
   const insert = sqliteDb.prepare(
-    "INSERT INTO categories (id, name, parent_id) VALUES (?, ?, ?)"
+    "INSERT INTO categories (id, name, parent_id) VALUES (?, ?, ?)",
   );
 
   const insertMany = sqliteDb.transaction((categories) => {
@@ -257,11 +284,11 @@ async function migratePlaces(pgClient, sqliteDb) {
   console.log("📦 Migrating places...");
 
   const result = await pgClient.query(
-    "SELECT id, name, lat, lon, city_id FROM places ORDER BY id;"
+    "SELECT id, name, lat, lon, city_id FROM places ORDER BY id;",
   );
 
   const insert = sqliteDb.prepare(
-    "INSERT INTO places (id, name, lat, lon, city_id) VALUES (?, ?, ?, ?, ?)"
+    "INSERT INTO places (id, name, lat, lon, city_id) VALUES (?, ?, ?, ?, ?)",
   );
 
   const insertMany = sqliteDb.transaction((places) => {
@@ -283,11 +310,11 @@ async function migratePlaceCategories(pgClient, sqliteDb) {
   console.log("📦 Migrating place_categories...");
 
   const result = await pgClient.query(
-    "SELECT place_id, category_id FROM place_categories ORDER BY place_id, category_id;"
+    "SELECT place_id, category_id FROM place_categories ORDER BY place_id, category_id;",
   );
 
   const insert = sqliteDb.prepare(
-    "INSERT INTO place_categories (place_id, category_id) VALUES (?, ?)"
+    "INSERT INTO place_categories (place_id, category_id) VALUES (?, ?)",
   );
 
   const insertMany = sqliteDb.transaction((relations) => {
@@ -367,7 +394,7 @@ async function migrate() {
     // Résumé
     const totalRows = Object.values(stats).reduce(
       (sum, count) => sum + count,
-      0
+      0,
     );
     console.log(`\n✅ Migration completed successfully!`);
     console.log(`📊 Total rows migrated: ${totalRows}`);
