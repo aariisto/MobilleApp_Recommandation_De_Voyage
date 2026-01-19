@@ -71,6 +71,11 @@ function createSchema(db) {
       country_id INTEGER,
       embedding BLOB,
       description TEXT,
+      isnature INTEGER,
+      ishistoire INTEGER,
+      isgastronomie INTEGER ,
+      isshopping INTEGER ,
+      isdivertissement INTEGER,
       FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE CASCADE
     );
   `);
@@ -205,11 +210,11 @@ async function migrateCities(pgClient, sqliteDb) {
   console.log("📦 Migrating cities...");
 
   const result = await pgClient.query(
-    "SELECT id, name, lat, lon, country_id, embedding FROM cities ORDER BY id;",
+    "SELECT id, name, lat, lon, country_id, embedding, description, isnature, ishistoire, isgastronomie, isshopping, isdivertissement FROM cities ORDER BY id;",
   );
 
   const insert = sqliteDb.prepare(
-    "INSERT INTO cities (id, name, lat, lon, country_id, embedding) VALUES (?, ?, ?, ?, ?, ?)",
+    "INSERT INTO cities (id, name, lat, lon, country_id, embedding, description, isnature, ishistoire, isgastronomie, isshopping, isdivertissement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
   );
 
   const insertMany = sqliteDb.transaction((cities) => {
@@ -224,6 +229,12 @@ async function migrateCities(pgClient, sqliteDb) {
         city.lon,
         city.country_id,
         embeddingBlob,
+        city.description || null,
+        city.isnature || 0,
+        city.ishistoire || 0,
+        city.isgastronomie || 0,
+        city.isshopping || 0,
+        city.isdivertissement || 0,
       );
     }
   });

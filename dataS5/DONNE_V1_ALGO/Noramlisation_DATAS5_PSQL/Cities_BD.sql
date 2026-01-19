@@ -8,6 +8,11 @@ CREATE TABLE cities (
   name VARCHAR(100) NOT NULL,
   lat DOUBLE PRECISION NOT NULL,
   lon DOUBLE PRECISION NOT NULL,
+  isNature INT NOT NULL,
+  isHistoir INT NOT NULL,
+  isGastronomie INT NOT NULL,
+  isShopping INT NOT NULL,
+  isDivertissement INT NOT NULL,
   country_id INT REFERENCES countries(id) ON DELETE CASCADE
 );
 ALTER TABLE cities ADD COLUMN embedding float8[];
