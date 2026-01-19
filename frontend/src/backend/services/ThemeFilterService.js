@@ -14,7 +14,6 @@ class ThemeFilterService {
   async filterNature(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
-<<<<<<< HEAD
       cat.toLowerCase().replace(/\s+/g, "_"),
     );
 
@@ -22,20 +21,6 @@ class ThemeFilterService {
 
     const matched = categoryNames.filter((cat) =>
       naturePatterns.some((pattern) => pattern.test(cat)),
-=======
-      cat.toLowerCase().replace(/\s+/g, "_")
-    );
-
-    const naturePatterns = [
-      /^natural/,
-      /^beach/,
-      /^island/,
-      /^national_park/,
-    ];
-
-    const matched = categoryNames.filter((cat) =>
-      naturePatterns.some((pattern) => pattern.test(cat))
->>>>>>> main
     );
 
     if (matched.length > 0) {
@@ -63,11 +48,7 @@ class ThemeFilterService {
   async filterHistory(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
-<<<<<<< HEAD
       cat.toLowerCase().replace(/\s+/g, "_"),
-=======
-      cat.toLowerCase().replace(/\s+/g, "_")
->>>>>>> main
     );
 
     const historyPatterns = [
@@ -79,11 +60,7 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
-<<<<<<< HEAD
       historyPatterns.some((pattern) => pattern.test(cat)),
-=======
-      historyPatterns.some((pattern) => pattern.test(cat))
->>>>>>> main
     );
 
     if (matched.length > 0) {
@@ -111,11 +88,7 @@ class ThemeFilterService {
   async filterGastronomy(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
-<<<<<<< HEAD
       cat.toLowerCase().replace(/\s+/g, "_"),
-=======
-      cat.toLowerCase().replace(/\s+/g, "_")
->>>>>>> main
     );
 
     const gastronomyPatterns = [
@@ -125,11 +98,7 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
-<<<<<<< HEAD
       gastronomyPatterns.some((pattern) => pattern.test(cat)),
-=======
-      gastronomyPatterns.some((pattern) => pattern.test(cat))
->>>>>>> main
     );
 
     if (matched.length > 0) {
@@ -157,11 +126,7 @@ class ThemeFilterService {
   async filterShopping(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
-<<<<<<< HEAD
       cat.toLowerCase().replace(/\s+/g, "_"),
-=======
-      cat.toLowerCase().replace(/\s+/g, "_")
->>>>>>> main
     );
 
     const shoppingPatterns = [
@@ -171,11 +136,7 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
-<<<<<<< HEAD
       shoppingPatterns.some((pattern) => pattern.test(cat)),
-=======
-      shoppingPatterns.some((pattern) => pattern.test(cat))
->>>>>>> main
     );
 
     if (matched.length > 0) {
@@ -203,11 +164,7 @@ class ThemeFilterService {
   async filterEntertainment(cityId) {
     const categories = await CategoryRepository.getCityCategoriesByCity(cityId);
     const categoryNames = categories.map((cat) =>
-<<<<<<< HEAD
       cat.toLowerCase().replace(/\s+/g, "_"),
-=======
-      cat.toLowerCase().replace(/\s+/g, "_")
->>>>>>> main
     );
 
     const entertainmentPatterns = [
@@ -219,11 +176,7 @@ class ThemeFilterService {
     ];
 
     const matched = categoryNames.filter((cat) =>
-<<<<<<< HEAD
       entertainmentPatterns.some((pattern) => pattern.test(cat)),
-=======
-      entertainmentPatterns.some((pattern) => pattern.test(cat))
->>>>>>> main
     );
 
     if (matched.length > 0) {
@@ -260,7 +213,6 @@ class ThemeFilterService {
 
     if (!filterMethod) {
       throw new Error(
-<<<<<<< HEAD
         `Thème invalide: ${theme}. Thèmes acceptés: Nature, Histoire, Gastronomie, Shopping, Divertissement`,
       );
     }
@@ -400,17 +352,6 @@ class ThemeFilterService {
         legendFontSize: 12,
       }))
       .filter((item) => item.population > 0); // On ne retourne que les thèmes présents
-=======
-        `Thème invalide: ${theme}. Thèmes acceptés: Nature, Histoire, Gastronomie, Shopping, Divertissement`
-      );
-    }
-
-    const results = await Promise.all(
-      cityIds.map((cityId) => filterMethod(cityId))
-    );
-
-    return results.filter((result) => result.isMatch);
->>>>>>> main
   }
 }
 
