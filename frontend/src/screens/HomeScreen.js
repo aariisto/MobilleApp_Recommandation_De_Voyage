@@ -14,6 +14,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native'; 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '../context/ThemeContext';
 
 // Algorithmes et Repositories
 import { rankCitiesWithPenalty } from '../backend/algorithms/rankUtils';
@@ -35,6 +36,7 @@ const avatarFemme = require('../../assets/avatar_femme.png');
 const avatarAnonyme = require('../../assets/avatar_anonyme.png');
 
 const HomeScreen = ({ navigation }) => {
+  const { theme } = useTheme();
   const [userProfile, setUserProfile] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
   const [allRecommendations, setAllRecommendations] = useState([]);
@@ -324,7 +326,7 @@ const HomeScreen = ({ navigation }) => {
     return (
       <TouchableOpacity 
         key={index} 
-        style={styles.cardVertical}
+        style={[styles.cardVertical, { backgroundColor: theme.card }]}
         onPress={() => handleActivityPress(place)}
         activeOpacity={0.7}
       >
@@ -333,8 +335,8 @@ const HomeScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.cardInfo}>
-              <Text style={styles.verticalTitle} numberOfLines={1}>{place.name}</Text>
-              <Text style={styles.verticalSubtitle} numberOfLines={1}>
+              <Text style={[styles.verticalTitle, { color: theme.text }]} numberOfLines={1}>{place.name}</Text>
+              <Text style={[styles.verticalSubtitle, { color: theme.textSecondary }]} numberOfLines={1}>
                  {place.cityName || 'Destination'}
               </Text>
               
@@ -344,20 +346,20 @@ const HomeScreen = ({ navigation }) => {
                 </View>
               )}
           </View>
-          <Ionicons name="chevron-forward" size={20} color="#ccc" />
+          <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />
       </TouchableOpacity>
     );
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={["top", "left", "right"]}>
       {/* Header */}
       <View style={styles.header}>
         <Image
           source={getAvatarSource()}
           style={styles.avatar}
         />
-        <Text style={styles.greeting}>
+        <Text style={[styles.greeting, { color: theme.text }]}>
           Bonjour {userProfile?.firstName || "Voyageur"}
         </Text>
         {/* L'icône de notification a été supprimée ici */}
@@ -365,7 +367,7 @@ const HomeScreen = ({ navigation }) => {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         
-        <Text style={styles.sectionTitle}>Recommandations pour vous</Text>
+        <Text style={[styles.sectionTitle, { color: theme.text }]}>Recommandations pour vous</Text>
 
         <ScrollView
           horizontal
@@ -377,6 +379,7 @@ const HomeScreen = ({ navigation }) => {
               key={index}
               style={[
                 styles.categoryChip,
+                { backgroundColor: selectedCategory === cat ? theme.primary : theme.card },
                 selectedCategory === cat && styles.categoryChipSelected,
               ]}
               onPress={() => handleCategoryPress(cat)}
@@ -384,6 +387,7 @@ const HomeScreen = ({ navigation }) => {
               <Text
                 style={[
                   styles.categoryText,
+                  { color: selectedCategory === cat ? 'white' : theme.text },
                   selectedCategory === cat && styles.categoryTextSelected,
                 ]}
               >
@@ -411,13 +415,13 @@ const HomeScreen = ({ navigation }) => {
             />
         ) : (
             <View style={{paddingHorizontal: 20}}>
-                <Text style={{color: 'gray', fontStyle: 'italic'}}>Répondez au quiz pour obtenir des recommandations !</Text>
+              <Text style={{color: theme.textSecondary, fontStyle: 'italic'}}>Répondez au quiz pour obtenir des recommandations !</Text>
             </View>
         )}
 
         {/* Section Activités avec titre + bouton refresh alignés */}
         <View style={styles.activityHeader}>
-            <Text style={styles.activityTitleText}>Activité qui pourrait vous plaire</Text>
+          <Text style={[styles.activityTitleText, { color: theme.text }]}>Activité qui pourrait vous plaire</Text>
             <TouchableOpacity onPress={handleRefresh} style={{ padding: 5 }}>
                 <Ionicons name="refresh" size={22} color="#007AFF" />
             </TouchableOpacity>
@@ -429,7 +433,7 @@ const HomeScreen = ({ navigation }) => {
           </View>
         ) : (
           <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
-              <Text style={{ color: 'gray', fontStyle: 'italic', lineHeight: 20 }}>
+              <Text style={{ color: theme.textSecondary, fontStyle: 'italic', lineHeight: 20 }}>
                 Ajoutez des villes en favoris ❤️ pour voir des activités proposées ici !
               </Text>
           </View>

@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { PieChart } from "react-native-chart-kit";
+import { useTheme } from '../context/ThemeContext';
 import UserRepository from '../backend/repositories/UserRepository';
 import PlaceLikedRepository from '../backend/repositories/PlaceLikedRepository';
 import ThemeFilterService from '../backend/services/ThemeFilterService';
@@ -14,6 +15,7 @@ const avatarFemme = require('../../assets/avatar_femme.png');
 const avatarAnonyme = require('../../assets/avatar_anonyme.png');
 
 const ProfileScreen = ({ navigation }) => {
+  const { theme, isDark, toggleTheme } = useTheme();
   const [userProfile, setUserProfile] = useState(null);
   const [stats, setStats] = useState([]);
   const [isStatsExpanded, setIsStatsExpanded] = useState(false);
@@ -87,16 +89,29 @@ const ProfileScreen = ({ navigation }) => {
     }
   };
 
-  return (
-    <SafeAreaView style={styles.container}>
+    return (
+        <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}
+        >
       <ScrollView contentContainerStyle={{ paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
         
         {/* Header */}
         <View style={styles.header}>
-            <Text style={styles.headerTitle}>Mon Profil</Text>
-            <TouchableOpacity>
-                <Ionicons name="settings-outline" size={24} color="#000" />
-            </TouchableOpacity>
+                        <Text style={[styles.headerTitle, { color: theme.text }]}>Mon Profil</Text>
+            <View style={styles.headerIcons}>
+              <TouchableOpacity 
+                onPress={toggleTheme}
+                style={styles.iconButton}
+              >
+                <Ionicons 
+                  name={isDark ? "sunny" : "moon"} 
+                  size={22} 
+                  color={theme.primary} 
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.iconButton}>
+                                <Ionicons name="settings-outline" size={24} color={theme.text} />
+              </TouchableOpacity>
+            </View>
         </View>
 
         {/* Bloc Profil */}
@@ -105,7 +120,7 @@ const ProfileScreen = ({ navigation }) => {
                 source={getAvatarSource()} 
                 style={styles.avatar} 
             />
-            <Text style={styles.name}>
+            <Text style={[styles.name, { color: theme.text }]}>
                 {userProfile?.firstName} {userProfile?.lastName ? userProfile.lastName.toUpperCase() : ''}
             </Text>
             {/* 
@@ -113,46 +128,49 @@ const ProfileScreen = ({ navigation }) => {
                 (Debug Genre: {userProfile?.gender || 'Aucun'})
             </Text>
             */}
-            <Text style={styles.email}>{userProfile?.email}</Text>
+            <Text style={[styles.email, { color: theme.textSecondary }]}>{userProfile?.email}</Text>
 
             <View style={styles.bubblesContainer}>
-                <View style={styles.bubble}>
-                    <Ionicons name="earth" size={14} color="#555" style={{ marginRight: 5 }} />
-                    <Text style={styles.bubbleText}>{userProfile?.country || 'Non défini'}</Text>
+                <View style={[styles.bubble, { backgroundColor: theme.card }]}>
+                    <Ionicons name="location" size={14} color={theme.primary} style={{marginRight: 5}}/>
+                    <Text style={[styles.bubbleText, { color: theme.text }]}>{userProfile?.country || 'Pays inconnu'}</Text>
                 </View>
-                <View style={styles.bubble}>
-                    <Ionicons name="calendar-outline" size={14} color="#555" style={{ marginRight: 5 }} />
-                    <Text style={styles.bubbleText}>{userProfile?.dateOfBirth || 'JJ/MM/AAAA'}</Text>
+                <View style={[styles.bubble, { backgroundColor: theme.card }]}>
+                    <Ionicons name="calendar-outline" size={14} color={theme.primary} style={{marginRight: 5}}/>
+                    <Text style={[styles.bubbleText, { color: theme.text }]}>{userProfile?.dateOfBirth || 'Non renseigné'}</Text>
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.editButton}>
-                <Text style={styles.editButtonText}>Modifier le profil</Text>
-            </TouchableOpacity>
+
         </View>
 
         {/* Menu Sections */}
         <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>Compte</Text>
-            <View style={styles.card}>
+            <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>Compte</Text>
+            <View style={[styles.card, { backgroundColor: theme.card }]}>
                 {/* J'ai passé isLast={true} car c'est le seul élément maintenant */}
-                <MenuItem icon="person-outline" label="Informations personnelles" isLast={true} />
+                <MenuItem
+                    icon="person-outline"
+                    label="Informations personnelles"
+                    isLast={true}
+                    onPress={() => navigation.navigate('PersonalInfo')}
+                />
             </View>
         </View>
 
         {stats.length > 0 && (
             <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Statistiques</Text>
-                <View style={styles.card}>
+                <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>Statistiques</Text>
+                <View style={[styles.card, { backgroundColor: theme.card }]}>
                     <TouchableOpacity 
-                        style={[styles.menuItem, isStatsExpanded ? { borderBottomWidth: 1, borderBottomColor: '#F0F0F0' } : styles.menuItemLast]} 
+                        style={[styles.menuItem, isStatsExpanded ? { borderBottomWidth: 1, borderBottomColor: theme.border } : styles.menuItemLast]} 
                         onPress={() => setIsStatsExpanded(!isStatsExpanded)}
                     >
                         <View style={styles.iconContainer}>
-                            <Ionicons name="pie-chart-outline" size={22} color="#004aad" />
+                            <Ionicons name="pie-chart-outline" size={22} color={theme.primary} />
                         </View>
-                        <Text style={styles.menuText}>Voir mes statistiques</Text>
-                        <Ionicons name={isStatsExpanded ? "chevron-up" : "chevron-down"} size={20} color="#ccc" />
+                        <Text style={[styles.menuText, { color: theme.text }]}>Voir mes statistiques</Text>
+                        <Ionicons name={isStatsExpanded ? "chevron-up" : "chevron-down"} size={20} color={theme.textSecondary} />
                     </TouchableOpacity>
 
                     {isStatsExpanded && (
@@ -174,7 +192,7 @@ const ProfileScreen = ({ navigation }) => {
                                 center={[10, 0]}
                                 hasLegend={true}
                             />
-                            <Text style={{textAlign: 'center', color: 'gray', fontSize: 12, marginTop: 5}}>
+                            <Text style={{textAlign: 'center', color: theme.textSecondary, fontSize: 12, marginTop: 5}}>
                                 Répartition de vos favoris (%)
                             </Text>
                         </View>
@@ -184,8 +202,8 @@ const ProfileScreen = ({ navigation }) => {
         )}
 
         <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>Préférences de voyage</Text>
-            <View style={styles.card}>
+            <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>Préférences de voyage</Text>
+            <View style={[styles.card, { backgroundColor: theme.card }]}>
                 <MenuItem 
                     icon="options-outline" label="Refaire le quiz voyage" isLast={false} 
                     onPress={() => navigation.navigate('Preferences')}
@@ -202,20 +220,25 @@ const ProfileScreen = ({ navigation }) => {
   );
 };
 
-const MenuItem = ({ icon, label, isLast, onPress }) => (
-    <TouchableOpacity style={[styles.menuItem, isLast && styles.menuItemLast]} onPress={onPress}>
-        <View style={styles.iconContainer}>
-            <Ionicons name={icon} size={22} color="#004aad" />
-        </View>
-        <Text style={styles.menuText}>{label}</Text>
-        <Ionicons name="chevron-forward" size={20} color="#ccc" />
-    </TouchableOpacity>
-);
+const MenuItem = ({ icon, label, isLast, onPress }) => {
+    const { theme } = useTheme();
+    return (
+        <TouchableOpacity style={[styles.menuItem, isLast && styles.menuItemLast, { borderBottomColor: theme.border }]} onPress={onPress}>
+            <View style={styles.iconContainer}>
+                <Ionicons name={icon} size={22} color={theme.primary} />
+            </View>
+            <Text style={[styles.menuText, { color: theme.text }]}>{label}</Text>
+            <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />
+        </TouchableOpacity>
+    );
+};
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F9FAFB' },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingTop: 10, marginBottom: 10 },
   headerTitle: { fontSize: 22, fontWeight: 'bold', color: '#111' },
+  headerIcons: { flexDirection: 'row', alignItems: 'center' },
+  iconButton: { marginLeft: 12 },
   profileHeader: { alignItems: 'center', marginBottom: 25 },
   avatar: { width: 90, height: 90, borderRadius: 45, marginBottom: 12 },
   name: { fontSize: 20, fontWeight: 'bold', color: '#111', marginBottom: 4 },
@@ -223,8 +246,6 @@ const styles = StyleSheet.create({
   bubblesContainer: { flexDirection: 'row', justifyContent: 'center', marginBottom: 20 },
   bubble: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#F0F2F5', paddingVertical: 6, paddingHorizontal: 12, borderRadius: 20, marginHorizontal: 5 },
   bubbleText: { fontSize: 13, color: '#444', fontWeight: '500' },
-  editButton: { backgroundColor: '#EBF5FF', paddingVertical: 10, paddingHorizontal: 24, borderRadius: 25 },
-  editButtonText: { color: '#004aad', fontWeight: '600', fontSize: 14 },
   sectionContainer: { paddingHorizontal: 20, marginBottom: 20 },
   sectionTitle: { fontSize: 14, fontWeight: 'bold', color: '#666', marginBottom: 8, marginLeft: 4 },
   card: { backgroundColor: 'white', borderRadius: 16, paddingHorizontal: 5, shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 },

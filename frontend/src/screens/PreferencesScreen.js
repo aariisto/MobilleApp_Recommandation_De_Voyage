@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView, Alert, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '../context/ThemeContext';
 import { questions } from '../data/questionnaireData'; 
 import UserCategoryRepository from '../backend/repositories/UserCategoryRepository';
 import UserRepository from '../backend/repositories/UserRepository';
@@ -11,6 +12,7 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = (width - 40 - 15) / 2;
 
 const PreferencesScreen = ({ navigation }) => {
+  const { theme } = useTheme();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selections, setSelections] = useState({});
 
@@ -101,29 +103,29 @@ const PreferencesScreen = ({ navigation }) => {
   const isNextDisabled = !hasSelectionForCurrentQuestion();
 
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]} edges={['top', 'left', 'right']}>
       <View style={styles.header}>
          {/* Bouton caché si index est 0 */}
          {currentQuestionIndex > 0 ? (
              <TouchableOpacity onPress={handleBack} style={{padding: 5}}>
-                <Ionicons name="arrow-back" size={24} color="black" />
+                <Ionicons name="arrow-back" size={24} color={theme.text} />
              </TouchableOpacity>
          ) : (
              <View style={{width: 34}} /> // Espace vide pour garder le titre centré
          )}
          
-         <Text style={styles.headerTitle}>Préférences ({currentQuestionIndex + 1}/{questions.length})</Text>
+         <Text style={[styles.headerTitle, { color: theme.text }]}>Préférences ({currentQuestionIndex + 1}/{questions.length})</Text>
          <View style={{width: 34}} /> 
       </View>
 
       <View style={styles.content}>
-        <View style={styles.progressBar}>
-            <View style={[styles.progressFill, { width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }]} />
+        <View style={[styles.progressBar, { backgroundColor: theme.border }]}>
+            <View style={[styles.progressFill, { width: `${((currentQuestionIndex + 1) / questions.length) * 100}%`, backgroundColor: theme.primary }]} />
         </View>
 
-        <Text style={styles.question}>{currentQuestion.question}</Text>
-        <Text style={styles.subTitle}>Sélectionnez au moins une option pour continuer</Text>
-        <Text style={styles.subTitle}>1 click = ✅ | 2 click = ❌ </Text>
+        <Text style={[styles.question, { color: theme.text }]}>{currentQuestion.question}</Text>
+        <Text style={[styles.subTitle, { color: theme.textSecondary }]}>Sélectionnez au moins une option pour continuer</Text>
+        <Text style={[styles.subTitle, { color: theme.textSecondary }]}>1 click = ✅ | 2 click = ❌ </Text>
 
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.grid}>
@@ -163,18 +165,18 @@ const PreferencesScreen = ({ navigation }) => {
         </ScrollView>
       </View>
       
-      <View style={styles.footer}>
+      <View style={[styles.footer, { backgroundColor: theme.card, borderTopColor: theme.border }]}>
           {/*  Bouton Précédent désactivé/invisible si index 0 */}
           {currentQuestionIndex > 0 ? (
-            <TouchableOpacity style={styles.btnSecondary} onPress={handleBack}>
-                <Text style={{fontWeight: 'bold', color: 'black'}}>Précédent</Text>
+            <TouchableOpacity style={[styles.btnSecondary, { backgroundColor: theme.background, borderColor: theme.border }]} onPress={handleBack}>
+                <Text style={{fontWeight: 'bold', color: theme.text}}>Précédent</Text>
             </TouchableOpacity>
           ) : (
             <View style={[styles.btnSecondary, {backgroundColor:'transparent'}]} />
           )}
           
           <TouchableOpacity 
-            style={[styles.btnPrimary, isNextDisabled && styles.btnDisabled]} 
+            style={[styles.btnPrimary, { backgroundColor: theme.primary }, isNextDisabled && styles.btnDisabled]} 
             onPress={handleNext}
             disabled={isNextDisabled}
           >

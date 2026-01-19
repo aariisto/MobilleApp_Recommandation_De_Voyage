@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ActivityIndi
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native'; 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '../context/ThemeContext';
 
 // Import des Repositories
 import PlaceLikedRepository from '../backend/repositories/PlaceLikedRepository';
@@ -10,6 +11,7 @@ import CityRepository from '../backend/repositories/CityRepository';
 import cityImages from '../data/cityImages';
 
 const FavoritesScreen = ({ navigation }) => {
+  const { theme, isDark } = useTheme();
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -86,7 +88,7 @@ const FavoritesScreen = ({ navigation }) => {
         <View style={styles.darkOverlay} />
 
         <TouchableOpacity 
-            style={styles.heartButton} 
+            style={[styles.heartButton, { backgroundColor: theme.card }]} 
             onPress={() => handleUnlike(item.id)}
             activeOpacity={0.7}
         >
@@ -105,19 +107,19 @@ const FavoritesScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       
       <View style={styles.headerRow}>
         <TouchableOpacity 
-            style={styles.backButton} 
+            style={[styles.backButton, { backgroundColor: theme.card }]} 
             onPress={() => navigation.navigate('Accueil')}
         >
-            <Ionicons name="arrow-back" size={24} color="#111" />
+            <Ionicons name="arrow-back" size={24} color={theme.text} />
         </TouchableOpacity>
         
         <View>
-            <Text style={styles.headerTitle}>Mes Favoris</Text>
-            <Text style={styles.headerSubtitle}>
+            <Text style={[styles.headerTitle, { color: theme.text }]}>Mes Favoris</Text>
+            <Text style={[styles.headerSubtitle, { color: theme.textSecondary }]}>
                 {favorites.length} {favorites.length > 1 ? 'lieux enregistrés' : 'lieu enregistré'}
             </Text>
         </View>
@@ -125,7 +127,7 @@ const FavoritesScreen = ({ navigation }) => {
 
       {loading ? (
           <View style={styles.center}>
-            <ActivityIndicator size="large" color="#004aad" />
+            <ActivityIndicator size="large" color={theme.primary} />
           </View>
       ) : favorites.length > 0 ? (
           <FlatList
@@ -137,11 +139,12 @@ const FavoritesScreen = ({ navigation }) => {
           />
       ) : (
           <View style={styles.emptyContainer}>
-            <View style={styles.emptyIconCircle}>
-                <Ionicons name="heart-outline" size={50} color="#ccc" />
+          <View style={[styles.emptyIconCircle, { backgroundColor: theme.card }]}
+          >
+            <Ionicons name="heart-outline" size={50} color={theme.textSecondary} />
             </View>
-            <Text style={styles.emptyText}>Votre liste est vide</Text>
-            <Text style={styles.emptySubText}>
+          <Text style={[styles.emptyText, { color: theme.text }]}>Votre liste est vide</Text>
+          <Text style={[styles.emptySubText, { color: theme.textSecondary }]}>
                 Explorez le monde et cliquez sur le cœur pour sauvegarder vos coups de cœur ici.
             </Text>
           </View>
