@@ -260,6 +260,54 @@ class ThemeFilterService {
         matched_categories: result.matched_categories,
       }));
   }
+
+  /**
+   * Calcule les statistiques des thèmes pour une liste de villes
+   * @param {Array<number>} cityIds - Liste des IDs des villes
+   * @returns {Promise<Array<{name: string, population: number, color: string, legendFontColor: string, legendFontSize: number}>>}
+   */
+  async calculateThemeStatistics(cityIds) {
+    const themeCounts = {
+      Nature: 0,
+      Histoire: 0,
+      Gastronomie: 0,
+      Shopping: 0,
+      Divertissement: 0,
+    };
+
+    // Pour chaque ville, on récupère ses thèmes
+    for (const cityId of cityIds) {
+      try {
+        const themes = await this.getCityThemes(cityId);
+        themes.forEach((t) => {
+          if (themeCounts[t.theme] !== undefined) {
+            themeCounts[t.theme]++;
+          }
+        });
+      } catch (error) {
+        console.warn(`Erreur calcul stats pour city ${cityId}:`, error);
+      }
+    }
+
+    // Couleurs définies pour le chart
+    const themeColors = {
+      Nature: "#4CAF50", // Vert
+      Histoire: "#FF9800", // Orange
+      Gastronomie: "#F44336", // Rouge
+      Shopping: "#9C27B0", // Violet
+      Divertissement: "#2196F3", // Bleu
+    };
+
+    return Object.keys(themeCounts)
+      .map((theme) => ({
+        name: theme,
+        population: themeCounts[theme], // React Native Chart Kit utilise 'population' pour la valeur
+        color: themeColors[theme],
+        legendFontColor: "#7F7F7F",
+        legendFontSize: 12,
+      }))
+      .filter((item) => item.population > 0); // On ne retourne que les thèmes présents
+  }
 }
 
 export default new ThemeFilterService();
