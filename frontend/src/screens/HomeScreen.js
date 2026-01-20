@@ -421,7 +421,7 @@ const HomeScreen = ({ navigation }) => {
 
         {/* Section Activités avec titre + bouton refresh alignés */}
         <View style={styles.activityHeader}>
-          <Text style={[styles.activityTitleText, { color: theme.text }]}>Activité qui pourrait vous plaire</Text>
+          <Text style={[styles.activityTitleText, { color: theme.text }]}>Activités qui pourrait vous plaire</Text>
             <TouchableOpacity onPress={handleRefresh} style={{ padding: 5 }}>
                 <Ionicons name="refresh" size={22} color="#007AFF" />
             </TouchableOpacity>
