@@ -421,7 +421,7 @@ const HomeScreen = ({ navigation }) => {
 
         {/* Section Activités avec titre + bouton refresh alignés */}
         <View style={styles.activityHeader}>
-          <Text style={[styles.activityTitleText, { color: theme.text }]}>Activité qui pourrait vous plaire</Text>
+          <Text style={[styles.activityTitleText, { color: theme.text }]}>Activités qui pourrait vous plaire</Text>
             <TouchableOpacity onPress={handleRefresh} style={{ padding: 5 }}>
                 <Ionicons name="refresh" size={22} color="#007AFF" />
             </TouchableOpacity>
@@ -482,7 +482,7 @@ const styles = StyleSheet.create({
     color: '#333'
   },
 
-  cardHorizontal: { width: 220, height: 280, marginRight: 15, borderRadius: 20, overflow: 'hidden', backgroundColor: 'black' },
+  cardHorizontal: { width: 250, height: 320, marginRight: 15, borderRadius: 20, overflow: 'hidden', backgroundColor: 'black' },
   cardImage: { width: '100%', height: '100%', opacity: 0.8 },
   
   heartButton: {

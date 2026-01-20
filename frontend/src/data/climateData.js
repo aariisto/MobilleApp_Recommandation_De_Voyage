@@ -3,7 +3,7 @@
  * Utilise les données générées automatiquement pour les 200 villes
  */
 
-// Import du fichier JSON généré
+// Charge les données climatiques
 const citySeasonalClimate = require('./city_seasonal_climate.json');
 
 /**
@@ -23,15 +23,15 @@ const getSeason = (month) => {
  * @returns {string} - 'froid', 'tempéré' ou 'chaud'
  */
 export const getClimate = (cityName, travelDate = new Date()) => {
-  const month = travelDate.getMonth() + 1; // getMonth() retourne 0-11
+  const month = travelDate.getMonth() + 1; // Ajuste le mois (0-11 vers 1-12)
   const season = getSeason(month);
   
-  // Récupérer le climat saisonnier depuis le fichier JSON
+  // Cherche le climat dans la base de données
   if (citySeasonalClimate[cityName]) {
     return citySeasonalClimate[cityName][season] || 'tempéré';
   }
   
-  // Fallback
+  // Valeur par défaut
   return 'tempéré';
 };
 
