@@ -2,7 +2,7 @@
 
 ## 📱 À propos du projet
 
-Air Atlas est une application mobile développée avec React Native  qui permet aux utilisateurs de découvrir et d'obtenir des recommandations personnalisées de destinations de voyage. L'application utilise des algorithmes intelligents pour suggérer des villes basées sur les préférences de l'utilisateur, affiche des informations détaillées sur chaque destination et intègre des fonctionnalités de recherche de vols et d'images.
+Air Atlas est une application mobile développée avec React Native  qui permet aux utilisateurs de découvrir et d'obtenir des recommandations personnalisées de destinations de voyage. L'application utilise des algorithmes intelligents pour suggérer des villes basées sur les préférences de l'utilisateur, affiche des informations détaillées sur chaque destination et intègre des fonctionnalités de recherche de vols et d'images. jjjjj
 
 ![MobileApp Recommandation De Voyage](image/ban.png)
 
