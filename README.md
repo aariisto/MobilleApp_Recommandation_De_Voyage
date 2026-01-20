@@ -4,7 +4,7 @@
 
 **Air Atlas** est une application mobile innovante développée avec **React Native** qui aide les utilisateurs à découvrir leur prochaine destination de voyage idéale. Contrairement aux applications classiques, **Air Atlas** utilise une **Intelligence Artificielle embarquée (On-Device AI)** pour analyser les préférences des utilisateurs et recommander des villes basées sur des similitudes vectorielles (Embeddings), le tout sans nécessiter de connexion serveur permanente pour l'analyse.
 
-[!img](image.png)
+![img](image.png)
 
 > **Note :** Ce projet intègre un moteur de recommandation complet fonctionnant localement sur le téléphone grâce à ONNX et SQLite.
 
@@ -121,5 +121,6 @@ Projet développé dans le cadre de la SAE BUT3.
 ---
 
 _Fait avec ❤️ et beaucoup de café ☕_
+
 
 
