@@ -482,7 +482,7 @@ const styles = StyleSheet.create({
     color: '#333'
   },
 
-  cardHorizontal: { width: 220, height: 280, marginRight: 15, borderRadius: 20, overflow: 'hidden', backgroundColor: 'black' },
+  cardHorizontal: { width: 250, height: 320, marginRight: 15, borderRadius: 20, overflow: 'hidden', backgroundColor: 'black' },
   cardImage: { width: '100%', height: '100%', opacity: 0.8 },
   
   heartButton: {

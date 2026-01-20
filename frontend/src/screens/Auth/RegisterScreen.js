@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import RadioButton from '../../components/RadioButton';
 
 import UserRepository from '../../backend/repositories/UserRepository';
 
@@ -49,22 +50,6 @@ const RegisterScreen = ({ navigation }) => {
     };
     loadExistingData();
   }, []);
-
-  const RadioButton = ({ label, value }) => {
-    const isSelected = formData.civilite === value;
-    return (
-        <TouchableOpacity 
-            style={styles.radioContainer} 
-            onPress={() => handleInputChange('civilite', value)}
-            activeOpacity={0.8}
-        >
-            <View style={[styles.radioOuterCircle, isSelected && styles.radioOuterCircleSelected]}>
-                {isSelected && <View style={styles.radioInnerCircle} />}
-            </View>
-            <Text style={styles.radioText}>{label}</Text>
-        </TouchableOpacity>
-    );
-  };
 
   const handleInputChange = (field, value) => {
     setFormData({ ...formData, [field]: value });
@@ -133,9 +118,9 @@ const RegisterScreen = ({ navigation }) => {
             <View style={styles.inputGroup}>
                 <Text style={styles.label}>Civilité</Text>
                 <View style={styles.radioGroup}>
-                    <RadioButton label="Madame" value="Mme" />
-                    <RadioButton label="Monsieur" value="M." />
-                    <RadioButton label="Ne pas renseigner" value="N/R" />
+                    <RadioButton label="Madame" value="Mme" selectedValue={formData.civilite} onSelect={(val) => handleInputChange('civilite', val)} />
+                    <RadioButton label="Monsieur" value="M." selectedValue={formData.civilite} onSelect={(val) => handleInputChange('civilite', val)} />
+                    <RadioButton label="Ne pas renseigner" value="N/R" selectedValue={formData.civilite} onSelect={(val) => handleInputChange('civilite', val)} />
                 </View>
             </View>
 
@@ -197,11 +182,6 @@ const styles = StyleSheet.create({
   inputGroup: { marginBottom: 20 },
   label: { fontSize: 14, fontWeight: '600', color: '#333', marginBottom: 10, marginLeft: 5 },
   radioGroup: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%' },
-  radioContainer: { flexDirection: 'row', alignItems: 'center' },
-  radioOuterCircle: { height: 18, width: 18, borderRadius: 9, borderWidth: 2, borderColor: '#777', alignItems: 'center', justifyContent: 'center', marginRight: 6 },
-  radioOuterCircleSelected: { borderColor: '#004aad' },
-  radioInnerCircle: { height: 9, width: 9, borderRadius: 4.5, backgroundColor: '#004aad' },
-  radioText: { fontSize: 13, color: '#333' },
   input: { backgroundColor: '#F5F7FA', padding: 15, borderRadius: 12, fontSize: 16, borderWidth: 1, borderColor: '#E1E1E1' },
   countryInputContainer: { backgroundColor: '#F5F7FA', borderRadius: 12, borderWidth: 1, borderColor: '#E1E1E1', flexDirection: 'row', alignItems: 'center', height: 55 },
   disabledInput: { backgroundColor: '#E9ECEF', borderColor: '#D1D5DB' },

@@ -15,12 +15,12 @@ const ExploreScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedClimate, setSelectedClimate] = useState(null); // null = tous, 'froid', 'tempéré', 'chaud'
+  const [selectedClimate, setSelectedClimate] = useState(null); // Options : tous, froid, tempéré, chaud
 
   useFocusEffect(
     useCallback(() => {
       loadRandomCities();
-    }, [selectedDate, selectedClimate]) // Recharger quand la date ou le climat change
+    }, [selectedDate, selectedClimate]) // Recharge si la date ou le climat change
   );
 
   const onDateChange = (event, date) => {
@@ -31,17 +31,17 @@ const ExploreScreen = ({ navigation }) => {
   };
 
   const toggleClimateFilter = (climate) => {
-    // Si on clique sur le filtre déjà actif, on le désactive
+    // Désactive le filtre si on clique à nouveau dessus
     setSelectedClimate(selectedClimate === climate ? null : climate);
   };
 
   const loadRandomCities = async () => {
     setLoading(true);
     try {
-      // Récupérer toutes les villes
+      // Charge la liste complète des villes
       const allCities = await CityRepository.getAllCities();
       
-      // Filtrer par climat si un filtre est actif
+      // Applique le filtre climatique si nécessaire
       let filteredCities = allCities;
       if (selectedClimate) {
         filteredCities = allCities.filter(city => {
@@ -50,7 +50,7 @@ const ExploreScreen = ({ navigation }) => {
         });
       }
       
-      // Mélanger aléatoirement et prendre 10
+      // Sélectionne 10 villes au hasard
       const shuffled = filteredCities.sort(() => 0.5 - Math.random());
       const randomCities = shuffled.slice(0, 10);
       
@@ -63,7 +63,7 @@ const ExploreScreen = ({ navigation }) => {
   };
 
   const goToDetails = (city) => {
-    // Score neutre pour une ville explorée aléatoirement
+    // Score par défaut pour l'affichage
     const cityWithScore = { ...city, score: 0.5 };
     navigation.navigate('Details', { city: cityWithScore, maxScore: 1 });
   };
@@ -74,7 +74,7 @@ const ExploreScreen = ({ navigation }) => {
       ? localImage 
       : { uri: `http://10.0.2.2:5001/api/travel/photos/image/search?q=${encodeURIComponent(item.name)}&size=regular` };
 
-    // Utiliser la date sélectionnée pour déterminer le climat
+    // Calcule le climat selon la date choisie
     const climate = getClimate(item.name, selectedDate);
     const climateIcon = getClimateIcon(climate);
     const climateColor = getClimateColor(climate);
@@ -93,7 +93,7 @@ const ExploreScreen = ({ navigation }) => {
         />
         <View style={styles.darkOverlay} />
         
-        {/* Badge climat avec saison */}
+        {/* Badge météo */}
         <View style={[styles.climateBadge, { backgroundColor: climateColor }]}>
           <Ionicons name={climateIcon} size={14} color="#fff" />
           <Text style={styles.climateText}>{climateLabel}</Text>
@@ -133,9 +133,9 @@ const ExploreScreen = ({ navigation }) => {
       <Text style={[styles.subtitle, { color: theme.text }]}>Découvrez de nouvelles destinations</Text>
       <Text style={[styles.subtitle, { color: theme.text }]}>Date d'arrivée :</Text>
 
-      {/* Filtres */}
+      {/* Section Filtres */}
       <View style={styles.filtersContainer}>
-        {/* Sélecteur de date */}
+        {/* Choix de la date */}
         <TouchableOpacity style={[styles.dateButton, { backgroundColor: theme.card }]} onPress={() => setShowDatePicker(true)}>
           <Ionicons name="calendar-outline" size={18} color={theme.primary} />
           <Text style={[styles.dateText, { color: theme.primary }]}>
@@ -143,7 +143,7 @@ const ExploreScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
 
-        {/* Filtres de climat */}
+        {/* Choix du climat */}
         <View style={styles.climateFilters}>
           <TouchableOpacity 
             style={[
@@ -201,7 +201,7 @@ const ExploreScreen = ({ navigation }) => {
         </View>
       </View>
 
-      {/* Date Picker Modal */}
+      {/* Calendrier de sélection */}
       {showDatePicker && (
         <DateTimePicker
           value={selectedDate}
